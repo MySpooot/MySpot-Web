@@ -1,0 +1,49 @@
+{
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "project": "tsconfig.json",
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "plugins": ["@typescript-eslint/eslint-plugin", "prettier", "react", "react-hooks", "import"],
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:prettier/recommended",
+        "plugin:react/recommended",
+        "plugin:react-hooks/recommended",
+        "plugin:import/recommended",
+        "plugin:import/typescript"
+    ],
+    "rules": {
+        "prettier/prettier": "error",
+        "import/no-unresolved": "error",
+        "no-unused-vars": "warn",
+        "eqeqeq": "warn",
+        "react-hooks/rules-of-hooks": "error",
+        "react/jsx-sort-props": [
+            "error",
+            {
+                "ignoreCase": true,
+                "shorthandLast": true,
+                "callbacksLast": true,
+                "reservedFirst": true
+            }
+        ],
+        "@typescript-eslint/explicit-module-boundary-types": "off"
+    },
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "extensioins": [".ts", ".tsx"]
+            },
+            "typescript": {}
+        }
+    }
+}

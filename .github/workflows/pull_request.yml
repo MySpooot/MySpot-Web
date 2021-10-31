@@ -1,0 +1,35 @@
+name: Pull Request
+
+on:
+    pull_request:
+        types: [opened, reopened]
+
+jobs:
+    Check_App:
+        runs-on: ubuntu-20.04
+        steps:
+            - name: Checkout Branch
+              uses: actions/checkout@v2
+
+            - name: Install NodeJS
+              uses: actions/setup-node@v1
+              with:
+                  node-version: 16
+
+            - name: Cache node_modules
+              uses: actions/cache@v1
+              with:
+                  path: node_modules
+                  key: ${{ runner.OS }}-build-${{ hashFiles('**/yarn.lock') }}
+
+            - name: Install Packages
+              run: yarn install
+
+            - name: Check Lint
+              run: yarn lint
+
+    Notification:
+        runs-on: ubuntu-20.04
+        steps:
+            -name: Slack Notification on SUCCESS
+            uses: tokorom/action-slack-incoming-webhook@main
