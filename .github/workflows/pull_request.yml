@@ -28,8 +28,5 @@ jobs:
             - name: Check Lint
               run: yarn lint
 
-    Notification:
-        runs-on: ubuntu-20.04
-        steps:
-            -name: Slack Notification on SUCCESS
-            uses: tokorom/action-slack-incoming-webhook@main
+            - name: Slack Notification on SUCCESS
+              uses: tokorom/action-slack-incoming-webhook@main

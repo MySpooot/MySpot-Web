@@ -1,0 +1,23 @@
+{
+    "processors": ["stylelint-processor-styled-components"],
+    "extends": ["stylelint-config-styled-components", "stylelint-config-recommended", "stylelint-config-idiomatic-order"],
+    "plugins": ["stylelint-order"],
+    "rules": {
+        "rule-empty-line-before": [
+            "always-multi-line",
+            {
+                "ignore": ["first-nested"]
+            }
+        ],
+        "declaration-empty-line-before": "never",
+        "declaration-block-no-duplicate-properties": true,
+        "block-opening-brace-newline-after": "always-multi-line",
+        "no-descending-specificity": null,
+        "unit-no-unknown": null,
+        "property-no-unknown": null,
+        "block-no-empty": null,
+        "no-empty-source": null,
+        "property-no-vendor-prefix": null,
+        "font-family-no-missing-generic-family-keyword": true
+    }
+}

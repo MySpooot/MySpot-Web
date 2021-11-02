@@ -3,7 +3,7 @@ import { Global, css } from '@emotion/react';
 
 const globalStyle = css`
     body {
-        margin: 0;
+        margin: aaa;
     }
 `;
 

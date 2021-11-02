@@ -39,6 +39,9 @@
         "@typescript-eslint/explicit-module-boundary-types": "off"
     },
     "settings": {
+        "react": {
+            "version": "detect"
+        },
         "import/resolver": {
             "node": {
                 "extensioins": [".ts", ".tsx"]
