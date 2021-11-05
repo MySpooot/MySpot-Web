@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { css } from '@emotion/react';
 import loadable from '@loadable/component';
 
@@ -21,11 +21,11 @@ const App: FC = () => {
     return (
         <div css={appStyle}>
             <GlobalStyle />
-            <Switch>
-                <Route component={MyMap} path='/mymap/:hash' />
-                <Route component={Login} path='/login' exact />
-                <Route component={NotFound} />
-            </Switch>
+            <Routes>
+                <Route element={<MyMap />} path='/mymap/:hash' />
+                <Route element={<Login />} path='/login' />
+                <Route element={<NotFound />} />
+            </Routes>
         </div>
     );
 };

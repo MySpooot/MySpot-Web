@@ -9,6 +9,7 @@
         "lint": "eslint --ext ts,tsx ./",
         "lint:fix": "eslint --ext ts,tsx ./ --fix",
         "stylelint": "stylelint \"./src/**/*.{ts,tsx}\"",
+        "stylelint:fix": "stylelint \"./src/**/*.{ts,tsx}\" --fix",
         "prettier": "prettier -w ./src"
     },
     "dependencies": {
@@ -20,10 +21,11 @@
         "@types/node": "^12.0.0",
         "@types/react": "^17.0.0",
         "@types/react-dom": "^17.0.0",
+        "history": "^5.1.0",
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
         "react-responsive": "^9.0.0-beta.4",
-        "react-router-dom": "^5.3.0",
+        "react-router-dom": "^6.0.0",
         "react-scripts": "4.0.3"
     },
     "devDependencies": {
@@ -36,7 +38,7 @@
         "@yarnpkg/pnpify": "^3.1.1-rc.1",
         "craco-alias": "^3.0.1",
         "cross-env": "^7.0.3",
-        "eslint": "^8.1.0",
+        "eslint": "^7.11.0",
         "eslint-config-prettier": "^8.3.0",
         "eslint-import-resolver-alias": "^1.1.2",
         "eslint-import-resolver-node": "^0.3.6",
@@ -46,12 +48,11 @@
         "eslint-plugin-react": "^7.26.1",
         "eslint-plugin-react-hooks": "^4.2.0",
         "prettier": "^2.4.1",
-        "stylelint": "^14.0.1",
+        "stylelint": "^13.13.1",
         "stylelint-config-idiomatic-order": "^8.1.0",
         "stylelint-config-recommended": "^6.0.0",
         "stylelint-config-styled-components": "^0.1.1",
         "stylelint-order": "^5.0.0",
-        "stylelint-processor-styled-components": "^1.10.0",
         "typescript": "^4.1.2"
     },
     "browserslist": {
@@ -65,6 +66,5 @@
             "last 1 firefox version",
             "last 1 safari version"
         ]
-    },
-    "packageManager": "yarn@3.0.2"
+    }
 }
