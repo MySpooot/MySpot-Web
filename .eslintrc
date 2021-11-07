@@ -36,7 +36,8 @@
                 "reservedFirst": true
             }
         ],
-        "@typescript-eslint/explicit-module-boundary-types": "off"
+        "@typescript-eslint/explicit-module-boundary-types": "off",
+        "@typescript-eslint/no-empty-function": "warn"
     },
     "settings": {
         "react": {

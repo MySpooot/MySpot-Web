@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { css } from '@emotion/react';
+import styled from '@emotion/styled';
 import loadable from '@loadable/component';
 
 import GlobalStyle from '@components/GlobalStyle';
@@ -19,20 +19,20 @@ const App: FC = () => {
     }
 
     return (
-        <div css={appStyle}>
+        <Container>
             <GlobalStyle />
             <Routes>
                 <Route element={<MyMap />} path='/mymap/:hash' />
                 <Route element={<Login />} path='/login' />
                 <Route element={<NotFound />} />
             </Routes>
-        </div>
+        </Container>
     );
 };
 
 export default App;
 
-const appStyle = css`
+const Container = styled.div`
     @media (max-width: 768px) {
         background-color: black;
         color: white;

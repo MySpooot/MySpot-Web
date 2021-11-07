@@ -28,11 +28,11 @@ jobs:
             - name: Install Packages
               run: yarn install
 
-            - name: Check Lint
-              run: yarn lint
+            - name: Check Lint & Stylelint
+              run: yarn lint & yarn stylelint
 
-            - name: Check Stylelint
-              run: yarn stylelint
+            - name: Build
+              run: yarn build
 
             - name: Slack Notification on Success
               if: success()

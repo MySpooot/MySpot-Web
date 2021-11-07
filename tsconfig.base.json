@@ -5,7 +5,9 @@
             "@src/*": ["./*"],
             "@pages/*": ["./pages/*"],
             "@components/*": ["./components/*"],
-            "@hooks/*": ["./hooks/*"]
+            "@hooks/*": ["./hooks/*"],
+            "@utils/*": ["./utils/*"],
+            "@share/*": ["./share/*"]
         }
     },
     "include": ["src", "craco.config.js"]
