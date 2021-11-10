@@ -2,12 +2,7 @@
     "compilerOptions": {
         "baseUrl": "./src",
         "paths": {
-            "@src/*": ["./*"],
-            "@pages/*": ["./pages/*"],
-            "@components/*": ["./components/*"],
-            "@hooks/*": ["./hooks/*"],
-            "@utils/*": ["./utils/*"],
-            "@share/*": ["./share/*"]
+            "@src/*": ["./*"]
         }
     },
     "include": ["src", "craco.config.js"]

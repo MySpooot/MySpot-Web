@@ -3,13 +3,13 @@ import { Routes, Route } from 'react-router-dom';
 import styled from '@emotion/styled';
 import loadable from '@loadable/component';
 
-import GlobalStyle from '@components/GlobalStyle';
-import useMediaQuery from '@hooks/useMediaQuery';
+import GlobalStyle from '@src/components/GlobalStyle';
+import useMediaQuery from '@src/hooks/useMediaQuery';
 
-const SupportNotice = loadable(() => import('@pages/SupportNotice'));
-const MyMap = loadable(() => import('@pages/MyMap'));
-const Login = loadable(() => import('@pages/Login'));
-const NotFound = loadable(() => import('@pages/NotFound'));
+const SupportNotice = loadable(() => import('@src/pages/SupportNotice'));
+const MyMap = loadable(() => import('@src/pages/MyMap'));
+const Login = loadable(() => import('@src/pages/Login'));
+const NotFound = loadable(() => import('@src/pages/NotFound'));
 
 const App: FC = () => {
     const { isPhone } = useMediaQuery();
