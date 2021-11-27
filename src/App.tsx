@@ -1,21 +1,42 @@
-import React, { FC } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import React, { FC, useEffect, useState } from 'react';
+import { Routes, Route, useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 import styled from '@emotion/styled';
 import loadable from '@loadable/component';
 
 import GlobalStyle from '@src/components/GlobalStyle';
-import useMediaQuery from '@src/hooks/useMediaQuery';
+import KakaoCallbackPage from './pages/KakaoCallbackPage';
 
-const SupportNotice = loadable(() => import('@src/pages/SupportNotice'));
 const MyMap = loadable(() => import('@src/pages/MyMap'));
 const Login = loadable(() => import('@src/pages/Login'));
 const NotFound = loadable(() => import('@src/pages/NotFound'));
 
-const App: FC = () => {
-    const { isPhone } = useMediaQuery();
+import { meState } from '@src/atom/me';
+import { getMe } from '@src/api';
 
-    if (!isPhone) {
-        return <SupportNotice />;
+const App: FC = () => {
+    const [isLoading, setLoading] = useState(true);
+    const [me, setMe] = useRecoilState(meState);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        console.log('Me:', me);
+
+        const token = localStorage.getItem('token');
+
+        if (token) {
+            getMe(token)
+                .then(data => setMe(data))
+                .catch(console.error)
+                .finally(() => setLoading(false));
+        } else {
+            setLoading(false);
+            navigate('/login');
+        }
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+    if (isLoading) {
+        return <h1>Loading...</h1>;
     }
 
     return (
@@ -25,6 +46,7 @@ const App: FC = () => {
                 <Route element={<MyMap />} path='/mymap/:hash' />
                 <Route element={<Login />} path='/login' />
                 <Route element={<NotFound />} />
+                <Route element={<KakaoCallbackPage />} path='/auth/kakao' />
             </Routes>
         </Container>
     );
@@ -33,8 +55,10 @@ const App: FC = () => {
 export default App;
 
 const Container = styled.div`
-    @media (max-width: 768px) {
-        background-color: black;
-        color: white;
+    @media (min-width: 768px) {
+        width: 450px;
+        border-right: 1px solid black;
+        border-left: 1px solid black;
+        margin: auto;
     }
 `;
