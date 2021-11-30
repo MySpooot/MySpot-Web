@@ -46,7 +46,11 @@ const App: FC = () => {
                 <Route element={<MyMap />} path='/mymap/:hash' />
                 <Route element={<Login />} path='/login' />
                 <Route element={<NotFound />} />
+<<<<<<< HEAD
+                {/* <Route element={<SearchPlaces />} path='/addmap' /> */}
+=======
                 <Route element={<KakaoCallbackPage />} path='/auth/kakao' />
+>>>>>>> master
             </Routes>
         </Container>
     );
