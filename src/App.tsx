@@ -7,8 +7,9 @@ import loadable from '@loadable/component';
 import GlobalStyle from '@src/components/GlobalStyle';
 import KakaoCallbackPage from './pages/KakaoCallbackPage';
 
-const MyMap = loadable(() => import('@src/pages/MyMap'));
 const Login = loadable(() => import('@src/pages/Login'));
+const Home = loadable(() => import('@src/pages/Home'));
+const MyMap = loadable(() => import('@src/pages/MyMap'));
 const NotFound = loadable(() => import('@src/pages/NotFound'));
 
 import { meState } from '@src/atom/me';
@@ -43,14 +44,11 @@ const App: FC = () => {
         <Container>
             <GlobalStyle />
             <Routes>
-                <Route element={<MyMap />} path='/mymap/:hash' />
                 <Route element={<Login />} path='/login' />
+                <Route element={<Home />} path='/home' />
+                <Route element={<MyMap />} path='/mymap/:hash' />
                 <Route element={<NotFound />} />
-<<<<<<< HEAD
-                {/* <Route element={<SearchPlaces />} path='/addmap' /> */}
-=======
                 <Route element={<KakaoCallbackPage />} path='/auth/kakao' />
->>>>>>> master
             </Routes>
         </Container>
     );
@@ -61,6 +59,7 @@ export default App;
 const Container = styled.div`
     @media (min-width: 768px) {
         width: 450px;
+        min-height: 100vh;
         border-right: 1px solid black;
         border-left: 1px solid black;
         margin: auto;
