@@ -1,24 +1,26 @@
 import React, { FC, useEffect, useState } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
+// import { Routes, Route, useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import styled from '@emotion/styled';
 import loadable from '@loadable/component';
 
+import { BreakPoint } from '@src/Constants';
+import { meState } from '@src/atom/me';
+import { getMe } from '@src/api';
 import GlobalStyle from '@src/components/GlobalStyle';
-import KakaoCallbackPage from './pages/KakaoCallbackPage';
+import Loading from '@src/components/Loading';
 
 const Login = loadable(() => import('@src/pages/Login'));
 const Home = loadable(() => import('@src/pages/Home'));
 const MyMap = loadable(() => import('@src/pages/MyMap'));
 const NotFound = loadable(() => import('@src/pages/NotFound'));
-
-import { meState } from '@src/atom/me';
-import { getMe } from '@src/api';
+const KakaoCallbackPage = loadable(() => import('@src/pages/KakaoCallbackPage'));
 
 const App: FC = () => {
     const [isLoading, setLoading] = useState(true);
     const [me, setMe] = useRecoilState(meState);
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     useEffect(() => {
         console.log('Me:', me);
@@ -27,41 +29,50 @@ const App: FC = () => {
 
         if (token) {
             getMe(token)
-                .then(data => setMe(data))
-                .catch(console.error)
+                .then(setMe)
+                .catch(err => {
+                    localStorage.removeItem('token');
+                    console.error(err);
+                    alert('Error!');
+                })
                 .finally(() => setLoading(false));
         } else {
             setLoading(false);
-            navigate('/login');
+            // navigate('/login');
         }
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     if (isLoading) {
-        return <h1>Loading...</h1>;
+        return <Loading />;
     }
 
     return (
-        <Container>
+        <AppContainer>
             <GlobalStyle />
-            <Routes>
-                <Route element={<Login />} path='/login' />
-                <Route element={<Home />} path='/home' />
-                <Route element={<MyMap />} path='/mymap/:hash' />
-                <Route element={<NotFound />} />
-                <Route element={<KakaoCallbackPage />} path='/auth/kakao' />
-            </Routes>
-        </Container>
+            <RouteContainer>
+                <Routes>
+                    <Route element={<Login />} path='/login' />
+                    <Route element={<Home />} path='/home' />
+                    <Route element={<MyMap />} path='/mymap/:hash' />
+                    <Route element={<KakaoCallbackPage />} path='/auth/kakao' />
+                    <Route element={<NotFound />} path='*' />
+                </Routes>
+            </RouteContainer>
+        </AppContainer>
     );
 };
 
 export default App;
 
-const Container = styled.div`
-    @media (min-width: 768px) {
+const AppContainer = styled.div`
+    background-color: #f9f9f9;
+`;
+
+const RouteContainer = styled.main`
+    ${BreakPoint.PC} {
         width: 450px;
         min-height: 100vh;
-        border-right: 1px solid black;
-        border-left: 1px solid black;
         margin: auto;
+        box-shadow: 1px 0 10px 0 #000808;
     }
 `;

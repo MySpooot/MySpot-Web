@@ -1,11 +1,13 @@
 import styled from '@emotion/styled';
 
+import { BreakPoint } from '@src/Constants';
+
 export const Container = styled.div<{ open: boolean }>`
     position: absolute;
     z-index: 99;
     bottom: 0;
     display: flex;
-    width: calc(450px - 4rem);
+    width: calc(100% - 4rem);
     height: ${({ open }) => (open ? '100vh' : '0')};
     flex-direction: column;
     align-items: center;
@@ -14,8 +16,8 @@ export const Container = styled.div<{ open: boolean }>`
     overflow-y: hidden;
     transition: height 0.5s;
 
-    @media screen and (max-width: 768px) {
-        width: calc(100% - 4rem);
+    ${BreakPoint.PC} {
+        width: calc(450px - 4rem);
     }
 `;
 
@@ -29,14 +31,31 @@ export const InputArea = styled.div`
     margin-top: 15%;
 `;
 
+export const Input = styled.input`
+    padding: 1rem 2.5rem;
+    border: 1px solid grey;
+    border-radius: 1rem;
+`;
+
 export const ButtonArea = styled.div`
     display: flex;
-    width: 100%;
     justify-content: space-between;
     margin-top: 15%;
+
+    ${BreakPoint.PC} {
+        width: 70%;
+    }
 `;
 
 export const Button = styled.button`
+    padding: 1rem 2.5rem;
     border: none;
+    border-radius: 10%;
+    cursor: pointer;
+    font-weight: bold;
     outline: none;
+
+    &:hover {
+        opacity: 0.8;
+    }
 `;

@@ -1,6 +1,6 @@
 import React, { Dispatch, FC, SetStateAction } from 'react';
 
-import { Container, Title, InputArea, ButtonArea, Button } from './styles';
+import { Container, Title, InputArea, Input, ButtonArea, Button } from './styles';
 
 interface NewMapModalProps {
     open: boolean;
@@ -9,7 +9,8 @@ interface NewMapModalProps {
 
 const NewMapModal: FC<NewMapModalProps> = ({ open, setNewMapModalOpen }) => {
     const onClickCreate = () => {
-        console.log('onClickCreate');
+        alert('Success!');
+        setNewMapModalOpen(false);
     };
 
     const onClickCancel = () => {
@@ -20,7 +21,7 @@ const NewMapModal: FC<NewMapModalProps> = ({ open, setNewMapModalOpen }) => {
             <Title>NEW MAP</Title>
             <InputArea>
                 <div>map name</div>
-                <input type='text' />
+                <Input type='text' />
             </InputArea>
             <ButtonArea>
                 <Button onClick={onClickCancel}>CANCEL</Button>

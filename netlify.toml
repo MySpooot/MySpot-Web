@@ -1,0 +1,15 @@
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/home"
+  to = "/home"
+  status = 200
+
+[[redirects]]
+  from = "/mymap/*"
+  to = "/mymap/:id"
+  status = 200
+

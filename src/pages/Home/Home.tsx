@@ -1,23 +1,25 @@
 import React, { FC, useState, useEffect } from 'react';
 
-import { Container, Header, Main, MapItem, Footer, NewMapButton } from './styles';
+import { Container, Header, Main, Footer, NewMapButton } from './styles';
+import HomeMapItem from '@src/components/HomeMapItem';
 import NewMapModal from '@src/components/NewMapModal';
+import Loading from '@src/components/Loading';
 
-const TempMaps = ['지도1', '지도2', '지도3'];
+const TempMaps = [
+    { id: 1, title: '지도1' },
+    { id: 2, title: '지도2' },
+    { id: 3, title: '지도3' }
+];
 
 const Home: FC = () => {
-    const [maps, setMaps] = useState<string[]>();
+    const [maps, setMaps] = useState<{ id: number; title: string }[]>();
     const [newMapModalOpen, setNewMapModalOpen] = useState(false);
 
     useEffect(() => {
         setTimeout(() => {
             setMaps(TempMaps);
-        }, 1500);
+        }, 500);
     }, []);
-
-    const onClickMap = () => {
-        console.log('onClickMap');
-    };
 
     const onClickNewMap = () => {
         console.log('onClickNewMap');
@@ -28,11 +30,9 @@ const Home: FC = () => {
         <Container>
             <Header>MIND MAP</Header>
             <Main>
+                {!maps && <Loading />}
                 {maps?.map((map, idx) => (
-                    <MapItem key={idx} onClick={onClickMap}>
-                        <span>{map}</span>
-                        <span>X</span>
-                    </MapItem>
+                    <HomeMapItem key={idx} map={map} />
                 ))}
             </Main>
             <Footer>

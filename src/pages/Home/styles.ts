@@ -14,21 +14,10 @@ export const Header = styled.header`
     text-align: center;
 `;
 
-export const Main = styled.main`
+export const Main = styled.section`
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-`;
-
-export const MapItem = styled.div`
-    display: flex;
-    justify-content: space-between;
-    padding: 1.5rem;
-    border-top: 1px solid black;
-
-    :last-child {
-        border-bottom: 1px solid black;
-    }
 `;
 
 export const Footer = styled.footer`

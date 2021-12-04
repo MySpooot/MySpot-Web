@@ -5,6 +5,7 @@ import { parse } from 'query-string';
 
 import { logIn } from '@src/api';
 import { meState } from '@src/atom/me';
+import Loading from '@src/components/Loading';
 
 const KakaoCallbackPage: FC = () => {
     const navigate = useNavigate();
@@ -26,15 +27,21 @@ const KakaoCallbackPage: FC = () => {
             return navigate('/login');
         }
 
-        logIn({ code: code as string }).then(data => {
-            localStorage.setItem('token', data.token);
+        logIn({ code: code as string })
+            .then(data => {
+                localStorage.setItem('token', data.token);
 
-            setMe({ id: data.id, name: data.name, thumbnail: data.thumbnail });
-            navigate('/');
-        });
+                setMe({ id: data.id, name: data.name, thumbnail: data.thumbnail });
+                navigate('/home');
+            })
+            .catch(err => {
+                console.error(err);
+                alert('Backend Server Error!');
+                navigate('/login');
+            });
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-    return <div></div>;
+    return <Loading />;
 };
 
 export default KakaoCallbackPage;
