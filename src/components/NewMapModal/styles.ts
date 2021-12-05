@@ -17,7 +17,7 @@ export const Container = styled.div<{ open: boolean }>`
     transition: height 0.5s;
 
     ${BreakPoint.PC} {
-        width: calc(450px - 4rem);
+        width: calc(768px - 4rem);
     }
 `;
 

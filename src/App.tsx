@@ -70,7 +70,7 @@ const AppContainer = styled.div`
 
 const RouteContainer = styled.main`
     ${BreakPoint.PC} {
-        width: 450px;
+        width: 768px;
         min-height: 100vh;
         margin: auto;
         box-shadow: 1px 0 10px 0 #000808;
