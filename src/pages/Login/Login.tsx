@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 
 import { Container, LabelArea, LoginButton } from './styles';
+// import { Path } from '@src/Constants';
 
 const Login: FC = () => {
     const onKakaoLoginClick = () => {

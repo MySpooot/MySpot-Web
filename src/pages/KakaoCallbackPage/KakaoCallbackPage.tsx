@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { parse } from 'query-string';
 
+import { Path } from '@src/Constants';
 import { logIn } from '@src/api';
 import { meState } from '@src/atom/me';
 import Loading from '@src/components/Loading';
@@ -18,26 +19,41 @@ const KakaoCallbackPage: FC = () => {
         if (error) {
             alert(error_description);
 
-            return navigate('/login');
+            return navigate(Path.login);
         }
 
         if (!code || !state) {
             alert('잘못된 접근입니다.');
 
-            return navigate('/login');
+            return navigate(Path.login);
         }
 
         logIn({ code: code as string })
             .then(data => {
-                localStorage.setItem('token', data.token);
+                switch (data.active) {
+                    case 0: // Inactive
+                        alert('Inactive User!');
+                        navigate(Path.login);
+                        break;
 
-                setMe({ id: data.id, name: data.name, thumbnail: data.thumbnail });
-                navigate('/home');
+                    case 1: // Active
+                        localStorage.setItem('token', data.token as string);
+                        setMe(data);
+                        navigate(Path.home);
+                        break;
+
+                    case 2: // Pending
+                        navigate(Path.join, { state: { id: data.id, nickname: data.nickname } });
+                        break;
+
+                    default:
+                        throw new Error(`Unexpected User Status: ${data.active}`);
+                }
             })
             .catch(err => {
                 console.error(err);
                 alert('Backend Server Error!');
-                navigate('/login');
+                navigate(Path.login);
             });
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
