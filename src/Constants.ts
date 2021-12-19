@@ -9,5 +9,6 @@ export const Path = {
     home: '/home',
     login: '/login',
     join: '/join',
-    myMap: '/mymap'
+    myMap: '/mymap',
+    authKakao: '/auth/kakao'
 } as const;

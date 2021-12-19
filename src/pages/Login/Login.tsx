@@ -1,9 +1,21 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 
 import { Container, LabelArea, LoginButton } from './styles';
-// import { Path } from '@src/Constants';
+import { Path } from '@src/Constants';
+import { meState } from '@src/atom';
 
 const Login: FC = () => {
+    const navigate = useNavigate();
+    const me = useRecoilValue(meState);
+
+    useEffect(() => {
+        if (me) {
+            navigate(Path.home);
+        }
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
     const onKakaoLoginClick = () => {
         if (window.Kakao?.isInitialized()) {
             window.Kakao.Auth.authorize({

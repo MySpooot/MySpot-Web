@@ -7,13 +7,13 @@ export const getMe = async (): Promise<GetMeResponse> => {
 };
 
 export const logIn = async (param: { code: string }): Promise<LogInResponse> => {
-    const { data } = await instance.post<LogInResponse>('/auth/logIn', param);
+    const { data } = await instance.post<LogInResponse>('/auth/login', param);
 
     return data;
 };
 
 export const logOut = () => {
-    return instance.post('/auth/logOut');
+    return instance.post('/auth/logout');
 };
 
 export const updateUserNickname = async (userId: number, nickname: string): Promise<UpdateUserNicknameResponse> => {

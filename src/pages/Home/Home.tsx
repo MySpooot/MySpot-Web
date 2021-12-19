@@ -1,6 +1,8 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC, useState, useEffect, useCallback } from 'react';
+import { useRecoilValue } from 'recoil';
 
 import { Container, Header, Main, Footer, NewMapButton } from './styles';
+import { meState } from '@src/atom';
 import HomeMapItem from '@src/components/HomeMapItem';
 import NewMapModal from '@src/components/NewMapModal';
 import Loading from '@src/components/Loading';
@@ -12,6 +14,8 @@ const TempMaps = [
 ];
 
 const Home: FC = () => {
+    const me = useRecoilValue(meState);
+
     const [maps, setMaps] = useState<{ id: number; title: string }[]>();
     const [newMapModalOpen, setNewMapModalOpen] = useState(false);
 
@@ -21,14 +25,23 @@ const Home: FC = () => {
         }, 500);
     }, []);
 
-    const onClickNewMap = () => {
-        console.log('onClickNewMap');
+    const onNewMapClick = useCallback(() => {
+        console.log('onNewMapClick');
         setNewMapModalOpen(open => !open);
-    };
+    }, []);
+
+    const onLogoutClick = useCallback(() => {
+        localStorage.removeItem('token');
+        window.location.reload();
+    }, []);
 
     return (
         <Container>
             <Header>MIND MAP</Header>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+                <img alt='thumbnail' src={me?.thumbnail} style={{ borderRadius: '50%' }} width='30' />
+                <div>{me?.nickname}님 안녕하세요!</div>
+            </div>
             <Main>
                 {!maps && <Loading />}
                 {maps?.map((map, idx) => (
@@ -36,8 +49,10 @@ const Home: FC = () => {
                 ))}
             </Main>
             <Footer>
-                <NewMapButton onClick={onClickNewMap}>NEW MAP +</NewMapButton>
-                <div>Logout</div>
+                <NewMapButton onClick={onNewMapClick}>NEW MAP +</NewMapButton>
+                <div style={{ cursor: 'pointer' }} onClick={onLogoutClick}>
+                    Logout
+                </div>
             </Footer>
             <NewMapModal open={newMapModalOpen} setNewMapModalOpen={setNewMapModalOpen} />
         </Container>

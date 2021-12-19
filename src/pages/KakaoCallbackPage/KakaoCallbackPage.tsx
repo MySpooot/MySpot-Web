@@ -28,6 +28,8 @@ const KakaoCallbackPage: FC = () => {
             return navigate(Path.login);
         }
 
+        // TODO: 뒤로가기로 접근하였을때 페이지 이동 처리 필요
+
         logIn({ code: code as string })
             .then(data => {
                 switch (data.active) {
@@ -53,7 +55,7 @@ const KakaoCallbackPage: FC = () => {
             .catch(err => {
                 console.error(err);
                 alert('Backend Server Error!');
-                navigate(Path.login);
+                navigate(-1);
             });
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 

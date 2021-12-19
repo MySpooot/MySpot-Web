@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import styled from '@emotion/styled';
 import loadable from '@loadable/component';
 
@@ -18,13 +18,12 @@ const KakaoCallbackPage = loadable(() => import('@src/pages/KakaoCallbackPage'))
 const NotFound = loadable(() => import('@src/pages/NotFound'));
 
 const App: FC = () => {
-    const [isLoading, setLoading] = useState(true);
-    const [me, setMe] = useRecoilState(meState);
     const navigate = useNavigate();
 
-    useEffect(() => {
-        console.log('Me:', me);
+    const [isLoading, setLoading] = useState(true);
+    const setMe = useSetRecoilState(meState);
 
+    useEffect(() => {
         const token = localStorage.getItem('token');
 
         if (token) {
@@ -39,7 +38,10 @@ const App: FC = () => {
                 .finally(() => setLoading(false));
         } else {
             setLoading(false);
-            navigate('/login');
+
+            if (location.pathname !== Path.authKakao) {
+                navigate(Path.login);
+            }
         }
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 

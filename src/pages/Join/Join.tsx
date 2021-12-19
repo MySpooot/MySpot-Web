@@ -26,21 +26,25 @@ const Join: FC = () => {
         setNickname(state.nickname);
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-    const onJoinClick = useCallback(() => {
-        console.log('onJoinClick');
+    const onJoinClick = useCallback(async () => {
+        if (!nickname) {
+            return alert('닉네임을 입력해주세요!');
+        }
 
-        if (!nickname) return;
-
-        updateUserNickname(state.id, nickname).then(me => {
+        try {
+            const me = await updateUserNickname(state.id, nickname);
             localStorage.setItem('token', me.token);
             setMe(me);
             navigate(Path.home);
-        });
-    }, [nickname, setMe, navigate, state.id]);
+        } catch (err) {
+            console.error(err);
+            alert('Error!');
+        }
+    }, [nickname, setMe, navigate, state]);
 
     const onCancelClick = useCallback(() => {
-        console.log('onCancelClick');
-    }, []);
+        navigate(Path.login);
+    }, [navigate]);
 
     const onNicknameChange = useCallback((evt: ChangeEvent<HTMLInputElement>) => {
         setNickname(evt.target.value);
