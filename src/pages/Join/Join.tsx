@@ -3,13 +3,15 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 
 import { Container } from './styles';
-import { updateUserNickname } from '@src/api/auth';
-import { Path } from '@src/Constants';
-import { meState } from '@src/atom';
+import { JoinState } from './types';
+import { updateUserNickname } from 'src/api/auth';
+import { Path } from 'src/Constants';
+import { meState } from 'src/atom';
 
 const Join: FC = () => {
     const navigate = useNavigate();
     const { state } = useLocation();
+
     const [me, setMe] = useRecoilState(meState);
 
     const [nickname, setNickname] = useState('');
@@ -19,20 +21,24 @@ const Join: FC = () => {
             navigate(Path.home);
         }
 
-        if (!state.id || !state.nickname) {
+        const { id, nickname } = state as JoinState;
+
+        if (!id || !nickname) {
             navigate(Path.login);
         }
-
-        setNickname(state.nickname);
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const onJoinClick = useCallback(async () => {
+        const { id } = state as JoinState;
+
+        if (!id) return;
+
         if (!nickname) {
             return alert('닉네임을 입력해주세요!');
         }
 
         try {
-            const me = await updateUserNickname(state.id, nickname);
+            const me = await updateUserNickname(id, nickname);
             localStorage.setItem('token', me.token);
             setMe(me);
             navigate(Path.home);

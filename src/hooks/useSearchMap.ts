@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 
-import { PlaceInfo } from 'types/placeInfo';
+import { PlaceInfo } from 'src/types/placeInfo';
 
 const useSearchMap = () => {
     const [places, setPlaces] = useState<PlaceInfo[]>();

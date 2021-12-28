@@ -1,37 +1,26 @@
 {
-  "extends": "./tsconfig.base.json",
-  "compilerOptions": {
-    "target": "ES2021",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "noImplicitAny": false,
-    "jsxImportSource": "@emotion/react",
-    "allowJs": false,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "strictNullChecks": true,
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "removeComments": true,
-    "noEmit": true,
-    "jsx": "react-jsx",
-    "types": [
-      "node"
-    ]
-  },
-  "include": [
-    "src"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+    "compilerOptions": {
+        "target": "ES2021",
+        "lib": ["dom", "dom.iterable", "esnext"],
+        "noImplicitAny": false,
+        "jsxImportSource": "@emotion/react",
+        "allowJs": false,
+        "skipLibCheck": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "strict": true,
+        "strictNullChecks": true,
+        "forceConsistentCasingInFileNames": true,
+        "noFallthroughCasesInSwitch": true,
+        "module": "esnext",
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "removeComments": true,
+        "noEmit": true,
+        "jsx": "react-jsx",
+        "types": ["node"]
+    },
+    "include": ["src", "craco.config.js"],
+    "exclude": ["node_modules"]
 }

@@ -1,25 +1,19 @@
-import { instance } from '@src/api';
+import { request } from './api';
 
-export const getMe = async (): Promise<GetMeResponse> => {
-    const { data } = await instance.get('/auth/me');
-
-    return data;
+export const getMe = async () => {
+    return await request<GetMeResponse>({ method: 'get', url: '/auth/me' });
 };
 
-export const logIn = async (param: { code: string }): Promise<LogInResponse> => {
-    const { data } = await instance.post<LogInResponse>('/auth/login', param);
-
-    return data;
+export const logIn = async (data: { code: string }) => {
+    return await request<LogInResponse>({ method: 'post', url: '/auth/login', data });
 };
 
 export const logOut = () => {
-    return instance.post('/auth/logout');
+    return request({ method: 'post', url: '/auth/logout' });
 };
 
-export const updateUserNickname = async (userId: number, nickname: string): Promise<UpdateUserNicknameResponse> => {
-    const { data } = await instance.put(`/auth/user/${userId}`, { nickname });
-
-    return data;
+export const updateUserNickname = async (userId: number, nickname: string) => {
+    return await request<UpdateUserNicknameResponse>({ method: 'put', url: `/auth/user/${userId}`, data: { nickname } });
 };
 
 interface GetMeResponse {

@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 
 import { Container, LabelArea, LoginButton } from './styles';
-import { Path } from '@src/Constants';
-import { meState } from '@src/atom';
+import { Path } from 'src/Constants';
+import { meState } from 'src/atom';
 
 const Login: FC = () => {
     const navigate = useNavigate();

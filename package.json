@@ -14,36 +14,35 @@
         "prettier": "prettier -w ./src"
     },
     "dependencies": {
-        "@craco/craco": "^6.4.2",
         "@emotion/react": "^11.5.0",
         "@emotion/styled": "^11.3.0",
-        "@loadable/component": "^5.15.0",
-        "@types/jest": "^26.0.15",
-        "@types/node": "^12.0.0",
-        "@types/react": "^17.0.0",
-        "@types/react-dom": "^17.0.0",
         "axios": "^0.24.0",
-        "craco-alias": "^3.0.1",
-        "cross-env": "^7.0.3",
-        "postcss-safe-parser": "4.0.2",
         "query-string": "^7.0.1",
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
         "react-icons": "^4.3.1",
         "react-responsive": "^9.0.0-beta.4",
-        "react-router-dom": "^6.0.0",
+        "react-router": "^6.2.1",
+        "react-router-dom": "^6.2.1",
         "react-scripts": "4.0.3",
-        "recoil": "^0.5.2"
+        "recoil": "^0.5.2",
+        "regenerator-runtime": "^0.13.9",
+        "src": "link:./src"
     },
     "devDependencies": {
+        "@craco/craco": "^6.4.2",
         "@emotion/babel-plugin": "^11.3.0",
         "@emotion/babel-preset-css-prop": "^11.2.0",
         "@stylelint/postcss-css-in-js": "^0.37.2",
-        "@types/loadable__component": "^5.13.4",
-        "@types/react-router-dom": "^5.3.2",
+        "@swc/helpers": "^0.3.2",
+        "@types/jest": "^26.0.15",
+        "@types/node": "^12.0.0",
+        "@types/react": "^17.0.0",
+        "@types/react-dom": "^17.0.0",
         "@typescript-eslint/eslint-plugin": "^5.2.0",
         "@typescript-eslint/parser": "^5.2.0",
         "craco-swc": "^0.2.0",
+        "cross-env": "^7.0.3",
         "eslint": "^7.11.0",
         "eslint-config-prettier": "^8.3.0",
         "eslint-import-resolver-alias": "^1.1.2",
@@ -53,13 +52,14 @@
         "eslint-plugin-prettier": "^4.0.0",
         "eslint-plugin-react": "^7.26.1",
         "eslint-plugin-react-hooks": "^4.2.0",
+        "postcss-safe-parser": "4.0.2",
         "prettier": "^2.4.1",
         "stylelint": "^13.13.1",
         "stylelint-config-idiomatic-order": "^8.1.0",
         "stylelint-config-recommended": "^6.0.0",
         "stylelint-config-styled-components": "^0.1.1",
         "stylelint-order": "^5.0.0",
-        "typescript": "^4.1.2"
+        "typescript": "^4.5.4"
     },
     "browserslist": {
         "production": [
@@ -72,5 +72,6 @@
             "last 1 firefox version",
             "last 1 safari version"
         ]
-    }
+    },
+    "packageManager": "yarn@3.1.1"
 }

@@ -1,21 +1,19 @@
-import { instance } from '@src/api';
+import { request } from './api';
 
 export const getMaps = async () => {
-    const { data } = await instance.get<GetMapsResponse[]>('/map', { params: { mapId: '' } });
-
-    return data;
+    return await request<GetMapsResponse[]>({ method: 'get', url: '/map', params: { mapId: '' } });
 };
 
 export const createMap = async () => {
-    await instance.post('/map', {});
+    return await request({ method: 'post', url: '/map', data: {} });
 };
 
 export const updateMap = async () => {
-    await instance.put('/map/mapId');
+    return await request({ method: 'put', url: '/map/mapId' });
 };
 
 export const deleteMap = async () => {
-    await instance.delete('/map/mapId');
+    return await request({ method: 'delete', url: '/map/mapId' });
 };
 
 interface GetMapsResponse {

@@ -1,21 +1,20 @@
-import React, { FC, useEffect, useState } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import React, { FC, useEffect, useState, lazy, Suspense } from 'react';
+import { Routes, Route, useNavigate } from 'react-router';
 import { useSetRecoilState } from 'recoil';
 import styled from '@emotion/styled';
-import loadable from '@loadable/component';
 
-import { BreakPoint, Path } from '@src/Constants';
-import { meState } from '@src/atom';
-import { getMe, setAccessToken } from '@src/api';
-import GlobalStyle from '@src/components/GlobalStyle';
-import Loading from '@src/components/Loading';
+import { BreakPoint, Path } from './Constants';
+import { meState } from './atom';
+import { getMe, setAccessToken } from './api';
+import GlobalStyle from './components/GlobalStyle';
+import Loading from './components/Loading';
 
-const Login = loadable(() => import('@src/pages/Login'));
-const Join = loadable(() => import('@src/pages/Join'));
-const Home = loadable(() => import('@src/pages/Home'));
-const MyMap = loadable(() => import('@src/pages/MyMap'));
-const KakaoCallbackPage = loadable(() => import('@src/pages/KakaoCallbackPage'));
-const NotFound = loadable(() => import('@src/pages/NotFound'));
+const Login = lazy(() => import('src/pages/Login'));
+const Join = lazy(() => import('src/pages/Join'));
+const Home = lazy(() => import('src/pages/Home'));
+const MyMap = lazy(() => import('src/pages/MyMap'));
+const KakaoLoginCallback = lazy(() => import('src/pages/KakaoLoginCallback'));
+const NotFound = lazy(() => import('src/pages/NotFound'));
 
 const App: FC = () => {
     const navigate = useNavigate();
@@ -52,28 +51,24 @@ const App: FC = () => {
     return (
         <AppContainer>
             <GlobalStyle />
-            <RouteContainer>
+            <Suspense fallback={<Loading />}>
                 <Routes>
                     <Route element={<Login />} path={Path.login} />
                     <Route element={<Join />} path={Path.join} />
                     <Route element={<Home />} path={Path.home} />
                     <Route element={<MyMap />} path={`${Path.myMap}/:hash`} />
-                    <Route element={<KakaoCallbackPage />} path='/auth/kakao' />
+                    <Route element={<KakaoLoginCallback />} path={Path.authKakao} />
 
                     <Route element={<NotFound />} path='*' />
                 </Routes>
-            </RouteContainer>
+            </Suspense>
         </AppContainer>
     );
 };
 
 export default App;
 
-const AppContainer = styled.div`
-    background-color: #f9f9f9;
-`;
-
-const RouteContainer = styled.main`
+const AppContainer = styled.main`
     ${BreakPoint.PC} {
         width: 768px;
         min-height: 100vh;

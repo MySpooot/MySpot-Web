@@ -1,17 +1,15 @@
-import { instance } from '@src/api';
+import { request } from './api';
 
 export const getMarkers = async () => {
-    const { data } = await instance.get<GetMarkersResponse[]>('/marker', { params: { mapId: '' } });
-
-    return data;
+    return await request<GetMarkersResponse[]>({ method: 'get', url: '/marker', params: { mapId: '' } });
 };
 
 export const createMarker = async () => {
-    await instance.post('/marker', {});
+    return await request({ method: 'post', url: '/marker', data: {} });
 };
 
 export const deleteMarker = async () => {
-    await instance.delete('/marker/markerId');
+    return await request({ method: 'delete', url: '/marker/markerId' });
 };
 
 interface GetMarkersResponse {

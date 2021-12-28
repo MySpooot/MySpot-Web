@@ -1,11 +1,11 @@
 import React, { FC, useState, useCallback, useEffect, useRef, ChangeEvent, KeyboardEvent } from 'react';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import { GiHamburgerMenu as Hamburger } from 'react-icons/gi';
 import { FaSearch as Search } from 'react-icons/fa';
 
 import { Container, Header, MapContainer, Map, ButtonWrapper, Plus, Minus } from './styles';
-import SearchPlacesModal from '@src/components/SearchPlacesModal';
-import useSearchMap from '@src/hooks/useSearchMap';
+import SearchPlacesModal from 'src/components/SearchPlacesModal';
+import useSearchMap from 'src/hooks/useSearchMap';
 
 const MyMap: FC = () => {
     const navigate = useNavigate();

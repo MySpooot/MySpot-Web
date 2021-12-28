@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import { BreakPoint } from '@src/Constants';
+import { BreakPoint } from 'src/Constants';
 
 export const Container = styled.div`
     position: absolute;
