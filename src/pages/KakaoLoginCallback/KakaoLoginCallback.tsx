@@ -5,14 +5,13 @@ import { parse } from 'query-string';
 
 import { Path } from 'src/Constants';
 import { logIn } from 'src/api';
-import { meState, joinState } from 'src/atom';
+import { meState } from 'src/atom';
 import Loading from 'src/components/Loading';
 
 const KakaoLoginCallback: FC = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const setMe = useSetRecoilState(meState);
-    const setJoin = useSetRecoilState(joinState);
 
     const { code, state, error, error_description } = parse(location.search);
 
@@ -46,9 +45,7 @@ const KakaoLoginCallback: FC = () => {
                         break;
 
                     case 2: // Pending
-                        // navigate(Path.join, { state: { id: data.id, nickname: data.nickname } });
-                        setJoin({ id: data.id, nickname: data.nickname });
-                        navigate(Path.join);
+                        navigate(Path.join, { state: { id: data.id, nickname: data.nickname } });
                         break;
 
                     default:
