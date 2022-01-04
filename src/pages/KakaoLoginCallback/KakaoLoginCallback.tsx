@@ -5,7 +5,7 @@ import { parse } from 'query-string';
 
 import { Path } from 'src/Constants';
 import { logIn } from 'src/api';
-import { meState } from 'src/atom';
+import { meState } from 'src/atoms';
 import Loading from 'src/components/Loading';
 
 const KakaoLoginCallback: FC = () => {

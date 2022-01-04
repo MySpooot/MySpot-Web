@@ -4,7 +4,7 @@ import { useSetRecoilState } from 'recoil';
 import styled from '@emotion/styled';
 
 import { BreakPoint, Path } from './Constants';
-import { meState } from './atom';
+import { meState } from './atoms';
 import { getMe, setAccessToken } from './api';
 import GlobalStyle from './components/GlobalStyle';
 import Loading from './components/Loading';

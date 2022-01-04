@@ -4,7 +4,7 @@ import { HiUser } from 'react-icons/hi';
 import { useNavigate } from 'react-router';
 
 import { Container, Header, Main, Footer, NewMapButton } from './styles';
-import { meState } from 'src/atom';
+import { meState } from 'src/atoms';
 import HomeMapItem from 'src/components/HomeMapItem';
 import NewMapModal from 'src/components/NewMapModal';
 import Loading from 'src/components/Loading';

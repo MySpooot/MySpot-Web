@@ -6,7 +6,7 @@ import { Container } from './styles';
 import { JoinState } from './types';
 import { updateUserNickname } from 'src/api/auth';
 import { Path } from 'src/Constants';
-import { meState } from 'src/atom';
+import { meState } from 'src/atoms';
 
 const Join: FC = () => {
     const navigate = useNavigate();
