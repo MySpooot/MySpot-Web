@@ -6,7 +6,7 @@ import { Container } from './styles';
 import { JoinState } from './types';
 import { updateUserNickname } from 'src/api/auth';
 import { Path } from 'src/Constants';
-import { meState } from 'src/atom';
+import { meState } from 'src/atoms';
 
 const Join: FC = () => {
     const navigate = useNavigate();
@@ -18,14 +18,16 @@ const Join: FC = () => {
 
     useEffect(() => {
         if (me) {
-            navigate(Path.home);
+            return navigate(Path.home);
         }
 
         const { id, nickname } = state as JoinState;
 
         if (!id || !nickname) {
-            navigate(Path.login);
+            return navigate(Path.login);
         }
+
+        setNickname(nickname);
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const onJoinClick = useCallback(async () => {
