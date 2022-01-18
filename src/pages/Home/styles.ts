@@ -11,7 +11,6 @@ export const Header = styled.header`
     padding: 2rem;
     font-size: 2rem;
     font-weight: bold;
-    text-align: center;
 `;
 
 export const Main = styled.section`

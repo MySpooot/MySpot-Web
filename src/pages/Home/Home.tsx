@@ -1,13 +1,13 @@
 import React, { FC, useState, useEffect, useCallback } from 'react';
 import { useRecoilValue } from 'recoil';
-import { HiUser } from 'react-icons/hi';
 import { useNavigate } from 'react-router';
 
-import { Container, Header, Main, Footer, NewMapButton } from './styles';
+import { Footer } from './styles';
 import { meState } from 'src/atoms';
-import HomeMapItem from 'src/components/HomeMapItem';
+import Card from 'src/components/HomeMapItem';
 import NewMapModal from 'src/components/NewMapModal';
 import Loading from 'src/components/Loading';
+import { Main, WelcomeSection, User, HContainer, HHeader, Maps, Desc, NewBtn } from './mainstyles';
 
 const TempMaps = [
     { id: 1, title: '지도1' },
@@ -34,39 +34,62 @@ const Home: FC = () => {
         setNewMapModalOpen(open => !open);
     }, []);
 
-    const onLogoutClick = useCallback(() => {
-        localStorage.removeItem('token');
-        window.location.reload();
-    }, []);
-
     const goMyPage = useCallback(() => {
         navigate('/mypage');
     }, [navigate]);
 
     return (
-        <Container>
-            <Header>MIND MAP</Header>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-                <img alt='thumbnail' src={me?.thumbnail} style={{ borderRadius: '50%' }} width='30' />
-                <div>{me?.nickname}님 안녕하세요!</div>
-            </div>
-            <Header>
-                MIND MAP<HiUser onClick={goMyPage}></HiUser>
-            </Header>
+        <HContainer>
+            <HHeader>
+                <img src='img/logoMyspot.png' style={{ paddingTop: '25px' }} width='124px'></img>
+            </HHeader>
             <Main>
-                {!maps && <Loading />}
-                {maps?.map((map, idx) => (
-                    <HomeMapItem key={idx} map={map} />
-                ))}
+                <WelcomeSection>
+                    <User>
+                        <b style={{ fontWeight: '700' }}>{me?.nickname}님 </b>
+                        <span style={{ fontWeight: '200' }}>안녕하세요!</span>
+                    </User>
+                    <img height='60' src='img/user.png' style={{ borderRadius: '50%' }} width='60' onClick={goMyPage} />
+                </WelcomeSection>
+                <Desc>오늘도 멋진 나만의 지도를 완성해보세요 :)</Desc>
+                <Maps>
+                    <div className='title-area'>
+                        <span style={{ fontSize: '16px', paddingRight: '10px', paddingTop: '5px' }}>내 지도</span>
+                        <img src='img/icArrowRight.png' width='20' />
+                    </div>
+                    <div style={{ display: 'flex', paddingTop: '10px' }}>
+                        {!maps && <Loading />}
+                        {maps?.map((map, idx) => (
+                            <Card key={idx} map={map}></Card>
+                        ))}
+                    </div>
+                    <div className='title-area'>
+                        <span style={{ fontSize: '16px', paddingRight: '10px', paddingTop: '5px' }}>즐겨찾기</span>
+                        <img src='img/icArrowRight.png' width='20' />
+                    </div>
+                    <div style={{ display: 'flex', paddingTop: '10px' }}>
+                        {!maps && <Loading />}
+                        {maps?.map((map, idx) => (
+                            <Card key={idx} map={map}></Card>
+                        ))}
+                    </div>
+                    <div className='title-area'>
+                        <span style={{ fontSize: '16px', paddingRight: '10px', paddingTop: '5px' }}>최근 본 지도</span>
+                        <img src='img/icArrowRight.png' width='20' />
+                    </div>
+                    <div style={{ display: 'flex', paddingTop: '10px' }}>
+                        {!maps && <Loading />}
+                        {maps?.map((map, idx) => (
+                            <Card key={idx} map={map}></Card>
+                        ))}
+                    </div>
+                </Maps>
             </Main>
             <Footer>
-                <NewMapButton onClick={onNewMapClick}>NEW MAP +</NewMapButton>
-                <div style={{ cursor: 'pointer' }} onClick={onLogoutClick}>
-                    Logout
-                </div>
+                <NewBtn onClick={onNewMapClick}>NEW MAP +</NewBtn>
             </Footer>
             <NewMapModal open={newMapModalOpen} setNewMapModalOpen={setNewMapModalOpen} />
-        </Container>
+        </HContainer>
     );
 };
 
