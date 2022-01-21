@@ -22,4 +22,5 @@ export const Card = styled.div`
     justify-content: center;
     align-items: center;
     box-shadow: 0px 4px 10px 0px rgb(232, 232, 232);
+    cursor: pointer;
 `;
