@@ -3,7 +3,7 @@ import { Routes, Route, useNavigate } from 'react-router';
 import { useSetRecoilState } from 'recoil';
 import styled from '@emotion/styled';
 
-import { BreakPoint, Path } from './Constants';
+import { Dimension, Path } from './Constants';
 import { meState } from './atoms';
 import { getMe, setAccessToken } from './api';
 import GlobalStyle from './components/GlobalStyle';
@@ -13,6 +13,7 @@ const Login = lazy(() => import('src/pages/Login'));
 const Join = lazy(() => import('src/pages/Join'));
 const Home = lazy(() => import('src/pages/Home'));
 const MyMap = lazy(() => import('src/pages/MyMap'));
+const MyPage = lazy(() => import('src/pages/MyPage'));
 const KakaoLoginCallback = lazy(() => import('src/pages/KakaoLoginCallback'));
 const NotFound = lazy(() => import('src/pages/NotFound'));
 
@@ -54,7 +55,8 @@ const App: FC = () => {
                     <Route element={<Login />} path={Path.login} />
                     <Route element={<Join />} path={Path.join} />
                     <Route element={<Home />} path={Path.home} />
-                    <Route element={<MyMap />} path={`${Path.myMap}/:hash`} />
+                    <Route element={<MyMap />} path={`${Path.myMap}/:mapId`} />
+                    <Route element={<MyPage />} path={Path.myPage} />
                     <Route element={<KakaoLoginCallback />} path={Path.authKakao} />
 
                     <Route element={<NotFound />} path='*' />
@@ -67,9 +69,7 @@ const App: FC = () => {
 export default App;
 
 const AppContainer = styled.main`
-    ${BreakPoint.PC} {
-        width: 768px;
-        min-height: 100vh;
-        margin: auto;
-    }
+    width: ${Dimension.MaxWidth};
+    min-height: 100vh;
+    margin: auto;
 `;
