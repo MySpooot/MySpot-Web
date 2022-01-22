@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { useNavigate } from 'react-router';
 
-import { Container } from './styles';
+import { Card } from './styles';
 
 interface HomeMapItemProps {
     map: { id: number; title: string };
@@ -16,10 +16,9 @@ const HomeMapItem: FC<HomeMapItemProps> = ({ map }) => {
     };
 
     return (
-        <Container onClick={onClickItem}>
+        <Card onClick={onClickItem}>
             <span>{map.title}</span>
-            <span>X</span>
-        </Container>
+        </Card>
     );
 };
 

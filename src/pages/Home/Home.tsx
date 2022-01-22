@@ -1,13 +1,13 @@
 import React, { FC, useState, useEffect, useCallback } from 'react';
 import { useRecoilValue } from 'recoil';
-import { HiUser } from 'react-icons/hi';
 import { useNavigate } from 'react-router';
 
-import { Container, Header, Main, Footer, NewMapButton } from './styles';
+// import { Footer } from './styles';
 import { meState } from 'src/atoms';
-import HomeMapItem from 'src/components/HomeMapItem';
+import Card from 'src/components/HomeMapItem';
 import NewMapModal from 'src/components/NewMapModal';
 import Loading from 'src/components/Loading';
+import { Main, WelcomeSection, User, Container, Header, Maps, Footer, NewBtn } from './styles';
 
 const TempMaps = [
     { id: 1, title: '지도1' },
@@ -34,37 +34,60 @@ const Home: FC = () => {
         setNewMapModalOpen(open => !open);
     }, []);
 
-    const onLogoutClick = useCallback(() => {
-        localStorage.removeItem('token');
-        window.location.reload();
-    }, []);
-
     const goMyPage = useCallback(() => {
         navigate('/mypage');
     }, [navigate]);
 
     return (
         <Container>
-            <Header>MIND MAP</Header>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-                <img alt='thumbnail' src={me?.thumbnail} style={{ borderRadius: '50%' }} width='30' />
-                <div>{me?.nickname}님 안녕하세요!</div>
-            </div>
             <Header>
-                MIND MAP<HiUser onClick={goMyPage}></HiUser>
+                <img className='myspot-logo' src='img/logoMyspot.png' />
+                <img className='mypage-img' src='img/user.png' onClick={goMyPage} />
             </Header>
             <Main>
-                {!maps && <Loading />}
-                {maps?.map((map, idx) => (
-                    <HomeMapItem key={idx} map={map} />
-                ))}
+                <WelcomeSection>
+                    <User>
+                        <b>{me?.nickname}님 </b>
+                        <span>안녕하세요!</span>
+                    </User>
+                </WelcomeSection>
+                <div className='desc'>오늘도 멋진 나만의 지도를 완성해보세요 :)</div>
+                <Maps>
+                    <div className='title-area'>
+                        <span className='title'>내 지도</span>
+                        <img src='img/icArrowRight.png' width='20' />
+                    </div>
+                    <div className='map-area'>
+                        {!maps && <Loading />}
+                        {maps?.map((map, idx) => (
+                            <Card key={idx} map={map}></Card>
+                        ))}
+                    </div>
+                    <div className='title-area'>
+                        <span className='title'>즐겨찾기</span>
+                        <img src='img/icArrowRight.png' width='20' />
+                    </div>
+                    <div className='map-area'>
+                        {!maps && <Loading />}
+                        {maps?.map((map, idx) => (
+                            <Card key={idx} map={map}></Card>
+                        ))}
+                    </div>
+                    <div className='title-area'>
+                        <span className='title'>최근 본 지도</span>
+                        <img src='img/icArrowRight.png' width='20' />
+                    </div>
+                    <div className='map-area'>
+                        {!maps && <Loading />}
+                        {maps?.map((map, idx) => (
+                            <Card key={idx} map={map}></Card>
+                        ))}
+                    </div>
+                </Maps>
+                <Footer>
+                    <NewBtn onClick={onNewMapClick}>NEW MAP +</NewBtn>
+                </Footer>
             </Main>
-            <Footer>
-                <NewMapButton onClick={onNewMapClick}>NEW MAP +</NewMapButton>
-                <div style={{ cursor: 'pointer' }} onClick={onLogoutClick}>
-                    Logout
-                </div>
-            </Footer>
             <NewMapModal open={newMapModalOpen} setNewMapModalOpen={setNewMapModalOpen} />
         </Container>
     );

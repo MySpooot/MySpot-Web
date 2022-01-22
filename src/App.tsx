@@ -24,7 +24,6 @@ const App: FC = () => {
 
     useEffect(() => {
         const token = localStorage.getItem('token');
-
         if (token) {
             setAccessToken(token);
             getMe()
@@ -37,7 +36,6 @@ const App: FC = () => {
                 .finally(() => setLoading(false));
         } else {
             setLoading(false);
-
             if (location.pathname !== Path.authKakao) {
                 navigate(Path.login);
             }
@@ -73,6 +71,5 @@ const AppContainer = styled.main`
         width: 768px;
         min-height: 100vh;
         margin: auto;
-        box-shadow: 1px 0 10px 0 #000808;
     }
 `;

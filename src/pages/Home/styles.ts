@@ -1,35 +1,109 @@
 import styled from '@emotion/styled';
-
+// main by haeun
 export const Container = styled.div`
     display: flex;
+    width: 48rem;
     height: 100vh;
     flex-direction: column;
     justify-content: space-between;
 `;
 
-export const Header = styled.header`
-    padding: 2rem;
-    font-size: 2rem;
-    font-weight: bold;
-    text-align: center;
+export const Main = styled.div`
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    flex-direction: column;
+    overflow-y: scroll;
+
+    .desc {
+        padding-bottom: 3rem;
+        margin-top: 0.75rem;
+        color: rgb(127, 127, 127);
+        font-size: 1rem;
+    }
 `;
 
-export const Main = styled.section`
+export const Header = styled.header`
+    display: flex;
+    height: 5rem;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 2rem;
+    font-weight: bold;
+
+    .myspot-logo {
+        width: 7.75rem;
+        height: 1.8rem;
+    }
+
+    .mypage-img {
+        width: 3.75rem;
+        height: 3.75rem;
+        cursor: pointer;
+    }
+`;
+
+export const WelcomeSection = styled.div`
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding-top: 3rem;
+    font-size: 2rem;
+`;
+
+export const User = styled.div`
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
+    justify-content: space-between;
+    padding-top: 0.5rem;
+    line-height: 3rem;
+
+    b {
+        font-weight: 700;
+    }
+
+    span {
+        font-weight: 200;
+    }
+`;
+
+export const Maps = styled.div`
+    height: 32rem;
+
+    .title-area {
+        display: flex;
+        align-items: center;
+        margin-top: 3.75rem;
+
+        .title {
+            padding-top: 0.3rem;
+            padding-right: 0.75rem;
+            font-size: 1rem;
+        }
+    }
+
+    .map-area {
+        display: flex;
+        padding-top: 0.75rem;
+    }
 `;
 
 export const Footer = styled.footer`
+    position: absolute;
+    z-index: 10;
+    bottom: 1.25rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: 1rem 0;
 `;
-
-export const NewMapButton = styled.button`
-    padding: 1rem 1.5rem;
-    border: none;
-    cursor: pointer;
-    outline: none;
+export const NewBtn = styled.div`
+    display: flex;
+    width: 48rem;
+    height: 3.5rem;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(51, 51, 51);
+    border-radius: 0.5rem;
+    color: #ffffff;
 `;
