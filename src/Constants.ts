@@ -5,11 +5,16 @@ export const BreakPoint = {
     Phone: '@media (max-width: 768px)'
 } as const;
 
+export const Dimension = {
+    MaxWidth: '768px',
+    Phone: '378px'
+} as const;
+
 export const Path = {
     home: '/home',
     login: '/login',
     join: '/join',
     myMap: '/mymap',
     authKakao: '/auth/kakao',
-    mypage: '/mypage'
+    myPage: '/mypage'
 } as const;

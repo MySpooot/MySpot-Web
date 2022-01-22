@@ -1,14 +1,17 @@
 import styled from '@emotion/styled';
+
+import { Dimension } from 'src/Constants';
+
 // main by haeun
 export const Container = styled.div`
     display: flex;
-    width: 48rem;
     height: 100vh;
     flex-direction: column;
     justify-content: space-between;
 `;
 
 export const Main = styled.div`
+    position: relative;
     display: flex;
     width: 100%;
     height: 100vh;
@@ -68,15 +71,12 @@ export const User = styled.div`
 `;
 
 export const Maps = styled.div`
-    height: 32rem;
-
     .title-area {
         display: flex;
         align-items: center;
         margin-top: 3.75rem;
 
         .title {
-            padding-top: 0.3rem;
             padding-right: 0.75rem;
             font-size: 1rem;
         }
@@ -88,22 +88,23 @@ export const Maps = styled.div`
     }
 `;
 
-export const Footer = styled.footer`
-    position: absolute;
-    z-index: 10;
-    bottom: 1.25rem;
+export const FloatingWrapper = styled.div<{ active: boolean }>`
+    position: fixed;
+    bottom: 1rem;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 1rem 0;
+    width: 100%;
+    max-width: ${Dimension.MaxWidth};
+    justify-content: center;
 `;
+
 export const NewBtn = styled.div`
     display: flex;
-    width: 48rem;
+    width: 100%;
     height: 3.5rem;
     align-items: center;
     justify-content: center;
     background-color: rgb(51, 51, 51);
     border-radius: 0.5rem;
     color: #ffffff;
+    cursor: pointer;
 `;

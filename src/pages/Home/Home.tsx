@@ -1,41 +1,53 @@
-import React, { FC, useState, useEffect, useCallback } from 'react';
-import { useRecoilValue } from 'recoil';
+import React, { FC, useState, useEffect, useCallback, Suspense } from 'react';
 import { useNavigate } from 'react-router';
+import { useRecoilValue } from 'recoil';
+import { useQuery } from 'react-query';
 
-// import { Footer } from './styles';
+import { Main, WelcomeSection, User, Container, Header, Maps, FloatingWrapper, NewBtn } from './styles';
+import { Map } from './types';
+// import { getMaps, getRecentMaps } from 'src/api/map';
+import { getMaps } from 'src/api/map';
+import { Path } from 'src/Constants';
 import { meState } from 'src/atoms';
-import Card from 'src/components/HomeMapItem';
+import Card from 'src/components/MapCard';
 import NewMapModal from 'src/components/NewMapModal';
 import Loading from 'src/components/Loading';
-import { Main, WelcomeSection, User, Container, Header, Maps, Footer, NewBtn } from './styles';
 
 const TempMaps = [
-    { id: 1, title: '지도1' },
-    { id: 2, title: '지도2' },
-    { id: 3, title: '지도3' }
+    { id: 1, mapName: '지도1', isPrivate: false },
+    { id: 2, mapName: '지도2', isPrivate: false },
+    { id: 3, mapName: '지도3', isPrivate: false }
 ];
 
 const Home: FC = () => {
+    const navigate = useNavigate();
+
     const me = useRecoilValue(meState);
 
-    const [maps, setMaps] = useState<{ id: number; title: string }[]>();
+    const [recentMaps, setRecentMaps] = useState<Map[]>();
+    const [favoriteMaps, setFavoriteMaps] = useState<Map[]>();
     const [newMapModalOpen, setNewMapModalOpen] = useState(false);
 
-    const navigate = useNavigate();
+    const { data: maps, refetch } = useQuery('getMaps', () => getMaps());
 
     useEffect(() => {
         setTimeout(() => {
-            setMaps(TempMaps);
+            setRecentMaps(TempMaps);
+            setFavoriteMaps(TempMaps);
+            // getRecentMaps().then(setRecentMaps);
         }, 500);
     }, []);
 
+    useEffect(() => {
+        refetch();
+    }, [newMapModalOpen]); // eslint-disable-line react-hooks/exhaustive-deps
+
     const onNewMapClick = useCallback(() => {
-        console.log('onNewMapClick');
         setNewMapModalOpen(open => !open);
     }, []);
 
     const goMyPage = useCallback(() => {
-        navigate('/mypage');
+        navigate(Path.myPage);
     }, [navigate]);
 
     return (
@@ -58,19 +70,20 @@ const Home: FC = () => {
                         <img src='img/icArrowRight.png' width='20' />
                     </div>
                     <div className='map-area'>
-                        {!maps && <Loading />}
-                        {maps?.map((map, idx) => (
-                            <Card key={idx} map={map}></Card>
-                        ))}
+                        <Suspense fallback={<Loading />}>
+                            {maps?.map((map, idx) => (
+                                <Card key={idx} map={map} />
+                            ))}
+                        </Suspense>
                     </div>
                     <div className='title-area'>
                         <span className='title'>즐겨찾기</span>
                         <img src='img/icArrowRight.png' width='20' />
                     </div>
                     <div className='map-area'>
-                        {!maps && <Loading />}
-                        {maps?.map((map, idx) => (
-                            <Card key={idx} map={map}></Card>
+                        {!favoriteMaps && <Loading />}
+                        {favoriteMaps?.map((map, idx) => (
+                            <Card key={idx} map={map} />
                         ))}
                     </div>
                     <div className='title-area'>
@@ -78,16 +91,17 @@ const Home: FC = () => {
                         <img src='img/icArrowRight.png' width='20' />
                     </div>
                     <div className='map-area'>
-                        {!maps && <Loading />}
-                        {maps?.map((map, idx) => (
-                            <Card key={idx} map={map}></Card>
+                        {!recentMaps && <Loading />}
+                        {recentMaps?.map((map, idx) => (
+                            <Card key={idx} map={map} />
                         ))}
                     </div>
                 </Maps>
-                <Footer>
+                <FloatingWrapper active={false}>
                     <NewBtn onClick={onNewMapClick}>NEW MAP +</NewBtn>
-                </Footer>
+                </FloatingWrapper>
             </Main>
+
             <NewMapModal open={newMapModalOpen} setNewMapModalOpen={setNewMapModalOpen} />
         </Container>
     );
