@@ -41,7 +41,8 @@ const Home: FC = () => {
     return (
         <Container>
             <Header>
-                <img className='myspot-logo' src='img/logoMyspot.png'></img>
+                <img className='myspot-logo' src='img/logoMyspot.png' />
+                <img className='mypage-img' src='img/user.png' onClick={goMyPage} />
             </Header>
             <Main>
                 <WelcomeSection>
@@ -49,7 +50,6 @@ const Home: FC = () => {
                         <b>{me?.nickname}님 </b>
                         <span>안녕하세요!</span>
                     </User>
-                    <img className='mypage-img' src='img/user.png' onClick={goMyPage} />
                 </WelcomeSection>
                 <div className='desc'>오늘도 멋진 나만의 지도를 완성해보세요 :)</div>
                 <Maps>
