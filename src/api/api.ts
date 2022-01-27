@@ -1,7 +1,8 @@
 import axios, { AxiosRequestConfig } from 'axios';
 
 const instance = axios.create({
-    baseURL: 'https://nestjs-map.herokuapp.com/',
+    // baseURL: 'https://nestjs-map.herokuapp.com/',
+    baseURL: 'http://localhost:3001/',
     headers: {
         clientVersion: require('../../package.json').version // eslint-disable-line @typescript-eslint/no-var-requires
     }

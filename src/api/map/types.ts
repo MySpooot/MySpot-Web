@@ -1,4 +1,4 @@
-export type GetMapQuery = {
+export type GetMapsQuery = {
     offset?: number;
     limit?: number;
 };
@@ -27,4 +27,13 @@ export type GetUserFavoriteMapsResponse = {
 export type CreateMapBody = {
     mapName: string;
     isPrivate: boolean;
+};
+
+export type GetMapDetailResponse = {
+    isOwner: boolean;
+    userId: number;
+    mapId: number;
+    isPrivate: boolean;
+    mapName: string;
+    accessible: boolean;
 };

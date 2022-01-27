@@ -7,7 +7,7 @@ import { Main, WelcomeSection, User, Container, Header, Maps, FloatingWrapper, N
 import { Map } from './types';
 // import { getMaps, getRecentMaps } from 'src/api/map';
 import { getMaps } from 'src/api/map';
-import { Path } from 'src/Constants';
+import { Path } from '../../Constants';
 import { meState } from 'src/atoms';
 import Card from 'src/components/MapCard';
 import NewMapModal from 'src/components/NewMapModal';

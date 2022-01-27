@@ -1,12 +1,13 @@
 import styled from '@emotion/styled';
-import { HiPlus, HiMinus } from 'react-icons/hi';
 
-// import { BreakPoint } from '@src/Constants';
+import { Palette } from 'src/Constants';
+import Icon from 'src/components/Icon';
 
 export const Container = styled.div`
     display: flex;
     height: 100vh;
     flex-direction: column;
+    position: relative;
 `;
 
 export const Header = styled.div`
@@ -15,6 +16,11 @@ export const Header = styled.div`
     align-items: center;
     justify-content: space-between;
     padding: 0 1.5rem;
+
+    .title {
+        font-size: 0.875rem;
+        font-weight: 500;
+    }
 `;
 
 export const MapContainer = styled.div`
@@ -27,18 +33,44 @@ export const Map = styled.div`
     height: 100%;
 `;
 
-export const ButtonWrapper = styled.div`
+export const HeaderIcon = styled(Icon)`
+    cursor: pointer;
+    width: 2.25rem;
+    height: 2.25rem;
+`;
+
+export const BottomFloatingArea = styled.div<{ isOpen: boolean }>`
     position: absolute;
-    right: 5%;
-    bottom: 5%;
-    display: flex;
-    flex-direction: column;
-`;
+    z-index: 11;
+    bottom: 0;
+    background-color: white;
+    width: 100%;
 
-export const Plus = styled(HiPlus)`
-    cursor: pointer;
-`;
+    .header {
+        flex-direction: column;
+        height: 3.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
 
-export const Minus = styled(HiMinus)`
-    cursor: pointer;
+        .arrow-up {
+            width: 1.125rem;
+            height: 1.125rem;
+            transform: rotate(${({ isOpen }) => (isOpen ? '180deg' : '0')});
+            transition: transform 0.5s;
+        }
+
+        .text {
+            color: ${Palette.Grey[500]};
+            font-size: 0.875rem;
+        }
+    }
+
+    .place-list {
+        transition: height 0.5s;
+        max-height: 800px;
+        height: ${({ isOpen }) => (isOpen ? '25vh' : '0')};
+        overflow-y: hidden;
+    }
 `;

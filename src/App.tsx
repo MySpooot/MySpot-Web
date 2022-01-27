@@ -69,7 +69,7 @@ const App: FC = () => {
 export default App;
 
 const AppContainer = styled.main`
-    width: ${Dimension.MaxWidth};
+    width: ${Dimension.Phone};
     min-height: 100vh;
     margin: auto;
 `;
