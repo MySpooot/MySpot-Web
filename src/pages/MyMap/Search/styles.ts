@@ -5,9 +5,9 @@ import Icon from 'src/components/Icon';
 
 export const Container = styled.div`
     display: flex;
+    height: 100vh;
     flex-direction: column;
     flex-grow: 1;
-    height: 100vh;
 `;
 
 export const Header = styled.header`
@@ -41,17 +41,20 @@ export const Main = styled.main`
     overflow-y: auto;
 
     /* 스크롤바 전체 */
+
     ::-webkit-scrollbar {
-        background-color: ${Palette.Black};
         width: 0.25rem;
+        background-color: ${Palette.Black};
     }
 
     /* 스크롤 막대 */
+
     ::-webkit-scrollbar-thumb {
         background-color: ${Palette.Grey[300]};
     }
 
     /* 스크롤 막대 외부 */
+
     ::-webkit-scrollbar-track {
         background-color: ${Palette.Grey[500]};
     }
@@ -59,9 +62,9 @@ export const Main = styled.main`
 
 export const PlaceItem = styled.div`
     display: flex;
+    align-items: center;
     padding: 1.25rem 1rem;
     border-bottom: 1px solid ${Palette.Grey[300]};
-    align-items: center;
 
     .info {
         display: flex;
@@ -74,22 +77,22 @@ export const PlaceItem = styled.div`
 
         .address {
             margin-top: 0.25rem;
-            font-size: 0.75rem;
             color: ${Palette.Grey[400]};
+            font-size: 0.75rem;
         }
 
         .road-address {
-            margin-top: 0.25rem;
             display: flex;
-            font-size: 0.75rem;
             align-items: center;
+            margin-top: 0.25rem;
+            font-size: 0.75rem;
 
             .label {
-                color: ${Palette.Grey[400]};
-                margin-right: 0.25rem;
-                border-radius: 0.25rem;
                 padding: 0.125rem;
                 border: 1px solid ${Palette.Grey[300]};
+                margin-right: 0.25rem;
+                border-radius: 0.25rem;
+                color: ${Palette.Grey[400]};
             }
         }
 
@@ -101,10 +104,10 @@ export const PlaceItem = styled.div`
     }
 
     .right {
-        background-color: ${Palette.Grey[200]};
         padding: 0.375rem 0.5rem;
-        color: ${Palette.Grey[500]};
+        background-color: ${Palette.Grey[200]};
         border-radius: 0.25rem;
+        color: ${Palette.Grey[500]};
         cursor: pointer;
     }
 `;
