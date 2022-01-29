@@ -1,8 +1,21 @@
 import { request } from 'src/api';
-import { GetMapsQuery, GetMapsResponse, GetRecentMapsResponse, GetUserFavoriteMapsResponse, CreateMapBody, GetMapDetailResponse } from './types';
+import type {
+    GetMapDetailParam,
+    GetMapsQuery,
+    GetMapsResponse,
+    GetRecentMapsResponse,
+    GetFavoriteMapsResponse,
+    CreateMapBody,
+    GetMapDetailResponse,
+    CreateFavoriteMapsParam,
+    DeleteFavoriteMapParam,
+    CreateRecenMapsParam,
+    DeleteRecentMapsParam
+} from './types';
 
-export const getMapDetail = (params: { mapId: number }) => {
-    return request<GetMapDetailResponse>({ method: 'GET', url: `/map/${params.mapId}/detail` });
+// 지도 상세
+export const getMapDetail = ({ mapId }: GetMapDetailParam) => {
+    return request<GetMapDetailResponse>({ method: 'GET', url: `/map/${mapId}/detail` });
 };
 
 // 내 지도
@@ -23,20 +36,20 @@ export const deleteMap = () => {
 export const getRecentMaps = (params?: GetMapsQuery) => {
     return request<GetRecentMapsResponse[]>({ method: 'GET', url: '/map/recent', params });
 };
-export const createRecentMap = (params: { recentMapId: number }) => {
+export const createRecentMap = (params: CreateRecenMapsParam) => {
     return request({ method: 'POST', url: `/map/recent/${params.recentMapId}` });
 };
-export const deleteRecentMap = (params: { recentMapId: number }) => {
+export const deleteRecentMap = (params: DeleteRecentMapsParam) => {
     return request({ method: 'DELETE', url: `/map/recent/${params.recentMapId}` });
 };
 
 // 즐겨찾기 지도
-export const getFavoriteMap = (params?: GetMapsQuery) => {
-    return request<GetUserFavoriteMapsResponse[]>({ method: 'GET', url: '/map/favorite', params });
+export const getFavoriteMap = (query?: GetMapsQuery) => {
+    return request<GetFavoriteMapsResponse[]>({ method: 'GET', url: '/map/favorite', params: query });
 };
-export const createFavoriteMap = (params: { favoriteMapId: number }) => {
-    return request({ method: 'POST', url: `/map/favorite/${params.favoriteMapId}` });
+export const createFavoriteMap = ({ favoriteMapId }: CreateFavoriteMapsParam) => {
+    return request({ method: 'POST', url: `/map/favorite/${favoriteMapId}` });
 };
-export const deleteFavoriteMap = (params: { favoriteMapId: number }) => {
-    return request({ method: 'DELETE', url: `/map/favorite/${params.favoriteMapId}` });
+export const deleteFavoriteMap = ({ favoriteMapId }: DeleteFavoriteMapParam) => {
+    return request({ method: 'DELETE', url: `/map/favorite/${favoriteMapId}` });
 };

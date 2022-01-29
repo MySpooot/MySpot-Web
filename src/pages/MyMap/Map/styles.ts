@@ -4,10 +4,10 @@ import { Palette } from 'src/Constants';
 import Icon from 'src/components/Icon';
 
 export const Container = styled.div`
+    position: relative;
     display: flex;
     height: 100vh;
     flex-direction: column;
-    position: relative;
 `;
 
 export const Header = styled.div`
@@ -34,22 +34,22 @@ export const Map = styled.div`
 `;
 
 export const HeaderIcon = styled(Icon)`
-    cursor: pointer;
     width: 2.25rem;
     height: 2.25rem;
+    cursor: pointer;
 `;
 
 export const BottomFloatingArea = styled.div<{ isOpen: boolean }>`
     position: absolute;
     z-index: 11;
     bottom: 0;
-    background-color: white;
     width: 100%;
+    background-color: white;
 
     .header {
-        flex-direction: column;
-        height: 3.5rem;
         display: flex;
+        height: 3.5rem;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
         cursor: pointer;
@@ -68,9 +68,9 @@ export const BottomFloatingArea = styled.div<{ isOpen: boolean }>`
     }
 
     .place-list {
-        transition: height 0.5s;
-        max-height: 800px;
         height: ${({ isOpen }) => (isOpen ? '25vh' : '0')};
+        max-height: 800px;
         overflow-y: hidden;
+        transition: height 0.5s;
     }
 `;

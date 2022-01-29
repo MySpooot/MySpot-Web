@@ -12,7 +12,8 @@ export const Path = {
     home: '/home',
     login: '/login',
     join: '/join',
-    myMap: '/mymap',
+    myMap: '/map',
+    search: '/search',
     authKakao: '/auth/kakao',
     myPage: '/mypage'
 } as const;

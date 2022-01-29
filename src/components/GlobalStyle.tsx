@@ -131,6 +131,10 @@ const globalStyle = css`
         border-collapse: collapse;
         border-spacing: 0;
     }
+
+    * {
+        font-family: 'Spoqa Han Sans Neo', sans-serif;
+    }
 `;
 
 const GlobalStyle: FC = () => <Global styles={globalStyle} />;
