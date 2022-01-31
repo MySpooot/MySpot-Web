@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { useNavigate } from 'react-router';
 
 import { Card } from './styles';
+import { Path } from 'src/Constants';
 
 interface MapCardProps {
     map: { id: number; mapName: string; isPrivate: boolean };
@@ -12,7 +13,7 @@ const MapCard: FC<MapCardProps> = ({ map }) => {
 
     const onClickItem = () => {
         console.log('onClickMapItem');
-        navigate(`/mymap/${map.id}`);
+        navigate(`${Path.myMap}/${map.id}`);
     };
 
     return (

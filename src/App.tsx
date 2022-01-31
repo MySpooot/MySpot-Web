@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState, lazy, Suspense } from 'react';
-import { Routes, Route, useNavigate } from 'react-router';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import styled from '@emotion/styled';
 
@@ -13,6 +13,8 @@ const Login = lazy(() => import('src/pages/Login'));
 const Join = lazy(() => import('src/pages/Join'));
 const Home = lazy(() => import('src/pages/Home'));
 const MyMap = lazy(() => import('src/pages/MyMap'));
+const Map = lazy(() => import('src/pages/MyMap/Map'));
+const Search = lazy(() => import('src/pages/MyMap/Search'));
 const MyPage = lazy(() => import('src/pages/MyPage'));
 const KakaoLoginCallback = lazy(() => import('src/pages/KakaoLoginCallback'));
 const NotFound = lazy(() => import('src/pages/NotFound'));
@@ -55,7 +57,10 @@ const App: FC = () => {
                     <Route element={<Login />} path={Path.login} />
                     <Route element={<Join />} path={Path.join} />
                     <Route element={<Home />} path={Path.home} />
-                    <Route element={<MyMap />} path={`${Path.myMap}/:mapId`} />
+                    <Route element={<MyMap />} path={Path.myMap}>
+                        <Route element={<Map />} path=':mapId' />
+                        <Route element={<Search />} path={`:mapId${Path.search}`} />
+                    </Route>
                     <Route element={<MyPage />} path={Path.myPage} />
                     <Route element={<KakaoLoginCallback />} path={Path.authKakao} />
 
@@ -69,7 +74,9 @@ const App: FC = () => {
 export default App;
 
 const AppContainer = styled.main`
-    width: ${Dimension.MaxWidth};
+    display: flex;
+    width: ${Dimension.Phone};
     min-height: 100vh;
+    flex-direction: column;
     margin: auto;
 `;
