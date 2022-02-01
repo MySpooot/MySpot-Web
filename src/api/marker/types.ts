@@ -10,6 +10,7 @@ export type GetMarkersResponse = {
     addressId: number;
     address?: string;
     openingHours?: string;
+    isMyLocation: boolean;
 };
 
 export type CreateMarkerParam = {

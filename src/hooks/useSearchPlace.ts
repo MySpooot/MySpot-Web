@@ -32,7 +32,7 @@ const useSearchMap = () => {
                         longitude: place.x,
                         latitude: place.y,
                         addressId: place.id,
-                        adress: place.address_name,
+                        address: place.address_name,
                         roadAddress: place.road_address_name
                         // phone: place.phone,
                         // placeUrl: place.place_url,

@@ -28,10 +28,10 @@ const Login: FC = () => {
     return (
         <Container>
             <LabelArea>
-                <h1>MIND MAP</h1>
+                <h1>My Spot</h1>
                 <h3>나만의 지도를 공유하자</h3>
             </LabelArea>
-            <LoginButton onClick={onKakaoLoginClick}>카카오로 시작하기</LoginButton>
+            <LoginButton onClick={onKakaoLoginClick}>카카오톡으로 3초만에 시작하기</LoginButton>
         </Container>
     );
 };

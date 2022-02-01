@@ -1,16 +1,17 @@
 import React, { FC, useState, useCallback } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
-import { Container, Header, Main, PlaceItem, HeaderIcon } from './styles';
+import { Container, PlaceInput, Main, PlaceItem, HeaderIcon } from './styles';
 import { Path } from 'src/Constants';
 import { createMarker } from 'src/api/marker';
 import useSearchPlace from 'src/hooks/useSearchPlace';
 import useKeyPress from 'src/hooks/useKeyPress';
+import HeaderWithLeftArrow from 'src/components/HeaderWithLeftArrow';
 
 import icSearch from 'src/assets/mymap/ic_search.svg';
-import icArrowLeft from 'src/assets/mymap/ic_arrow_left.svg';
 
 const Search: FC = () => {
+    const navigate = useNavigate();
     const params = useParams<{ mapId: string }>();
 
     const { places, searchPlaces } = useSearchPlace();
@@ -32,15 +33,12 @@ const Search: FC = () => {
 
     return (
         <Container>
-            <Header>
-                <Link to={`${Path.myMap}/${params.mapId}`}>
-                    <HeaderIcon src={icArrowLeft} />
-                </Link>
-                <div className='input-wrapper'>
+            <HeaderWithLeftArrow onLeftArrowClick={() => navigate(`${Path.myMap}/${params.mapId}`)}>
+                <PlaceInput>
                     <input placeholder='검색하실 장소를 입력해 주세요' value={keyword} onChange={event => setKeyword(event.target.value)} />
                     <HeaderIcon src={icSearch} onClick={onSearchClick} />
-                </div>
-            </Header>
+                </PlaceInput>
+            </HeaderWithLeftArrow>
             <Main>
                 {!places && <div>장소를 검색해주세요.</div>}
                 {places?.map(place => (

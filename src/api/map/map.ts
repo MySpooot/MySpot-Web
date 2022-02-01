@@ -1,4 +1,5 @@
 import { request } from 'src/api';
+import { GetPrivateCodeParam, GetPrivateCodeResponse } from '.';
 import type {
     GetMapDetailParam,
     GetMapsQuery,
@@ -52,4 +53,8 @@ export const createFavoriteMap = ({ favoriteMapId }: CreateFavoriteMapsParam) =>
 };
 export const deleteFavoriteMap = ({ favoriteMapId }: DeleteFavoriteMapParam) => {
     return request({ method: 'DELETE', url: `/map/favorite/${favoriteMapId}` });
+};
+
+export const getPrivateCode = ({ mapId }: GetPrivateCodeParam) => {
+    return request<GetPrivateCodeResponse>({ method: 'GET', url: `/map/${mapId}/code` });
 };
