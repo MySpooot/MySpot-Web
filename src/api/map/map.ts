@@ -1,5 +1,4 @@
 import { request } from 'src/api';
-import { GetPrivateCodeParam, GetPrivateCodeResponse } from '.';
 import type {
     GetMapDetailParam,
     GetMapsQuery,
@@ -11,7 +10,9 @@ import type {
     CreateFavoriteMapsParam,
     DeleteFavoriteMapParam,
     CreateRecenMapsParam,
-    DeleteRecentMapsParam
+    DeleteRecentMapsParam,
+    GetPrivateCodeParam,
+    GetPrivateCodeResponse
 } from './types';
 
 // 지도 상세
@@ -57,4 +58,9 @@ export const deleteFavoriteMap = ({ favoriteMapId }: DeleteFavoriteMapParam) => 
 
 export const getPrivateCode = ({ mapId }: GetPrivateCodeParam) => {
     return request<GetPrivateCodeResponse>({ method: 'GET', url: `/map/${mapId}/code` });
+};
+
+// TODO: code check하는 API 완성 후 수정
+export const checkPrivateCode = (param: any) => {
+    return request<any>({ method: 'POST', url: `/map/${param.mapId}/code` });
 };

@@ -1,10 +1,9 @@
 import React, { FC, useState, useEffect, useCallback } from 'react';
-// import {createPortal} from 'react-dom';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { Map as KakaoMap, MapMarker } from 'react-kakao-maps-sdk';
 
 import { Container, MapContainer, BottomFloatingArea, HeaderIcon, FavoriteIcon } from './styles';
-import { createFavoriteMap, deleteFavoriteMap } from 'src/api/map';
+import { createFavoriteMap, deleteFavoriteMap, checkPrivateCode } from 'src/api/map';
 import { getMarkers, GetMarkersResponse } from 'src/api/marker';
 import { Path } from 'src/Constants';
 import { useMapDetailState } from 'src/atoms/mapDetail';
@@ -29,7 +28,8 @@ const Map: FC = () => {
 
     const [markers, setMarkers] = useState<GetMarkersResponse[]>();
 
-    const [accessible, setAccessible] = useState(false);
+    const [mapAccessible, setMapAccessible] = useState(false);
+    const [privateCode, setPrivateCode] = useState('');
     const [isOpenPlaceList, setIsOpenPlaceList] = useState(false);
     const [selectedPlace, setSelectedPlace] = useState<any>();
 
@@ -41,19 +41,25 @@ const Map: FC = () => {
     useEffect(() => {
         if (!mapDetail) return;
 
-        if (mapDetail.isPrivate) {
-            const code = prompt('PrivateMap입니다. 코드를 입력해주세요. (sample: 123)');
-            console.log({ code }); // 초대코드 확인 API 호출로 변경
+        setMapAccessible(mapDetail.accessible);
+    }, [mapDetail]); // eslint-disable-line react-hooks/exhaustive-deps
 
-            if (code !== '123') {
-                alert('잘못된 초대코드입니다');
-                return navigate(Path.home);
-            }
-        }
-        setAccessible(true);
+    useEffect(() => {
+        if (!mapAccessible) return;
 
         getMarkers({ mapId: Number(params.mapId) }).then(setMarkers);
-    }, [mapDetail]); // eslint-disable-line react-hooks/exhaustive-deps
+    }, [mapAccessible]); // eslint-disable-line react-hooks/exhaustive-deps
+
+    // TODO: code check하는 API 완성 후 수정
+    const onPrivateCodeEnterClick = useCallback(() => {
+        checkPrivateCode({ mapId: Number(params.mapId) })
+            .then(() => {
+                setMapAccessible(true);
+            })
+            .catch(() => {
+                setMapAccessible(false);
+            });
+    }, [params]);
 
     const onFavoriteClick = useCallback(() => {
         if (mapDetail?.isFavorite) {
@@ -71,8 +77,15 @@ const Map: FC = () => {
         return <Loading />;
     }
 
-    if (!accessible) {
-        return <div>초대 코드를 입력해주세요.</div>;
+    // TODO: 코드 입력 화면 디자인 나온 후 수정
+    if (!mapAccessible) {
+        return (
+            <div>
+                <h3>PrivateMap입니다. 코드를 입력해주세요. (sample: 123)</h3>
+                <input value={privateCode} onChange={event => setPrivateCode(event.target.value)} />
+                <button onClick={onPrivateCodeEnterClick}>ENTER</button>
+            </div>
+        );
     }
 
     if (!markers) {

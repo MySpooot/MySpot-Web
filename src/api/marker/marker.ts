@@ -1,5 +1,4 @@
-import { request } from '../api';
-
+import { request } from 'src/api';
 import type { GetMarkerParam, GetMarkersResponse, CreateMarkerParam, CreateMarkerBody, DeleteMarkerParam } from './types';
 
 export const getMarkers = async ({ mapId }: GetMarkerParam) => {

@@ -6,10 +6,12 @@ import { useMapDetailState } from 'src/atoms/mapDetail';
 
 const MyMap: FC = () => {
     const params = useParams<{ mapId: string }>();
-    const { setMapDetail } = useMapDetailState();
+    const { setMapDetail, reset } = useMapDetailState();
 
     useEffect(() => {
         getMapDetail({ mapId: Number(params.mapId) }).then(setMapDetail);
+
+        return () => reset();
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     return <Outlet />;

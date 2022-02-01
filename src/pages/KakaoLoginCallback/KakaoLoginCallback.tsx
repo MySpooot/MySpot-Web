@@ -4,7 +4,7 @@ import { useSetRecoilState } from 'recoil';
 import { parse } from 'query-string';
 
 import { Path } from 'src/Constants';
-import { logIn } from 'src/api';
+import { logIn, setAccessToken } from 'src/api';
 import { meState } from 'src/atoms';
 import Loading from 'src/components/Loading';
 
@@ -40,6 +40,7 @@ const KakaoLoginCallback: FC = () => {
 
                     case 1: // Active
                         localStorage.setItem('token', data.token as string);
+                        setAccessToken(data.token!); // eslint-disable-line @typescript-eslint/no-non-null-assertion
                         setMe(data);
                         navigate(Path.home);
                         break;
