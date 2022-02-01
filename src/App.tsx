@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState, lazy, Suspense } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
-import { useSetRecoilState } from 'recoil';
+import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 import styled from '@emotion/styled';
 
 import { Dimension, Path } from './Constants';
@@ -15,15 +15,15 @@ const Home = lazy(() => import('src/pages/Home'));
 const MyMap = lazy(() => import('src/pages/MyMap'));
 const Map = lazy(() => import('src/pages/MyMap/Map'));
 const Search = lazy(() => import('src/pages/MyMap/Search'));
+const Setting = lazy(() => import('src/pages/MyMap/Setting'));
 const MyPage = lazy(() => import('src/pages/MyPage'));
 const KakaoLoginCallback = lazy(() => import('src/pages/KakaoLoginCallback'));
-const NotFound = lazy(() => import('src/pages/NotFound'));
 
 const App: FC = () => {
     const navigate = useNavigate();
 
     const [isLoading, setLoading] = useState(true);
-    const setMe = useSetRecoilState(meState);
+    const [me, setMe] = useRecoilState(meState);
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -60,11 +60,12 @@ const App: FC = () => {
                     <Route element={<MyMap />} path={Path.myMap}>
                         <Route element={<Map />} path=':mapId' />
                         <Route element={<Search />} path={`:mapId${Path.search}`} />
+                        <Route element={<Setting />} path={`:mapId${Path.setting}`} />
                     </Route>
                     <Route element={<MyPage />} path={Path.myPage} />
                     <Route element={<KakaoLoginCallback />} path={Path.authKakao} />
 
-                    <Route element={<NotFound />} path='*' />
+                    <Route element={<Navigate to={me ? Path.home : Path.login} replace />} path='*' />
                 </Routes>
             </Suspense>
         </AppContainer>

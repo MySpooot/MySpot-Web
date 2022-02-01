@@ -10,7 +10,9 @@ import type {
     CreateFavoriteMapsParam,
     DeleteFavoriteMapParam,
     CreateRecenMapsParam,
-    DeleteRecentMapsParam
+    DeleteRecentMapsParam,
+    GetPrivateCodeParam,
+    GetPrivateCodeResponse
 } from './types';
 
 // 지도 상세
@@ -52,4 +54,13 @@ export const createFavoriteMap = ({ favoriteMapId }: CreateFavoriteMapsParam) =>
 };
 export const deleteFavoriteMap = ({ favoriteMapId }: DeleteFavoriteMapParam) => {
     return request({ method: 'DELETE', url: `/map/favorite/${favoriteMapId}` });
+};
+
+export const getPrivateCode = ({ mapId }: GetPrivateCodeParam) => {
+    return request<GetPrivateCodeResponse>({ method: 'GET', url: `/map/${mapId}/code` });
+};
+
+// TODO: code check하는 API 완성 후 수정
+export const checkPrivateCode = (param: any) => {
+    return request<any>({ method: 'POST', url: `/map/${param.mapId}/code` });
 };

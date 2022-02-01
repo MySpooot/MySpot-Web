@@ -1,4 +1,5 @@
-import { request } from './api';
+import { request } from 'src/api';
+import type { GetMeResponse, LogInResponse, UpdateUserNicknameResponse } from './types';
 
 export const getMe = async () => {
     return await request<GetMeResponse>({ method: 'get', url: '/auth/me' });
@@ -15,25 +16,3 @@ export const logOut = () => {
 export const updateUserNickname = async (userId: number, nickname: string) => {
     return await request<UpdateUserNicknameResponse>({ method: 'put', url: `/auth/user/${userId}`, data: { nickname } });
 };
-
-interface GetMeResponse {
-    id: number;
-    nickname: string;
-    thumbnail?: string;
-}
-
-interface LogInResponse {
-    id: number;
-    nickname: string;
-    thumbnail?: string;
-    active?: number;
-    token?: string;
-}
-
-interface UpdateUserNicknameResponse {
-    id: number;
-    nickname: string;
-    thumbnail: string;
-    active: number;
-    token: string;
-}

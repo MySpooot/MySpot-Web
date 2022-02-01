@@ -50,22 +50,17 @@ const Join: FC = () => {
         }
     }, [nickname, setMe, navigate, state]);
 
-    const onCancelClick = useCallback(() => {
-        navigate(Path.login);
-    }, [navigate]);
-
     const onNicknameChange = useCallback((evt: ChangeEvent<HTMLInputElement>) => {
         setNickname(evt.target.value);
     }, []);
 
     return (
         <Container>
-            <h3>JOIN</h3>
+            <h3>가입하기</h3>
             <h5>닉네임을 입력하고 회원가입을 완료하세요</h5>
             <div>
-                <input placeholder='닉네임을 입력해보세요' type='text' value={nickname} onChange={onNicknameChange} />
+                <input placeholder='닉네임을 입력하세요' type='text' value={nickname} onChange={onNicknameChange} />
                 <button onClick={onJoinClick}>회원가입</button>
-                <button onClick={onCancelClick}>취소</button>
             </div>
         </Container>
     );

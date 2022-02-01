@@ -5,11 +5,11 @@ export type GetMapDetailParam = {
 
 export type GetMapDetailResponse = {
     isOwner: boolean;
-    userId: number;
     mapId: number;
     isPrivate: boolean;
     mapName: string;
     accessible: boolean;
+    isFavorite: boolean;
 };
 
 // 내 지도
@@ -60,4 +60,13 @@ export type CreateMapBody = {
 
 export type DeleteFavoriteMapParam = {
     favoriteMapId: number;
+};
+
+// 초대 코드
+export type GetPrivateCodeParam = {
+    mapId: number;
+};
+
+export type GetPrivateCodeResponse = {
+    code: string;
 };

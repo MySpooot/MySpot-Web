@@ -10,29 +10,23 @@ export const Container = styled.div`
     flex-grow: 1;
 `;
 
-export const Header = styled.header`
+export const PlaceInput = styled.div`
     display: flex;
+    flex-grow: 1;
     align-items: center;
-    margin-bottom: 1.25rem;
+    border: 1px solid ${Palette.Grey[300]};
+    margin-right: 1rem;
+    border-radius: 0.25rem;
 
-    .input-wrapper {
-        display: flex;
+    input {
         flex-grow: 1;
-        align-items: center;
-        border: 1px solid ${Palette.Grey[300]};
-        margin-right: 1rem;
-        border-radius: 0.25rem;
+        padding: 0.875rem;
+        border: none;
+        outline: none;
+    }
 
-        input {
-            flex-grow: 1;
-            padding: 0.875rem;
-            border: none;
-            outline: none;
-        }
-
-        .search {
-            cursor: pointer;
-        }
+    .search {
+        cursor: pointer;
     }
 `;
 
@@ -113,8 +107,8 @@ export const PlaceItem = styled.div`
 `;
 
 export const HeaderIcon = styled(Icon)`
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 2.25rem;
+    height: 2.25rem;
     margin: 0.5rem;
     cursor: pointer;
 `;

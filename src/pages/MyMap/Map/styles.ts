@@ -10,19 +10,6 @@ export const Container = styled.div`
     flex-direction: column;
 `;
 
-export const Header = styled.div`
-    display: flex;
-    height: 3rem;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 1.5rem;
-
-    .title {
-        font-size: 0.875rem;
-        font-weight: 500;
-    }
-`;
-
 export const MapContainer = styled.div`
     width: 100%;
     flex-grow: 1;
@@ -73,4 +60,14 @@ export const BottomFloatingArea = styled.div<{ isOpen: boolean }>`
         overflow-y: hidden;
         transition: height 0.5s;
     }
+`;
+
+export const FavoriteIcon = styled(Icon)`
+    position: absolute;
+    z-index: 11;
+    top: 3.5rem;
+    left: 0.5rem;
+    width: 1.875rem;
+    height: 1.875rem;
+    cursor: pointer;
 `;
