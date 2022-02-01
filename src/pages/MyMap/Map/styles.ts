@@ -64,10 +64,10 @@ export const BottomFloatingArea = styled.div<{ isOpen: boolean }>`
 
 export const FavoriteIcon = styled(Icon)`
     position: absolute;
-    width: 1.875rem;
-    height: 1.875rem;
     z-index: 11;
     top: 3.5rem;
     left: 0.5rem;
+    width: 1.875rem;
+    height: 1.875rem;
     cursor: pointer;
 `;

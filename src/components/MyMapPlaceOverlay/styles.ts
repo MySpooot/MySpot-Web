@@ -12,11 +12,11 @@ export const Container = styled.div<{ up: boolean }>`
 `;
 
 export const Wrapper = styled.div`
-    background-color: ${Palette.White};
-    padding: 1rem;
-    box-sizing: border-box;
     width: calc(100% - 2rem);
+    box-sizing: border-box;
+    padding: 1rem;
     margin: 0 1rem;
+    background-color: ${Palette.White};
     border-radius: 0.375rem;
 
     .title {
@@ -27,24 +27,24 @@ export const Wrapper = styled.div`
     }
 
     .address {
+        margin-top: 0.25rem;
         color: ${Palette.Grey[500]};
         font-size: 0.75rem;
-        margin-top: 0.25rem;
     }
 
     .road-address {
         display: flex;
         align-items: center;
+        margin-top: 0.25rem;
         color: ${Palette.Grey[500]};
         font-size: 0.75rem;
-        margin-top: 0.25rem;
 
         .label {
-            border: 1px solid ${Palette.Grey[500]};
             padding: 0 0.25rem;
-            line-height: 130%;
-            border-radius: 0.25rem;
+            border: 1px solid ${Palette.Grey[500]};
             margin-right: 0.25rem;
+            border-radius: 0.25rem;
+            line-height: 130%;
         }
     }
 `;
