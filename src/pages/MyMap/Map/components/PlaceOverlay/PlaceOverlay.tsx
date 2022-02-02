@@ -4,12 +4,12 @@ import { Container, Wrapper, EqRightIcon } from './styles';
 
 import icEqRight from 'src/assets/mymap/ic_eq_right.svg';
 
-type MyMapPlaceOverlayProps = {
+type PlaceOverlayProps = {
     place?: any;
     up: boolean;
 };
 
-const MyMapPlaceOverlay: FC<MyMapPlaceOverlayProps> = ({ place, up }) => {
+const PlaceOverlay: FC<PlaceOverlayProps> = ({ place, up }) => {
     const onPlaceOverlayClick = useCallback(() => {
         window.open(`https://place.map.kakao.com/m/${place.addressId}`);
     }, [place]);
@@ -33,4 +33,4 @@ const MyMapPlaceOverlay: FC<MyMapPlaceOverlayProps> = ({ place, up }) => {
     );
 };
 
-export default MyMapPlaceOverlay;
+export default PlaceOverlay;

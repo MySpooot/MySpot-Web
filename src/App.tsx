@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState, lazy, Suspense } from 'react';
-import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import styled from '@emotion/styled';
 
@@ -20,8 +20,6 @@ const MyPage = lazy(() => import('src/pages/MyPage'));
 const KakaoLoginCallback = lazy(() => import('src/pages/KakaoLoginCallback'));
 
 const App: FC = () => {
-    const navigate = useNavigate();
-
     const [isLoading, setLoading] = useState(true);
     const [me, setMe] = useRecoilState(meState);
 
@@ -39,9 +37,6 @@ const App: FC = () => {
                 .finally(() => setLoading(false));
         } else {
             setLoading(false);
-            if (location.pathname !== Path.authKakao) {
-                navigate(Path.login);
-            }
         }
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -54,15 +49,22 @@ const App: FC = () => {
             <GlobalStyle />
             <Suspense fallback={<Loading />}>
                 <Routes>
-                    <Route element={<Login />} path={Path.login} />
-                    <Route element={<Join />} path={Path.join} />
-                    <Route element={<Home />} path={Path.home} />
+                    {me ? (
+                        <>
+                            <Route element={<Home />} path={Path.home} />
+                            <Route element={<MyPage />} path={Path.myPage} />
+                        </>
+                    ) : (
+                        <>
+                            <Route element={<Login />} path={Path.login} />
+                            <Route element={<Join />} path={Path.join} />
+                        </>
+                    )}
                     <Route element={<MyMap />} path={Path.myMap}>
                         <Route element={<Map />} path=':mapId' />
                         <Route element={<Search />} path={`:mapId${Path.search}`} />
                         <Route element={<Setting />} path={`:mapId${Path.setting}`} />
                     </Route>
-                    <Route element={<MyPage />} path={Path.myPage} />
                     <Route element={<KakaoLoginCallback />} path={Path.authKakao} />
 
                     <Route element={<Navigate to={me ? Path.home : Path.login} replace />} path='*' />

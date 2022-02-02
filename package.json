@@ -1,5 +1,5 @@
 {
-    "name": "Untitled",
+    "name": "myspot",
     "version": "0.1.0",
     "private": true,
     "scripts": {
@@ -58,6 +58,7 @@
         "eslint-plugin-react-hooks": "^4.2.0",
         "postcss-safe-parser": "4.0.2",
         "prettier": "^2.4.1",
+        "react-error-overlay": "6.0.9",
         "stylelint": "^13.13.1",
         "stylelint-config-idiomatic-order": "^8.1.0",
         "stylelint-config-recommended": "^6.0.0",

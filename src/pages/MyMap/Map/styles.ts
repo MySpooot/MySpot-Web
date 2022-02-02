@@ -55,9 +55,9 @@ export const BottomFloatingArea = styled.div<{ isOpen: boolean }>`
     }
 
     .place-list {
-        height: ${({ isOpen }) => (isOpen ? '25vh' : '0')};
-        max-height: 800px;
-        overflow-y: hidden;
+        height: ${({ isOpen }) => (isOpen ? '15rem' : '0')};
+        max-height: 15rem;
+        overflow-y: auto;
         transition: height 0.5s;
     }
 `;

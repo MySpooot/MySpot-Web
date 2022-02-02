@@ -5,12 +5,11 @@ export type GetMarkerParam = {
 export type GetMarkersResponse = {
     id: number;
     name: string;
-    latitude: number;
-    longitude: number;
+    latitude: string;
+    longitude: string;
     addressId: number;
     address?: string;
-    openingHours?: string;
-    isMyLocation: boolean;
+    roadAddress?: string;
 };
 
 export type CreateMarkerParam = {
@@ -22,8 +21,7 @@ export type CreateMarkerBody = {
     latitude: string;
     longitude: string;
     addressId: number;
-    address?: number;
-    openingHours?: string;
+    address?: string;
 };
 
 export type DeleteMarkerParam = {
