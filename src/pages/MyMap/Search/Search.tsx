@@ -3,8 +3,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import { Container, PlaceInput, Main, PlaceItem, HeaderIcon } from './styles';
 import { Path } from 'src/Constants';
+import { useMapDetailState } from 'src/atoms/mapDetail';
 import { createMarker } from 'src/api/marker';
-import useSearchPlace from 'src/hooks/useSearchPlace';
+import useSearchPlace, { PlaceInfo } from 'src/hooks/useSearchPlace';
 import useKeyPress from 'src/hooks/useKeyPress';
 import HeaderWithLeftArrow from 'src/components/HeaderWithLeftArrow';
 
@@ -14,6 +15,7 @@ const Search: FC = () => {
     const navigate = useNavigate();
     const params = useParams<{ mapId: string }>();
 
+    const { mapDetail } = useMapDetailState();
     const { places, searchPlaces } = useSearchPlace();
 
     const [keyword, setKeyword] = useState('');
@@ -23,10 +25,12 @@ const Search: FC = () => {
     }, [searchPlaces, keyword]);
 
     const onAddPlaceClick = useCallback(
-        (place: any) => {
-            createMarker({ mapId: Number(params.mapId) }, place);
+        (place: PlaceInfo) => {
+            if (!mapDetail?.isOwner) return;
+
+            createMarker({ mapId: Number(params.mapId) }, place).then(() => alert('추가되었습니다.'));
         },
-        [params]
+        [params, mapDetail?.isOwner]
     );
 
     useKeyPress('Enter', onSearchClick);
@@ -53,9 +57,11 @@ const Search: FC = () => {
                                 </div>
                             )}
                         </div>
-                        <div className='right' onClick={() => onAddPlaceClick(place)}>
-                            추가
-                        </div>
+                        {mapDetail?.isOwner && (
+                            <div className='right' onClick={() => onAddPlaceClick(place)}>
+                                추가
+                            </div>
+                        )}
                     </PlaceItem>
                 ))}
             </Main>

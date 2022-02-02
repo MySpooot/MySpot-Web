@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
 import { Palette } from 'src/Constants';
-import Icon from '../Icon';
+import Icon from 'src/components/Icon';
 
 export const Container = styled.div<{ up: boolean }>`
     position: absolute;

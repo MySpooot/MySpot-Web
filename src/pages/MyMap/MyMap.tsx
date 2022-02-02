@@ -9,7 +9,9 @@ const MyMap: FC = () => {
     const { setMapDetail, reset } = useMapDetailState();
 
     useEffect(() => {
-        getMapDetail({ mapId: Number(params.mapId) }).then(setMapDetail);
+        getMapDetail({ mapId: Number(params.mapId) })
+            .then(setMapDetail)
+            .catch(err => alert(err));
 
         return () => reset();
     }, []); // eslint-disable-line react-hooks/exhaustive-deps

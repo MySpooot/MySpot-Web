@@ -18,7 +18,7 @@ const Setting: FC = () => {
     useEffect(() => {
         if (!mapDetail?.isPrivate) return;
 
-        getPrivateCode({ mapId: Number(params.mapId) }).then(response => setPrivateCode(response.code));
+        getPrivateCode({ mapId: Number(params.mapId) }).then(({ code }) => setPrivateCode(code));
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
@@ -26,15 +26,14 @@ const Setting: FC = () => {
             <HeaderWithLeftArrow onLeftArrowClick={() => navigate(`${Path.myMap}/${params.mapId}`)}>
                 <div>지도 상세 설정</div>
             </HeaderWithLeftArrow>
-            <CopyToClipboard
-                text={`${window.location.protocol}//${window.location.hostname}${window.location.port ? `:${window.location.port}` : ''}${
-                    window.location.pathname
-                }`}
-                onCopy={() => alert('복사 성공')}
-            >
-                <div style={{ cursor: 'pointer' }}>링크 공유하기</div>
+            <CopyToClipboard text={`${window.location.origin}${window.location.pathname}`} onCopy={() => alert('복사 성공')}>
+                <div css={{ cursor: 'pointer' }}>링크 공유하기</div>
             </CopyToClipboard>
-            {privateCode && <div onClick={() => alert(privateCode)}>초대코드 보기</div>}
+            {privateCode && (
+                <div css={{ cursor: 'pointer' }} onClick={() => alert(privateCode)}>
+                    초대코드 보기
+                </div>
+            )}
         </div>
     );
 };

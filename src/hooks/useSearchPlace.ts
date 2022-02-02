@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 
-type PlaceInfo = {
+export type PlaceInfo = {
     id: number;
     locationName: string;
     longitude: string;

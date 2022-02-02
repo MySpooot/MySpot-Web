@@ -13,7 +13,7 @@ type HeaderWithLeftArrowProps = {
 const HeaderWithLeftArrow: FC<HeaderWithLeftArrowProps> = ({ children, style, onLeftArrowClick }) => {
     return (
         <Container style={style}>
-            <Icon src={icArrowLeft} style={{ cursor: 'pointer', width: '2.25rem', height: '2.25rem' }} onClick={onLeftArrowClick} />
+            <Icon alt='arrowLeft' src={icArrowLeft} style={{ cursor: 'pointer', width: '2.25rem', height: '2.25rem' }} onClick={onLeftArrowClick} />
             {children}
         </Container>
     );

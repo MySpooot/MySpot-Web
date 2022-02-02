@@ -3359,61 +3359,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"Untitled@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "Untitled@workspace:."
-  dependencies:
-    "@craco/craco": ^6.4.2
-    "@emotion/babel-plugin": ^11.3.0
-    "@emotion/babel-preset-css-prop": ^11.2.0
-    "@emotion/react": ^11.5.0
-    "@emotion/styled": ^11.3.0
-    "@stylelint/postcss-css-in-js": ^0.37.2
-    "@swc/helpers": ^0.3.2
-    "@types/jest": ^26.0.15
-    "@types/node": ^12.0.0
-    "@types/react": ^17.0.0
-    "@types/react-copy-to-clipboard": ^5
-    "@types/react-dom": ^17.0.0
-    "@typescript-eslint/eslint-plugin": ^5.2.0
-    "@typescript-eslint/parser": ^5.2.0
-    axios: ^0.24.0
-    craco-swc: ^0.2.0
-    cross-env: ^7.0.3
-    eslint: ^7.11.0
-    eslint-config-prettier: ^8.3.0
-    eslint-import-resolver-alias: ^1.1.2
-    eslint-import-resolver-node: ^0.3.6
-    eslint-import-resolver-typescript: ^2.5.0
-    eslint-plugin-import: ^2.25.2
-    eslint-plugin-prettier: ^4.0.0
-    eslint-plugin-react: ^7.26.1
-    eslint-plugin-react-hooks: ^4.2.0
-    postcss-safe-parser: 4.0.2
-    prettier: ^2.4.1
-    query-string: ^7.0.1
-    react: ^17.0.2
-    react-copy-to-clipboard: ^5.0.4
-    react-dom: ^17.0.2
-    react-icons: ^4.3.1
-    react-kakao-maps-sdk: ^1.0.4
-    react-query: ^3.34.11
-    react-responsive: ^9.0.0-beta.4
-    react-router: ^6.2.1
-    react-router-dom: ^6.2.1
-    react-scripts: 4.0.3
-    recoil: ^0.5.2
-    regenerator-runtime: ^0.13.9
-    src: "link:./src"
-    stylelint: ^13.13.1
-    stylelint-config-idiomatic-order: ^8.1.0
-    stylelint-config-recommended: ^6.0.0
-    stylelint-config-styled-components: ^0.1.1
-    stylelint-order: ^5.0.0
-    typescript: ^4.5.4
-  languageName: unknown
-  linkType: soft
-
 "abab@npm:^2.0.3, abab@npm:^2.0.5":
   version: 2.0.5
   resolution: "abab@npm:2.0.5"
@@ -10953,6 +10898,62 @@ __metadata:
   languageName: node
   linkType: hard
 
+"myspot@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "myspot@workspace:."
+  dependencies:
+    "@craco/craco": ^6.4.2
+    "@emotion/babel-plugin": ^11.3.0
+    "@emotion/babel-preset-css-prop": ^11.2.0
+    "@emotion/react": ^11.5.0
+    "@emotion/styled": ^11.3.0
+    "@stylelint/postcss-css-in-js": ^0.37.2
+    "@swc/helpers": ^0.3.2
+    "@types/jest": ^26.0.15
+    "@types/node": ^12.0.0
+    "@types/react": ^17.0.0
+    "@types/react-copy-to-clipboard": ^5
+    "@types/react-dom": ^17.0.0
+    "@typescript-eslint/eslint-plugin": ^5.2.0
+    "@typescript-eslint/parser": ^5.2.0
+    axios: ^0.24.0
+    craco-swc: ^0.2.0
+    cross-env: ^7.0.3
+    eslint: ^7.11.0
+    eslint-config-prettier: ^8.3.0
+    eslint-import-resolver-alias: ^1.1.2
+    eslint-import-resolver-node: ^0.3.6
+    eslint-import-resolver-typescript: ^2.5.0
+    eslint-plugin-import: ^2.25.2
+    eslint-plugin-prettier: ^4.0.0
+    eslint-plugin-react: ^7.26.1
+    eslint-plugin-react-hooks: ^4.2.0
+    postcss-safe-parser: 4.0.2
+    prettier: ^2.4.1
+    query-string: ^7.0.1
+    react: ^17.0.2
+    react-copy-to-clipboard: ^5.0.4
+    react-dom: ^17.0.2
+    react-error-overlay: 6.0.9
+    react-icons: ^4.3.1
+    react-kakao-maps-sdk: ^1.0.4
+    react-query: ^3.34.11
+    react-responsive: ^9.0.0-beta.4
+    react-router: ^6.2.1
+    react-router-dom: ^6.2.1
+    react-scripts: 4.0.3
+    recoil: ^0.5.2
+    regenerator-runtime: ^0.13.9
+    src: "link:./src"
+    stylelint: ^13.13.1
+    stylelint-config-idiomatic-order: ^8.1.0
+    stylelint-config-recommended: ^6.0.0
+    stylelint-config-styled-components: ^0.1.1
+    stylelint-order: ^5.0.0
+    typescript: ^4.5.4
+  languageName: unknown
+  linkType: soft
+
 "nan@npm:^2.12.1":
   version: 2.15.0
   resolution: "nan@npm:2.15.0"
@@ -13337,6 +13338,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-error-overlay@npm:6.0.9":
+  version: 6.0.9
+  resolution: "react-error-overlay@npm:6.0.9"
+  checksum: 695853bc885e798008a00c10d8d94e5ac91626e8130802fea37345f9c037f41b80104345db2ee87f225feb4a4ef71b0df572b17c378a6d397b6815f6d4a84293
+  languageName: node
+  linkType: hard
+
 "react-error-overlay@npm:^6.0.9":
   version: 6.0.10
   resolution: "react-error-overlay@npm:6.0.10"
@@ -14816,9 +14824,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"src@link:./src::locator=Untitled%40workspace%3A.":
+"src@link:./src::locator=myspot%40workspace%3A.":
   version: 0.0.0-use.local
-  resolution: "src@link:./src::locator=Untitled%40workspace%3A."
+  resolution: "src@link:./src::locator=myspot%40workspace%3A."
   languageName: node
   linkType: soft
 
