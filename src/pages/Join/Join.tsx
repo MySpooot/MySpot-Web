@@ -7,6 +7,7 @@ import { JoinState } from './types';
 import { updateUserNickname } from 'src/api/auth';
 import { Path } from 'src/Constants';
 import { meState } from 'src/atoms';
+import { setAccessToken } from 'src/api';
 
 const Join: FC = () => {
     const navigate = useNavigate();
@@ -42,6 +43,7 @@ const Join: FC = () => {
         try {
             const me = await updateUserNickname(id, nickname);
             localStorage.setItem('token', me.token);
+            setAccessToken(me.token);
             setMe(me);
             navigate(Path.home);
         } catch (err) {
