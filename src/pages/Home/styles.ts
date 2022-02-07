@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 
-import { Dimension } from 'src/Constants';
+import newbtn from 'src/assets/main/btn-plus.svg';
+// import { Dimension } from 'src/Constants';
 
 // main by haeun
 export const Container = styled.div`
@@ -17,7 +18,7 @@ export const Main = styled.div`
     height: 100vh;
     flex-direction: column;
     overflow-y: scroll;
-
+    background-color: #ffffff;
     .desc {
         padding-bottom: 3rem;
         margin-top: 0.75rem;
@@ -26,23 +27,34 @@ export const Main = styled.div`
     }
 `;
 
+export const Top = styled.div`
+    height: 325px;
+    background-color: #008fff;
+    height: fit-content;
+`;
+
 export const Header = styled.header`
     display: flex;
-    height: 5rem;
+    height: 2.9rem;
     align-items: center;
     justify-content: space-between;
-    font-size: 2rem;
-    font-weight: bold;
 
-    .myspot-logo {
-        width: 7.75rem;
-        height: 1.8rem;
+    .myspot-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.33;
+        letter-spacing: 0.16px;
+        color: #fff;
+        margin-left: 0.75rem;
     }
 
     .mypage-img {
-        width: 3.75rem;
-        height: 3.75rem;
+        width: 2rem;
+        height: 2rem;
         cursor: pointer;
+        margin-right: 1.125rem;
     }
 `;
 
@@ -58,33 +70,95 @@ export const User = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding-top: 0.5rem;
-    line-height: 3rem;
+    font-size: 24px;
+    font-weight: 300;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.33;
+    letter-spacing: 0.16px;
+    color: #fff;
+    margin-top: 29px;
+    margin-left: 16px;
+    margin-bottom: 16px;
+`;
+export const RecentMap = styled.div`
+    margin: 34px 16px;
+    .text-bar {
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 0.89;
+        letter-spacing: 0.12px;
+        color: #fff;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 21px;
+        .title {
+            font-size: 18px;
+        }
 
-    b {
-        font-weight: 700;
+        .see-more {
+            font-size: 14px;
+            font-weight: 500;
+        }
     }
-
-    span {
-        font-weight: 200;
+    .map-area {
+        height: fit-content;
+        display: flex;
+        .map-chip {
+            display: flex;
+            align-items: center;
+            height: 30px;
+            width: fit-content;
+            padding-left: 8px;
+            padding-right: 8px;
+            font-size: 14px;
+            font-weight: normal;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: 1.14;
+            letter-spacing: 0.1px;
+            color: #008fff;
+            border-radius: 2px;
+            background-color: #fff;
+            margin-right: 6px;
+            margin-bottom: 6px;
+        }
     }
 `;
-
 export const Maps = styled.div`
+    margin-top: 36px;
+    margin-left: 16px;
+    margin-right: 16px;
     .title-area {
         display: flex;
+        justify-content: space-between;
         align-items: center;
-        margin-top: 3.75rem;
-
+        margin-bottom: 20px;
         .title {
-            padding-right: 0.75rem;
-            font-size: 1rem;
+            font-size: 18px;
+            font-weight: bold;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: 0.89;
+            letter-spacing: 0.12px;
+            color: #000;
+        }
+
+        .see-more {
+            font-size: 14px;
+            font-weight: 500;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: 1.14;
+            letter-spacing: 0.1px;
+            color: #9e9e9e;
         }
     }
 
     .map-area {
         display: flex;
-        padding-top: 0.75rem;
+        flex-direction: column;
     }
 `;
 
@@ -92,19 +166,26 @@ export const FloatingWrapper = styled.div<{ active: boolean }>`
     position: fixed;
     bottom: 1rem;
     display: flex;
-    width: 100%;
-    max-width: ${Dimension.MaxWidth};
     justify-content: center;
+    width: 100vh;
+    max-width: 360px;
+    justify-content: flex-end;
 `;
+// max-width: ${Dimension.MaxWidth};
 
 export const NewBtn = styled.div`
+    width: 54px;
+    height: 54px;
+    background-image: url(${newbtn});
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.11px;
     display: flex;
-    width: 100%;
-    height: 3.5rem;
     align-items: center;
     justify-content: center;
-    background-color: rgb(51, 51, 51);
-    border-radius: 0.5rem;
-    color: #ffffff;
-    cursor: pointer;
+    color: #fff;
 `;
