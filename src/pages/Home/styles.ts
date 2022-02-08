@@ -17,8 +17,9 @@ export const Main = styled.div`
     width: 100%;
     height: 100vh;
     flex-direction: column;
-    overflow-y: scroll;
     background-color: #ffffff;
+    overflow-y: scroll;
+
     .desc {
         padding-bottom: 3rem;
         margin-top: 0.75rem;
@@ -28,9 +29,9 @@ export const Main = styled.div`
 `;
 
 export const Top = styled.div`
-    height: 325px;
-    background-color: #008fff;
     height: fit-content;
+    max-height: 325px;
+    background-color: #008fff;
 `;
 
 export const Header = styled.header`
@@ -40,21 +41,21 @@ export const Header = styled.header`
     justify-content: space-between;
 
     .myspot-title {
+        margin-left: 0.75rem;
+        color: #fff;
         font-size: 1.5rem;
-        font-weight: bold;
         font-stretch: normal;
         font-style: normal;
-        line-height: 1.33;
+        font-weight: bold;
         letter-spacing: 0.16px;
-        color: #fff;
-        margin-left: 0.75rem;
+        line-height: 1.33;
     }
 
     .mypage-img {
         width: 2rem;
         height: 2rem;
-        cursor: pointer;
         margin-right: 1.125rem;
+        cursor: pointer;
     }
 `;
 
@@ -70,93 +71,98 @@ export const User = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    margin-top: 29px;
+    margin-bottom: 16px;
+    margin-left: 16px;
+    color: #fff;
     font-size: 24px;
-    font-weight: 300;
     font-stretch: normal;
     font-style: normal;
-    line-height: 1.33;
+    font-weight: 300;
     letter-spacing: 0.16px;
-    color: #fff;
-    margin-top: 29px;
-    margin-left: 16px;
-    margin-bottom: 16px;
+    line-height: 1.33;
 `;
 export const RecentMap = styled.div`
     margin: 34px 16px;
+
     .text-bar {
-        font-weight: normal;
-        font-stretch: normal;
-        font-style: normal;
-        line-height: 0.89;
-        letter-spacing: 0.12px;
-        color: #fff;
         display: flex;
         justify-content: space-between;
         margin-bottom: 21px;
+        color: #fff;
+        font-stretch: normal;
+        font-style: normal;
+        font-weight: normal;
+        letter-spacing: 0.12px;
+        line-height: 0.89;
+
         .title {
             font-size: 18px;
         }
 
         .see-more {
+            cursor: pointer;
             font-size: 14px;
             font-weight: 500;
-            cursor: pointer;
         }
     }
+
     .map-area {
-        height: fit-content;
         display: flex;
+        height: fit-content;
     }
 `;
 
 export const MapChip = styled.div`
     display: flex;
-    align-items: center;
-    height: 30px;
     width: fit-content;
-    padding-left: 8px;
+    height: 30px;
+    align-items: center;
     padding-right: 8px;
-    font-size: 14px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.14;
-    letter-spacing: 0.1px;
-    color: #008fff;
-    border-radius: 2px;
-    background-color: #fff;
+    padding-left: 8px;
     margin-right: 6px;
     margin-bottom: 6px;
+    background-color: #fff;
+    border-radius: 2px;
+    color: #008fff;
     cursor: pointer;
+    font-size: 14px;
+    font-stretch: normal;
+    font-style: normal;
+    font-weight: normal;
+    letter-spacing: 0.1px;
+    line-height: 1.14;
 `;
 export const Maps = styled.div`
     margin-top: 36px;
-    margin-left: 16px;
     margin-right: 16px;
+    margin-left: 16px;
+
     .title-area {
         display: flex;
-        justify-content: space-between;
         align-items: center;
+        justify-content: space-between;
         margin-bottom: 20px;
+
         .title {
+            color: #000;
             font-size: 18px;
-            font-weight: bold;
             font-stretch: normal;
             font-style: normal;
-            line-height: 0.89;
+            font-weight: bold;
             letter-spacing: 0.12px;
-            color: #000;
+            line-height: 0.89;
         }
 
         .see-more {
-            font-size: 14px;
-            font-weight: 500;
-            font-stretch: normal;
-            font-style: normal;
-            line-height: 1.14;
-            letter-spacing: 0.1px;
             color: #9e9e9e;
             cursor: pointer;
+            font-size: 14px;
+            font-stretch: normal;
+            font-style: normal;
+            font-weight: 500;
+            letter-spacing: 0.1px;
+            line-height: 1.14;
         }
     }
 
@@ -170,7 +176,6 @@ export const FloatingWrapper = styled.div<{ active: boolean }>`
     position: fixed;
     bottom: 1rem;
     display: flex;
-    justify-content: center;
     width: 100vh;
     max-width: 360px;
     justify-content: flex-end;
@@ -178,18 +183,18 @@ export const FloatingWrapper = styled.div<{ active: boolean }>`
 // max-width: ${Dimension.MaxWidth};
 
 export const NewBtn = styled.div`
+    display: flex;
     width: 54px;
     height: 54px;
-    background-image: url(${newbtn});
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 500;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: 0.11px;
-    display: flex;
     align-items: center;
     justify-content: center;
+    background-image: url(${newbtn});
     color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+    font-stretch: normal;
+    font-style: normal;
+    font-weight: 500;
+    letter-spacing: 0.11px;
+    line-height: normal;
 `;

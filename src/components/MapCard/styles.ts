@@ -14,39 +14,41 @@ export const Container = styled.div`
 export const Card = styled.div`
     display: flex;
     height: 60px;
-    border-radius: 4px;
-    border: solid 1px #e8e8e8;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
     padding: 12px;
+    border: solid 1px #e8e8e8;
     margin-bottom: 10px;
+    border-radius: 4px;
 `;
 
 export const CardText = styled.div`
     display: flex;
-    flex-direction: column;
     width: 100%;
     height: 64px;
+    flex-direction: column;
     justify-content: center;
     cursor: pointer;
+
     .map-title {
-        font-size: 14px;
-        font-weight: 500;
-        font-stretch: normal;
-        font-style: normal;
-        line-height: 1.14;
-        letter-spacing: 0.1px;
         color: #333;
-    }
-    .create-date {
-        font-size: 11px;
-        font-weight: 500;
+        font-size: 14px;
         font-stretch: normal;
         font-style: normal;
-        line-height: 1.27;
-        letter-spacing: 0.08px;
-        color: #7f7f7f;
+        font-weight: 500;
+        letter-spacing: 0.1px;
+        line-height: 1.14;
+    }
+
+    .create-date {
         margin: 2px;
+        color: #7f7f7f;
+        font-size: 11px;
+        font-stretch: normal;
+        font-style: normal;
+        font-weight: 500;
+        letter-spacing: 0.08px;
+        line-height: 1.27;
     }
 `;
 
@@ -57,9 +59,9 @@ export const FloatingWrapper = styled.div<{ active: boolean }>`
     display: flex;
     width: 181px;
     height: 48px;
+    background-color: #fff;
     border-radius: 4px;
     box-shadow: 0 1px 5px 0 #d3d3d3;
-    background-color: #fff;
 `;
 
 // const active = false;
@@ -69,45 +71,45 @@ export const UpdateMap = styled.div<{ active: boolean }>`
     display: block;
 
     .vertical-circle {
-        background-image: url(${circles});
         width: 22px;
         height: 22px;
+        background-image: url(${circles});
         cursor: pointer;
-        .see-more {
-            visibility: ${props => (props.active ? 'hidden' : 'visible')};
-            width: 181px;
-            height: 48px;
-            border-radius: 4px;
-            box-shadow: 0 1px 5px 0 #d3d3d3;
-            background-color: #fff;
 
+        .see-more {
             position: absolute;
+            z-index: 1;
             right: 0;
             bottom: -50px;
-            z-index: 1;
-
             display: flex;
+            width: 181px;
+            height: 48px;
             align-items: center;
+            background-color: #fff;
+            border-radius: 4px;
+            box-shadow: 0 1px 5px 0 #d3d3d3;
+            visibility: ${props => (props.active ? 'hidden' : 'visible')};
         }
     }
 `;
 
 export const MapBtn = styled.div`
-    font-size: 16px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1;
-    letter-spacing: 0.11px;
-    color: #000;
     display: flex;
     width: 50%;
-    justify-content: center;
-    align-items: center;
     height: fit-content;
+    align-items: center;
+    justify-content: center;
+    color: #000;
+    font-size: 16px;
+    font-stretch: normal;
+    font-style: normal;
+    font-weight: normal;
+    letter-spacing: 0.11px;
+    line-height: 1;
 
     img {
         margin-right: 10px;
+
         &.ic-share {
             width: 10px;
             height: 16px;
