@@ -16,7 +16,8 @@ export const Path = {
     search: '/search',
     setting: '/setting',
     authKakao: '/auth/kakao',
-    myPage: '/mypage'
+    myPage: '/mypage',
+    mapList: '/maplist'
 } as const;
 
 export const Palette = {

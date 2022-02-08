@@ -100,31 +100,34 @@ export const RecentMap = styled.div`
         .see-more {
             font-size: 14px;
             font-weight: 500;
+            cursor: pointer;
         }
     }
     .map-area {
         height: fit-content;
         display: flex;
-        .map-chip {
-            display: flex;
-            align-items: center;
-            height: 30px;
-            width: fit-content;
-            padding-left: 8px;
-            padding-right: 8px;
-            font-size: 14px;
-            font-weight: normal;
-            font-stretch: normal;
-            font-style: normal;
-            line-height: 1.14;
-            letter-spacing: 0.1px;
-            color: #008fff;
-            border-radius: 2px;
-            background-color: #fff;
-            margin-right: 6px;
-            margin-bottom: 6px;
-        }
     }
+`;
+
+export const MapChip = styled.div`
+    display: flex;
+    align-items: center;
+    height: 30px;
+    width: fit-content;
+    padding-left: 8px;
+    padding-right: 8px;
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.14;
+    letter-spacing: 0.1px;
+    color: #008fff;
+    border-radius: 2px;
+    background-color: #fff;
+    margin-right: 6px;
+    margin-bottom: 6px;
+    cursor: pointer;
 `;
 export const Maps = styled.div`
     margin-top: 36px;
@@ -153,6 +156,7 @@ export const Maps = styled.div`
             line-height: 1.14;
             letter-spacing: 0.1px;
             color: #9e9e9e;
+            cursor: pointer;
         }
     }
 

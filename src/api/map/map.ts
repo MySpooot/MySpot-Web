@@ -30,8 +30,8 @@ export const createMap = (body: CreateMapBody) => {
 export const updateMap = () => {
     return request({ method: 'PUT', url: '/map/mapId' });
 };
-export const deleteMap = () => {
-    return request({ method: 'DELETE', url: '/map/mapId' });
+export const deleteMap = (mapId: number) => {
+    return request({ method: 'DELETE', url: `/map/${mapId}` });
 };
 
 // 최근 지도

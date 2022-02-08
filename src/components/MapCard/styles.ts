@@ -20,6 +20,14 @@ export const Card = styled.div`
     align-items: center;
     padding: 12px;
     margin-bottom: 10px;
+`;
+
+export const CardText = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 64px;
+    justify-content: center;
     cursor: pointer;
     .map-title {
         font-size: 14px;
@@ -54,7 +62,7 @@ export const FloatingWrapper = styled.div<{ active: boolean }>`
     background-color: #fff;
 `;
 
-const active = false;
+// const active = false;
 
 export const UpdateMap = styled.div<{ active: boolean }>`
     position: relative;
@@ -66,7 +74,7 @@ export const UpdateMap = styled.div<{ active: boolean }>`
         height: 22px;
         cursor: pointer;
         .see-more {
-            visibility: ${active ? `hidden` : `visible`};
+            visibility: ${props => (props.active ? 'hidden' : 'visible')};
             width: 181px;
             height: 48px;
             border-radius: 4px;
