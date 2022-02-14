@@ -23,6 +23,7 @@ export type GetMapsResponse = {
     userId: number;
     mapName: string;
     isPrivate: boolean;
+    createdDate: string;
 };
 
 // 최근 지도
@@ -47,6 +48,7 @@ export type GetFavoriteMapsResponse = {
     userId: number;
     mapName: string;
     isPrivate: boolean;
+    createdDate: string;
 };
 
 export type CreateFavoriteMapsParam = {
