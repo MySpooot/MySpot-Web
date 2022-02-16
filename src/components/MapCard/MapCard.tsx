@@ -1,19 +1,21 @@
-import React, { FC, useState, useEffect, useRef } from 'react';
+import React, { FC, useState, useCallback, Dispatch, SetStateAction } from 'react';
 import { useNavigate } from 'react-router';
 
-import { Card, MapBtn, UpdateMap, CardText } from './styles';
+import { Card, MapBtn, UpdateMap, CardText, VerticalDivider } from 'src/components/MapCard/styles';
 import { Path } from 'src/Constants';
 import { deleteMap } from 'src/api/map';
+import Icon from 'src/components/Icon';
 
 import share from 'src/assets/main/ic-share.svg';
 import remove from 'src/assets/main/ic-remove.svg';
 import circles from 'src/assets/main/ic-vertical-circle.svg';
 
 interface MapCardProps {
-    map: { id: number; mapName: string; isPrivate: boolean; createdDate: string };
+    map: { id: number; mapName: string; isPrivate: boolean; created?: number };
+    setIsOpenToolTip: Dispatch<SetStateAction<boolean>>;
 }
 
-const MapCard: FC<MapCardProps> = ({ map }) => {
+const MapCard: FC<MapCardProps> = ({ map, setIsOpenToolTip }) => {
     const navigate = useNavigate();
 
     const [showTooltip, setShowTooltip] = useState(true);
@@ -24,27 +26,39 @@ const MapCard: FC<MapCardProps> = ({ map }) => {
 
     const openTooltip = () => {
         setShowTooltip(!showTooltip);
+        if (showTooltip) {
+            setIsOpenToolTip(true);
+        }
     };
 
-    const deleteItem = (mapId: number) => {
-        console.log(mapId);
-    };
+    const deleteItem = useCallback(async (mapId: number) => {
+        const deleteCheck = confirm('지도를 삭제하시겠습니까?');
+
+        if (deleteCheck) {
+            const result = await deleteMap(mapId);
+            console.log(result);
+            alert('지도가 삭제되었습니다.');
+            //getmap다시 호출
+        } else return;
+    }, []);
 
     return (
         <Card>
             <CardText onClick={onClickItem}>
                 <span className='map-title'>{map.mapName}</span>
-                <span className='create-date'>{map.createdDate}</span>
+                <span className='create-date'>{map.created}</span>
             </CardText>
             <UpdateMap active={showTooltip}>
-                <img className='vertical-circle' src={circles} onClick={openTooltip} />
+                <Icon alt='더보기' className='vertical-circle' src={circles} onClick={openTooltip} />
                 <div className='see-more'>
-                    <MapBtn style={{ borderRightWidth: '1px', borderRightColor: '#e8e8e8', borderRightStyle: 'solid' }}>
-                        <img className='ic-share' src={share}></img>공유
+                    <MapBtn>
+                        <Icon alt='공유' className='ic-share' src={share} />
+                        공유
                     </MapBtn>
-
+                    <VerticalDivider></VerticalDivider>
                     <MapBtn onClick={() => deleteItem(map.id)}>
-                        <img className='ic-remove' src={remove}></img>삭제
+                        <Icon alt='삭제' className='ic-remove' src={remove} />
+                        삭제
                     </MapBtn>
                 </div>
             </UpdateMap>

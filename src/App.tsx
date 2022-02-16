@@ -67,7 +67,7 @@ const App: FC = () => {
                         <Route element={<Setting />} path={`:mapId${Path.setting}`} />
                     </Route>
                     <Route element={<KakaoLoginCallback />} path={Path.authKakao} />
-                    <Route element={<MapList />} path={Path.mapList} />
+                    <Route element={<MapList />} path={`${Path.mapList}`} />
                     <Route element={<Navigate to={me ? Path.home : Path.login} replace />} path='*' />
                 </Routes>
             </Suspense>

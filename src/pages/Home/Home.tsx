@@ -1,12 +1,12 @@
-import React, { FC, useState, useCallback, Suspense } from 'react';
+import React, { FC, useState, useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { useRecoilValue } from 'recoil';
 import { useQuery } from 'react-query';
 
-import { Main, Top, User, Container, Header, Maps, FloatingWrapper, NewBtn, RecentMap, MapChip } from './styles';
-import { Map, mapType } from './types';
+import { Main, Top, User, Container, Header, Maps, FloatingWrapper, NewBtn, RecentMap, MapChip } from 'src/pages/Home/styles';
+import { Map, mapType } from 'src/pages/Home/types';
 import { getMaps, getFavoriteMap, getRecentMaps } from 'src/api/map';
-import { Path } from '../../Constants';
+import { Path } from 'src/Constants';
 import { meState } from 'src/atoms';
 import Card from 'src/components/MapCard';
 import NewMapModal from 'src/components/NewMapModal';
@@ -21,11 +21,9 @@ const Home: FC = () => {
 
     const [newMapModalOpen, setNewMapModalOpen] = useState(false);
 
-    const { data: maps } = useQuery('getMaps', () => getMaps());
-    const { data: favoriteMaps } = useQuery('getFavoriteMap', () => getFavoriteMap());
-    const { data: recentMaps } = useQuery('getRecentMaps', () => getRecentMaps());
-
-    // useEffect(() => {}, [newMapModalOpen]); // eslint-disable-line react-hooks/exhaustive-deps
+    const { data: maps, isLoading: isMapLoading } = useQuery('getMaps', () => getMaps());
+    const { data: favoriteMaps, isLoading: isFavoriteLoading } = useQuery('getFavoriteMap', () => getFavoriteMap());
+    const { data: recentMaps, isLoading: isRecentLoading } = useQuery('getRecentMaps', () => getRecentMaps());
 
     const onNewMapClick = useCallback(() => {
         setNewMapModalOpen(open => !open);
@@ -40,8 +38,14 @@ const Home: FC = () => {
     };
 
     const onClickMoreMap = (type: mapType) => {
-        navigate(Path.mapList, { state: { type } });
+        navigate(`${Path.mapList}?type=${type}`);
     };
+
+    const [isOpenToolTip, setIsOpenToolTip] = useState(false);
+
+    // useEffect(() => {
+    //     console.log('isOpenToolTip ::: ', isOpenToolTip);
+    // }, [isOpenToolTip]);
 
     return (
         <Container>
@@ -62,13 +66,12 @@ const Home: FC = () => {
                             </div>
                         </div>
                         <div className='map-area'>
-                            <Suspense fallback={<Loading />}>
-                                {recentMaps?.map((map, idx) => (
-                                    <MapChip key={idx} className='map-chip' onClick={() => onClickRecentMap(map)}>
-                                        {map.mapName}
-                                    </MapChip>
-                                ))}
-                            </Suspense>
+                            {isRecentLoading && <Loading />}
+                            {recentMaps?.map((map, idx) => (
+                                <MapChip key={idx} onClick={() => onClickRecentMap(map)}>
+                                    {map.mapName}
+                                </MapChip>
+                            ))}
                         </div>
                     </RecentMap>
                 </Top>
@@ -80,11 +83,10 @@ const Home: FC = () => {
                         </span>
                     </div>
                     <div className='map-area'>
-                        <Suspense fallback={<Loading />}>
-                            {maps?.map((map, idx) => (
-                                <Card key={idx} map={map} />
-                            ))}
-                        </Suspense>
+                        {isMapLoading && <Loading />}
+                        {maps?.map((map, idx) => (
+                            <Card key={idx} map={map} setIsOpenToolTip={setIsOpenToolTip} />
+                        ))}
                     </div>
                 </Maps>
                 <Maps>
@@ -95,12 +97,10 @@ const Home: FC = () => {
                         </span>
                     </div>
                     <div className='map-area'>
-                        <Suspense fallback={<Loading />}>
-                            {!favoriteMaps && <Loading />}
-                            {favoriteMaps?.map((map, idx) => (
-                                <Card key={idx} map={map} />
-                            ))}
-                        </Suspense>
+                        {isFavoriteLoading && <Loading />}
+                        {favoriteMaps?.map((map, idx) => (
+                            <Card key={idx} map={map} setIsOpenToolTip={setIsOpenToolTip} />
+                        ))}
                     </div>
                 </Maps>
                 <FloatingWrapper active={false}>
