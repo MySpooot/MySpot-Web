@@ -26,7 +26,7 @@ jobs:
                   key: ${{ runner.OS }}-build-${{ hashFiles('**/yarn.lock') }}
 
             - name: Install Packages
-              run: yarn install
+              run: yarn install --fronzen-lockfile
 
             - name: Check Lint & Stylelint
               run: yarn lint & yarn stylelint

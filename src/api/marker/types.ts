@@ -10,6 +10,9 @@ export type GetMarkersResponse = {
     addressId: number;
     address?: string;
     roadAddress?: string;
+    isMyLocation: boolean;
+    isLike: boolean;
+    likeCount: number;
 };
 
 export type CreateMarkerParam = {

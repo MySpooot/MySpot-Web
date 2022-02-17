@@ -1,8 +1,11 @@
 import React, { FC, useCallback } from 'react';
 
-import { Container, Wrapper, EqRightIcon } from './styles';
+import { Container, Wrapper, EqRightIcon, BookMarkIcon } from './styles';
+import { usePlaceDetail } from 'src/pages/MyMap/Map/atoms';
 
 import icEqRight from 'src/assets/mymap/ic_eq_right.svg';
+import icBookmark from 'src/assets/mymap/ic_bookmark.svg';
+import icMarkedBookmark from 'src/assets/mymap/ic_marked_bookmark.svg';
 
 type PlaceOverlayProps = {
     place?: any;
@@ -10,16 +13,21 @@ type PlaceOverlayProps = {
 };
 
 const PlaceOverlay: FC<PlaceOverlayProps> = ({ place, up }) => {
+    const { setPlaceDetail } = usePlaceDetail();
+
     const onPlaceOverlayClick = useCallback(() => {
-        window.open(`https://place.map.kakao.com/m/${place.addressId}`);
-    }, [place]);
+        setPlaceDetail({ placeId: place.addressId });
+    }, [setPlaceDetail, place]);
 
     return (
         <Container up={up}>
             <Wrapper>
-                <div className='title' onClick={onPlaceOverlayClick}>
-                    <div>{place.name}</div>
-                    <EqRightIcon src={icEqRight} />
+                <div className='title'>
+                    <BookMarkIcon src={place.isMyLocation ? icMarkedBookmark : icBookmark} />
+                    <div style={{ display: 'flex' }} onClick={onPlaceOverlayClick}>
+                        <div>{place.name}</div>
+                        <EqRightIcon src={icEqRight} />
+                    </div>
                 </div>
                 <div className='address'>{place.address}</div>
                 {place.roadAddress && (
