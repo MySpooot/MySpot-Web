@@ -1,8 +1,7 @@
-<svg width="36" height="36" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
     <g fill="none" fill-rule="evenodd">
-        <circle fill="#FFF" cx="18" cy="18" r="18"/>
-        <path d="M30 30H6V6h24z"/>
-        <g transform="translate(11 11)" stroke="#000" stroke-width="2">
+        <path d="M24 24H0V0h24z"/>
+        <g transform="translate(5 5)" stroke="#000" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="m12 11 3 3"/>
             <circle cx="6.5" cy="6.5" r="6.5"/>
         </g>

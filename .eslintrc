@@ -24,7 +24,7 @@
     "rules": {
         "prettier/prettier": "error",
         "import/no-unresolved": "error",
-        "no-unused-vars": "warn",
+        "no-unused-vars": "off",
         "eqeqeq": "warn",
         "react-hooks/rules-of-hooks": "error",
         "react/no-children-prop": "off",

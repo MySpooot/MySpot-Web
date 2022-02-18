@@ -10,6 +10,9 @@ export type GetMarkersResponse = {
     addressId: number;
     address?: string;
     roadAddress?: string;
+    isMyLocation: boolean;
+    isLike: boolean;
+    likeCount: number;
 };
 
 export type CreateMarkerParam = {
@@ -26,4 +29,11 @@ export type CreateMarkerBody = {
 
 export type DeleteMarkerParam = {
     markerId: number;
+};
+
+export type CreateMyLocationBody = {
+    locationName: string;
+    addressId: string;
+    address?: string;
+    roadAddress?: string;
 };

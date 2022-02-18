@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import { Palette } from 'src/Constants';
+import { Palette, ScrollbarStyle } from 'src/Constants';
 import Icon from 'src/components/Icon';
 
 export const Container = styled.div`
@@ -31,27 +31,9 @@ export const PlaceInput = styled.div`
 `;
 
 export const Main = styled.main`
+    ${ScrollbarStyle}
     flex-grow: 1;
     overflow-y: auto;
-
-    /* 스크롤바 전체 */
-
-    ::-webkit-scrollbar {
-        width: 0.25rem;
-        background-color: ${Palette.Black};
-    }
-
-    /* 스크롤 막대 */
-
-    ::-webkit-scrollbar-thumb {
-        background-color: ${Palette.Grey[300]};
-    }
-
-    /* 스크롤 막대 외부 */
-
-    ::-webkit-scrollbar-track {
-        background-color: ${Palette.Grey[500]};
-    }
 `;
 
 export const PlaceItem = styled.div`
