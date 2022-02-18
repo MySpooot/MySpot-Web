@@ -2,7 +2,18 @@ import React, { FC, useCallback } from 'react';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 
-import { Container, PlaceListItem, BookmarkIcon, LeftArea, CenterArea, RightArea } from './styles';
+import {
+    Container,
+    PlaceListItem,
+    BookmarkIcon,
+    LeftArea,
+    CenterArea,
+    RightArea,
+    AddressName,
+    RoadAddress,
+    JibunAddress,
+    DeleteButton
+} from './styles';
 import { getMarkers } from 'src/api/marker';
 import { usePlaceDetail } from 'src/pages/MyMap/Map/atoms';
 import Icon from 'src/components/Icon';
@@ -47,19 +58,19 @@ const BottomFloatingArea: FC<BottomFloatingAreaProps> = ({ open, onPlaceListTogg
                             <BookmarkIcon alt='bookmark' src={marker.isMyLocation ? icMarkedBookmark : icBookmark} onClick={onBookmarkClick} />
                         </LeftArea>
                         <CenterArea>
-                            <div>{marker.name}</div>
+                            <AddressName>{marker.name}</AddressName>
                             <div>
                                 <div className='adress'>
-                                    {marker.address && <div className='jibun-address'>{marker.address}</div>}
-                                    {marker.roadAddress && <div className='road-address'>{marker.roadAddress}</div>}
+                                    {marker.address && <JibunAddress>{marker.address}</JibunAddress>}
+                                    {marker.roadAddress && <RoadAddress>{marker.roadAddress}</RoadAddress>}
                                 </div>
                             </div>
                         </CenterArea>
                         <RightArea>
-                            <div>삭제</div>
-                            <div>
-                                <div>LIKE</div>
-                                <div>COMMENT</div>
+                            <DeleteButton>삭제</DeleteButton>
+                            <div style={{ display: 'flex' }}>
+                                <div>L 11</div>
+                                <div>C 0</div>
                             </div>
                         </RightArea>
                     </PlaceListItem>

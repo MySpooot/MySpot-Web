@@ -30,3 +30,10 @@ export type CreateMarkerBody = {
 export type DeleteMarkerParam = {
     markerId: number;
 };
+
+export type CreateMyLocationBody = {
+    locationName: string;
+    addressId: string;
+    address?: string;
+    roadAddress?: string;
+};
