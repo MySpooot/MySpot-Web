@@ -121,7 +121,7 @@ export const MapChip = styled.div`
     cursor: pointer;
     font-size: 0.875rem;
     letter-spacing: 0.00625rem;
-    line-height: 1.14
+    line-height: 1.14;
 `;
 
 export const Maps = styled.div`

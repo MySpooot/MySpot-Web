@@ -28,6 +28,7 @@
         "react-router": "^6.2.1",
         "react-router-dom": "^6.2.1",
         "react-scripts": "4.0.3",
+        "reactjs-popup": "^2.0.5",
         "recoil": "^0.5.2",
         "regenerator-runtime": "^0.13.9",
         "src": "link:./src"

@@ -6,9 +6,10 @@ import { createMap } from 'src/api/map';
 interface NewMapModalProps {
     open: boolean;
     setNewMapModalOpen: Dispatch<SetStateAction<boolean>>;
+    refetch: any;
 }
 
-const NewMapModal: FC<NewMapModalProps> = ({ open, setNewMapModalOpen }) => {
+const NewMapModal: FC<NewMapModalProps> = ({ open, setNewMapModalOpen, refetch }) => {
     const [mapName, setMapName] = useState('');
     const [isPrivate, setIsPrivate] = useState(false);
 

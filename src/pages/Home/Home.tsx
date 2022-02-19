@@ -1,4 +1,4 @@
-import React, { FC, useState, useCallback, useEffect } from 'react';
+import React, { FC, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router';
 import { useRecoilValue } from 'recoil';
 import { useQuery } from 'react-query';
@@ -21,8 +21,8 @@ const Home: FC = () => {
 
     const [newMapModalOpen, setNewMapModalOpen] = useState(false);
 
-    const { data: maps, isLoading: isMapLoading } = useQuery('getMaps', () => getMaps());
-    const { data: favoriteMaps, isLoading: isFavoriteLoading } = useQuery('getFavoriteMap', () => getFavoriteMap());
+    const { data: maps, isLoading: isMapLoading, refetch: refetchMaps } = useQuery('getMaps', () => getMaps(), { enabled: !newMapModalOpen });
+    const { data: favoriteMaps, isLoading: isFavoriteLoading, refetch: refetchFavorite } = useQuery('getFavoriteMap', () => getFavoriteMap());
     const { data: recentMaps, isLoading: isRecentLoading } = useQuery('getRecentMaps', () => getRecentMaps());
 
     const onNewMapClick = useCallback(() => {
@@ -40,12 +40,6 @@ const Home: FC = () => {
     const onClickMoreMap = (type: mapType) => {
         navigate(`${Path.mapList}?type=${type}`);
     };
-
-    const [isOpenToolTip, setIsOpenToolTip] = useState(false);
-
-    // useEffect(() => {
-    //     console.log('isOpenToolTip ::: ', isOpenToolTip);
-    // }, [isOpenToolTip]);
 
     return (
         <Container>
@@ -85,7 +79,7 @@ const Home: FC = () => {
                     <div className='map-area'>
                         {isMapLoading && <Loading />}
                         {maps?.map((map, idx) => (
-                            <Card key={idx} map={map} setIsOpenToolTip={setIsOpenToolTip} />
+                            <Card key={idx} map={map} refetch={() => refetchMaps()} />
                         ))}
                     </div>
                 </Maps>
@@ -99,7 +93,7 @@ const Home: FC = () => {
                     <div className='map-area'>
                         {isFavoriteLoading && <Loading />}
                         {favoriteMaps?.map((map, idx) => (
-                            <Card key={idx} map={map} setIsOpenToolTip={setIsOpenToolTip} />
+                            <Card key={idx} map={map} refetch={() => refetchFavorite()} />
                         ))}
                     </div>
                 </Maps>
@@ -108,7 +102,7 @@ const Home: FC = () => {
                 </FloatingWrapper>
             </Main>
 
-            <NewMapModal open={newMapModalOpen} setNewMapModalOpen={setNewMapModalOpen} />
+            <NewMapModal open={newMapModalOpen} refetch={() => refetchMaps()} setNewMapModalOpen={setNewMapModalOpen} />
         </Container>
     );
 };

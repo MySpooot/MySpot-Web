@@ -35,7 +35,7 @@ export const CardText = styled.div`
     }
 `;
 
-export const UpdateMap = styled.div<{ active: boolean }>`
+export const UpdateMap = styled.div`
     position: relative;
     display: block;
 
@@ -44,23 +44,18 @@ export const UpdateMap = styled.div<{ active: boolean }>`
         height: 1.375rem;
         cursor: pointer;
     }
-
-    .see-more {
-        position: absolute;
-        z-index: 1;
-        right: 0;
-        bottom: -3.125rem;
-        display: flex;
-        width: 11.25rem;
-        height: 3rem;
-        align-items: center;
-        background-color: #fff;
-        border-radius: 0.25rem;
-        box-shadow: 0 1px 5px 0 #d3d3d3;
-        visibility: ${props => (props.active ? 'hidden' : 'visible')};
-    }
 `;
 
+export const SeeMore = styled.div`
+    display: flex;
+    width: 11.25rem;
+    height: 3rem;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 0.25rem;
+    box-shadow: 0 1px 5px 0 #d3d3d3;
+    cursor: pointer;
+`;
 export const MapBtn = styled.div`
     display: flex;
     width: 50%;
@@ -68,6 +63,7 @@ export const MapBtn = styled.div`
     align-items: center;
     justify-content: center;
     color: #000;
+    cursor: pointer;
     font-size: 1rem;
     letter-spacing: 0.006875rem;
     line-height: 1;
