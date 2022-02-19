@@ -163,7 +163,7 @@ export const FloatingWrapper = styled.div<{ active: boolean }>`
     bottom: 1rem;
     display: flex;
     width: 100%;
-    max-width: calc(${Dimension.Phone} - 2rem);
+    max-width: calc(${Dimension.MaxWidth} - 2rem);
     justify-content: flex-end;
     padding: 1rem;
 `;
