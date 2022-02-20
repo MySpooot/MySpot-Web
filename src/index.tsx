@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import { QueryClientProvider, QueryClient } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
+
 import App from './App';
 
 (() => {
@@ -37,6 +39,7 @@ ReactDOM.render(
                 <RecoilRoot>
                     <App />
                 </RecoilRoot>
+                <ReactQueryDevtools />
             </QueryClientProvider>
         </BrowserRouter>
     </React.StrictMode>,

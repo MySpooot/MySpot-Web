@@ -4,8 +4,8 @@ export const BreakPoint = {
 } as const;
 
 export const Dimension = {
-    MaxWidth: '768px',
-    Phone: '378px'
+    MaxWidth: '450px'
+    // Phone: '378px'
 } as const;
 
 export const Path = {
@@ -52,3 +52,21 @@ export const Palette = {
         a700: '#2962ff'
     }
 };
+
+export const ScrollbarStyle = ` 
+    /* 스크롤바 전체 */
+    ::-webkit-scrollbar {
+        width: 0.25rem;
+        background-color: ${Palette.Grey[500]};
+    }
+
+    /* 스크롤 막대 */
+    ::-webkit-scrollbar-thumb {
+        background-color: ${Palette.Grey[600]};
+    }
+
+    /* 스크롤 막대 외부 */
+    ::-webkit-scrollbar-track {
+        background-color: ${Palette.Grey[300]};
+    }
+`;

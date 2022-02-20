@@ -1,14 +1,15 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
+
+import { Container } from './styles';
+import { usePlaceDetail } from 'src/pages/MyMap/Map/atoms';
 
 const KakaoPlaceIframe: FC = () => {
-    useEffect(() => {
-        // console.log(createPortal);
-    }, []);
+    const { placeDetail } = usePlaceDetail();
+
     return (
-        <></>
-        // <div style={{ height: '100vh' }}>
-        //     <iframe frameBorder='0' height='100%' scrolling='no' src='https://place.map.kakao.com/m/21160754' width='100%'></iframe>
-        // </div>
+        <Container>
+            <iframe frameBorder='0' height='100%' src={`https://place.map.kakao.com/m/${placeDetail?.placeId}`} width='100%' />
+        </Container>
     );
 };
 

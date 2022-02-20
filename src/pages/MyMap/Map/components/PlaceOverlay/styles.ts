@@ -49,6 +49,11 @@ export const Wrapper = styled.div`
     }
 `;
 
+export const BookMarkIcon = styled(Icon)`
+    width: 1.25rem;
+    height: 1.25rem;
+`;
+
 export const EqRightIcon = styled(Icon)`
     width: 1.125rem;
     height: 1.125rem;
