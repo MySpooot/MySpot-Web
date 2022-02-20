@@ -5835,6 +5835,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"dayjs@npm:^1.10.7":
+  version: 1.10.7
+  resolution: "dayjs@npm:1.10.7"
+  checksum: a0a4ca95abaa03d0702161dc2c35d16121188e342f5052b9c61cdf784dab68af766f477c04f87f71c6af666fd4d13db9b9853b87265850d6093b7b04e1bb1cd7
+  languageName: node
+  linkType: hard
+
 "debug@npm:2.6.9, debug@npm:^2.2.0, debug@npm:^2.3.3, debug@npm:^2.6.0, debug@npm:^2.6.9":
   version: 2.6.9
   resolution: "debug@npm:2.6.9"
@@ -10919,6 +10926,7 @@ __metadata:
     axios: ^0.24.0
     craco-swc: ^0.2.0
     cross-env: ^7.0.3
+    dayjs: ^1.10.7
     eslint: ^7.11.0
     eslint-config-prettier: ^8.3.0
     eslint-import-resolver-alias: ^1.1.2
