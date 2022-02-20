@@ -1,7 +1,8 @@
 import React, { FC, useState, useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router';
-import Popup from 'reactjs-popup';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import Popup from 'reactjs-popup';
+import dayjs from 'dayjs';
 
 import { Card, MapBtn, UpdateMap, CardText, VerticalDivider, SeeMore } from 'src/components/MapCard/styles';
 import { Path } from 'src/Constants';
@@ -17,7 +18,7 @@ interface MapCardProps {
     refetch: any;
 }
 
-const MapCard: FC<MapCardProps> = ({ map, refetch }) => {
+const MapCard: FC<MapCardProps> = ({ map }) => {
     const navigate = useNavigate();
 
     const [privateCode, setPrivateCode] = useState<string>();
@@ -33,18 +34,22 @@ const MapCard: FC<MapCardProps> = ({ map, refetch }) => {
             await deleteMap(mapId);
             alert('지도가 삭제되었습니다.');
             //getmap다시 호출
-        } else return;
+        }
     }, []);
 
     useEffect(() => {
         getPrivateCode({ mapId: map.id }).then(({ code }) => setPrivateCode(code));
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+    const dateFilter = date => {
+        return dayjs(date).format('YYYY-MM-DD');
+    };
+
     return (
         <Card>
             <CardText onClick={onClickItem}>
                 <span className='map-title'>{map.mapName}</span>
-                <span className='create-date'>{map.created}</span>
+                <span className='create-date'>{dateFilter(map.created)}</span>
             </CardText>
             <UpdateMap>
                 <Popup
@@ -53,19 +58,29 @@ const MapCard: FC<MapCardProps> = ({ map, refetch }) => {
                     trigger={<Icon alt='더보기' className='vertical-circle' src={circles} />}
                     closeOnDocumentClick
                 >
-                    <SeeMore>
-                        <CopyToClipboard text={`${window.location.origin}${window.location.pathname}`} onCopy={() => alert('복사 성공')}>
-                            <MapBtn>
-                                <Icon alt='공유' className='ic-share' src={share} />
-                                공유
+                    {close => (
+                        <SeeMore>
+                            <CopyToClipboard
+                                text={`${window.location.origin}${window.location.pathname}`}
+                                onCopy={() => alert(`복사 성공 : ${privateCode}`)}
+                            >
+                                <MapBtn>
+                                    <Icon alt='공유' className='ic-share' src={share} />
+                                    공유
+                                </MapBtn>
+                            </CopyToClipboard>
+                            <VerticalDivider></VerticalDivider>
+                            <MapBtn
+                                onClick={() => {
+                                    deleteItem(map.id);
+                                    close();
+                                }}
+                            >
+                                <Icon alt='삭제' className='ic-remove' src={remove} />
+                                삭제
                             </MapBtn>
-                        </CopyToClipboard>
-                        <VerticalDivider></VerticalDivider>
-                        <MapBtn onClick={() => deleteItem(map.id)}>
-                            <Icon alt='삭제' className='ic-remove' src={remove} />
-                            삭제
-                        </MapBtn>
-                    </SeeMore>
+                        </SeeMore>
+                    )}
                 </Popup>
             </UpdateMap>
         </Card>

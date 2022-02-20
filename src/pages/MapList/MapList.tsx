@@ -4,7 +4,6 @@ import { parse } from 'query-string';
 import { useQuery } from 'react-query';
 
 import { Container, TitleTab, Tab, Maps } from 'src/pages/MapList/styles';
-// import { Map } from 'src/pages/MapList/types';
 import HeaderWithLeftArrow from 'src/components/HeaderWithLeftArrow';
 import { getMaps, getRecentMaps, getFavoriteMap } from 'src/api/map';
 import { Path } from 'src/Constants';
@@ -33,8 +32,9 @@ const MapList: FC = () => {
                 return favoriteMaps;
             case 'recent':
                 return recentMaps;
+            default:
+                return maps;
         }
-        // return maps || favoriteMaps || recentMaps;
     }, [maps, favoriteMaps, recentMaps, query.type]);
 
     const fetchData = () => {
@@ -47,6 +47,9 @@ const MapList: FC = () => {
                 return;
             case 'recent':
                 refetchRecentMaps();
+                return;
+            default:
+                refetchMaps();
                 return;
         }
     };

@@ -15,10 +15,6 @@ export const Container = styled.div<{ open: boolean }>`
     background-color: #ffffff;
     overflow-y: hidden;
     transition: height 0.5s;
-
-    ${BreakPoint.PC} {
-        width: calc(768px - 4rem);
-    }
 `;
 
 export const Myspot = styled.div`

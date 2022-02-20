@@ -9,7 +9,7 @@ interface NewMapModalProps {
     refetch: any;
 }
 
-const NewMapModal: FC<NewMapModalProps> = ({ open, setNewMapModalOpen, refetch }) => {
+const NewMapModal: FC<NewMapModalProps> = ({ open, setNewMapModalOpen }) => {
     const [mapName, setMapName] = useState('');
     const [isPrivate, setIsPrivate] = useState(false);
 
@@ -40,7 +40,7 @@ const NewMapModal: FC<NewMapModalProps> = ({ open, setNewMapModalOpen, refetch }
             <Title>지도 생성하기</Title>
             <Desc>나만의 지도를 만들고 공유하세요</Desc>
             <InputArea>
-                <Input placeholder='지도이름을 입력하세요' type='text' onChange={onInputChange} />
+                <Input placeholder='지도이름을 입력하세요' type='text' value={mapName} onChange={onInputChange} />
                 <div>
                     <input checked={isPrivate} type='checkbox' onChange={onCheckboxChange} />
                     <span>프라이빗 지도</span>

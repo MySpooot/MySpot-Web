@@ -162,7 +162,6 @@ export const FloatingWrapper = styled.div<{ active: boolean }>`
     position: fixed;
     bottom: 1rem;
     display: flex;
-    width: 100%;
     max-width: calc(${Dimension.MaxWidth} - 2rem);
     justify-content: flex-end;
     padding: 1rem;
