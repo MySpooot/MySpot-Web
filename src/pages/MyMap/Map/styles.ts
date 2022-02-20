@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import { Palette } from 'src/Constants';
+import { Palette, ScrollbarStyle } from 'src/Constants';
 import Icon from 'src/components/Icon';
 
 export const Container = styled.div`
@@ -21,8 +21,8 @@ export const Map = styled.div`
 `;
 
 export const HeaderIcon = styled(Icon)`
-    width: 2.25rem;
-    height: 2.25rem;
+    width: 1.5rem;
+    height: 1.5rem;
     cursor: pointer;
 `;
 
@@ -55,6 +55,7 @@ export const BottomFloatingArea = styled.div<{ isOpen: boolean }>`
     }
 
     .place-list {
+        ${ScrollbarStyle}
         height: ${({ isOpen }) => (isOpen ? '15rem' : '0')};
         max-height: 15rem;
         overflow-y: auto;

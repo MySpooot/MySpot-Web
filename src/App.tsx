@@ -79,7 +79,7 @@ export default App;
 
 const AppContainer = styled.main`
     display: flex;
-    width: ${Dimension.Phone};
+    width: ${Dimension.MaxWidth};
     min-height: 100vh;
     flex-direction: column;
     margin: auto;
