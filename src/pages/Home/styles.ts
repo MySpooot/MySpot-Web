@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import { Dimension } from 'src/Constants';
+import { Palette, Dimension } from 'src/Constants';
 
 // main by haeun
 export const Container = styled.div`
@@ -16,6 +16,7 @@ export const Main = styled.div`
     width: 100%;
     height: 100vh;
     flex-direction: column;
+    background-color: #ffffff;
     overflow-y: scroll;
 
     .desc {
@@ -26,22 +27,31 @@ export const Main = styled.div`
     }
 `;
 
+export const Top = styled.div`
+    height: fit-content;
+    max-height: 20.3125rem;
+    background-color: #008fff;
+`;
+
 export const Header = styled.header`
     display: flex;
-    height: 5rem;
+    height: 2.9rem;
     align-items: center;
     justify-content: space-between;
-    font-size: 2rem;
-    font-weight: bold;
 
-    .myspot-logo {
-        width: 7.75rem;
-        height: 1.8rem;
+    .myspot-title {
+        margin-left: 0.75rem;
+        color: #fff;
+        font-size: 1.5rem;
+        font-weight: bold;
+        letter-spacing: 0.16px;
+        line-height: 1.33;
     }
 
     .mypage-img {
-        width: 3.75rem;
-        height: 3.75rem;
+        width: 2rem;
+        height: 2rem;
+        margin-right: 1.125rem;
         cursor: pointer;
     }
 `;
@@ -58,33 +68,93 @@ export const User = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding-top: 0.5rem;
-    line-height: 3rem;
-
-    b {
-        font-weight: 700;
-    }
-
-    span {
-        font-weight: 200;
-    }
+    margin-top: 1.8125rem;
+    margin-bottom: 1rem;
+    margin-left: 1rem;
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 300;
+    letter-spacing: 0.01rem;
+    line-height: 1.33;
 `;
+export const RecentMap = styled.div`
+    margin: 2.125rem 1rem;
 
-export const Maps = styled.div`
-    .title-area {
+    .text-bar {
         display: flex;
-        align-items: center;
-        margin-top: 3.75rem;
+        justify-content: space-between;
+        margin-bottom: 1.3125rem;
+        color: #fff;
+        letter-spacing: 0.0075rem;
+        line-height: 0.89;
 
         .title {
-            padding-right: 0.75rem;
-            font-size: 1rem;
+            font-size: 1.125rem;
+        }
+
+        .see-more {
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-weight: 500;
         }
     }
 
     .map-area {
         display: flex;
-        padding-top: 0.75rem;
+        height: fit-content;
+        flex-wrap: wrap;
+    }
+`;
+
+export const MapChip = styled.div`
+    display: flex;
+    width: fit-content;
+    height: 1.875rem;
+    align-items: center;
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+    margin-right: 0.375rem;
+    margin-bottom: 0.375rem;
+    background-color: #fff;
+    border-radius: 0.125rem;
+    color: #008fff;
+    cursor: pointer;
+    font-size: 0.875rem;
+    letter-spacing: 0.00625rem;
+    line-height: 1.14;
+`;
+
+export const Maps = styled.div`
+    margin-top: 2.25rem;
+    margin-right: 1rem;
+    margin-left: 1rem;
+
+    .title-area {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1.25rem;
+
+        .title {
+            color: #000;
+            font-size: 1.125rem;
+            font-weight: bold;
+            letter-spacing: 0.0075rem;
+            line-height: 0.89;
+        }
+
+        .see-more {
+            color: ${Palette.Grey[500]};
+            cursor: pointer;
+            font-size: 0.875rem;
+            letter-spacing: 0.00625rem;
+            line-height: 1.14;
+        }
+    }
+
+    .map-area {
+        display: flex;
+        flex-direction: column;
     }
 `;
 
@@ -92,19 +162,22 @@ export const FloatingWrapper = styled.div<{ active: boolean }>`
     position: fixed;
     bottom: 1rem;
     display: flex;
-    width: 100%;
-    max-width: ${Dimension.MaxWidth};
-    justify-content: center;
+    max-width: calc(${Dimension.MaxWidth} - 2rem);
+    justify-content: flex-end;
+    padding: 1rem;
 `;
 
 export const NewBtn = styled.div`
     display: flex;
-    width: 100%;
-    height: 3.5rem;
+    width: 3.375rem;
+    height: 3.375rem;
     align-items: center;
     justify-content: center;
-    background-color: rgb(51, 51, 51);
-    border-radius: 0.5rem;
-    color: #ffffff;
+    background-color: #008fff;
+    border-radius: 1.875rem;
+    color: #fff;
     cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.006875rem;
 `;

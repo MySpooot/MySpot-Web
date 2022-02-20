@@ -5835,6 +5835,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"dayjs@npm:^1.10.7":
+  version: 1.10.7
+  resolution: "dayjs@npm:1.10.7"
+  checksum: a0a4ca95abaa03d0702161dc2c35d16121188e342f5052b9c61cdf784dab68af766f477c04f87f71c6af666fd4d13db9b9853b87265850d6093b7b04e1bb1cd7
+  languageName: node
+  linkType: hard
+
 "debug@npm:2.6.9, debug@npm:^2.2.0, debug@npm:^2.3.3, debug@npm:^2.6.0, debug@npm:^2.6.9":
   version: 2.6.9
   resolution: "debug@npm:2.6.9"
@@ -10919,6 +10926,7 @@ __metadata:
     axios: ^0.24.0
     craco-swc: ^0.2.0
     cross-env: ^7.0.3
+    dayjs: ^1.10.7
     eslint: ^7.11.0
     eslint-config-prettier: ^8.3.0
     eslint-import-resolver-alias: ^1.1.2
@@ -10942,6 +10950,7 @@ __metadata:
     react-router: ^6.2.1
     react-router-dom: ^6.2.1
     react-scripts: 4.0.3
+    reactjs-popup: ^2.0.5
     recoil: ^0.5.2
     regenerator-runtime: ^0.13.9
     src: "link:./src"
@@ -13535,6 +13544,16 @@ __metadata:
     loose-envify: ^1.1.0
     object-assign: ^4.1.1
   checksum: b254cc17ce3011788330f7bbf383ab653c6848902d7936a87b09d835d091e3f295f7e9dd1597c6daac5dc80f90e778c8230218ba8ad599f74adcc11e33b9d61b
+  languageName: node
+  linkType: hard
+
+"reactjs-popup@npm:^2.0.5":
+  version: 2.0.5
+  resolution: "reactjs-popup@npm:2.0.5"
+  peerDependencies:
+    react: ">=16"
+    react-dom: ">=16"
+  checksum: 7b9ebd49e66fb936e85cd4e7a3713cdf903e95f802e5783963f1f9c000d2f8bdb7e4b9967756677238b2fcd9c07637282f2a037403374931ba42865ffffe60e6
   languageName: node
   linkType: hard
 

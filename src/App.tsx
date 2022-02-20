@@ -17,6 +17,7 @@ const Map = lazy(() => import('src/pages/MyMap/Map'));
 const Search = lazy(() => import('src/pages/MyMap/Search'));
 const Setting = lazy(() => import('src/pages/MyMap/Setting'));
 const MyPage = lazy(() => import('src/pages/MyPage'));
+const MapList = lazy(() => import('src/pages/MapList'));
 const KakaoLoginCallback = lazy(() => import('src/pages/KakaoLoginCallback'));
 
 const App: FC = () => {
@@ -66,7 +67,7 @@ const App: FC = () => {
                         <Route element={<Setting />} path={`:mapId${Path.setting}`} />
                     </Route>
                     <Route element={<KakaoLoginCallback />} path={Path.authKakao} />
-
+                    <Route element={<MapList />} path={Path.mapList} />
                     <Route element={<Navigate to={me ? Path.home : Path.login} replace />} path='*' />
                 </Routes>
             </Suspense>

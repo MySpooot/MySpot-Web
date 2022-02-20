@@ -1,46 +1,29 @@
-import React, { FC, useState, useEffect, useCallback, Suspense } from 'react';
+import React, { FC, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router';
 import { useRecoilValue } from 'recoil';
 import { useQuery } from 'react-query';
 
-import { Main, WelcomeSection, User, Container, Header, Maps, FloatingWrapper, NewBtn } from './styles';
-import { Map } from './types';
-// import { getMaps, getRecentMaps } from 'src/api/map';
-import { getMaps } from 'src/api/map';
-import { Path } from '../../Constants';
+import { Main, Top, User, Container, Header, Maps, FloatingWrapper, NewBtn, RecentMap, MapChip } from 'src/pages/Home/styles';
+import { Map, mapType } from 'src/pages/Home/types';
+import { getMaps, getFavoriteMap, getRecentMaps } from 'src/api/map';
+import { Path } from 'src/Constants';
 import { meState } from 'src/atoms';
 import Card from 'src/components/MapCard';
 import NewMapModal from 'src/components/NewMapModal';
 import Loading from 'src/components/Loading';
 
-const TempMaps = [
-    { id: 1, mapName: '지도1', isPrivate: false },
-    { id: 2, mapName: '지도2', isPrivate: false },
-    { id: 3, mapName: '지도3', isPrivate: false }
-];
+import mypage from 'src/assets/main/btn-mypage.svg';
 
 const Home: FC = () => {
     const navigate = useNavigate();
 
     const me = useRecoilValue(meState);
 
-    const [recentMaps, setRecentMaps] = useState<Map[]>();
-    const [favoriteMaps, setFavoriteMaps] = useState<Map[]>();
     const [newMapModalOpen, setNewMapModalOpen] = useState(false);
 
-    const { data: maps, refetch } = useQuery('getMaps', () => getMaps());
-
-    useEffect(() => {
-        setTimeout(() => {
-            setRecentMaps(TempMaps);
-            setFavoriteMaps(TempMaps);
-            // getRecentMaps().then(setRecentMaps);
-        }, 500);
-    }, []);
-
-    useEffect(() => {
-        refetch();
-    }, [newMapModalOpen]); // eslint-disable-line react-hooks/exhaustive-deps
+    const { data: maps, isLoading: isMapLoading, refetch: refetchMaps } = useQuery('getMaps', () => getMaps(), { enabled: !newMapModalOpen });
+    const { data: favoriteMaps, isLoading: isFavoriteLoading, refetch: refetchFavorite } = useQuery('getFavoriteMap', () => getFavoriteMap());
+    const { data: recentMaps, isLoading: isRecentLoading } = useQuery('getRecentMaps', () => getRecentMaps());
 
     const onNewMapClick = useCallback(() => {
         setNewMapModalOpen(open => !open);
@@ -50,59 +33,76 @@ const Home: FC = () => {
         navigate(Path.myPage);
     }, [navigate]);
 
+    const onClickRecentMap = (map: Map) => {
+        navigate(`${Path.myMap}/${map.id}`);
+    };
+
+    const onClickMoreMap = (type: mapType) => {
+        navigate(`${Path.mapList}?type=${type}`);
+    };
+
     return (
         <Container>
-            <Header>
-                <img className='myspot-logo' src='img/logoMyspot.png' />
-                <img className='mypage-img' src='img/user.png' onClick={goMyPage} />
-            </Header>
             <Main>
-                <WelcomeSection>
-                    <User>
-                        <b>{me?.nickname}님 </b>
-                        <span>안녕하세요!</span>
-                    </User>
-                </WelcomeSection>
-                <div className='desc'>오늘도 멋진 나만의 지도를 완성해보세요 :)</div>
+                <Top>
+                    <Header>
+                        <div className='myspot-title'>my spot</div>
+                        <img className='mypage-img' src={mypage} onClick={goMyPage} />
+                    </Header>
+
+                    <User>{me?.nickname}님 안녕하세요!</User>
+
+                    <RecentMap>
+                        <div className='text-bar'>
+                            <div className='title'>#최근 본 지도</div>
+                            <div className='see-more' onClick={() => onClickMoreMap('recent')}>
+                                더보기
+                            </div>
+                        </div>
+                        <div className='map-area'>
+                            {isRecentLoading && <Loading />}
+                            {recentMaps?.map((map, idx) => (
+                                <MapChip key={idx} onClick={() => onClickRecentMap(map)}>
+                                    {map.mapName}
+                                </MapChip>
+                            ))}
+                        </div>
+                    </RecentMap>
+                </Top>
                 <Maps>
                     <div className='title-area'>
-                        <span className='title'>내 지도</span>
-                        <img src='img/icArrowRight.png' width='20' />
+                        <span className='title'>나의 지도</span>
+                        <span className='see-more' onClick={() => onClickMoreMap('my')}>
+                            더보기
+                        </span>
                     </div>
                     <div className='map-area'>
-                        <Suspense fallback={<Loading />}>
-                            {maps?.map((map, idx) => (
-                                <Card key={idx} map={map} />
-                            ))}
-                        </Suspense>
-                    </div>
-                    <div className='title-area'>
-                        <span className='title'>즐겨찾기</span>
-                        <img src='img/icArrowRight.png' width='20' />
-                    </div>
-                    <div className='map-area'>
-                        {!favoriteMaps && <Loading />}
-                        {favoriteMaps?.map((map, idx) => (
-                            <Card key={idx} map={map} />
+                        {isMapLoading && <Loading />}
+                        {maps?.map((map, idx) => (
+                            <Card key={idx} map={map} refetch={() => refetchMaps()} />
                         ))}
                     </div>
+                </Maps>
+                <Maps>
                     <div className='title-area'>
-                        <span className='title'>최근 본 지도</span>
-                        <img src='img/icArrowRight.png' width='20' />
+                        <span className='title'>즐겨찾는 지도</span>
+                        <span className='see-more' onClick={() => onClickMoreMap('favorite')}>
+                            더보기
+                        </span>
                     </div>
                     <div className='map-area'>
-                        {!recentMaps && <Loading />}
-                        {recentMaps?.map((map, idx) => (
-                            <Card key={idx} map={map} />
+                        {isFavoriteLoading && <Loading />}
+                        {favoriteMaps?.map((map, idx) => (
+                            <Card key={idx} map={map} refetch={() => refetchFavorite()} />
                         ))}
                     </div>
                 </Maps>
                 <FloatingWrapper active={false}>
-                    <NewBtn onClick={onNewMapClick}>NEW MAP +</NewBtn>
+                    <NewBtn onClick={onNewMapClick}>new</NewBtn>
                 </FloatingWrapper>
             </Main>
 
-            <NewMapModal open={newMapModalOpen} setNewMapModalOpen={setNewMapModalOpen} />
+            <NewMapModal open={newMapModalOpen} refetch={() => refetchMaps()} setNewMapModalOpen={setNewMapModalOpen} />
         </Container>
     );
 };

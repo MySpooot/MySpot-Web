@@ -1,11 +1,12 @@
 import React, { useState, useCallback, ChangeEvent, Dispatch, FC, SetStateAction } from 'react';
 
-import { Container, Title, InputArea, Input, ButtonArea, Button } from './styles';
+import { Container, Title, InputArea, Input, ButtonArea, Button, Myspot, Desc } from './styles';
 import { createMap } from 'src/api/map';
 
 interface NewMapModalProps {
     open: boolean;
     setNewMapModalOpen: Dispatch<SetStateAction<boolean>>;
+    refetch: any;
 }
 
 const NewMapModal: FC<NewMapModalProps> = ({ open, setNewMapModalOpen }) => {
@@ -26,6 +27,7 @@ const NewMapModal: FC<NewMapModalProps> = ({ open, setNewMapModalOpen }) => {
     const onCreateClick = useCallback(async () => {
         await createMap({ mapName, isPrivate });
         alert('Success!');
+        setMapName('');
         setNewMapModalOpen(false);
     }, [mapName, isPrivate, setNewMapModalOpen]);
 
@@ -34,18 +36,19 @@ const NewMapModal: FC<NewMapModalProps> = ({ open, setNewMapModalOpen }) => {
     };
     return (
         <Container open={open}>
-            <Title>NEW MAP</Title>
+            <Myspot>my spot</Myspot>
+            <Title>지도 생성하기</Title>
+            <Desc>나만의 지도를 만들고 공유하세요</Desc>
             <InputArea>
-                <div>map name</div>
-                <Input type='text' onChange={onInputChange} />
+                <Input placeholder='지도이름을 입력하세요' type='text' value={mapName} onChange={onInputChange} />
                 <div>
                     <input checked={isPrivate} type='checkbox' onChange={onCheckboxChange} />
-                    <span>isPrivate</span>
+                    <span>프라이빗 지도</span>
                 </div>
             </InputArea>
             <ButtonArea>
-                <Button onClick={onCancelClick}>CANCEL</Button>
-                <Button onClick={onCreateClick}>CREATE</Button>
+                <Button onClick={onCancelClick}>취소</Button>
+                <Button onClick={onCreateClick}>생성</Button>
             </ButtonArea>
         </Container>
     );
