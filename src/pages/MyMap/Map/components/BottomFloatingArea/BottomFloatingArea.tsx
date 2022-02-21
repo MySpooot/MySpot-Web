@@ -129,11 +129,11 @@ const BottomFloatingArea: FC<BottomFloatingAreaProps> = ({ open, onPlaceListTogg
                             <DeleteButton>삭제</DeleteButton>
                             <ButtonArea>
                                 <div onClick={onLikeClick}>
-                                    <Icon alt='like' />
-                                    <span>0</span>
+                                    <Icon alt='like' src={icArrowUp} />
+                                    <span>{marker.likeCount}</span>
                                 </div>
                                 <div onClick={onCommentClick}>
-                                    <Icon alt='comment' />
+                                    <Icon alt='comment' src={icArrowUp} />
                                     <span>0</span>
                                 </div>
                             </ButtonArea>
