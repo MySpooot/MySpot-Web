@@ -1,5 +1,5 @@
-import React, { FC, useCallback } from 'react';
-import { useQuery } from 'react-query';
+import React, { FC, MouseEvent, useCallback } from 'react';
+import { useMutation, useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 
 import {
@@ -12,11 +12,14 @@ import {
     AddressName,
     RoadAddress,
     JibunAddress,
-    DeleteButton
+    DeleteButton,
+    ButtonArea
 } from './styles';
-import { getMarkers } from 'src/api/marker';
+import { createMyLocation, deleteMyLocation } from 'src/api/marker';
 import { usePlaceDetail } from 'src/pages/MyMap/Map/atoms';
 import Icon from 'src/components/Icon';
+import { useMapPlaceOverlayState } from 'src/atoms/mapPlaceOverlay';
+import { queryClient } from '../../../../..';
 
 import icArrowUp from 'src/assets/mymap/ic_arrow_up.svg';
 import icBookmark from 'src/assets/mymap/ic_bookmark.svg';
@@ -31,18 +34,70 @@ const BottomFloatingArea: FC<BottomFloatingAreaProps> = ({ open, onPlaceListTogg
     const { mapId } = useParams<{ mapId: string }>();
 
     const { setPlaceDetail } = usePlaceDetail();
+    const { setMapPlaceOverlay } = useMapPlaceOverlayState();
 
-    const { data: markers } = useQuery(['getMarkers', mapId], () => getMarkers({ mapId: Number(mapId) }));
+    const { data: markers } = useQuery<any>(['getMarkers', mapId]);
+
+    const { mutate: fetchCreateMyLocation, isLoading: isCreatMyLocationLoading } = useMutation(createMyLocation, {
+        onMutate: ({ addressId }) => {
+            setMapPlaceOverlay(value => (value ? { ...value, isMyLocation: true } : undefined));
+            queryClient.setQueryData<any>(['getMarkers', mapId], prev => {
+                return prev.map(data => {
+                    if (data.addressId === addressId) {
+                        return { ...data, isMyLocation: true };
+                    }
+                    return data;
+                });
+            });
+        }
+    });
+    const { mutate: fetchDeleteMyLocation, isLoading: isDeleteMyLocationLoading } = useMutation(deleteMyLocation, {
+        onMutate: ({ addressId }) => {
+            setMapPlaceOverlay(value => (value ? { ...value, isMyLocation: false } : undefined));
+            queryClient.setQueryData<any>(['getMarkers', mapId], prev => {
+                return prev.map(data => {
+                    if (data.addressId === addressId) {
+                        return { ...data, isMyLocation: false };
+                    }
+                    return data;
+                });
+            });
+        }
+    });
 
     const onPlaceClick = useCallback(
-        (place: any) => {
-            setPlaceDetail({ placeId: place.addressId });
+        (addressId: number) => {
+            setPlaceDetail({ placeId: addressId });
         },
         [setPlaceDetail]
     );
 
-    const onBookmarkClick = useCallback(() => {
-        console.log();
+    const onBookmarkClick = useCallback(
+        (event: MouseEvent<HTMLImageElement>, place: any) => {
+            event.stopPropagation();
+
+            if (isCreatMyLocationLoading || isDeleteMyLocationLoading) return;
+
+            if (place.isMyLocation) {
+                fetchDeleteMyLocation({ addressId: place.addressId });
+            } else {
+                fetchCreateMyLocation({
+                    addressId: place.addressId,
+                    locationName: place.name,
+                    address: place.address,
+                    roadAddress: place.roadAddress
+                });
+            }
+        },
+        [isCreatMyLocationLoading, isDeleteMyLocationLoading, fetchDeleteMyLocation, fetchCreateMyLocation]
+    );
+
+    const onLikeClick = useCallback(() => {
+        console.log('onLikeClick');
+    }, []);
+
+    const onCommentClick = useCallback(() => {
+        console.log('onCommentClick');
     }, []);
 
     return (
@@ -53,9 +108,13 @@ const BottomFloatingArea: FC<BottomFloatingAreaProps> = ({ open, onPlaceListTogg
             </div>
             <ul className='place-list'>
                 {markers?.map(marker => (
-                    <PlaceListItem key={marker.id} onClick={() => onPlaceClick(marker)}>
+                    <PlaceListItem key={marker.id} onClick={() => onPlaceClick(marker.addressId)}>
                         <LeftArea>
-                            <BookmarkIcon alt='bookmark' src={marker.isMyLocation ? icMarkedBookmark : icBookmark} onClick={onBookmarkClick} />
+                            <BookmarkIcon
+                                alt='bookmark'
+                                src={marker.isMyLocation ? icMarkedBookmark : icBookmark}
+                                onClick={event => onBookmarkClick(event, marker)}
+                            />
                         </LeftArea>
                         <CenterArea>
                             <AddressName>{marker.name}</AddressName>
@@ -68,10 +127,16 @@ const BottomFloatingArea: FC<BottomFloatingAreaProps> = ({ open, onPlaceListTogg
                         </CenterArea>
                         <RightArea>
                             <DeleteButton>삭제</DeleteButton>
-                            <div style={{ display: 'flex' }}>
-                                <div>L 11</div>
-                                <div>C 0</div>
-                            </div>
+                            <ButtonArea>
+                                <div onClick={onLikeClick}>
+                                    <Icon alt='like' />
+                                    <span>0</span>
+                                </div>
+                                <div onClick={onCommentClick}>
+                                    <Icon alt='comment' />
+                                    <span>0</span>
+                                </div>
+                            </ButtonArea>
                         </RightArea>
                     </PlaceListItem>
                 ))}

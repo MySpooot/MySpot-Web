@@ -10,6 +10,7 @@ export const Container = styled.div<{ isOpen: boolean }>`
     width: 100%;
     background-color: white;
     border-radius: 0.5rem 0.5rem 0 0;
+    box-shadow: 0 -2px 4px 0 rgba(158, 158, 158, 0.2);
 
     .header {
         display: flex;
@@ -43,7 +44,7 @@ export const Container = styled.div<{ isOpen: boolean }>`
 
 export const PlaceListItem = styled.li`
     display: flex;
-    height: 5rem;
+    height: 3.5rem;
     padding: 1.25rem 0;
     border-bottom: 0.375rem solid ${Palette.Grey[200]};
     cursor: pointer;
@@ -59,11 +60,13 @@ export const AddressName = styled.h3`
 `;
 
 export const JibunAddress = styled.div`
+    margin-top: 0.25rem;
     color: #7f7f7f;
     font-size: 0.75rem;
 `;
 
 export const RoadAddress = styled.div`
+    margin-top: 0.25rem;
     color: #7f7f7f;
     font-size: 0.75rem;
 `;
@@ -81,7 +84,7 @@ export const CenterArea = styled.div`
 export const RightArea = styled.div`
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-evenly;
     margin: 0 0.875rem;
 `;
 
@@ -98,4 +101,13 @@ export const DeleteButton = styled.button`
     border-radius: 0.25rem;
     color: #9e9e9e;
     outline: none;
+    pointer: cursor;
+`;
+
+export const ButtonArea = styled.div`
+    display: flex;
+
+    & > div {
+        display: flex;
+    }
 `;
