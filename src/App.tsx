@@ -79,7 +79,8 @@ export default App;
 
 const AppContainer = styled.main`
     display: flex;
-    width: ${Dimension.MaxWidth};
+    width: 100%;
+    max-width: ${Dimension.MaxWidth};
     min-height: 100vh;
     flex-direction: column;
     margin: auto;

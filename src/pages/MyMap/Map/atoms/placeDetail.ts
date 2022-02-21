@@ -1,6 +1,6 @@
 import { atom, useRecoilState } from 'recoil';
 
-export const placeDetailState = atom<undefined | { placeId: string }>({
+export const placeDetailState = atom<undefined | { placeId: number }>({
     key: 'placeDetail',
     default: undefined
 });

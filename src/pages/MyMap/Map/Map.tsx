@@ -6,13 +6,13 @@ import { Map as KakaoMap, MapMarker } from 'react-kakao-maps-sdk';
 
 import { Container, MapContainer, HeaderIcon, FavoriteIcon } from './styles';
 import { createRecentMap, createFavoriteMap, deleteFavoriteMap } from 'src/api/map';
-import { getMarkers, GetMarkersResponse } from 'src/api/marker';
+import { getMarkers } from 'src/api/marker';
 import { Path } from 'src/Constants';
 import { meState } from 'src/atoms';
 import { usePlaceDetail } from './atoms';
+import { useMapPlaceOverlayState } from 'src/atoms/mapPlaceOverlay';
 import { useMapDetailState } from 'src/atoms/mapDetail';
 import useKeyPress from 'src/hooks/useKeyPress';
-// import useQueryString from 'src/hooks/useQueryString';
 import HeaderWithLeftArrow from 'src/components/HeaderWithLeftArrow';
 import MyMapPlaceOverlay from './components/PlaceOverlay';
 import PrivateCodeModal from './components/PrivateCodeModal';
@@ -33,17 +33,17 @@ const Map: FC = () => {
 
     const { mapDetail, setMapDetail } = useMapDetailState();
     const { placeDetail } = usePlaceDetail();
+    const { mapPlaceOverlay, setMapPlaceOverlay } = useMapPlaceOverlayState();
     const me = useRecoilValue(meState);
 
     const [mapAccessible, setMapAccessible] = useState(false);
     const [isOpenPlaceList, setIsOpenPlaceList] = useState(false);
-    const [selectedPlace, setSelectedPlace] = useState<GetMarkersResponse>();
 
     const { data: markers } = useQuery(['getMarkers', mapId], () => getMarkers({ mapId: Number(mapId) }), { enabled: mapAccessible });
     useQuery('createRecentMap', () => createRecentMap({ recentMapId: Number(mapId) }), { enabled: !!me && mapAccessible });
 
     useKeyPress('Escape', () => {
-        setSelectedPlace(undefined);
+        setMapPlaceOverlay(undefined);
         setIsOpenPlaceList(false);
     });
 
@@ -52,12 +52,12 @@ const Map: FC = () => {
             return { level: 5, latitude: 37.516, longitude: 127.13 };
         }
 
-        if (selectedPlace) {
-            return { level: 5, latitude: Number(selectedPlace.latitude), longitude: Number(selectedPlace.longitude) };
+        if (mapPlaceOverlay) {
+            return { level: 5, latitude: Number(mapPlaceOverlay.latitude), longitude: Number(mapPlaceOverlay.longitude) };
         }
 
         return { level: 5, latitude: Number(markers[0].latitude), longitude: Number(markers[0].longitude) };
-    }, [markers, selectedPlace]);
+    }, [markers, mapPlaceOverlay]);
 
     useEffect(() => {
         if (!mapDetail) return;
@@ -81,11 +81,11 @@ const Map: FC = () => {
 
     const onPlaceListToggle = useCallback(() => {
         if (!isOpenPlaceList) {
-            setSelectedPlace(undefined);
+            setMapPlaceOverlay(undefined);
         }
 
         setIsOpenPlaceList(open => !open);
-    }, [isOpenPlaceList]);
+    }, [isOpenPlaceList, setMapPlaceOverlay]);
 
     if (!mapDetail) {
         return <Loading />;
@@ -102,7 +102,7 @@ const Map: FC = () => {
                                 <HeaderIcon alt='search' src={icSearch} />
                             </Link>
                             <Link to={`${Path.myMap}/${mapId}/setting`}>
-                                <HeaderIcon alt='setting' src={icSetting} />
+                                <HeaderIcon alt='setting' src={icSetting} style={{ marginLeft: '0.5rem' }} />
                             </Link>
                         </div>
                     </HeaderWithLeftArrow>
@@ -112,15 +112,15 @@ const Map: FC = () => {
                             level={centerLocation.level}
                             style={{ width: '100%', height: '100%' }}
                         >
-                            {markers.map(marker => (
+                            {markers.map((marker, index) => (
                                 <MapMarker
                                     key={marker.id}
                                     image={{ src: marker.isMyLocation ? icMarkedMarker : icMarker, size: { height: 40, width: 30 } }}
                                     position={{ lat: Number(marker.latitude), lng: Number(marker.longitude) }}
-                                    onClick={() => setSelectedPlace(marker)}
+                                    onClick={() => setMapPlaceOverlay(markers[index])}
                                 />
                             ))}
-                            {selectedPlace && <MyMapPlaceOverlay place={selectedPlace} up={isOpenPlaceList} />}
+                            {mapPlaceOverlay && <MyMapPlaceOverlay up={isOpenPlaceList} />}
                             <BottomFloatingArea open={isOpenPlaceList} onPlaceListToggle={onPlaceListToggle} />
                         </KakaoMap>
                         <FavoriteIcon alt='favorite' src={mapDetail.isFavorite ? icFavoriteOn : ''} onClick={onFavoriteClick} />

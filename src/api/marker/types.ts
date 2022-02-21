@@ -33,7 +33,11 @@ export type DeleteMarkerParam = {
 
 export type CreateMyLocationBody = {
     locationName: string;
-    addressId: string;
+    addressId: number;
     address?: string;
     roadAddress?: string;
+};
+
+export type DeleteMyLocationParam = {
+    addressId: number;
 };

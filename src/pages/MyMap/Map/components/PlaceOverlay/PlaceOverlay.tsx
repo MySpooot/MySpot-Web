@@ -1,44 +1,98 @@
-import React, { FC, useCallback } from 'react';
+import React, { FC, MouseEvent, useCallback } from 'react';
+import { useParams } from 'react-router-dom';
+import { useMutation } from 'react-query';
 
 import { Container, Wrapper, EqRightIcon, BookMarkIcon } from './styles';
 import { usePlaceDetail } from 'src/pages/MyMap/Map/atoms';
+import { useMapPlaceOverlayState } from 'src/atoms/mapPlaceOverlay';
+import { queryClient } from '../../../../..';
 
 import icEqRight from 'src/assets/mymap/ic_eq_right.svg';
 import icBookmark from 'src/assets/mymap/ic_bookmark.svg';
 import icMarkedBookmark from 'src/assets/mymap/ic_marked_bookmark.svg';
-import { createMyLocation } from 'src/api/marker';
+import { createMyLocation, deleteMyLocation } from 'src/api/marker';
 
 type PlaceOverlayProps = {
-    place?: any;
     up: boolean;
 };
 
-const PlaceOverlay: FC<PlaceOverlayProps> = ({ place, up }) => {
+const PlaceOverlay: FC<PlaceOverlayProps> = ({ up }) => {
+    const { mapId } = useParams<{ mapId: string }>();
     const { setPlaceDetail } = usePlaceDetail();
+    const { mapPlaceOverlay, setMapPlaceOverlay } = useMapPlaceOverlayState();
+
+    const { mutate: fetchCreateMyLocation, isLoading: isCreatMyLocationLoading } = useMutation(createMyLocation, {
+        onMutate: () => {
+            setMapPlaceOverlay(value => (value ? { ...value, isMyLocation: true } : undefined));
+            queryClient.setQueryData<any>(['getMarkers', mapId], prev => {
+                return prev.map(data => {
+                    if (data.addressId === mapPlaceOverlay?.addressId) {
+                        return { ...data, isMyLocation: true };
+                    }
+                    return data;
+                });
+            });
+        }
+    });
+    const { mutate: fetchDeleteMyLocation, isLoading: isDeleteMyLocationLoading } = useMutation(deleteMyLocation, {
+        onMutate: () => {
+            setMapPlaceOverlay(value => (value ? { ...value, isMyLocation: false } : undefined));
+            queryClient.setQueryData<any>(['getMarkers', mapId], prev => {
+                return prev.map(data => {
+                    if (data.addressId === mapPlaceOverlay?.addressId) {
+                        return { ...data, isMyLocation: false };
+                    }
+                    return data;
+                });
+            });
+        }
+    });
 
     const onPlaceOverlayClick = useCallback(() => {
-        setPlaceDetail({ placeId: place.addressId });
-    }, [setPlaceDetail, place]);
+        if (!mapPlaceOverlay) return;
 
-    const onBookmarkClick = useCallback(() => {
-        createMyLocation({ addressId: place.addressId, locationName: place.name, address: place.address, roadAddress: place.roadAddress });
-    }, [place]);
+        setPlaceDetail({ placeId: mapPlaceOverlay.addressId });
+    }, [setPlaceDetail, mapPlaceOverlay]);
+
+    const onBookmarkClick = useCallback(
+        (event: MouseEvent<HTMLImageElement>) => {
+            event.stopPropagation();
+
+            if (isCreatMyLocationLoading || isDeleteMyLocationLoading || !mapPlaceOverlay) return;
+
+            if (mapPlaceOverlay.isMyLocation) {
+                fetchDeleteMyLocation({ addressId: mapPlaceOverlay.addressId });
+            } else {
+                fetchCreateMyLocation({
+                    addressId: mapPlaceOverlay.addressId,
+                    locationName: mapPlaceOverlay.name,
+                    address: mapPlaceOverlay.address,
+                    roadAddress: mapPlaceOverlay.roadAddress
+                });
+            }
+        },
+        [mapPlaceOverlay, fetchCreateMyLocation, fetchDeleteMyLocation, isCreatMyLocationLoading, isDeleteMyLocationLoading]
+    );
+
+    if (!mapPlaceOverlay) {
+        return <></>;
+    }
 
     return (
         <Container up={up}>
-            <Wrapper>
+            <Wrapper onClick={onPlaceOverlayClick}>
                 <div className='title'>
-                    <BookMarkIcon src={place.isMyLocation ? icMarkedBookmark : icBookmark} onClick={onBookmarkClick} />
-                    <div style={{ display: 'flex' }} onClick={onPlaceOverlayClick}>
-                        <div>{place.name}</div>
+                    <BookMarkIcon src={mapPlaceOverlay.isMyLocation ? icMarkedBookmark : icBookmark} onClick={onBookmarkClick} />
+                    <div style={{ display: 'flex' }}>
+                        <div>{mapPlaceOverlay.name}</div>
                         <EqRightIcon src={icEqRight} />
                     </div>
                 </div>
-                <div className='address'>{place.address}</div>
-                {place.roadAddress && (
+                <div className='address'>{mapPlaceOverlay.address}</div>
+                {mapPlaceOverlay.roadAddress && (
                     <div className='road-address'>
                         <div className='label'>지번</div>
-                        <div className='name'>{place.roadAddress}</div>
+                        <div className='name'>{mapPlaceOverlay.roadAddress}</div>
                     </div>
                 )}
             </Wrapper>

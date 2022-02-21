@@ -1,5 +1,13 @@
 import { request } from 'src/api';
-import type { GetMarkerParam, GetMarkersResponse, CreateMarkerParam, CreateMarkerBody, DeleteMarkerParam, CreateMyLocationBody } from './types';
+import type {
+    GetMarkerParam,
+    GetMarkersResponse,
+    CreateMarkerParam,
+    CreateMarkerBody,
+    DeleteMarkerParam,
+    CreateMyLocationBody,
+    DeleteMyLocationParam
+} from './types';
 
 export const getMarkers = ({ mapId }: GetMarkerParam) => {
     return request<GetMarkersResponse[]>({ method: 'GET', url: `/map/${mapId}/marker` });
@@ -19,4 +27,8 @@ export const getMyLocation = () => {
 
 export const createMyLocation = (body: CreateMyLocationBody) => {
     return request({ method: 'POST', url: 'map/marker/location', data: body });
+};
+
+export const deleteMyLocation = ({ addressId }: DeleteMyLocationParam) => {
+    return request({ method: 'DELETE', url: `map/marker/location/${addressId}` });
 };

@@ -12,8 +12,12 @@ export const Container = styled.div<{ up: boolean }>`
 `;
 
 export const Wrapper = styled.div`
+    display: flex;
     width: calc(100% - 2rem);
+    height: 6.875rem;
     box-sizing: border-box;
+    flex-direction: column;
+    justify-content: center;
     padding: 1rem;
     margin: 0 1rem;
     background-color: ${Palette.White};
@@ -27,7 +31,7 @@ export const Wrapper = styled.div`
     }
 
     .address {
-        margin-top: 0.25rem;
+        margin: 0.25rem 0;
         color: ${Palette.Grey[500]};
         font-size: 0.75rem;
     }
@@ -52,6 +56,7 @@ export const Wrapper = styled.div`
 export const BookMarkIcon = styled(Icon)`
     width: 1.25rem;
     height: 1.25rem;
+    margin-right: 0.375rem;
 `;
 
 export const EqRightIcon = styled(Icon)`
