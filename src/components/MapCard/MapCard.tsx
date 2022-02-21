@@ -1,7 +1,7 @@
 import React, { FC, useState, useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import Popup from 'reactjs-popup';
+import { Popup } from 'reactjs-popup';
 import dayjs from 'dayjs';
 
 import { Card, MapBtn, UpdateMap, CardText, VerticalDivider, SeeMore } from 'src/components/MapCard/styles';
