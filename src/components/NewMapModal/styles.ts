@@ -1,17 +1,16 @@
 import styled from '@emotion/styled';
 
-import { BreakPoint, Palette } from 'src/Constants';
+import { BreakPoint, Palette, Dimension } from 'src/Constants';
 
 export const Container = styled.div<{ open: boolean }>`
     position: absolute;
     z-index: 99;
     bottom: 0;
     display: flex;
-    width: 19.625rem;
+    width: ${Dimension.MaxWidth};
     height: ${({ open }) => (open ? '100vh' : '0')};
     flex-direction: column;
     align-items: center;
-    padding: 0 2rem;
     background-color: #ffffff;
     overflow-y: hidden;
     transition: height 0.5s;
