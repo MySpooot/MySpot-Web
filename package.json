@@ -18,6 +18,7 @@
         "@emotion/styled": "^11.3.0",
         "axios": "^0.24.0",
         "dayjs": "^1.10.7",
+        "jotai": "^1.6.0",
         "query-string": "^7.1.1",
         "react": "^17.0.2",
         "react-copy-to-clipboard": "^5.0.4",
@@ -30,7 +31,6 @@
         "react-router-dom": "^6.2.1",
         "react-scripts": "4.0.3",
         "reactjs-popup": "^2.0.5",
-        "recoil": "^0.5.2",
         "regenerator-runtime": "^0.13.9",
         "src": "link:./src"
     },

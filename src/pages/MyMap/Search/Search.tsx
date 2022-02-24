@@ -1,7 +1,7 @@
 import React, { FC, useState, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { Container, PlaceInput, Main, PlaceItem, HeaderIcon } from './styles';
+import { Container, PlaceInput, Main, PlaceItem, HeaderIcon, Info, PlaceName, Address, RoadAddress, AddButton } from './styles';
 import { Path } from 'src/Constants';
 import { useMapDetailState } from 'src/atoms/mapDetail';
 import { createMarker } from 'src/api/marker';
@@ -47,21 +47,17 @@ const Search: FC = () => {
                 {!places && <div>장소를 검색해주세요.</div>}
                 {places?.map(place => (
                     <PlaceItem key={place.id}>
-                        <div className='info'>
-                            <div className='name'>{place.locationName}</div>
-                            <div className='address'>{place.address}</div>
+                        <Info>
+                            <PlaceName>{place.locationName}</PlaceName>
+                            <Address>{place.address}</Address>
                             {place.roadAddress && (
-                                <div className='road-address'>
+                                <RoadAddress>
                                     <div className='label'>지번</div>
                                     <div>{place.roadAddress}</div>
-                                </div>
+                                </RoadAddress>
                             )}
-                        </div>
-                        {mapDetail?.isOwner && (
-                            <div className='right' onClick={() => onAddPlaceClick(place)}>
-                                추가
-                            </div>
-                        )}
+                        </Info>
+                        {mapDetail?.isOwner && <AddButton onClick={() => onAddPlaceClick(place)}>추가</AddButton>}
                     </PlaceItem>
                 ))}
             </Main>

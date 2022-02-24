@@ -1,11 +1,10 @@
 import React, { FC, MouseEvent, useCallback } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useMutation } from 'react-query';
 
 import { Container, Wrapper, EqRightIcon, BookMarkIcon } from './styles';
-import { usePlaceDetail } from 'src/pages/MyMap/Map/atoms';
 import { useMapPlaceOverlayState } from 'src/atoms/mapPlaceOverlay';
-import { queryClient } from '../../../../..';
+import { useMapMarkerState } from 'src/atoms';
 
 import icEqRight from 'src/assets/mymap/ic_eq_right.svg';
 import icBookmark from 'src/assets/mymap/ic_bookmark.svg';
@@ -17,42 +16,48 @@ type PlaceOverlayProps = {
 };
 
 const PlaceOverlay: FC<PlaceOverlayProps> = ({ up }) => {
+    const navigate = useNavigate();
     const { mapId } = useParams<{ mapId: string }>();
-    const { setPlaceDetail } = usePlaceDetail();
+    const { setMarkers } = useMapMarkerState();
     const { mapPlaceOverlay, setMapPlaceOverlay } = useMapPlaceOverlayState();
 
     const { mutate: fetchCreateMyLocation, isLoading: isCreatMyLocationLoading } = useMutation(createMyLocation, {
         onMutate: () => {
             setMapPlaceOverlay(value => (value ? { ...value, isMyLocation: true } : undefined));
-            queryClient.setQueryData<any>(['getMarkers', mapId], prev => {
-                return prev.map(data => {
-                    if (data.addressId === mapPlaceOverlay?.addressId) {
-                        return { ...data, isMyLocation: true };
+            setMarkers(markers => {
+                if (!markers) return undefined;
+
+                return markers.map(marker => {
+                    if (marker.kakaoAddressId === mapPlaceOverlay?.kakaoAddressId) {
+                        return { ...marker, isMyLocation: true };
                     }
-                    return data;
+
+                    return marker;
                 });
             });
         }
     });
+
     const { mutate: fetchDeleteMyLocation, isLoading: isDeleteMyLocationLoading } = useMutation(deleteMyLocation, {
         onMutate: () => {
             setMapPlaceOverlay(value => (value ? { ...value, isMyLocation: false } : undefined));
-            queryClient.setQueryData<any>(['getMarkers', mapId], prev => {
-                return prev.map(data => {
-                    if (data.addressId === mapPlaceOverlay?.addressId) {
-                        return { ...data, isMyLocation: false };
+            setMarkers(markers => {
+                if (!markers) return undefined;
+
+                return markers.map(marker => {
+                    if (marker.kakaoAddressId === mapPlaceOverlay?.kakaoAddressId) {
+                        return { ...marker, isMyLocation: false };
                     }
-                    return data;
+
+                    return marker;
                 });
             });
         }
     });
 
     const onPlaceOverlayClick = useCallback(() => {
-        if (!mapPlaceOverlay) return;
-
-        setPlaceDetail({ placeId: mapPlaceOverlay.addressId });
-    }, [setPlaceDetail, mapPlaceOverlay]);
+        navigate(`/map/${mapId}/kakao/${mapPlaceOverlay?.kakaoAddressId}`);
+    }, [navigate, mapId, mapPlaceOverlay]);
 
     const onBookmarkClick = useCallback(
         (event: MouseEvent<HTMLImageElement>) => {
@@ -61,10 +66,10 @@ const PlaceOverlay: FC<PlaceOverlayProps> = ({ up }) => {
             if (isCreatMyLocationLoading || isDeleteMyLocationLoading || !mapPlaceOverlay) return;
 
             if (mapPlaceOverlay.isMyLocation) {
-                fetchDeleteMyLocation({ addressId: mapPlaceOverlay.addressId });
+                fetchDeleteMyLocation({ addressId: mapPlaceOverlay.kakaoAddressId });
             } else {
                 fetchCreateMyLocation({
-                    addressId: mapPlaceOverlay.addressId,
+                    addressId: mapPlaceOverlay.kakaoAddressId,
                     locationName: mapPlaceOverlay.name,
                     address: mapPlaceOverlay.address,
                     roadAddress: mapPlaceOverlay.roadAddress

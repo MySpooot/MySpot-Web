@@ -1,23 +1,18 @@
-import React, { FC, useState, useEffect, useMemo, useCallback } from 'react';
+import React, { FC, useState, useMemo, useCallback } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { useQuery } from 'react-query';
-import { useRecoilValue } from 'recoil';
 import { Map as KakaoMap, MapMarker } from 'react-kakao-maps-sdk';
 
 import { Container, MapContainer, HeaderIcon, FavoriteIcon } from './styles';
 import { createRecentMap, createFavoriteMap, deleteFavoriteMap } from 'src/api/map';
-import { getMarkers } from 'src/api/marker';
 import { Path } from 'src/Constants';
-import { meState } from 'src/atoms';
-import { usePlaceDetail } from './atoms';
+import { useMeState, useMapAccessible, useMapDetailState, useMapMarkerState } from 'src/atoms';
 import { useMapPlaceOverlayState } from 'src/atoms/mapPlaceOverlay';
-import { useMapDetailState } from 'src/atoms/mapDetail';
 import useKeyPress from 'src/hooks/useKeyPress';
 import HeaderWithLeftArrow from 'src/components/HeaderWithLeftArrow';
 import MyMapPlaceOverlay from './components/PlaceOverlay';
 import PrivateCodeModal from './components/PrivateCodeModal';
 import BottomFloatingArea from './components/BottomFloatingArea';
-import KakaoPlaceIframe from 'src/components/KakaoPlaceIframe';
 import Loading from 'src/components/Loading';
 
 import icSearch from 'src/assets/mymap/ic_search.svg';
@@ -29,17 +24,15 @@ import icSetting from 'src/assets/mymap/ic_setting.svg';
 const Map: FC = () => {
     const navigate = useNavigate();
     const { mapId } = useParams<{ mapId: string }>();
-    // const { code } = useQueryString<'code'>();
 
     const { mapDetail, setMapDetail } = useMapDetailState();
-    const { placeDetail } = usePlaceDetail();
+    const { markers } = useMapMarkerState();
+    const { mapAccessible, setMapAccessible } = useMapAccessible();
     const { mapPlaceOverlay, setMapPlaceOverlay } = useMapPlaceOverlayState();
-    const me = useRecoilValue(meState);
+    const { me } = useMeState();
 
-    const [mapAccessible, setMapAccessible] = useState(false);
     const [isOpenPlaceList, setIsOpenPlaceList] = useState(false);
 
-    const { data: markers } = useQuery(['getMarkers', mapId], () => getMarkers({ mapId: Number(mapId) }), { enabled: mapAccessible });
     useQuery('createRecentMap', () => createRecentMap({ recentMapId: Number(mapId) }), { enabled: !!me && mapAccessible });
 
     useKeyPress('Escape', () => {
@@ -59,23 +52,23 @@ const Map: FC = () => {
         return { level: 5, latitude: Number(markers[0].latitude), longitude: Number(markers[0].longitude) };
     }, [markers, mapPlaceOverlay]);
 
-    useEffect(() => {
-        if (!mapDetail) return;
+    // useEffect(() => {
+    //     if (!mapDetail) return;
 
-        setMapAccessible(mapDetail.accessible);
-    }, [mapDetail]); // eslint-disable-line react-hooks/exhaustive-deps
+    //     setMapAccessible(mapDetail.accessible);
+    // }, [mapDetail]); // eslint-disable-line react-hooks/exhaustive-deps
 
     const onFavoriteClick = useCallback(() => {
         if (!mapDetail) return;
 
         if (mapDetail?.isFavorite) {
-            setMapDetail(detail => (detail ? { ...detail, isFavorite: false } : undefined));
+            setMapDetail(detail => ({ ...detail!, isFavorite: false })); // eslint-disable-line @typescript-eslint/no-non-null-assertion
             deleteFavoriteMap({ favoriteMapId: Number(mapId) });
 
             return;
         }
 
-        setMapDetail(detail => (detail ? { ...detail, isFavorite: true } : undefined));
+        setMapDetail(detail => ({ ...detail!, isFavorite: true })); // eslint-disable-line @typescript-eslint/no-non-null-assertion
         createFavoriteMap({ favoriteMapId: Number(mapId) });
     }, [mapId, mapDetail, setMapDetail]);
 
@@ -96,7 +89,7 @@ const Map: FC = () => {
             {mapAccessible && markers && (
                 <Container>
                     <HeaderWithLeftArrow style={{ justifyContent: 'space-between' }} onLeftArrowClick={() => navigate(Path.home)}>
-                        <h3 className='title'>{mapDetail.mapName}</h3>
+                        <h3 className='title'>{mapDetail.name}</h3>
                         <div style={{ display: 'flex', alignItems: 'center' }}>
                             <Link to={`${Path.myMap}/${mapId}${Path.search}`}>
                                 <HeaderIcon alt='search' src={icSearch} />
@@ -124,13 +117,12 @@ const Map: FC = () => {
                             <BottomFloatingArea open={isOpenPlaceList} onPlaceListToggle={onPlaceListToggle} />
                         </KakaoMap>
                         <FavoriteIcon alt='favorite' src={mapDetail.isFavorite ? icFavoriteOn : ''} onClick={onFavoriteClick} />
-                        {placeDetail && <KakaoPlaceIframe />}
                     </MapContainer>
                 </Container>
             )}
             {!mapAccessible && (
                 <PrivateCodeModal
-                    mapId={mapDetail.mapId}
+                    mapId={mapDetail.id}
                     onCodeEnterFail={() => alert('fail!')}
                     onCodeEnterSuccess={accessible => setMapAccessible(accessible)}
                 />

@@ -13,6 +13,7 @@ export type GetMarkersResponse = {
     isMyLocation: boolean;
     isLike: boolean;
     likeCount: number;
+    replyCount: number;
 };
 
 export type CreateMarkerParam = {

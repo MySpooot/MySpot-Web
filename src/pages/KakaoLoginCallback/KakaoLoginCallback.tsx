@@ -1,17 +1,16 @@
 import React, { FC, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useSetRecoilState } from 'recoil';
 import { parse } from 'query-string';
 
 import { Path } from 'src/Constants';
 import { logIn, setAccessToken } from 'src/api';
-import { meState } from 'src/atoms';
+import { useMeState } from 'src/atoms';
 import Loading from 'src/components/Loading';
 
 const KakaoLoginCallback: FC = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const setMe = useSetRecoilState(meState);
+    const { setMe } = useMeState();
 
     const { code, state, error, error_description } = parse(location.search);
 
