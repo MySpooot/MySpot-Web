@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import { Palette, ScrollbarStyle } from 'src/Constants';
+import { ScrollbarStyle } from 'src/Constants';
 import Icon from 'src/components/Icon';
 
 export const Container = styled.div`
@@ -14,13 +14,13 @@ export const PlaceInput = styled.div`
     display: flex;
     flex-grow: 1;
     align-items: center;
-    border: 1px solid ${Palette.Grey[300]};
+    border: 1px solid #d3d3d3;
     margin-right: 1rem;
     border-radius: 0.25rem;
 
     input {
         flex-grow: 1;
-        padding: 0.875rem;
+        padding: 0.5rem 0.875rem;
         border: none;
         outline: none;
     }
@@ -40,57 +40,51 @@ export const PlaceItem = styled.div`
     display: flex;
     align-items: center;
     padding: 1.25rem 1rem;
-    border-bottom: 1px solid ${Palette.Grey[300]};
+    border-bottom: 1px solid #f5f5f5;
+`;
 
-    .info {
-        display: flex;
-        flex-direction: column;
-        flex-grow: 1;
+export const Info = styled.div`
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+`;
 
-        .name {
-            font-weight: 500;
-        }
+export const PlaceName = styled.h3`
+    font-weight: 500;
+`;
 
-        .address {
-            margin-top: 0.25rem;
-            color: ${Palette.Grey[400]};
-            font-size: 0.75rem;
-        }
+export const Address = styled.div`
+    margin-top: 0.25rem;
+    color: #7f7f7f;
+    font-size: 0.75rem;
+`;
 
-        .road-address {
-            display: flex;
-            align-items: center;
-            margin-top: 0.25rem;
-            font-size: 0.75rem;
+export const RoadAddress = styled.div`
+    display: flex;
+    align-items: center;
+    margin-top: 0.25rem;
+    font-size: 0.75rem;
 
-            .label {
-                padding: 0.125rem;
-                border: 1px solid ${Palette.Grey[300]};
-                margin-right: 0.25rem;
-                border-radius: 0.25rem;
-                color: ${Palette.Grey[400]};
-            }
-        }
-
-        .time {
-            color: ${Palette.Blue[300]};
-            font-size: 0.75rem;
-            font-weight: 500;
-        }
-    }
-
-    .right {
-        padding: 0.375rem 0.5rem;
-        background-color: ${Palette.Grey[200]};
+    .label {
+        padding: 0.125rem;
+        border: 1px solid #e8e8e8;
+        margin-right: 0.25rem;
         border-radius: 0.25rem;
-        color: ${Palette.Grey[500]};
-        cursor: pointer;
+        color: #bebebe;
     }
 `;
 
+export const AddButton = styled.button`
+    padding: 0.5rem 0.75rem;
+    background-color: #f5f5f5;
+    border-radius: 0.25rem;
+    color: #7f7f7f;
+    cursor: pointer;
+`;
+
 export const HeaderIcon = styled(Icon)`
-    width: 2.25rem;
-    height: 2.25rem;
-    margin: 0.5rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin: 0 0.5rem;
     cursor: pointer;
 `;

@@ -16,10 +16,9 @@ import {
     ButtonArea
 } from './styles';
 import { createMyLocation, deleteMyLocation } from 'src/api/marker';
-import { usePlaceDetail } from 'src/pages/MyMap/Map/atoms';
 import Icon from 'src/components/Icon';
 import { useMapPlaceOverlayState } from 'src/atoms/mapPlaceOverlay';
-import { queryClient } from '../../../../..';
+import { queryClient } from 'src/quries';
 
 import icArrowUp from 'src/assets/mymap/ic_arrow_up.svg';
 import icBookmark from 'src/assets/mymap/ic_bookmark.svg';
@@ -30,10 +29,10 @@ type BottomFloatingAreaProps = {
     onPlaceListToggle: () => void;
 };
 
+// Will Be Deprecated!
 const BottomFloatingArea: FC<BottomFloatingAreaProps> = ({ open, onPlaceListToggle }) => {
     const { mapId } = useParams<{ mapId: string }>();
 
-    const { setPlaceDetail } = usePlaceDetail();
     const { setMapPlaceOverlay } = useMapPlaceOverlayState();
 
     const { data: markers } = useQuery<any>(['getMarkers', mapId]);
@@ -64,13 +63,6 @@ const BottomFloatingArea: FC<BottomFloatingAreaProps> = ({ open, onPlaceListTogg
             });
         }
     });
-
-    const onPlaceClick = useCallback(
-        (addressId: number) => {
-            setPlaceDetail({ placeId: addressId });
-        },
-        [setPlaceDetail]
-    );
 
     const onBookmarkClick = useCallback(
         (event: MouseEvent<HTMLImageElement>, place: any) => {
@@ -108,7 +100,7 @@ const BottomFloatingArea: FC<BottomFloatingAreaProps> = ({ open, onPlaceListTogg
             </div>
             <ul className='place-list'>
                 {markers?.map(marker => (
-                    <PlaceListItem key={marker.id} onClick={() => onPlaceClick(marker.addressId)}>
+                    <PlaceListItem key={marker.id}>
                         <LeftArea>
                             <BookmarkIcon
                                 alt='bookmark'

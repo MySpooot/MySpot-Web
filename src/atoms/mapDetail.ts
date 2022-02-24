@@ -1,15 +1,11 @@
-import { atom, useRecoilState, useResetRecoilState } from 'recoil';
+import { atom, useAtom } from 'jotai';
 
-import { GetMapDetailResponse } from 'src/api/map';
+import { MapDetailVO } from 'src/vo';
 
-const mapDetailState = atom<GetMapDetailResponse | undefined>({
-    key: 'mapDetailState',
-    default: undefined
-});
+const mapDetailState = atom<MapDetailVO | undefined>(undefined);
 
 export const useMapDetailState = () => {
-    const [mapDetail, setMapDetail] = useRecoilState(mapDetailState);
-    const reset = useResetRecoilState(mapDetailState);
+    const [mapDetail, setMapDetail] = useAtom(mapDetailState);
 
-    return { mapDetail, setMapDetail, reset };
+    return { mapDetail, setMapDetail };
 };

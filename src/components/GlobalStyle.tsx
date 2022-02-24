@@ -82,7 +82,8 @@ const globalStyle = css`
     time,
     mark,
     audio,
-    video {
+    video,
+    button {
         padding: 0;
         border: 0;
         margin: 0;
@@ -125,6 +126,13 @@ const globalStyle = css`
     q:before,
     q:after {
         content: none;
+    }
+
+    button {
+        overflow: visible;
+        border: none;
+        background: transparent;
+        outline: none;
     }
 
     table {
