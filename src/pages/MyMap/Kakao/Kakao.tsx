@@ -3,6 +3,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import { Container, Footer, BackButton, ViewReviewButton } from './styles';
 import KakaoPlaceIframe from 'src/components/KakaoPlaceIframe';
+import Icon from 'src/components/Icon';
+
+import icArrowLeft from 'src/assets/mymap/ic_arrow_left.svg';
 
 const Kakao: FC = () => {
     const { mapId, kakaoAddressId } = useParams<{ mapId: string; kakaoAddressId: string }>();
@@ -24,7 +27,9 @@ const Kakao: FC = () => {
         <Container>
             <KakaoPlaceIframe addressId={kakaoAddressId} />
             <Footer>
-                <BackButton onClick={onBackButtonClick}>뒤로가기</BackButton>
+                <BackButton onClick={onBackButtonClick}>
+                    <Icon src={icArrowLeft} />
+                </BackButton>
                 <ViewReviewButton onClick={onViewReviewButtonClick}>후기 보기</ViewReviewButton>
             </Footer>
         </Container>

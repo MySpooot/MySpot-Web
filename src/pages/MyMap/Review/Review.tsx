@@ -20,6 +20,7 @@ import {
     ReviewTitle,
     ReviewCount,
     ReviewList,
+    NoReview,
     Footer,
     BackButton,
     ViewKakaoButton
@@ -138,9 +139,13 @@ const Review: FC = () => {
                         <ReviewCount>{place.replyCount}개</ReviewCount>
                     </Top>
                     <ReviewList>
-                        {markerReplies?.map(reply => (
-                            <ReplyItem key={reply.id} reply={reply} />
-                        ))}
+                        {!markerReplies ? (
+                            <Loading />
+                        ) : markerReplies.length === 0 ? (
+                            <NoReview>후기가 없습니다.</NoReview>
+                        ) : (
+                            markerReplies.map(reply => <ReplyItem key={reply.id} reply={reply} />)
+                        )}
                     </ReviewList>
                     <div ref={setRef} />
                     {isFetching && <Loading />}

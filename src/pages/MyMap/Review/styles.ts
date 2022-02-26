@@ -106,6 +106,11 @@ export const ReviewCount = styled.div`
 
 export const ReviewList = styled.ul``;
 
+export const NoReview = styled.div`
+    padding: 2.5rem;
+    text-align: center;
+`;
+
 export const Footer = styled.footer`
     display: flex;
     padding-top: 0.625rem;
