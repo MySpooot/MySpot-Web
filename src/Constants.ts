@@ -20,6 +20,7 @@ export const Path = {
     mapList: '/maplist'
 } as const;
 
+// TODO: 삭제 예정
 export const Palette = {
     White: '#ffffff',
     Black: '#000000',
@@ -53,20 +54,37 @@ export const Palette = {
     }
 };
 
+export const Color = {
+    white: '#ffffff',
+    black: '#000000',
+    blue: '#008fff',
+    red: 'ff7854',
+    grey: {
+        '100': '#f5f5f5',
+        '200': '#e8e8e8',
+        '300': '#d3d3d3',
+        '400': '#bebebe',
+        '500': '#9e9e9e',
+        '600': '#7f7f7f',
+        '700': '#666666',
+        '800': '#333333'
+    }
+} as const;
+
 export const ScrollbarStyle = ` 
     /* 스크롤바 전체 */
     ::-webkit-scrollbar {
         width: 0.25rem;
-        background-color: ${Palette.Grey[500]};
+        background-color: ${Color.grey[500]};
     }
 
     /* 스크롤 막대 */
     ::-webkit-scrollbar-thumb {
-        background-color: ${Palette.Grey[600]};
+        background-color: ${Color.grey[600]};
     }
 
     /* 스크롤 막대 외부 */
     ::-webkit-scrollbar-track {
-        background-color: ${Palette.Grey[300]};
+        background-color: ${Color.grey[300]};
     }
 `;
