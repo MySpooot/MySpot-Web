@@ -17,6 +17,7 @@ import Loading from 'src/components/Loading';
 
 import icSearch from 'src/assets/mymap/ic_search.svg';
 import icFavoriteOn from 'src/assets/mymap/ic_favorite_on.svg';
+import icFavoriteOff from 'src/assets/mymap/ic_favorite_off.svg';
 import icMarker from 'src/assets/mymap/ic_marker.svg';
 import icMarkedMarker from 'src/assets/mymap/ic_marked_marker.svg';
 import icSetting from 'src/assets/mymap/ic_setting.svg';
@@ -116,7 +117,7 @@ const Map: FC = () => {
                             {mapPlaceOverlay && <MyMapPlaceOverlay up={isOpenPlaceList} />}
                             <BottomFloatingArea open={isOpenPlaceList} onPlaceListToggle={onPlaceListToggle} />
                         </KakaoMap>
-                        <FavoriteIcon alt='favorite' src={mapDetail.isFavorite ? icFavoriteOn : ''} onClick={onFavoriteClick} />
+                        <FavoriteIcon alt='favorite' src={mapDetail.isFavorite ? icFavoriteOn : icFavoriteOff} onClick={onFavoriteClick} />
                     </MapContainer>
                 </Container>
             )}

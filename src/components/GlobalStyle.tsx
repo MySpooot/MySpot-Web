@@ -135,12 +135,19 @@ const globalStyle = css`
         outline: none;
     }
 
+    textarea {
+        border: none;
+        outline: none;
+        resize: none;
+    }
+
     table {
         border-collapse: collapse;
         border-spacing: 0;
     }
 
     * {
+        box-sizing: border-box;
         font-family: 'Spoqa Han Sans Neo', sans-serif;
     }
 `;
