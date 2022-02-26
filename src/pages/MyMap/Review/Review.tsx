@@ -29,6 +29,8 @@ import { Path } from 'src/Constants';
 import { useMapMarkerState, useMarkerRepliesState } from 'src/atoms';
 import { MapMarkerVO, MarkerReplyVO } from 'src/vo';
 import { getReplies, createReply, CreateReplyParam, CreateReplyBody, CreateReplyResponse } from 'src/api';
+import useIntersectionObserver from 'src/hooks/useIntersectionObserver';
+import Loading from 'src/components/Loading';
 import Icon from 'src/components/Icon';
 
 import icArrowLeft from 'src/assets/mymap/ic_arrow_left.svg';
@@ -44,7 +46,7 @@ const Review: FC = () => {
     const [textAreaValue, setTextAreaValue] = useState('');
     const [replyOffset, setReplyOffset] = useState(0);
 
-    const { fetchNextPage } = useInfiniteQuery(
+    const { fetchNextPage, isFetching } = useInfiniteQuery(
         ['getReplies', place?.id],
         ({ pageParam }) => getReplies({ markerId: Number(place?.id) }, { offset: pageParam?.offset ?? 0 }),
         {
@@ -73,6 +75,14 @@ const Review: FC = () => {
             }
         }
     );
+
+    const { setRef } = useIntersectionObserver({
+        callback: entries => {
+            if (entries[0].isIntersecting && !isFetching && (markerReplies?.length || 0) < (place?.replyCount || 0)) {
+                fetchNextPage({ pageParam: { offset: replyOffset } });
+            }
+        }
+    });
 
     useEffect(() => {
         const place = markers?.find(marker => marker.kakaoAddressId === Number(kakaoAddressId));
@@ -132,9 +142,8 @@ const Review: FC = () => {
                             <ReplyItem key={reply.id} reply={reply} />
                         ))}
                     </ReviewList>
-                    {(markerReplies?.length || 0) < place.replyCount && (
-                        <button onClick={() => fetchNextPage({ pageParam: { offset: replyOffset } })}>더보기</button>
-                    )}
+                    <div ref={setRef} />
+                    {isFetching && <Loading />}
                 </ReviewArea>
             </Main>
 
