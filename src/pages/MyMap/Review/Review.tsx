@@ -1,6 +1,6 @@
 import React, { FC, useState, useEffect, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useQuery, useMutation } from 'react-query';
+import { useInfiniteQuery, useMutation } from 'react-query';
 import dayjs from 'dayjs';
 
 import {
@@ -28,7 +28,7 @@ import { ReplyItem } from './components';
 import { Path } from 'src/Constants';
 import { useMapMarkerState, useMarkerRepliesState } from 'src/atoms';
 import { MapMarkerVO, MarkerReplyVO } from 'src/vo';
-import { getReplies, createReply } from 'src/api';
+import { getReplies, createReply, CreateReplyParam, CreateReplyBody, CreateReplyResponse } from 'src/api';
 import Icon from 'src/components/Icon';
 
 import icArrowLeft from 'src/assets/mymap/ic_arrow_left.svg';
@@ -40,24 +40,39 @@ const Review: FC = () => {
     const { markers } = useMapMarkerState();
     const { markerReplies, setMarkerReplies } = useMarkerRepliesState();
 
-    const [place, setplace] = useState<MapMarkerVO>();
+    const [place, setPlace] = useState<MapMarkerVO>();
     const [textAreaValue, setTextAreaValue] = useState('');
+    const [replyOffset, setReplyOffset] = useState(0);
 
-    useQuery(['getReplies', place?.id], () => getReplies({ markerId: Number(place?.id) }), {
-        enabled: !!place,
-        onSuccess: response => {
-            setMarkerReplies(response.map(reply => MarkerReplyVO.from(reply)));
+    const { fetchNextPage } = useInfiniteQuery(
+        ['getReplies', place?.id],
+        ({ pageParam }) => getReplies({ markerId: Number(place?.id) }, { offset: pageParam?.offset ?? 0 }),
+        {
+            enabled: !!place,
+            onSuccess: ({ pages }) => {
+                setMarkerReplies(pages.flatMap(replyList => replyList.map(reply => MarkerReplyVO.from(reply))));
+                setReplyOffset(offset => offset + 10);
+            }
         }
-    });
-    const { mutate: mutateCreateReply } = useMutation(createReply, {
-        onSuccess: ({ id, created, message, userId, userNickName }) => {
-            setMarkerReplies(replies => {
-                if (!replies) return;
+    );
 
-                return [{ id, created: dayjs(created).format('YY.MM.DD'), message, userId, nickName: userNickName }, ...replies];
-            });
+    const { mutate: mutateCreateReply } = useMutation<CreateReplyResponse, unknown, CreateReplyParam & CreateReplyBody>(
+        ({ markerId, message }) => createReply({ markerId }, { message }),
+        {
+            onSuccess: ({ id, created, message, userId, userNickName }) => {
+                setMarkerReplies(replies => {
+                    if (!replies) return;
+
+                    return [{ id, created: dayjs(created).format('YY.MM.DD'), message, userId, nickName: userNickName }, ...replies];
+                });
+                setPlace(place => {
+                    if (!place) return;
+
+                    return { ...place, replyCount: place.replyCount + 1 };
+                });
+            }
         }
-    });
+    );
 
     useEffect(() => {
         const place = markers?.find(marker => marker.kakaoAddressId === Number(kakaoAddressId));
@@ -66,12 +81,13 @@ const Review: FC = () => {
             return navigate(Path.home);
         }
 
-        setplace(place);
+        setPlace(place);
     }, [markers]); // eslint-disable-line react-hooks/exhaustive-deps
 
     const onRegisterClick = useCallback(() => {
-        mutateCreateReply({ mapId: Number(mapId), markerId: Number(place?.id), message: textAreaValue });
-    }, [mutateCreateReply, mapId, place, textAreaValue]);
+        mutateCreateReply({ markerId: Number(place?.id), message: textAreaValue });
+        setTextAreaValue('');
+    }, [mutateCreateReply, place, textAreaValue]);
 
     const onBackButtonClick = useCallback(() => {
         navigate(`/map/${mapId}`);
@@ -109,13 +125,16 @@ const Review: FC = () => {
                 <ReviewArea>
                     <Top>
                         <ReviewTitle>후기</ReviewTitle>
-                        <ReviewCount>{markerReplies?.length}개</ReviewCount>
+                        <ReviewCount>{place.replyCount}개</ReviewCount>
                     </Top>
                     <ReviewList>
                         {markerReplies?.map(reply => (
                             <ReplyItem key={reply.id} reply={reply} />
                         ))}
                     </ReviewList>
+                    {(markerReplies?.length || 0) < place.replyCount && (
+                        <button onClick={() => fetchNextPage({ pageParam: { offset: replyOffset } })}>더보기</button>
+                    )}
                 </ReviewArea>
             </Main>
 

@@ -1,5 +1,8 @@
-export type GetRepliesQuery = {
+export type GetRepliesParam = {
     markerId: number;
+};
+
+export type GetRepliesQuery = {
     offset?: number;
     limit?: number;
 };
@@ -9,15 +12,16 @@ export type GetRepliesResponse = {
     created: number;
     userId: number;
     userNickName: string;
-    mapId: number;
     markerId: number;
     message: string;
 };
 
+export type CreateReplyParam = {
+    markerId: number;
+};
+
 export type CreateReplyBody = {
     message: string;
-    mapId: number;
-    markerId: number;
 };
 
 export type CreateReplyResponse = {
@@ -25,7 +29,6 @@ export type CreateReplyResponse = {
     created: number;
     message: string;
     userId: number;
-    mapId: number;
     markerId: number;
     userNickName: string;
 };

@@ -1,7 +1,9 @@
 import { request } from 'src/api';
 import type {
+    GetRepliesParam,
     GetRepliesQuery,
     GetRepliesResponse,
+    CreateReplyParam,
     CreateReplyBody,
     CreateReplyResponse,
     UpdateReplyParam,
@@ -9,12 +11,12 @@ import type {
     DeleteReplyParam
 } from './types';
 
-export const getReplies = (query: GetRepliesQuery) => {
-    return request<GetRepliesResponse[]>({ method: 'GET', url: '/map/marker/replies', params: query });
+export const getReplies = ({ markerId }: GetRepliesParam, query: GetRepliesQuery) => {
+    return request<GetRepliesResponse[]>({ method: 'GET', url: `/map/marker/${markerId}/replies`, params: query });
 };
 
-export const createReply = (body: CreateReplyBody) => {
-    return request<CreateReplyResponse>({ method: 'POST', url: '/map/marker/replies', data: body });
+export const createReply = ({ markerId }: CreateReplyParam, body: CreateReplyBody) => {
+    return request<CreateReplyResponse>({ method: 'POST', url: `/map/marker/${markerId}/replies`, data: body });
 };
 
 export const updateReply = ({ replyId }: UpdateReplyParam, body: UpdateReplyBody) => {
