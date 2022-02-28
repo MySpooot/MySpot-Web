@@ -19,6 +19,15 @@ jobs:
               with:
                   node-version: 16
 
+            - name: Cache node_modules
+              uses: actions/cache@v1
+              with:
+                  path: node_modules
+                  key: ${{ runner.OS }}-build-${{ hashFiles('**/yarn.lock') }}
+
+            - name: Install Packages
+              run: yarn install --frozen-lockfile
+
             - name: Check Lint & Stylelint
               run: yarn lint & yarn stylelint
 
