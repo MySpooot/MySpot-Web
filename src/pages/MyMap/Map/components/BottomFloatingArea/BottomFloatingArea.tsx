@@ -18,7 +18,7 @@ import {
 import { createMyLocation, deleteMyLocation } from 'src/api/marker';
 import Icon from 'src/components/Icon';
 import { useMapPlaceOverlayState } from 'src/atoms/mapPlaceOverlay';
-import { queryClient } from 'src/quries';
+// import { queryClient } from 'src/quries';
 
 import icArrowUp from 'src/assets/mymap/ic_arrow_up.svg';
 import icBookmark from 'src/assets/mymap/ic_bookmark.svg';
@@ -29,7 +29,9 @@ type BottomFloatingAreaProps = {
     onPlaceListToggle: () => void;
 };
 
-// Will Be Deprecated!
+/**
+ * @deprecated
+ */
 const BottomFloatingArea: FC<BottomFloatingAreaProps> = ({ open, onPlaceListToggle }) => {
     const { mapId } = useParams<{ mapId: string }>();
 
@@ -38,29 +40,31 @@ const BottomFloatingArea: FC<BottomFloatingAreaProps> = ({ open, onPlaceListTogg
     const { data: markers } = useQuery<any>(['getMarkers', mapId]);
 
     const { mutate: fetchCreateMyLocation, isLoading: isCreatMyLocationLoading } = useMutation(createMyLocation, {
-        onMutate: ({ addressId }) => {
+        // onMutate: ({ addressId }) => {
+        onMutate: () => {
             setMapPlaceOverlay(value => (value ? { ...value, isMyLocation: true } : undefined));
-            queryClient.setQueryData<any>(['getMarkers', mapId], prev => {
-                return prev.map(data => {
-                    if (data.addressId === addressId) {
-                        return { ...data, isMyLocation: true };
-                    }
-                    return data;
-                });
-            });
+            // queryClient.setQueryData<any>(['getMarkers', mapId], prev => {
+            //     return prev.map(data => {
+            //         if (data.addressId === addressId) {
+            //             return { ...data, isMyLocation: true };
+            //         }
+            //         return data;
+            //     });
+            // });
         }
     });
     const { mutate: fetchDeleteMyLocation, isLoading: isDeleteMyLocationLoading } = useMutation(deleteMyLocation, {
-        onMutate: ({ addressId }) => {
+        // onMutate: ({ addressId }) => {
+        onMutate: () => {
             setMapPlaceOverlay(value => (value ? { ...value, isMyLocation: false } : undefined));
-            queryClient.setQueryData<any>(['getMarkers', mapId], prev => {
-                return prev.map(data => {
-                    if (data.addressId === addressId) {
-                        return { ...data, isMyLocation: false };
-                    }
-                    return data;
-                });
-            });
+            // queryClient.setQueryData<any>(['getMarkers', mapId], prev => {
+            //     return prev.map(data => {
+            //         if (data.addressId === addressId) {
+            //             return { ...data, isMyLocation: false };
+            //         }
+            //         return data;
+            //     });
+            // });
         }
     });
 

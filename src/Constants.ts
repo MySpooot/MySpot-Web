@@ -20,6 +20,8 @@ export const Path = {
     mapList: '/maplist'
 } as const;
 
+export const QueryKey = {} as const;
+
 // TODO: 삭제 예정
 export const Palette = {
     White: '#ffffff',

@@ -19,7 +19,7 @@ export class MapMarkerVO {
 
     constructor(marker: GetMarkersResponse) {
         this.id = marker.id;
-        this.name = marker.name;
+        this.name = marker.locationName;
         this.kakaoAddressId = marker.addressId;
         this.address = marker.address;
         this.roadAddress = marker.roadAddress;
