@@ -49,11 +49,11 @@ export const VerticalThreeIcon = styled(Icon)`
 `;
 
 export const DeletePopup = styled.div`
-    border: 1px solid ${Color.grey[500]};
     padding: 0.5rem;
+    border: 1px solid ${Color.grey[500]};
     border-radius: 0.25rem;
-    font-size: 0.75rem;
     cursor: pointer;
+    font-size: 0.75rem;
 `;
 
 export const Address = styled.div`
