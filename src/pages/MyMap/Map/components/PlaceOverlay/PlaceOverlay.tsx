@@ -1,21 +1,20 @@
 import React, { FC, MouseEvent, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useMutation } from 'react-query';
+import { Popup } from 'reactjs-popup';
 
-import { Container, Wrapper, EqRightIcon, BookMarkIcon } from './styles';
+import { Container, Wrapper, EqRightIcon, BookMarkIcon, VerticalThreeIcon, DeletePopup, Address, RoadAddress } from './styles';
 import { useMapPlaceOverlayState } from 'src/atoms/mapPlaceOverlay';
 import { useMapMarkerState } from 'src/atoms';
+import { createMyLocation, deleteMyLocation, deleteMarker } from 'src/api/marker';
 
 import icEqRight from 'src/assets/mymap/ic_eq_right.svg';
 import icBookmark from 'src/assets/mymap/ic_bookmark.svg';
 import icMarkedBookmark from 'src/assets/mymap/ic_marked_bookmark.svg';
-import { createMyLocation, deleteMyLocation } from 'src/api/marker';
 
-type PlaceOverlayProps = {
-    up: boolean;
-};
+import icDotThree from 'src/assets/main/ic-vertical-circle.svg';
 
-const PlaceOverlay: FC<PlaceOverlayProps> = ({ up }) => {
+const PlaceOverlay: FC = () => {
     const navigate = useNavigate();
     const { mapId } = useParams<{ mapId: string }>();
     const { setMarkers } = useMapMarkerState();
@@ -55,6 +54,17 @@ const PlaceOverlay: FC<PlaceOverlayProps> = ({ up }) => {
         }
     });
 
+    const { mutate: fetchDeleteMarker } = useMutation(deleteMarker, {
+        onMutate: () => {
+            setMapPlaceOverlay(undefined);
+            setMarkers(markers => {
+                if (!markers) return undefined;
+
+                return markers.filter(marker => marker.kakaoAddressId !== mapPlaceOverlay?.kakaoAddressId);
+            });
+        }
+    });
+
     const onPlaceOverlayClick = useCallback(() => {
         navigate(`/map/${mapId}/kakao/${mapPlaceOverlay?.kakaoAddressId}`);
     }, [navigate, mapId, mapPlaceOverlay]);
@@ -79,26 +89,40 @@ const PlaceOverlay: FC<PlaceOverlayProps> = ({ up }) => {
         [mapPlaceOverlay, fetchCreateMyLocation, fetchDeleteMyLocation, isCreatMyLocationLoading, isDeleteMyLocationLoading]
     );
 
+    const onDeleteClick = useCallback(() => {
+        if (!mapPlaceOverlay) return;
+
+        fetchDeleteMarker({ markerId: Number(mapPlaceOverlay.id) });
+    }, [mapPlaceOverlay, fetchDeleteMarker]);
+
     if (!mapPlaceOverlay) {
         return <></>;
     }
 
     return (
-        <Container up={up}>
-            <Wrapper onClick={onPlaceOverlayClick}>
+        <Container>
+            <Wrapper>
                 <div className='title'>
                     <BookMarkIcon src={mapPlaceOverlay.isMyLocation ? icMarkedBookmark : icBookmark} onClick={onBookmarkClick} />
-                    <div style={{ display: 'flex' }}>
+                    <div style={{ display: 'flex' }} onClick={onPlaceOverlayClick}>
                         <div>{mapPlaceOverlay.name}</div>
                         <EqRightIcon src={icEqRight} />
                     </div>
+                    <Popup
+                        on='click'
+                        position='bottom right'
+                        trigger={<VerticalThreeIcon src={icDotThree} onClick={(event: MouseEvent<HTMLImageElement>) => event.stopPropagation()} />}
+                        closeOnDocumentClick
+                    >
+                        {() => <DeletePopup onClick={onDeleteClick}>삭제</DeletePopup>}
+                    </Popup>
                 </div>
-                <div className='address'>{mapPlaceOverlay.address}</div>
+                <Address>{mapPlaceOverlay.address}</Address>
                 {mapPlaceOverlay.roadAddress && (
-                    <div className='road-address'>
+                    <RoadAddress>
                         <div className='label'>지번</div>
-                        <div className='name'>{mapPlaceOverlay.roadAddress}</div>
-                    </div>
+                        <div>{mapPlaceOverlay.roadAddress}</div>
+                    </RoadAddress>
                 )}
             </Wrapper>
         </Container>

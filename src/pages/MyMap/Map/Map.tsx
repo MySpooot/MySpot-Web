@@ -1,4 +1,4 @@
-import React, { FC, useState, useMemo, useCallback } from 'react';
+import React, { FC, useMemo, useCallback } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { Map as KakaoMap, MapMarker } from 'react-kakao-maps-sdk';
@@ -11,8 +11,6 @@ import { useMapPlaceOverlayState } from 'src/atoms/mapPlaceOverlay';
 import useKeyPress from 'src/hooks/useKeyPress';
 import HeaderWithLeftArrow from 'src/components/HeaderWithLeftArrow';
 import MyMapPlaceOverlay from './components/PlaceOverlay';
-import PrivateCodeModal from './components/PrivateCodeModal';
-import BottomFloatingArea from './components/BottomFloatingArea';
 import Loading from 'src/components/Loading';
 
 import icSearch from 'src/assets/mymap/ic_search.svg';
@@ -28,17 +26,14 @@ const Map: FC = () => {
 
     const { mapDetail, setMapDetail } = useMapDetailState();
     const { markers } = useMapMarkerState();
-    const { mapAccessible, setMapAccessible } = useMapAccessible();
+    const { mapAccessible } = useMapAccessible();
     const { mapPlaceOverlay, setMapPlaceOverlay } = useMapPlaceOverlayState();
     const { me } = useMeState();
-
-    const [isOpenPlaceList, setIsOpenPlaceList] = useState(false);
 
     useQuery('createRecentMap', () => createRecentMap({ recentMapId: Number(mapId) }), { enabled: !!me && mapAccessible });
 
     useKeyPress('Escape', () => {
         setMapPlaceOverlay(undefined);
-        setIsOpenPlaceList(false);
     });
 
     const centerLocation = useMemo(() => {
@@ -47,17 +42,11 @@ const Map: FC = () => {
         }
 
         if (mapPlaceOverlay) {
-            return { level: 5, latitude: Number(mapPlaceOverlay.latitude), longitude: Number(mapPlaceOverlay.longitude) };
+            return { level: 5, latitude: mapPlaceOverlay.latitude, longitude: mapPlaceOverlay.longitude };
         }
 
-        return { level: 5, latitude: Number(markers[0].latitude), longitude: Number(markers[0].longitude) };
+        return { level: 5, latitude: markers[0].latitude, longitude: markers[0].longitude };
     }, [markers, mapPlaceOverlay]);
-
-    // useEffect(() => {
-    //     if (!mapDetail) return;
-
-    //     setMapAccessible(mapDetail.accessible);
-    // }, [mapDetail]); // eslint-disable-line react-hooks/exhaustive-deps
 
     const onFavoriteClick = useCallback(() => {
         if (!mapDetail) return;
@@ -72,14 +61,6 @@ const Map: FC = () => {
         setMapDetail(detail => ({ ...detail!, isFavorite: true })); // eslint-disable-line @typescript-eslint/no-non-null-assertion
         createFavoriteMap({ favoriteMapId: Number(mapId) });
     }, [mapId, mapDetail, setMapDetail]);
-
-    const onPlaceListToggle = useCallback(() => {
-        if (!isOpenPlaceList) {
-            setMapPlaceOverlay(undefined);
-        }
-
-        setIsOpenPlaceList(open => !open);
-    }, [isOpenPlaceList, setMapPlaceOverlay]);
 
     if (!mapDetail) {
         return <Loading />;
@@ -114,19 +95,11 @@ const Map: FC = () => {
                                     onClick={() => setMapPlaceOverlay(markers[index])}
                                 />
                             ))}
-                            {mapPlaceOverlay && <MyMapPlaceOverlay up={isOpenPlaceList} />}
-                            <BottomFloatingArea open={isOpenPlaceList} onPlaceListToggle={onPlaceListToggle} />
+                            {mapPlaceOverlay && <MyMapPlaceOverlay />}
                         </KakaoMap>
                         <FavoriteIcon alt='favorite' src={mapDetail.isFavorite ? icFavoriteOn : icFavoriteOff} onClick={onFavoriteClick} />
                     </MapContainer>
                 </Container>
-            )}
-            {!mapAccessible && (
-                <PrivateCodeModal
-                    mapId={mapDetail.id}
-                    onCodeEnterFail={() => alert('fail!')}
-                    onCodeEnterSuccess={accessible => setMapAccessible(accessible)}
-                />
             )}
         </>
     );

@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 
-export type PlaceInfo = {
+export type Place = {
     id: number;
     locationName: string;
     longitude: string;
@@ -18,7 +18,7 @@ export type PlaceInfo = {
 };
 
 const useSearchMap = () => {
-    const [places, setPlaces] = useState<PlaceInfo[]>();
+    const [places, setPlaces] = useState<Place[]>();
 
     const searchPlaces = useCallback((keyword: string) => {
         const ps = new window.kakao.maps.services.Places();

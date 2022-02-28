@@ -22,9 +22,6 @@ const ReplyItem: FC<ReplyItemProps> = ({ reply }) => {
     const { mutate: mutateUpdateReply } = useMutation<unknown, unknown, UpdateReplyParam & UpdateReplyBody>(
         ({ replyId, message }) => updateReply({ replyId }, { message }),
         {
-            onSuccess: response => {
-                console.log(response);
-            },
             onMutate: ({ replyId, message }) => {
                 setMarkerReplies(replies => {
                     if (!replies) return;
