@@ -87,4 +87,5 @@ const AppContainer = styled.main`
     min-height: 100vh;
     flex-direction: column;
     margin: auto;
+    box-shadow: 0 -5px 10px 0 rgba(0, 0, 0, 0.1);
 `;

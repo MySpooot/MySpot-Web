@@ -4,55 +4,24 @@ import { useMutation } from 'react-query';
 import { Popup } from 'reactjs-popup';
 
 import { Container, Wrapper, EqRightIcon, BookMarkIcon, VerticalThreeIcon, DeletePopup, Address, RoadAddress } from './styles';
-import { useMapPlaceOverlayState } from 'src/atoms/mapPlaceOverlay';
-import { useMapMarkerState } from 'src/atoms';
-import { createMyLocation, deleteMyLocation, deleteMarker } from 'src/api/marker';
+import { useMapPlaceOverlayState, useMapMarkerState } from 'src/atoms';
+import { MapMarkerVO } from 'src/vo';
+import { deleteMarker } from 'src/api';
+import useMarkerUserAction from 'src/hooks/useMarkerUserAction';
 
 import icEqRight from 'src/assets/mymap/ic_eq_right.svg';
 import icBookmark from 'src/assets/mymap/ic_bookmark.svg';
 import icMarkedBookmark from 'src/assets/mymap/ic_marked_bookmark.svg';
-
 import icDotThree from 'src/assets/main/ic-vertical-circle.svg';
 
 const PlaceOverlay: FC = () => {
     const navigate = useNavigate();
     const { mapId } = useParams<{ mapId: string }>();
+
     const { setMarkers } = useMapMarkerState();
     const { mapPlaceOverlay, setMapPlaceOverlay } = useMapPlaceOverlayState();
 
-    const { mutate: fetchCreateMyLocation, isLoading: isCreatMyLocationLoading } = useMutation(createMyLocation, {
-        onMutate: () => {
-            setMapPlaceOverlay(value => (value ? { ...value, isMyLocation: true } : undefined));
-            setMarkers(markers => {
-                if (!markers) return undefined;
-
-                return markers.map(marker => {
-                    if (marker.kakaoAddressId === mapPlaceOverlay?.kakaoAddressId) {
-                        return { ...marker, isMyLocation: true };
-                    }
-
-                    return marker;
-                });
-            });
-        }
-    });
-
-    const { mutate: fetchDeleteMyLocation, isLoading: isDeleteMyLocationLoading } = useMutation(deleteMyLocation, {
-        onMutate: () => {
-            setMapPlaceOverlay(value => (value ? { ...value, isMyLocation: false } : undefined));
-            setMarkers(markers => {
-                if (!markers) return undefined;
-
-                return markers.map(marker => {
-                    if (marker.kakaoAddressId === mapPlaceOverlay?.kakaoAddressId) {
-                        return { ...marker, isMyLocation: false };
-                    }
-
-                    return marker;
-                });
-            });
-        }
-    });
+    const { onBookmarkClick: onBookmarkClick_ } = useMarkerUserAction();
 
     const { mutate: fetchDeleteMarker } = useMutation(deleteMarker, {
         onMutate: () => {
@@ -69,24 +38,17 @@ const PlaceOverlay: FC = () => {
         navigate(`/map/${mapId}/kakao/${mapPlaceOverlay?.kakaoAddressId}`);
     }, [navigate, mapId, mapPlaceOverlay]);
 
-    const onBookmarkClick = useCallback(
-        (event: MouseEvent<HTMLImageElement>) => {
-            event.stopPropagation();
+    const onBookMarkClick = useCallback(
+        (marker: MapMarkerVO) => {
+            setMapPlaceOverlay(value => {
+                if (!value) return;
 
-            if (isCreatMyLocationLoading || isDeleteMyLocationLoading || !mapPlaceOverlay) return;
+                return { ...value, isMyLocation: !marker.isMyLocation };
+            });
 
-            if (mapPlaceOverlay.isMyLocation) {
-                fetchDeleteMyLocation({ addressId: mapPlaceOverlay.kakaoAddressId });
-            } else {
-                fetchCreateMyLocation({
-                    addressId: mapPlaceOverlay.kakaoAddressId,
-                    locationName: mapPlaceOverlay.name,
-                    address: mapPlaceOverlay.address,
-                    roadAddress: mapPlaceOverlay.roadAddress
-                });
-            }
+            onBookmarkClick_(marker);
         },
-        [mapPlaceOverlay, fetchCreateMyLocation, fetchDeleteMyLocation, isCreatMyLocationLoading, isDeleteMyLocationLoading]
+        [onBookmarkClick_, setMapPlaceOverlay]
     );
 
     const onDeleteClick = useCallback(() => {
@@ -103,7 +65,10 @@ const PlaceOverlay: FC = () => {
         <Container>
             <Wrapper>
                 <div className='title'>
-                    <BookMarkIcon src={mapPlaceOverlay.isMyLocation ? icMarkedBookmark : icBookmark} onClick={onBookmarkClick} />
+                    <BookMarkIcon
+                        src={mapPlaceOverlay.isMyLocation ? icMarkedBookmark : icBookmark}
+                        onClick={() => onBookMarkClick(mapPlaceOverlay)}
+                    />
                     <div style={{ display: 'flex' }} onClick={onPlaceOverlayClick}>
                         <div>{mapPlaceOverlay.name}</div>
                         <EqRightIcon src={icEqRight} />

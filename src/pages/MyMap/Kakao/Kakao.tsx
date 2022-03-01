@@ -1,37 +1,42 @@
-import React, { FC, useCallback } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { Container, Footer, BackButton, ViewReviewButton } from './styles';
+import { Container } from './styles';
 import KakaoPlaceIframe from 'src/components/KakaoPlaceIframe';
-import Icon from 'src/components/Icon';
-
-import icArrowLeft from 'src/assets/mymap/ic_arrow_left.svg';
+import MapDetailFooter from 'src/components/MapDetailFooter/MapDetailFooter';
+import { MapMarkerVO } from 'src/vo';
+import { Path } from 'src/Constants';
+import { useMapMarkerState } from 'src/atoms';
 
 const Kakao: FC = () => {
     const { mapId, kakaoAddressId } = useParams<{ mapId: string; kakaoAddressId: string }>();
     const navigate = useNavigate();
 
-    const onBackButtonClick = useCallback(() => {
-        navigate(`/map/${mapId}`);
-    }, [navigate, mapId]);
+    const { markers } = useMapMarkerState();
 
-    const onViewReviewButtonClick = useCallback(() => {
-        navigate(`/map/${mapId}/review/${kakaoAddressId}`);
-    }, [navigate, mapId, kakaoAddressId]);
+    const [marker, setMarker] = useState<MapMarkerVO>();
 
-    if (!kakaoAddressId) {
+    useEffect(() => {
+        const marker = markers?.find(marker => marker.kakaoAddressId === Number(kakaoAddressId));
+
+        if (!marker) {
+            return navigate(Path.home);
+        }
+
+        setMarker(marker);
+    }, [markers]); // eslint-disable-line react-hooks/exhaustive-deps
+
+    if (!kakaoAddressId || !marker) {
         return <></>;
     }
 
     return (
         <Container>
             <KakaoPlaceIframe addressId={kakaoAddressId} />
-            <Footer>
-                <BackButton onClick={onBackButtonClick}>
-                    <Icon src={icArrowLeft} />
-                </BackButton>
-                <ViewReviewButton onClick={onViewReviewButtonClick}>후기 보기</ViewReviewButton>
-            </Footer>
+            <MapDetailFooter
+                marker={marker}
+                viewButton={{ text: '후기 보기', onClick: () => navigate(`${Path.myMap}/${mapId}/review/${kakaoAddressId}`) }}
+            />
         </Container>
     );
 };
