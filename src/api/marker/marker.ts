@@ -7,7 +7,8 @@ import type {
     CreateMarkerResponse,
     DeleteMarkerParam,
     CreateMyLocationBody,
-    DeleteMyLocationParam
+    DeleteMyLocationParam,
+    GetMyLocationResponse
 } from './types';
 
 export const getMarkers = ({ mapId }: GetMarkerParam) => {
@@ -23,7 +24,7 @@ export const deleteMarker = ({ markerId }: DeleteMarkerParam) => {
 };
 
 export const getMyLocation = () => {
-    return request({ method: 'GET', url: 'map/marker/location' });
+    return request<GetMyLocationResponse[]>({ method: 'GET', url: 'map/marker/location' });
 };
 
 export const createMyLocation = (body: CreateMyLocationBody) => {

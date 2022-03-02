@@ -111,8 +111,8 @@ export const MapChip = styled.div`
     width: fit-content;
     height: 1.875rem;
     align-items: center;
-    padding-right: 0.5rem;
-    padding-left: 0.5rem;
+    padding-right: 1rem;
+    padding-left: 1rem;
     margin-right: 0.375rem;
     margin-bottom: 0.375rem;
     background-color: #fff;
