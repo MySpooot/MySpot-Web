@@ -117,11 +117,19 @@ export const MapChip = styled.div`
     margin-bottom: 0.375rem;
     background-color: #fff;
     border-radius: 0.125rem;
-    color: #008fff;
+    color: #666666;
     cursor: pointer;
-    font-size: 0.875rem;
-    letter-spacing: 0.00625rem;
-    line-height: 1.14;
+    border-radius: 1.125rem;
+
+    .map-name {
+        font-size: 0.875rem;
+        max-width: 170px;
+        letter-spacing: 0.00625rem;
+        line-height: 1.14;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
 `;
 
 export const Maps = styled.div`
@@ -162,9 +170,9 @@ export const FloatingWrapper = styled.div<{ active: boolean }>`
     position: fixed;
     bottom: 1rem;
     display: flex;
+    width: 100%;
     max-width: calc(${Dimension.MaxWidth} - 2rem);
     justify-content: flex-end;
-    padding: 1rem;
 `;
 
 export const NewBtn = styled.div`

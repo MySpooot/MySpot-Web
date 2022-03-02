@@ -11,7 +11,7 @@ const Login: FC = () => {
     const me = useRecoilValue(meState);
 
     useEffect(() => {
-        if (me) {
+        if (me?.id) {
             navigate(Path.home);
         }
     }, []); // eslint-disable-line react-hooks/exhaustive-deps

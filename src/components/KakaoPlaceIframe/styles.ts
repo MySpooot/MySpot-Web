@@ -5,7 +5,7 @@ export const Container = styled.div`
     z-index: 21;
     bottom: 0;
     display: flex;
-    width: 100%;
+    width: inherit;
     height: 100vh;
     flex-direction: column;
 
