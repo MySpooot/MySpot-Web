@@ -6,7 +6,6 @@ export const Container = styled.div`
     width: 28.125rem;
     height: 100vh;
     flex-direction: column;
-    padding: 0 1.5rem;
 `;
 
 export const Header = styled.div`
@@ -66,7 +65,7 @@ export const Locations = styled.div`
 
 export const LocationCard = styled.div`
     display: flex;
-    width: 23.4rem;
+    width: 25.6rem;
     justify-content: space-between;
     padding: 1.25rem 1.125rem;
     margin-bottom: 0.75rem;

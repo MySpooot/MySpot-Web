@@ -15,6 +15,7 @@ const MyMap = lazy(() => import('src/pages/MyMap'));
 const Map = lazy(() => import('src/pages/MyMap/Map'));
 const Search = lazy(() => import('src/pages/MyMap/Search'));
 const KakaoDetail = lazy(() => import('src/pages/MyMap/Kakao'));
+const LocationDetail = lazy(() => import('src/pages/MyPage/Kakao'));
 const Review = lazy(() => import('src/pages/MyMap/Review'));
 const Setting = lazy(() => import('src/pages/MyMap/Setting'));
 const MyPage = lazy(() => import('src/pages/MyPage'));
@@ -55,6 +56,7 @@ const App: FC = () => {
                         <>
                             <Route element={<Home />} path={Path.home} />
                             <Route element={<MyPage />} path={Path.myPage} />
+                            <Route element={<LocationDetail />} path={'/mypage/:kakaoAddressId'} />
                         </>
                     ) : (
                         <>
@@ -67,6 +69,7 @@ const App: FC = () => {
                         <Route element={<Search />} path={`:mapId${Path.search}`} />
                         <Route element={<Setting />} path={`:mapId${Path.setting}`} />
                         <Route element={<KakaoDetail />} path={':mapId/kakao/:kakaoAddressId'} />
+
                         <Route element={<Review />} path={':mapId/review/:kakaoAddressId'} />
                     </Route>
                     <Route element={<KakaoLoginCallback />} path={Path.authKakao} />
