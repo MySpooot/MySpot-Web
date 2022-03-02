@@ -12,6 +12,8 @@ import NewMapModal from 'src/components/NewMapModal';
 import Loading from 'src/components/Loading';
 
 import mypage from 'src/assets/main/btn-mypage.svg';
+import whitearrow from 'src/assets/main/ic-arrow.svg';
+import blackarrow from 'src/assets/main/ic-arrow-b.svg';
 
 const Home: FC = () => {
     const navigate = useNavigate();
@@ -54,15 +56,13 @@ const Home: FC = () => {
                     <RecentMap>
                         <div className='text-bar'>
                             <div className='title'>#최근 본 지도</div>
-                            <div className='see-more' onClick={() => onClickMoreMap('recent')}>
-                                더보기
-                            </div>
+                            <img src={whitearrow} onClick={() => onClickMoreMap('recent')} />
                         </div>
                         <div className='map-area'>
                             {isRecentLoading && <Loading />}
                             {recentMaps?.map((map, idx) => (
                                 <MapChip key={idx} onClick={() => onClickRecentMap(map)}>
-                                    {map.mapName}
+                                    <div className='map-name'>{map.mapName}</div>
                                 </MapChip>
                             ))}
                         </div>
@@ -71,9 +71,7 @@ const Home: FC = () => {
                 <Maps>
                     <div className='title-area'>
                         <span className='title'>나의 지도</span>
-                        <span className='see-more' onClick={() => onClickMoreMap('my')}>
-                            더보기
-                        </span>
+                        <img src={blackarrow} onClick={() => onClickMoreMap('my')} />
                     </div>
                     <div className='map-area'>
                         {isMapLoading && <Loading />}
@@ -85,9 +83,7 @@ const Home: FC = () => {
                 <Maps>
                     <div className='title-area'>
                         <span className='title'>즐겨찾는 지도</span>
-                        <span className='see-more' onClick={() => onClickMoreMap('favorite')}>
-                            더보기
-                        </span>
+                        <img src={blackarrow} onClick={() => onClickMoreMap('favorite')} />
                     </div>
                     <div className='map-area'>
                         {isFavoriteLoading && <Loading />}
