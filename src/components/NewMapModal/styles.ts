@@ -33,7 +33,7 @@ export const Desc = styled.div`
     letter-spacing: 0.006875rem;
     line-height: 2;
     letter-spacing: 0.006875rem;
-    margin-top: 0.3125rem;
+    line-height: 2;
 `;
 
 export const InputArea = styled.div`

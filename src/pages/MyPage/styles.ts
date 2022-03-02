@@ -6,6 +6,7 @@ export const Container = styled.div`
     width: 28.125rem;
     height: 100vh;
     width: 28.125rem;
+    height: 100vh;
     flex-direction: column;
 `;
 
@@ -53,10 +54,11 @@ export const UpdateBtn = styled.button`
     height: 1.25rem;
     border-radius: 4px;
     border: solid 1px ${Palette.Grey[300]};
+    background-color: ${Palette.White};
+    border-radius: 4px;
     color: ${Palette.Grey[500]};
     font-size: 0.75rem;
     font-weight: 500;
-    background-color: ${Palette.White};
     letter-spacing: -0.17px;
 `;
 
