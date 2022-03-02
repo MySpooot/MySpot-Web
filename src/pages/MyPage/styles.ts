@@ -5,6 +5,7 @@ export const Container = styled.div`
     display: flex;
     width: 28.125rem;
     height: 100vh;
+    width: 28.125rem;
     flex-direction: column;
 `;
 
@@ -44,6 +45,18 @@ export const UpdateBtn = styled.button`
     color: ${Palette.Grey[500]};
     font-size: 0.75rem;
     font-weight: 500;
+    letter-spacing: -0.17px;
+`;
+
+export const UpdateBtn = styled.button`
+    width: 2.625rem;
+    height: 1.25rem;
+    border-radius: 4px;
+    border: solid 1px ${Palette.Grey[300]};
+    color: ${Palette.Grey[500]};
+    font-size: 0.75rem;
+    font-weight: 500;
+    background-color: ${Palette.White};
     letter-spacing: -0.17px;
 `;
 

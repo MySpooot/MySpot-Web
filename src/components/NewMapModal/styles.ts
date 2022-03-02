@@ -7,7 +7,7 @@ export const Container = styled.div<{ open: boolean }>`
     z-index: 99;
     bottom: 0;
     display: flex;
-    width: ${Dimension.MaxWidth};
+    width: calc(${Dimension.MaxWidth} - 2.125rem);
     height: ${({ open }) => (open ? '100vh' : '0')};
     flex-direction: column;
     padding: ${({ open }) => (open ? '1.0625rem' : 0)};
@@ -32,6 +32,8 @@ export const Desc = styled.div`
     font-weight: 300;
     letter-spacing: 0.006875rem;
     line-height: 2;
+    letter-spacing: 0.006875rem;
+    margin-top: 0.3125rem;
 `;
 
 export const InputArea = styled.div`
