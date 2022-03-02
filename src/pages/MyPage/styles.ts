@@ -3,8 +3,8 @@ import { Palette } from 'src/Constants';
 
 export const Container = styled.div`
     display: flex;
-    height: 100vh;
     width: 28.125rem;
+    height: 100vh;
     flex-direction: column;
     padding: 0 1.5rem;
 `;
@@ -23,6 +23,7 @@ export const UserInfo = styled.div`
 export const User = styled.div`
     display: flex;
     align-items: center;
+
     .mypage-img {
         width: 3.375rem;
         height: 3.375rem;
@@ -30,29 +31,29 @@ export const User = styled.div`
     }
 
     .user-txt {
-        margin-left: 18px;
         margin-right: 14px;
+        margin-left: 18px;
     }
 `;
 
 export const UpdateBtn = styled.button`
     width: 2.625rem;
     height: 1.25rem;
-    border-radius: 4px;
     border: solid 1px ${Palette.Grey[300]};
+    background-color: ${Palette.White};
+    border-radius: 4px;
     color: ${Palette.Grey[500]};
     font-size: 0.75rem;
     font-weight: 500;
-    background-color: ${Palette.White};
     letter-spacing: -0.17px;
 `;
 
 export const LogoutBtn = styled.button`
     border: none;
-    cursor: pointer;
-    color: ${Palette.Grey[500]};
-    font-size: 0.75rem;
     background-color: ${Palette.White};
+    color: ${Palette.Grey[500]};
+    cursor: pointer;
+    font-size: 0.75rem;
 `;
 
 export const Locations = styled.div`
@@ -61,44 +62,43 @@ export const Locations = styled.div`
     flex-direction: column;
     padding: 1rem 1.25rem;
     background-color: ${Palette.Grey[100]};
-}
 `;
 
 export const LocationCard = styled.div`
     display: flex;
-    background-color: ${Palette.White};
     width: 23.4rem;
-    padding: 1.25rem 1.125rem;
-    border-radius: 0.375rem;
-    margin-bottom: 0.75rem;
-    cursor: pointer;
     justify-content: space-between;
+    padding: 1.25rem 1.125rem;
+    margin-bottom: 0.75rem;
+    background-color: ${Palette.White};
+    border-radius: 0.375rem;
+    cursor: pointer;
 
     .location-address {
+        margin-bottom: 0.1875rem;
+        color: #7f7f7f;
         font-size: 0.75rem;
         letter-spacing: -0.010625rem;
-        color: #7f7f7f;
-        margin-bottom: 0.1875rem;
     }
 
     .location-title {
+        margin-bottom: 0.25rem;
+        color: #333333;
         font-size: 1rem;
         letter-spacing: -0.014375rem;
-        color: #333333;
-        margin-bottom: 0.25rem;
     }
 
     .address {
+        display: flex;
         width: 1.6875rem;
         height: 0.9375rem;
-        border-radius: 0.1875rem;
-        border: solid 1px #e8e8e8;
-        font-size: 0.625rem;
-        letter-spacing: -0.00875rem;
-        color: #bebebe;
-        display: flex;
         align-items: center;
         justify-content: center;
+        border: solid 1px #e8e8e8;
         margin-right: 0.25rem;
+        border-radius: 0.1875rem;
+        color: #bebebe;
+        font-size: 0.625rem;
+        letter-spacing: -0.00875rem;
     }
 `;
