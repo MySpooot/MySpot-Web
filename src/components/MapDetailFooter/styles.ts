@@ -23,9 +23,9 @@ export const LikeArea = styled.div`
     cursor: pointer;
 
     .count {
+        margin-left: 0.25rem;
         color: ${Color.grey[600]};
         font-size: 0.5rem;
-        margin-left: 0.25rem;
     }
 `;
 
@@ -35,9 +35,9 @@ export const LikeIcon = styled(Icon)`
 `;
 
 export const BookmarkIcon = styled(Icon)`
-    margin-left: 1.25rem;
     width: 1.25rem;
     height: 1.25rem;
+    margin-left: 1.25rem;
     cursor: pointer;
 `;
 
@@ -47,10 +47,10 @@ export const Bottom = styled.div`
 `;
 
 export const BackButton = styled.button`
+    padding: 0.75rem;
     border: 1px solid ${Color.grey[300]};
     border-radius: 0.25rem;
     cursor: pointer;
-    padding: 0.75rem;
 `;
 
 export const BackIcon = styled(Icon)`
