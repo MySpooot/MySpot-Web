@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import { Color } from 'src/Constants';
+import { Color, ScrollbarStyle } from 'src/Constants';
 
 export const Container = styled.li`
     padding: 1rem;
@@ -29,8 +29,14 @@ export const Created = styled.div`
 `;
 
 export const Content = styled.p`
+    ${ScrollbarStyle}
+    max-height: 10rem;
+    padding: 0.5rem 0;
     color: ${Color.grey[600]};
     font-size: 0.75rem;
+    line-height: 1.5;
+    overflow-y: auto;
+    word-break: break-all;
 `;
 
 export const TextArea = styled.textarea`

@@ -76,6 +76,19 @@ const ReplyItem: FC<ReplyItemProps> = ({ reply }) => {
         [mutateDeleteReply]
     );
 
+    const newlineToBr = (text?: string) => {
+        if (!text) {
+            return '';
+        }
+
+        return text.split('\n').map((line, i) => (
+            <span key={i}>
+                {line}
+                <br />
+            </span>
+        ));
+    };
+
     return (
         <Container>
             <Top>
@@ -85,7 +98,7 @@ const ReplyItem: FC<ReplyItemProps> = ({ reply }) => {
             {isModifiyMode ? (
                 <TextArea ref={textAreaRef} rows={3} value={modifyReviewText} onChange={event => setModifyReviewText(event.target.value)} />
             ) : (
-                <Content>{reply.message}</Content>
+                <Content>{newlineToBr(reply.message)}</Content>
             )}
             {me?.id === reply.userId && (
                 <ButtonArea>

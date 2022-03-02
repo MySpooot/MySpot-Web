@@ -150,6 +150,10 @@ const globalStyle = css`
         box-sizing: border-box;
         font-family: 'Spoqa Han Sans Neo', sans-serif;
     }
+
+    :root {
+        --vh: 100%;
+    }
 `;
 
 const GlobalStyle: FC = () => <Global styles={globalStyle} />;
