@@ -1,38 +1,51 @@
-import React, { FC, useCallback } from 'react';
+import React, { FC, useCallback, useState } from 'react';
 import { useNavigate } from 'react-router';
-import { useRecoilState } from 'recoil';
 import { useMutation, useQuery } from 'react-query';
 
 import { Container, UpdateBtn, UserInfo, LogoutBtn, User, Locations, LocationCard } from './styles';
 import HeaderWithLeftArrow from 'src/components/HeaderWithLeftArrow';
 import { Path } from 'src/Constants';
-import { meState } from 'src/atoms';
+import { useMeState, useMapDetailState } from 'src/atoms';
 import { getMyLocation, deleteMyLocation } from 'src/api/marker';
-import { usePlaceDetail } from 'src/pages/MyMap/Map/atoms';
-import KakaoPlaceIframe from 'src/components/KakaoPlaceIframe';
-import { queryClient } from 'src/index';
 
 import mypage from 'src/assets/mypage/user-img.png';
 
 const MyPage: FC = () => {
-    const [me, setMe] = useRecoilState(meState);
+    const { me, setMe } = useMeState();
     const navigate = useNavigate();
-    const { placeDetail, setPlaceDetail } = usePlaceDetail();
+    // const { placeDetail, setPlaceDetail } = usePlaceDetail();
+    const { mapDetail, setMapDetail } = useMapDetailState();
+    // const [locations, setLocations] = useState<MapMarkerVO[]>();
+    const [addressId, setAddressId] = useState(0);
 
     const { data: locations } = useQuery('getLocations', () => getMyLocation());
+    // useQuery('getLocations', () => getMyLocation(), {
+    //     onSuccess: data => {
+    //         setLocations(data);
+    //     }
+    // });
     const { mutate: deleteLocation } = useMutation(deleteMyLocation, {
-        onMutate: () => {
-            queryClient.setQueryData<any>(['getLocations'], prev => {
-                console.log(prev);
-            });
+        onMutate: addressId => {
+            console.log(addressId.addressId);
+            return locations?.filter(location => location.addressId !== addressId.addressId);
         }
     });
 
     const onClickLocation = useCallback(
         (addressId: number) => {
-            setPlaceDetail({ placeId: addressId });
+            // setPlaceDetail({ placeId: addressId });
+            // setMapDetail(detail => ({ ...detail!, isFavorite: true }));
+            setAddressId(addressId);
+            navigate(`/mypage/${addressId}`);
         },
-        [setPlaceDetail]
+        [setMapDetail]
+    );
+
+    const onDeleteClick = useCallback(
+        (addressId: number) => {
+            deleteLocation({ addressId });
+        },
+        [deleteLocation]
     );
 
     const onClickHome = useCallback(() => {
@@ -41,11 +54,7 @@ const MyPage: FC = () => {
 
     const logout = () => {
         localStorage.removeItem('token');
-        setMe({
-            id: 0,
-            nickname: '',
-            thumbnail: ''
-        });
+        setMe(undefined);
         navigate(Path.login);
     };
 
@@ -86,7 +95,7 @@ const MyPage: FC = () => {
                         </div>
                         <UpdateBtn
                             onClick={() => {
-                                deleteLocation({ addressId: addressId });
+                                onDeleteClick(addressId);
                             }}
                         >
                             삭제
@@ -94,7 +103,8 @@ const MyPage: FC = () => {
                     </LocationCard>
                 ))}
             </Locations>
-            {placeDetail && <KakaoPlaceIframe />}
+            {/* {addressId && <KakaoPlaceIframe addressId={addressId} />} */}
+            {/* {mapDetail && <KakaoPlaceIframe addressId={addressId} />} */}
         </Container>
     );
 };

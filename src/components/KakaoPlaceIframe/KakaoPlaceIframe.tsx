@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import { Iframe } from './styles';
 
 type KakaoPlaceIframeProps = {
-    addressId: string;
+    addressId: string | number;
 };
 
 const KakaoPlaceIframe: FC<KakaoPlaceIframeProps> = ({ addressId }) => {

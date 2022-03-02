@@ -7,7 +7,7 @@ export const Container = styled.div<{ open: boolean }>`
     z-index: 99;
     bottom: 0;
     display: flex;
-    width: calc(${Dimension.MaxWidth} - 2.125rem);
+    width: ${Dimension.MaxWidth};
     height: ${({ open }) => (open ? '100vh' : '0')};
     flex-direction: column;
     padding: ${({ open }) => (open ? '1.0625rem' : 0)};
@@ -42,7 +42,7 @@ export const InputArea = styled.div`
 
 export const Input = styled.input`
     height: 1.25rem;
-    padding: 0.8125rem;
+    padding: 1.45rem;
     border: 1px solid ${Palette.Grey[400]};
     margin-bottom: 1.25rem;
     border-radius: 0.25rem;
