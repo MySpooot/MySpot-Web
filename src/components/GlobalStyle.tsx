@@ -82,7 +82,8 @@ const globalStyle = css`
     time,
     mark,
     audio,
-    video {
+    video,
+    button {
         padding: 0;
         border: 0;
         margin: 0;
@@ -127,12 +128,26 @@ const globalStyle = css`
         content: none;
     }
 
+    button {
+        overflow: visible;
+        border: none;
+        background: transparent;
+        outline: none;
+    }
+
+    textarea {
+        border: none;
+        outline: none;
+        resize: none;
+    }
+
     table {
         border-collapse: collapse;
         border-spacing: 0;
     }
 
     * {
+        box-sizing: border-box;
         font-family: 'Spoqa Han Sans Neo', sans-serif;
     }
 `;

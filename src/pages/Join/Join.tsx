@@ -1,19 +1,18 @@
 import React, { FC, useState, useEffect, useCallback, ChangeEvent } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
 
 import { Container } from './styles';
 import { JoinState } from './types';
 import { updateUserNickname } from 'src/api/auth';
 import { Path } from 'src/Constants';
-import { meState } from 'src/atoms';
+import { useMeState } from 'src/atoms';
 import { setAccessToken } from 'src/api';
 
 const Join: FC = () => {
     const navigate = useNavigate();
     const { state } = useLocation();
 
-    const [me, setMe] = useRecoilState(meState);
+    const { me, setMe } = useMeState();
 
     const [nickname, setNickname] = useState('');
 

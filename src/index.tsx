@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-import { RecoilRoot } from 'recoil';
 import { QueryClientProvider, QueryClient } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 
@@ -23,7 +22,7 @@ import App from './App';
     document.body.appendChild(script);
 })();
 
-export const queryClient = new QueryClient({
+const queryClient = new QueryClient({
     defaultOptions: {
         queries: {
             suspense: true,
@@ -36,9 +35,7 @@ ReactDOM.render(
     <React.StrictMode>
         <BrowserRouter>
             <QueryClientProvider client={queryClient}>
-                <RecoilRoot>
-                    <App />
-                </RecoilRoot>
+                <App />
                 <ReactQueryDevtools />
             </QueryClientProvider>
         </BrowserRouter>

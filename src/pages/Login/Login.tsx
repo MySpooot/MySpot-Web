@@ -1,14 +1,13 @@
 import React, { FC, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
 
 import { Container, LabelArea, LoginButton } from './styles';
 import { Path } from 'src/Constants';
-import { meState } from 'src/atoms';
+import { useMeState } from 'src/atoms';
 
 const Login: FC = () => {
     const navigate = useNavigate();
-    const me = useRecoilValue(meState);
+    const { me } = useMeState();
 
     useEffect(() => {
         if (me?.id) {

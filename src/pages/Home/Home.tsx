@@ -1,13 +1,12 @@
 import React, { FC, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router';
-import { useRecoilValue } from 'recoil';
 import { useQuery } from 'react-query';
 
 import { Main, Top, User, Container, Header, Maps, FloatingWrapper, NewBtn, RecentMap, MapChip } from 'src/pages/Home/styles';
 import { Map, mapType } from 'src/pages/Home/types';
 import { getMaps, getFavoriteMap, getRecentMaps } from 'src/api/map';
 import { Path } from 'src/Constants';
-import { meState } from 'src/atoms';
+import { useMeState } from 'src/atoms';
 import Card from 'src/components/MapCard';
 import NewMapModal from 'src/components/NewMapModal';
 import Loading from 'src/components/Loading';
@@ -19,7 +18,7 @@ import blackarrow from 'src/assets/main/ic-arrow-b.svg';
 const Home: FC = () => {
     const navigate = useNavigate();
 
-    const me = useRecoilValue(meState);
+    const { me } = useMeState();
 
     const [newMapModalOpen, setNewMapModalOpen] = useState(false);
 

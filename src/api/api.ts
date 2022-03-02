@@ -7,7 +7,7 @@ const instance = axios.create({
     }
 });
 
-export const request = async <T = any>(config: AxiosRequestConfig): Promise<T> => {
+export const request = async <T = unknown>(config: AxiosRequestConfig): Promise<T> => {
     const { data } = await instance(config);
 
     return data;
