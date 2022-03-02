@@ -4,6 +4,7 @@ import type {
     GetMarkersResponse,
     CreateMarkerParam,
     CreateMarkerBody,
+    CreateMarkerResponse,
     DeleteMarkerParam,
     CreateMyLocationBody,
     DeleteMyLocationParam
@@ -14,7 +15,7 @@ export const getMarkers = ({ mapId }: GetMarkerParam) => {
 };
 
 export const createMarker = ({ mapId }: CreateMarkerParam, body: CreateMarkerBody) => {
-    return request({ method: 'POST', url: `/map/${mapId}/marker`, data: body });
+    return request<CreateMarkerResponse>({ method: 'POST', url: `/map/${mapId}/marker`, data: body });
 };
 
 export const deleteMarker = ({ markerId }: DeleteMarkerParam) => {

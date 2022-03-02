@@ -1,20 +1,45 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 import { Outlet, useParams } from 'react-router';
+import { useQuery } from 'react-query';
 
 import { getMapDetail } from 'src/api/map';
-import { useMapDetailState } from 'src/atoms/mapDetail';
+import { getMarkers } from 'src/api/marker';
+import { useMapDetailState, useMapMarkerState, useMapAccessible } from 'src/atoms';
+import { MapDetailVO, MapMarkerVO } from 'src/vo';
+import Loading from 'src/components/Loading';
 
 const MyMap: FC = () => {
-    const params = useParams<{ mapId: string }>();
-    const { setMapDetail, reset } = useMapDetailState();
+    const { mapId } = useParams<{ mapId: string }>();
 
-    useEffect(() => {
-        getMapDetail({ mapId: Number(params.mapId) })
-            .then(setMapDetail)
-            .catch(err => alert(err));
+    const { mapDetail, setMapDetail } = useMapDetailState();
+    const { markers, setMarkers } = useMapMarkerState();
+    const { mapAccessible, setMapAccessible } = useMapAccessible();
 
-        return () => reset();
-    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    useQuery(['getMapDetail', mapId], () => getMapDetail({ mapId: Number(mapId) }), {
+        onSuccess: data => {
+            setMapAccessible(data.accessible);
+            setMapDetail(MapDetailVO.from(data));
+        }
+    });
+
+    useQuery(['getMarkers', mapId], () => getMarkers({ mapId: Number(mapId) }), {
+        enabled: mapAccessible,
+        onSuccess: data => {
+            setMarkers(data.map(MapMarkerVO.from));
+        }
+    });
+
+    if (!mapDetail) {
+        return <Loading />;
+    }
+
+    if (!mapAccessible) {
+        return <div>초대코드 입력하세요.</div>;
+    }
+
+    if (!markers) {
+        return <Loading />;
+    }
 
     return <Outlet />;
 };

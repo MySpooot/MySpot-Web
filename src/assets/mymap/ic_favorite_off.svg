@@ -1,17 +1,17 @@
 <svg width="38" height="38" viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <defs>
-        <filter x="-23.3%" y="-16.7%" width="146.7%" height="146.7%" filterUnits="objectBoundingBox" id="ut6iyfhz7a">
+        <filter x="-23.3%" y="-16.7%" width="146.7%" height="146.7%" filterUnits="objectBoundingBox" id="xqux1d8h8a">
             <feOffset dy="2" in="SourceAlpha" result="shadowOffsetOuter1"/>
             <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"/>
             <feColorMatrix values="0 0 0 0 0.619607843 0 0 0 0 0.619607843 0 0 0 0 0.619607843 0 0 0 1 0" in="shadowBlurOuter1"/>
         </filter>
-        <circle id="cp7sdipaub" cx="15" cy="15" r="15"/>
+        <circle id="qt77po5p2b" cx="15" cy="15" r="15"/>
     </defs>
     <g fill="none" fill-rule="evenodd">
         <g transform="translate(4 2)">
-            <use fill="#000" filter="url(#ut6iyfhz7a)" xlink:href="#cp7sdipaub"/>
-            <use fill="#008FFF" xlink:href="#cp7sdipaub"/>
+            <use fill="#000" filter="url(#xqux1d8h8a)" xlink:href="#qt77po5p2b"/>
+            <use fill="#9E9E9E" xlink:href="#qt77po5p2b"/>
         </g>
-        <path fill="#FFF" d="m19.105 10-2.156 4.783L12 15.7l3.553 3.66L14.752 24l4.353-2.158L23.126 24l-.553-4.64L26 15.7l-4.817-.917z"/>
+        <path fill="#E8E8E8" d="m19.105 10-2.156 4.783L12 15.7l3.553 3.66L14.752 24l4.353-2.158L23.126 24l-.553-4.64L26 15.7l-4.817-.917z"/>
     </g>
 </svg>
