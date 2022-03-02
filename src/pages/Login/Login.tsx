@@ -10,7 +10,7 @@ const Login: FC = () => {
     const { me } = useMeState();
 
     useEffect(() => {
-        if (me) {
+        if (me?.id) {
             navigate(Path.home);
         }
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
