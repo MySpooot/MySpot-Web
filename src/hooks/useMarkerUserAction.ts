@@ -1,0 +1,109 @@
+import { useCallback } from 'react';
+import { useMutation } from 'react-query';
+
+import { createMyLocation, deleteMyLocation, createMarkerLike, deleteMarkerLike } from 'src/api';
+import { useMapMarkerState } from 'src/atoms';
+import { MapMarkerVO } from 'src/vo';
+
+const useMarkerUserAction = () => {
+    const { setMarkers } = useMapMarkerState();
+
+    const { mutate: fetchCreateMyLocation, isLoading: isCreatMyLocationLoading } = useMutation(createMyLocation, {
+        onMutate: ({ addressId }) => {
+            setMarkers(markers => {
+                if (!markers) return;
+
+                return markers.map(marker => {
+                    if (marker.kakaoAddressId === addressId) {
+                        return { ...marker, isMyLocation: true };
+                    }
+
+                    return marker;
+                });
+            });
+        }
+    });
+
+    const { mutate: fetchDeleteMyLocation, isLoading: isDeleteMyLocationLoading } = useMutation(deleteMyLocation, {
+        onMutate: ({ addressId }) => {
+            setMarkers(markers => {
+                if (!markers) return;
+
+                return markers.map(marker => {
+                    if (marker.kakaoAddressId === addressId) {
+                        return { ...marker, isMyLocation: false };
+                    }
+
+                    return marker;
+                });
+            });
+        }
+    });
+
+    const onBookmarkClick = useCallback(
+        (place: MapMarkerVO) => {
+            if (isCreatMyLocationLoading || isDeleteMyLocationLoading) return;
+
+            if (place.isMyLocation) {
+                fetchDeleteMyLocation({ addressId: place.kakaoAddressId });
+            } else {
+                fetchCreateMyLocation({
+                    addressId: place.kakaoAddressId,
+                    locationName: place.name,
+                    address: place.address,
+                    roadAddress: place.roadAddress
+                });
+            }
+        },
+        [isCreatMyLocationLoading, isDeleteMyLocationLoading, fetchDeleteMyLocation, fetchCreateMyLocation]
+    );
+
+    const { mutate: fetchCreateMarkerLike, isLoading: isCreateMarkerLikeLoading } = useMutation(createMarkerLike, {
+        onMutate: ({ markerId }) => {
+            setMarkers(markers => {
+                if (!markers) return;
+
+                return markers.map(marker => {
+                    if (marker.id === markerId) {
+                        return { ...marker, isLike: true, likeCount: marker.likeCount + 1 };
+                    }
+
+                    return marker;
+                });
+            });
+        }
+    });
+
+    const { mutate: fetchDeleteMarkerLike, isLoading: isDeleteMarkerLikeLoading } = useMutation(deleteMarkerLike, {
+        onMutate: ({ markerId }) => {
+            setMarkers(markers => {
+                if (!markers) return;
+
+                return markers.map(marker => {
+                    if (marker.id === markerId) {
+                        return { ...marker, isLike: false, likeCount: marker.likeCount - 1 };
+                    }
+
+                    return marker;
+                });
+            });
+        }
+    });
+
+    const onLikeClick = useCallback(
+        (place: MapMarkerVO) => {
+            if (isCreateMarkerLikeLoading || isDeleteMarkerLikeLoading) return;
+
+            if (place.isLike) {
+                fetchDeleteMarkerLike({ markerId: place.id });
+            } else {
+                fetchCreateMarkerLike({ markerId: place.id });
+            }
+        },
+        [fetchCreateMarkerLike, fetchDeleteMarkerLike, isCreateMarkerLikeLoading, isDeleteMarkerLikeLoading]
+    );
+
+    return { onLikeClick, onBookmarkClick };
+};
+
+export default useMarkerUserAction;

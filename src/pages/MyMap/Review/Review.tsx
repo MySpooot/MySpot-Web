@@ -1,7 +1,6 @@
 import React, { FC, useState, useEffect, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useInfiniteQuery, useMutation } from 'react-query';
-import dayjs from 'dayjs';
 
 import {
     Container,
@@ -20,10 +19,7 @@ import {
     ReviewTitle,
     ReviewCount,
     ReviewList,
-    NoReview,
-    Footer,
-    BackButton,
-    ViewKakaoButton
+    NoReview
 } from './styles';
 import { ReplyItem } from './components';
 import { Path } from 'src/Constants';
@@ -31,10 +27,8 @@ import { useMapMarkerState, useMarkerRepliesState } from 'src/atoms';
 import { MapMarkerVO, MarkerReplyVO } from 'src/vo';
 import { getReplies, createReply, CreateReplyParam, CreateReplyBody, CreateReplyResponse } from 'src/api';
 import useIntersectionObserver from 'src/hooks/useIntersectionObserver';
+import MapDetailFooter from 'src/components/MapDetailFooter/MapDetailFooter';
 import Loading from 'src/components/Loading';
-import Icon from 'src/components/Icon';
-
-import icArrowLeft from 'src/assets/mymap/ic_arrow_left.svg';
 
 const Review: FC = () => {
     const { mapId, kakaoAddressId } = useParams<{ mapId: string; kakaoAddressId: string }>();
@@ -62,11 +56,11 @@ const Review: FC = () => {
     const { mutate: mutateCreateReply } = useMutation<CreateReplyResponse, unknown, CreateReplyParam & CreateReplyBody>(
         ({ markerId, message }) => createReply({ markerId }, { message }),
         {
-            onSuccess: ({ id, created, message, userId, userNickName }) => {
+            onSuccess: response => {
                 setMarkerReplies(replies => {
                     if (!replies) return;
 
-                    return [{ id, created: dayjs(created).format('YY.MM.DD'), message, userId, nickName: userNickName }, ...replies];
+                    return [MarkerReplyVO.from(response), ...replies];
                 });
                 setPlace(place => {
                     if (!place) return;
@@ -79,7 +73,12 @@ const Review: FC = () => {
 
     const { setRef } = useIntersectionObserver({
         callback: entries => {
-            if (entries[0].isIntersecting && !isFetching && (markerReplies?.length || 0) < (place?.replyCount || 0)) {
+            if (
+                entries[0].isIntersecting &&
+                !isFetching &&
+                (markerReplies?.length || 0) < (place?.replyCount ?? 0) &&
+                replyOffset < (place?.replyCount ?? 0)
+            ) {
                 fetchNextPage({ pageParam: { offset: replyOffset } });
             }
         }
@@ -99,14 +98,6 @@ const Review: FC = () => {
         mutateCreateReply({ markerId: Number(place?.id), message: textAreaValue });
         setTextAreaValue('');
     }, [mutateCreateReply, place, textAreaValue]);
-
-    const onBackButtonClick = useCallback(() => {
-        navigate(`/map/${mapId}`);
-    }, [navigate, mapId]);
-
-    const onViewKakaoMapButtonClick = useCallback(() => {
-        navigate(`/map/${mapId}/kakao/${kakaoAddressId}`);
-    }, [navigate, mapId, kakaoAddressId]);
 
     if (!place) {
         return <></>;
@@ -152,12 +143,10 @@ const Review: FC = () => {
                 </ReviewArea>
             </Main>
 
-            <Footer>
-                <BackButton onClick={onBackButtonClick}>
-                    <Icon src={icArrowLeft} />
-                </BackButton>
-                <ViewKakaoButton onClick={onViewKakaoMapButtonClick}>카카오 맵 보기</ViewKakaoButton>
-            </Footer>
+            <MapDetailFooter
+                marker={place}
+                viewButton={{ text: '카카오 맵 보기', onClick: () => navigate(`${Path.myMap}/${mapId}/kakao/${kakaoAddressId}`) }}
+            />
         </Container>
     );
 };

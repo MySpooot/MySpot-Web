@@ -35,8 +35,9 @@
         "src": "link:./src"
     },
     "devDependencies": {
+        "@babel/preset-react": "^7.16.7",
         "@craco/craco": "^6.4.2",
-        "@emotion/babel-plugin": "^11.3.0",
+        "@emotion/babel-plugin": "^11.7.2",
         "@emotion/babel-preset-css-prop": "^11.2.0",
         "@stylelint/postcss-css-in-js": "^0.37.2",
         "@swc/helpers": "^0.3.2",
