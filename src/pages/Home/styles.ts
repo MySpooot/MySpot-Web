@@ -116,17 +116,16 @@ export const MapChip = styled.div`
     margin-right: 0.375rem;
     margin-bottom: 0.375rem;
     background-color: #fff;
-    border-radius: 0.125rem;
+    border-radius: 1.125rem;
     color: #666666;
     cursor: pointer;
-    border-radius: 1.125rem;
 
     .map-name {
-        font-size: 0.875rem;
+        overflow: hidden;
         max-width: 170px;
+        font-size: 0.875rem;
         letter-spacing: 0.00625rem;
         line-height: 1.14;
-        overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
     }
