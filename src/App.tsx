@@ -84,8 +84,9 @@ const AppContainer = styled.main`
     display: flex;
     width: 100%;
     max-width: ${Dimension.MaxWidth};
-    min-height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
+    /* min-height: 100vh; */
     flex-direction: column;
     margin: auto;
-    box-shadow: 0 -5px 10px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
 `;
