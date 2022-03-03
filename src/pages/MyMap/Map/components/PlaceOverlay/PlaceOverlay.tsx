@@ -4,7 +4,7 @@ import { useMutation } from 'react-query';
 import { Popup } from 'reactjs-popup';
 
 import { Container, Wrapper, EqRightIcon, BookMarkIcon, VerticalThreeIcon, DeletePopup, Address, RoadAddress } from './styles';
-import { useMapPlaceOverlayState, useMapMarkerState } from 'src/atoms';
+import { useMapPlaceOverlayState, useMapMarkerState, useMeState, useMapDetailState } from 'src/atoms';
 import { MapMarkerVO } from 'src/vo';
 import { deleteMarker } from 'src/api';
 import useMarkerUserAction from 'src/hooks/useMarkerUserAction';
@@ -18,6 +18,8 @@ const PlaceOverlay: FC = () => {
     const navigate = useNavigate();
     const { mapId } = useParams<{ mapId: string }>();
 
+    const { me } = useMeState();
+    const { mapDetail } = useMapDetailState();
     const { setMarkers } = useMapMarkerState();
     const { mapPlaceOverlay, setMapPlaceOverlay } = useMapPlaceOverlayState();
 
@@ -35,11 +37,15 @@ const PlaceOverlay: FC = () => {
     });
 
     const onPlaceOverlayClick = useCallback(() => {
-        navigate(`/map/${mapId}/kakao/${mapPlaceOverlay?.kakaoAddressId}`);
+        if (!mapPlaceOverlay) return;
+
+        navigate(`/map/${mapId}/kakao/${mapPlaceOverlay.kakaoAddressId}`);
     }, [navigate, mapId, mapPlaceOverlay]);
 
     const onBookMarkClick = useCallback(
         (marker: MapMarkerVO) => {
+            if (!me) return;
+
             setMapPlaceOverlay(value => {
                 if (!value) return;
 
@@ -48,13 +54,13 @@ const PlaceOverlay: FC = () => {
 
             onBookmarkClick_(marker);
         },
-        [onBookmarkClick_, setMapPlaceOverlay]
+        [me, onBookmarkClick_, setMapPlaceOverlay]
     );
 
     const onDeleteClick = useCallback(() => {
         if (!mapPlaceOverlay) return;
 
-        fetchDeleteMarker({ markerId: Number(mapPlaceOverlay.id) });
+        fetchDeleteMarker({ markerId: mapPlaceOverlay.id });
     }, [mapPlaceOverlay, fetchDeleteMarker]);
 
     if (!mapPlaceOverlay) {
@@ -73,14 +79,18 @@ const PlaceOverlay: FC = () => {
                         <div>{mapPlaceOverlay.name}</div>
                         <EqRightIcon src={icEqRight} />
                     </div>
-                    <Popup
-                        on='click'
-                        position='bottom right'
-                        trigger={<VerticalThreeIcon src={icDotThree} onClick={(event: MouseEvent<HTMLImageElement>) => event.stopPropagation()} />}
-                        closeOnDocumentClick
-                    >
-                        {() => <DeletePopup onClick={onDeleteClick}>삭제</DeletePopup>}
-                    </Popup>
+                    {mapDetail?.isOwner && (
+                        <Popup
+                            on='click'
+                            position='bottom right'
+                            trigger={
+                                <VerticalThreeIcon src={icDotThree} onClick={(event: MouseEvent<HTMLImageElement>) => event.stopPropagation()} />
+                            }
+                            closeOnDocumentClick
+                        >
+                            {() => <DeletePopup onClick={onDeleteClick}>삭제</DeletePopup>}
+                        </Popup>
+                    )}
                 </div>
                 <Address>{mapPlaceOverlay.address}</Address>
                 {mapPlaceOverlay.roadAddress && (

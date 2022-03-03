@@ -23,7 +23,7 @@ import {
 } from './styles';
 import { ReplyItem } from './components';
 import { Path } from 'src/Constants';
-import { useMapMarkerState, useMarkerRepliesState } from 'src/atoms';
+import { useMapMarkerState, useMarkerRepliesState, useMeState } from 'src/atoms';
 import { MapMarkerVO, MarkerReplyVO } from 'src/vo';
 import { getReplies, createReply, CreateReplyParam, CreateReplyBody, CreateReplyResponse } from 'src/api';
 import useIntersectionObserver from 'src/hooks/useIntersectionObserver';
@@ -34,6 +34,7 @@ const Review: FC = () => {
     const { mapId, kakaoAddressId } = useParams<{ mapId: string; kakaoAddressId: string }>();
     const navigate = useNavigate();
 
+    const { me } = useMeState();
     const { markers } = useMapMarkerState();
     const { markerReplies, setMarkerReplies } = useMarkerRepliesState();
 
@@ -41,7 +42,7 @@ const Review: FC = () => {
     const [textAreaValue, setTextAreaValue] = useState('');
     const [replyOffset, setReplyOffset] = useState(0);
 
-    const { fetchNextPage, isFetching } = useInfiniteQuery(
+    const { fetchNextPage, isFetchingNextPage } = useInfiniteQuery(
         ['getReplies', place?.id],
         ({ pageParam }) => getReplies({ markerId: Number(place?.id) }, { offset: pageParam?.offset ?? 0 }),
         {
@@ -75,7 +76,7 @@ const Review: FC = () => {
         callback: entries => {
             if (
                 entries[0].isIntersecting &&
-                !isFetching &&
+                !isFetchingNextPage &&
                 (markerReplies?.length || 0) < (place?.replyCount ?? 0) &&
                 replyOffset < (place?.replyCount ?? 0)
             ) {
@@ -95,6 +96,10 @@ const Review: FC = () => {
     }, [markers]); // eslint-disable-line react-hooks/exhaustive-deps
 
     const onRegisterClick = useCallback(() => {
+        if (textAreaValue.length > 64) {
+            return alert('64자');
+        }
+
         mutateCreateReply({ markerId: Number(place?.id), message: textAreaValue });
         setTextAreaValue('');
     }, [mutateCreateReply, place, textAreaValue]);
@@ -114,10 +119,11 @@ const Review: FC = () => {
                         <RoadAddress>{place.roadAddress}</RoadAddress>
                     </RoadAddressArea>
                     <TextArea
-                        placeholder='후기를 작성해 보세요.'
+                        disabled={!me}
+                        placeholder={me ? '후기를 작성해 보세요.' : '로그인한 유저만 후기를 작성할 수 있습니다.'}
                         rows={3}
                         value={textAreaValue}
-                        onChange={evt => setTextAreaValue(evt.target.value)}
+                        onChange={event => setTextAreaValue(event.target.value)}
                     />
                     <RegisterButton active={0 < textAreaValue.length} onClick={onRegisterClick}>
                         등록하기
@@ -139,7 +145,7 @@ const Review: FC = () => {
                         )}
                     </ReviewList>
                     <div ref={setRef} />
-                    {isFetching && <Loading />}
+                    {isFetchingNextPage && <Loading />}
                 </ReviewArea>
             </Main>
 

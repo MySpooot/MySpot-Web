@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useState, lazy, Suspense } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import styled from '@emotion/styled';
+import Div100vh from '@rodmg/react-div-100vh';
 
 import { Dimension, Path } from './Constants';
 import { useMeState } from 'src/atoms';
@@ -80,11 +81,10 @@ const App: FC = () => {
 
 export default App;
 
-const AppContainer = styled.main`
+const AppContainer = styled(Div100vh)`
     display: flex;
     width: 100%;
     max-width: ${Dimension.MaxWidth};
-    height: calc(var(--vh, 1vh) * 100);
     /* min-height: 100vh; */
     flex-direction: column;
     margin: auto;
