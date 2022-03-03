@@ -60,6 +60,10 @@ export const TextArea = styled.textarea`
     border: 1px solid ${Color.grey[300]};
     margin-top: 1.75rem;
     border-radius: 0.25rem;
+
+    :disabled {
+        opacity: 0.5;
+    }
 `;
 
 export const RegisterButton = styled.button<{ active: boolean }>`
