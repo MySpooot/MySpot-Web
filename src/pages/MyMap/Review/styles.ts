@@ -4,8 +4,8 @@ import { Color, ScrollbarStyle } from 'src/Constants';
 
 export const Container = styled.div`
     display: flex;
-    height: 100vh;
     flex-direction: column;
+    flex-grow: 1;
 `;
 
 export const Main = styled.main`

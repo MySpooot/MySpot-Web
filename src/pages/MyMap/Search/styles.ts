@@ -5,9 +5,9 @@ import Icon from 'src/components/Icon';
 
 export const Container = styled.div`
     display: flex;
-    height: 100vh;
     flex-direction: column;
     flex-grow: 1;
+    overflow: auto;
 `;
 
 export const PlaceInput = styled.div`
