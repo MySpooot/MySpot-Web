@@ -1,9 +1,11 @@
 import React, { FC, useState, useCallback, useRef } from 'react';
+import { useParams } from 'react-router';
+
 import { useMutation } from 'react-query';
 
 import { Container, Top, Nickname, Created, Content, TextArea, ButtonArea, OwnerButton } from './styles';
 import { updateReply, deleteReply, UpdateReplyParam, UpdateReplyBody } from 'src/api';
-import { useMarkerRepliesState, useMeState } from 'src/atoms';
+import { useMapMarkerState, useMarkerRepliesState, useMeState } from 'src/atoms';
 import { MarkerReplyVO } from 'src/vo';
 
 type ReplyItemProps = {
@@ -11,8 +13,11 @@ type ReplyItemProps = {
 };
 
 const ReplyItem: FC<ReplyItemProps> = ({ reply }) => {
+    const { kakaoAddressId } = useParams<{ kakaoAddressId: string }>();
+
     const { me } = useMeState();
     const { setMarkerReplies } = useMarkerRepliesState();
+    const { setMarkers } = useMapMarkerState();
 
     const [isModifiyMode, setIsModifiyMode] = useState(false);
     const [modifyReviewText, setModifyReviewText] = useState(reply.message);
@@ -34,17 +39,35 @@ const ReplyItem: FC<ReplyItemProps> = ({ reply }) => {
                         return reply;
                     });
                 });
+            },
+            onError: error => {
+                // TODO: 실패시 롤백
+                console.error(error);
             }
         }
     );
 
     const { mutate: mutateDeleteReply } = useMutation(deleteReply, {
         onMutate: ({ replyId }) => {
+            setMarkers(markers => {
+                if (!markers) return;
+
+                return markers.map(marker => {
+                    if (marker.kakaoAddressId === Number(kakaoAddressId)) {
+                        return { ...marker, replyCount: marker.replyCount - 1 };
+                    }
+                    return marker;
+                });
+            });
             setMarkerReplies(replies => {
                 if (!replies) return;
 
                 return replies.filter(reply => reply.id !== replyId);
             });
+        },
+        onError: error => {
+            // TODO: 실패시 롤백
+            console.error(error);
         }
     });
 

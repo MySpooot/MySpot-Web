@@ -33,6 +33,10 @@ const PlaceOverlay: FC = () => {
 
                 return markers.filter(marker => marker.kakaoAddressId !== mapPlaceOverlay?.kakaoAddressId);
             });
+        },
+        onError: error => {
+            // TODO: 실패시 롤백
+            console.error(error);
         }
     });
 
