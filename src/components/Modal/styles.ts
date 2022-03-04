@@ -1,9 +1,7 @@
 import styled from '@emotion/styled';
 
-import { Palette } from 'src/Constants';
-
 export const Container = styled.div`
-    position: fixed;
+    position: absolute;
     top: 0;
     right: 0;
     bottom: 0;
@@ -12,7 +10,7 @@ export const Container = styled.div`
     width: 100%;
     align-items: center;
     justify-content: center;
-    background-color: ${Palette.Grey[300]};
+    background-color: rgba(0, 0, 0, 0.25);
 `;
 
 export const Wrapper = styled.div`

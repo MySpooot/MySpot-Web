@@ -82,10 +82,10 @@ const App: FC = () => {
 export default App;
 
 const AppContainer = styled(Div100vh)`
+    position: relative;
     display: flex;
     width: 100%;
     max-width: ${Dimension.MaxWidth};
-    /* min-height: 100vh; */
     flex-direction: column;
     margin: auto;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);

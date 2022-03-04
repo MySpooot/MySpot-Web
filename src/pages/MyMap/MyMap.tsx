@@ -7,6 +7,7 @@ import { getMarkers } from 'src/api/marker';
 import { useMapDetailState, useMapMarkerState, useMapAccessible, useMapPlaceOverlayReset } from 'src/atoms';
 import { MapDetailVO, MapMarkerVO } from 'src/vo';
 import Loading from 'src/components/Loading';
+import PrivateCodeModal from 'src/components/PrivateCodeModal/PrivateCodeModal';
 
 const MyMap: FC = () => {
     const { mapId } = useParams<{ mapId: string }>();
@@ -39,7 +40,7 @@ const MyMap: FC = () => {
     }
 
     if (!mapAccessible) {
-        return <div>초대코드를 입력하세요.</div>;
+        return <PrivateCodeModal />;
     }
 
     if (!markers) {
