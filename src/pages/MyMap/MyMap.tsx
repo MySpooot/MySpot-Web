@@ -1,10 +1,10 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { Outlet, useParams } from 'react-router';
 import { useQuery } from 'react-query';
 
 import { getMapDetail } from 'src/api/map';
 import { getMarkers } from 'src/api/marker';
-import { useMapDetailState, useMapMarkerState, useMapAccessible } from 'src/atoms';
+import { useMapDetailState, useMapMarkerState, useMapAccessible, useMapPlaceOverlayReset } from 'src/atoms';
 import { MapDetailVO, MapMarkerVO } from 'src/vo';
 import Loading from 'src/components/Loading';
 
@@ -14,6 +14,7 @@ const MyMap: FC = () => {
     const { mapDetail, setMapDetail } = useMapDetailState();
     const { markers, setMarkers } = useMapMarkerState();
     const { mapAccessible, setMapAccessible } = useMapAccessible();
+    const reset = useMapPlaceOverlayReset();
 
     useQuery(['getMapDetail', mapId], () => getMapDetail({ mapId: Number(mapId) }), {
         onSuccess: data => {
@@ -29,12 +30,16 @@ const MyMap: FC = () => {
         }
     });
 
+    useEffect(() => {
+        return () => reset();
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
     if (!mapDetail) {
         return <Loading />;
     }
 
     if (!mapAccessible) {
-        return <div>초대코드 입력하세요.</div>;
+        return <div>초대코드를 입력하세요.</div>;
     }
 
     if (!markers) {

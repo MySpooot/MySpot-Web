@@ -1,3 +1,4 @@
+/* eslint-disable */
 const emotionBabelPreset = require('@emotion/babel-preset-css-prop').default(undefined, {});
 const cracoSwcPlugin = require('craco-swc');
 

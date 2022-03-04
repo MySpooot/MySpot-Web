@@ -64,7 +64,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-prettier", "virtual:02d8742e7b47f1d78206683ff3b5288c6b240f04f7553fca18cd95bdacd72a7a05c415944246e7ac5ccd18f47e816d71ca22d8e7a1dc0bc0a03204616c6d5886#npm:4.0.0"],
             ["eslint-plugin-react", "virtual:02d8742e7b47f1d78206683ff3b5288c6b240f04f7553fca18cd95bdacd72a7a05c415944246e7ac5ccd18f47e816d71ca22d8e7a1dc0bc0a03204616c6d5886#npm:7.28.0"],
             ["eslint-plugin-react-hooks", "virtual:02d8742e7b47f1d78206683ff3b5288c6b240f04f7553fca18cd95bdacd72a7a05c415944246e7ac5ccd18f47e816d71ca22d8e7a1dc0bc0a03204616c6d5886#npm:4.3.0"],
-            ["jotai", "virtual:02d8742e7b47f1d78206683ff3b5288c6b240f04f7553fca18cd95bdacd72a7a05c415944246e7ac5ccd18f47e816d71ca22d8e7a1dc0bc0a03204616c6d5886#npm:1.6.0"],
             ["postcss-safe-parser", "npm:4.0.2"],
             ["prettier", "npm:2.5.1"],
             ["query-string", "npm:7.1.1"],
@@ -80,6 +79,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-router-dom", "virtual:02d8742e7b47f1d78206683ff3b5288c6b240f04f7553fca18cd95bdacd72a7a05c415944246e7ac5ccd18f47e816d71ca22d8e7a1dc0bc0a03204616c6d5886#npm:6.2.1"],
             ["react-scripts", "virtual:02d8742e7b47f1d78206683ff3b5288c6b240f04f7553fca18cd95bdacd72a7a05c415944246e7ac5ccd18f47e816d71ca22d8e7a1dc0bc0a03204616c6d5886#npm:4.0.3"],
             ["reactjs-popup", "virtual:02d8742e7b47f1d78206683ff3b5288c6b240f04f7553fca18cd95bdacd72a7a05c415944246e7ac5ccd18f47e816d71ca22d8e7a1dc0bc0a03204616c6d5886#npm:2.0.5"],
+            ["recoil", "virtual:02d8742e7b47f1d78206683ff3b5288c6b240f04f7553fca18cd95bdacd72a7a05c415944246e7ac5ccd18f47e816d71ca22d8e7a1dc0bc0a03204616c6d5886#npm:0.6.1"],
             ["regenerator-runtime", "npm:0.13.9"],
             ["src", "link:./src::locator=myspot%40workspace%3A."],
             ["stylelint", "npm:13.13.1"],
@@ -11098,6 +11098,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["hamt_plus", [
+        ["npm:1.0.2", {
+          "packageLocation": "./.yarn/cache/hamt_plus-npm-1.0.2-67a52ee1df-af26ea32db.zip/node_modules/hamt_plus/",
+          "packageDependencies": [
+            ["hamt_plus", "npm:1.0.2"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["handle-thing", [
         ["npm:2.0.1", {
           "packageLocation": "./.yarn/cache/handle-thing-npm-2.0.1-084baca59e-68071f3130.zip/node_modules/handle-thing/",
@@ -13190,64 +13199,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
-      ["jotai", [
-        ["npm:1.6.0", {
-          "packageLocation": "./.yarn/cache/jotai-npm-1.6.0-a4862e6f7b-fb8ec6e283.zip/node_modules/jotai/",
-          "packageDependencies": [
-            ["jotai", "npm:1.6.0"]
-          ],
-          "linkType": "SOFT",
-        }],
-        ["virtual:02d8742e7b47f1d78206683ff3b5288c6b240f04f7553fca18cd95bdacd72a7a05c415944246e7ac5ccd18f47e816d71ca22d8e7a1dc0bc0a03204616c6d5886#npm:1.6.0", {
-          "packageLocation": "./.yarn/__virtual__/jotai-virtual-90c3b59b5a/0/cache/jotai-npm-1.6.0-a4862e6f7b-fb8ec6e283.zip/node_modules/jotai/",
-          "packageDependencies": [
-            ["jotai", "virtual:02d8742e7b47f1d78206683ff3b5288c6b240f04f7553fca18cd95bdacd72a7a05c415944246e7ac5ccd18f47e816d71ca22d8e7a1dc0bc0a03204616c6d5886#npm:1.6.0"],
-            ["@babel/core", null],
-            ["@babel/template", null],
-            ["@types/babel__core", null],
-            ["@types/babel__template", null],
-            ["@types/immer", null],
-            ["@types/optics-ts", null],
-            ["@types/react", "npm:17.0.38"],
-            ["@types/react-query", null],
-            ["@types/urql__core", null],
-            ["@types/valtio", null],
-            ["@types/wonka", null],
-            ["@types/xstate", null],
-            ["@urql/core", null],
-            ["immer", null],
-            ["optics-ts", null],
-            ["react", "npm:17.0.2"],
-            ["react-query", "virtual:02d8742e7b47f1d78206683ff3b5288c6b240f04f7553fca18cd95bdacd72a7a05c415944246e7ac5ccd18f47e816d71ca22d8e7a1dc0bc0a03204616c6d5886#npm:3.34.11"],
-            ["valtio", null],
-            ["wonka", null],
-            ["xstate", null]
-          ],
-          "packagePeers": [
-            "@babel/core",
-            "@babel/template",
-            "@types/babel__core",
-            "@types/babel__template",
-            "@types/immer",
-            "@types/optics-ts",
-            "@types/react-query",
-            "@types/react",
-            "@types/urql__core",
-            "@types/valtio",
-            "@types/wonka",
-            "@types/xstate",
-            "@urql/core",
-            "immer",
-            "optics-ts",
-            "react-query",
-            "react",
-            "valtio",
-            "wonka",
-            "xstate"
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
       ["js-sha3", [
         ["npm:0.8.0", {
           "packageLocation": "./.yarn/cache/js-sha3-npm-0.8.0-decf3ddcfa-75df77c1fc.zip/node_modules/js-sha3/",
@@ -14519,7 +14470,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-prettier", "virtual:02d8742e7b47f1d78206683ff3b5288c6b240f04f7553fca18cd95bdacd72a7a05c415944246e7ac5ccd18f47e816d71ca22d8e7a1dc0bc0a03204616c6d5886#npm:4.0.0"],
             ["eslint-plugin-react", "virtual:02d8742e7b47f1d78206683ff3b5288c6b240f04f7553fca18cd95bdacd72a7a05c415944246e7ac5ccd18f47e816d71ca22d8e7a1dc0bc0a03204616c6d5886#npm:7.28.0"],
             ["eslint-plugin-react-hooks", "virtual:02d8742e7b47f1d78206683ff3b5288c6b240f04f7553fca18cd95bdacd72a7a05c415944246e7ac5ccd18f47e816d71ca22d8e7a1dc0bc0a03204616c6d5886#npm:4.3.0"],
-            ["jotai", "virtual:02d8742e7b47f1d78206683ff3b5288c6b240f04f7553fca18cd95bdacd72a7a05c415944246e7ac5ccd18f47e816d71ca22d8e7a1dc0bc0a03204616c6d5886#npm:1.6.0"],
             ["postcss-safe-parser", "npm:4.0.2"],
             ["prettier", "npm:2.5.1"],
             ["query-string", "npm:7.1.1"],
@@ -14535,6 +14485,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-router-dom", "virtual:02d8742e7b47f1d78206683ff3b5288c6b240f04f7553fca18cd95bdacd72a7a05c415944246e7ac5ccd18f47e816d71ca22d8e7a1dc0bc0a03204616c6d5886#npm:6.2.1"],
             ["react-scripts", "virtual:02d8742e7b47f1d78206683ff3b5288c6b240f04f7553fca18cd95bdacd72a7a05c415944246e7ac5ccd18f47e816d71ca22d8e7a1dc0bc0a03204616c6d5886#npm:4.0.3"],
             ["reactjs-popup", "virtual:02d8742e7b47f1d78206683ff3b5288c6b240f04f7553fca18cd95bdacd72a7a05c415944246e7ac5ccd18f47e816d71ca22d8e7a1dc0bc0a03204616c6d5886#npm:2.0.5"],
+            ["recoil", "virtual:02d8742e7b47f1d78206683ff3b5288c6b240f04f7553fca18cd95bdacd72a7a05c415944246e7ac5ccd18f47e816d71ca22d8e7a1dc0bc0a03204616c6d5886#npm:0.6.1"],
             ["regenerator-runtime", "npm:0.13.9"],
             ["src", "link:./src::locator=myspot%40workspace%3A."],
             ["stylelint", "npm:13.13.1"],
@@ -17695,6 +17646,37 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [
             ["readdirp", "npm:3.6.0"],
             ["picomatch", "npm:2.3.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["recoil", [
+        ["npm:0.6.1", {
+          "packageLocation": "./.yarn/cache/recoil-npm-0.6.1-12c4d62952-823c098e30.zip/node_modules/recoil/",
+          "packageDependencies": [
+            ["recoil", "npm:0.6.1"]
+          ],
+          "linkType": "SOFT",
+        }],
+        ["virtual:02d8742e7b47f1d78206683ff3b5288c6b240f04f7553fca18cd95bdacd72a7a05c415944246e7ac5ccd18f47e816d71ca22d8e7a1dc0bc0a03204616c6d5886#npm:0.6.1", {
+          "packageLocation": "./.yarn/__virtual__/recoil-virtual-6192ca1384/0/cache/recoil-npm-0.6.1-12c4d62952-823c098e30.zip/node_modules/recoil/",
+          "packageDependencies": [
+            ["recoil", "virtual:02d8742e7b47f1d78206683ff3b5288c6b240f04f7553fca18cd95bdacd72a7a05c415944246e7ac5ccd18f47e816d71ca22d8e7a1dc0bc0a03204616c6d5886#npm:0.6.1"],
+            ["@types/react", "npm:17.0.38"],
+            ["@types/react-dom", "npm:17.0.11"],
+            ["@types/react-native", null],
+            ["hamt_plus", "npm:1.0.2"],
+            ["react", "npm:17.0.2"],
+            ["react-dom", "virtual:02d8742e7b47f1d78206683ff3b5288c6b240f04f7553fca18cd95bdacd72a7a05c415944246e7ac5ccd18f47e816d71ca22d8e7a1dc0bc0a03204616c6d5886#npm:17.0.2"],
+            ["react-native", null]
+          ],
+          "packagePeers": [
+            "@types/react-dom",
+            "@types/react-native",
+            "@types/react",
+            "react-dom",
+            "react-native",
+            "react"
           ],
           "linkType": "HARD",
         }]

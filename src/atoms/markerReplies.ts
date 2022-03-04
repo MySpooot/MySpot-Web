@@ -1,11 +1,14 @@
-import { atom, useAtom } from 'jotai';
+import { atom, useRecoilState } from 'recoil';
 
 import { MarkerReplyVO } from 'src/vo';
 
-const markerRepliesState = atom<MarkerReplyVO[] | undefined>(undefined);
+const markerRepliesState = atom<MarkerReplyVO[] | undefined>({
+    key: 'markerRepliesState',
+    default: undefined
+});
 
 export const useMarkerRepliesState = () => {
-    const [markerReplies, setMarkerReplies] = useAtom(markerRepliesState);
+    const [markerReplies, setMarkerReplies] = useRecoilState(markerRepliesState);
 
     return { markerReplies, setMarkerReplies };
 };
