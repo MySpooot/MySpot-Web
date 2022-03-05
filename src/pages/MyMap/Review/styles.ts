@@ -12,7 +12,7 @@ export const Container = styled.div`
 export const Main = styled.main`
     ${ScrollbarStyle}
     display: flex;
-    overflow: auto;
+    overflow-y: auto;
     flex-direction: column;
     flex-grow: 1;
 `;

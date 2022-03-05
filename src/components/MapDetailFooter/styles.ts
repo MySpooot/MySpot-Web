@@ -8,6 +8,7 @@ export const Container = styled.footer`
     flex-direction: column;
     padding-top: 0.625rem;
     box-shadow: 0 -5px 10px 0 rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
 `;
 
 export const Top = styled.div`
