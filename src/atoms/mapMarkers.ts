@@ -1,14 +1,11 @@
-import { atom, useRecoilState } from 'recoil';
+import { atom, useAtom } from 'jotai';
 
 import { MapMarkerVO } from 'src/vo';
 
-const markerState = atom<MapMarkerVO[] | undefined>({
-    key: 'markerState',
-    default: undefined
-});
+const markerState = atom<MapMarkerVO[] | undefined>(undefined);
 
 export const useMapMarkerState = () => {
-    const [markers, setMarkers] = useRecoilState(markerState);
+    const [markers, setMarkers] = useAtom(markerState);
 
     return { markers, setMarkers };
 };

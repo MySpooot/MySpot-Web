@@ -1,4 +1,4 @@
-import { atom, useRecoilState } from 'recoil';
+import { atom, useAtom } from 'jotai';
 
 interface Me {
     id: number;
@@ -6,13 +6,10 @@ interface Me {
     thumbnail?: string;
 }
 
-const meState = atom<Me | undefined>({
-    key: 'mesState',
-    default: undefined
-});
+const meState = atom<Me | undefined>(undefined);
 
 export const useMeState = () => {
-    const [me, setMe] = useRecoilState(meState);
+    const [me, setMe] = useAtom(meState);
 
     return { me, setMe };
 };

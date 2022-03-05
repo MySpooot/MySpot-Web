@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-import { RecoilRoot } from 'recoil';
 import { QueryClientProvider, QueryClient } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 
@@ -35,12 +34,10 @@ const queryClient = new QueryClient({
 ReactDOM.render(
     <React.StrictMode>
         <BrowserRouter>
-            <RecoilRoot>
-                <QueryClientProvider client={queryClient}>
-                    <App />
-                    <ReactQueryDevtools />
-                </QueryClientProvider>
-            </RecoilRoot>
+            <QueryClientProvider client={queryClient}>
+                <App />
+                <ReactQueryDevtools />
+            </QueryClientProvider>
         </BrowserRouter>
     </React.StrictMode>,
     document.getElementById('root')

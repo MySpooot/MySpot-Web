@@ -4,7 +4,7 @@ import { useQuery } from 'react-query';
 
 import { getMapDetail } from 'src/api/map';
 import { getMarkers } from 'src/api/marker';
-import { useMapDetailState, useMapMarkerState, useMapAccessible, useMapPlaceOverlayReset } from 'src/atoms';
+import { useMapDetailState, useMapMarkerState, useMapAccessible, useMapPlaceOverlayState } from 'src/atoms';
 import { MapDetailVO, MapMarkerVO } from 'src/vo';
 import Loading from 'src/components/Loading';
 import PrivateCodeModal from 'src/components/PrivateCodeModal/PrivateCodeModal';
@@ -15,7 +15,7 @@ const MyMap: FC = () => {
     const { mapDetail, setMapDetail } = useMapDetailState();
     const { markers, setMarkers } = useMapMarkerState();
     const { mapAccessible, setMapAccessible } = useMapAccessible();
-    const reset = useMapPlaceOverlayReset();
+    const { setMapPlaceOverlay } = useMapPlaceOverlayState();
 
     useQuery(['getMapDetail', mapId], () => getMapDetail({ mapId: Number(mapId) }), {
         onSuccess: data => {
@@ -32,7 +32,7 @@ const MyMap: FC = () => {
     });
 
     useEffect(() => {
-        return () => reset();
+        return () => setMapPlaceOverlay(undefined);
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     if (!mapDetail) {

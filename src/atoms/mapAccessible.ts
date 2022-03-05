@@ -1,12 +1,9 @@
-import { atom, useRecoilState } from 'recoil';
+import { atom, useAtom } from 'jotai';
 
-const mapAccessibleState = atom<boolean>({
-    key: 'mapAccessibleState',
-    default: false
-});
+const mapAccessibleState = atom<boolean>(false);
 
 export const useMapAccessible = () => {
-    const [mapAccessible, setMapAccessible] = useRecoilState(mapAccessibleState);
+    const [mapAccessible, setMapAccessible] = useAtom(mapAccessibleState);
 
     return { mapAccessible, setMapAccessible };
 };
