@@ -5,6 +5,7 @@ import Icon from 'src/components/Icon';
 
 export const Container = styled.footer`
     display: flex;
+    box-sizing: border-box;
     flex-direction: column;
     padding-top: 0.625rem;
     box-shadow: 0 -5px 10px 0 rgba(0, 0, 0, 0.1);

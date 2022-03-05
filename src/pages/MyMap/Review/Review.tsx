@@ -35,7 +35,7 @@ const Review: FC = () => {
     const navigate = useNavigate();
 
     const { me } = useMeState();
-    const { markers } = useMapMarkerState();
+    const { markers, setMarkers } = useMapMarkerState();
     const { markerReplies, setMarkerReplies } = useMarkerRepliesState();
 
     const [place, setPlace] = useState<MapMarkerVO>();
@@ -68,6 +68,20 @@ const Review: FC = () => {
 
                     return { ...place, replyCount: place.replyCount + 1 };
                 });
+                setMarkers(markers => {
+                    if (!markers) return;
+
+                    return markers.map(marker => {
+                        if (marker.kakaoAddressId === Number(kakaoAddressId)) {
+                            return { ...marker, replyCount: marker.replyCount + 1 };
+                        }
+
+                        return marker;
+                    });
+                });
+            },
+            onError: error => {
+                console.error(error);
             }
         }
     );

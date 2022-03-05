@@ -1,12 +1,13 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { Outlet, useParams } from 'react-router';
 import { useQuery } from 'react-query';
 
 import { getMapDetail } from 'src/api/map';
 import { getMarkers } from 'src/api/marker';
-import { useMapDetailState, useMapMarkerState, useMapAccessible } from 'src/atoms';
+import { useMapDetailState, useMapMarkerState, useMapAccessible, useMapPlaceOverlayState } from 'src/atoms';
 import { MapDetailVO, MapMarkerVO } from 'src/vo';
 import Loading from 'src/components/Loading';
+import PrivateCodeModal from 'src/components/PrivateCodeModal/PrivateCodeModal';
 
 const MyMap: FC = () => {
     const { mapId } = useParams<{ mapId: string }>();
@@ -14,6 +15,7 @@ const MyMap: FC = () => {
     const { mapDetail, setMapDetail } = useMapDetailState();
     const { markers, setMarkers } = useMapMarkerState();
     const { mapAccessible, setMapAccessible } = useMapAccessible();
+    const { setMapPlaceOverlay } = useMapPlaceOverlayState();
 
     useQuery(['getMapDetail', mapId], () => getMapDetail({ mapId: Number(mapId) }), {
         onSuccess: data => {
@@ -29,12 +31,16 @@ const MyMap: FC = () => {
         }
     });
 
+    useEffect(() => {
+        return () => setMapPlaceOverlay(undefined);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
     if (!mapDetail) {
         return <Loading />;
     }
 
     if (!mapAccessible) {
-        return <div>초대코드 입력하세요.</div>;
+        return <PrivateCodeModal />;
     }
 
     if (!markers) {

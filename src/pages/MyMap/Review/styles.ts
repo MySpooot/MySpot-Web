@@ -1,19 +1,20 @@
 import styled from '@emotion/styled';
+import Div100vh from '@rodmg/react-div-100vh';
 
 import { Color, ScrollbarStyle } from 'src/Constants';
 
-export const Container = styled.div`
+export const Container = styled(Div100vh)`
     display: flex;
-    height: 100vh;
     flex-direction: column;
+    flex-grow: 1;
 `;
 
 export const Main = styled.main`
     ${ScrollbarStyle}
     display: flex;
-    overflow: auto;
     flex-direction: column;
     flex-grow: 1;
+    overflow-y: auto;
 `;
 
 export const Info = styled.article`

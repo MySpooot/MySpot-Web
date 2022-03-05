@@ -71,6 +71,10 @@ const useMarkerUserAction = () => {
                     return marker;
                 });
             });
+        },
+        onError: error => {
+            // TODO: 실패시 롤백
+            console.error(error);
         }
     });
 
@@ -87,6 +91,10 @@ const useMarkerUserAction = () => {
                     return marker;
                 });
             });
+        },
+        onError: error => {
+            // TODO: 실패시 롤백
+            console.error(error);
         }
     });
 

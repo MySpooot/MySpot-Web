@@ -5,7 +5,7 @@ import Icon from 'src/components/Icon';
 
 export const Container = styled.div`
     display: flex;
-    height: 100vh;
+    overflow: auto;
     flex-direction: column;
     flex-grow: 1;
 `;
