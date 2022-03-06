@@ -31,6 +31,13 @@ jobs:
             - name: Check Lint & Stylelint
               run: yarn lint & yarn stylelint
 
+            - name: Run Cypress
+              uses: cypress-io/github-action@v2
+              with:
+                  start: yarn start
+                  wait-on: 'http://localhost:3000'
+                  wait-on-timeout: 180
+
             - name: Build
               run: yarn build
 

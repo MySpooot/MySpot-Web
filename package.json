@@ -12,7 +12,8 @@
         "stylelint": "stylelint \"./src/**/*.{ts,tsx}\"",
         "stylelint:fix": "stylelint \"./src/**/*.{ts,tsx}\" --fix",
         "prettier": "prettier -w ./src",
-        "e2e": "cypress open"
+        "e2e": "cypress run",
+        "e2e:open": "cypress open"
     },
     "dependencies": {
         "@emotion/react": "^11.5.0",
