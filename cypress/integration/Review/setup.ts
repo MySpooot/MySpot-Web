@@ -1,7 +1,7 @@
 export const loginUser = () => {
     cy.setToken();
 
-    cy.fixture('auth/me').then(me => {
+    cy.fixture('/auth/me').then(me => {
         cy.intercept('https://nestjs-map.herokuapp.com/auth/me', me);
     });
 
