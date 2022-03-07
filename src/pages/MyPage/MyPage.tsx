@@ -1,11 +1,11 @@
-import React, { FC, useCallback, useState } from 'react';
+import React, { FC, useCallback } from 'react';
 import { useNavigate } from 'react-router';
 import { useMutation, useQuery } from 'react-query';
 
 import { Container, UpdateBtn, UserInfo, LogoutBtn, User, Locations, LocationCard } from './styles';
 import HeaderWithLeftArrow from 'src/components/HeaderWithLeftArrow';
 import { Path } from 'src/Constants';
-import { useMeState, useMapDetailState } from 'src/atoms';
+import { useMeState, useMyLocationState } from 'src/atoms';
 import { getMyLocation, deleteMyLocation } from 'src/api/marker';
 
 import mypage from 'src/assets/mypage/user-img.png';
@@ -13,32 +13,27 @@ import mypage from 'src/assets/mypage/user-img.png';
 const MyPage: FC = () => {
     const { me, setMe } = useMeState();
     const navigate = useNavigate();
-    // const { placeDetail, setPlaceDetail } = usePlaceDetail();
-    const { mapDetail, setMapDetail } = useMapDetailState();
-    // const [locations, setLocations] = useState<MapMarkerVO[]>();
-    const [addressId, setAddressId] = useState(0);
 
     const { data: locations } = useQuery('getLocations', () => getMyLocation());
-    // useQuery('getLocations', () => getMyLocation(), {
-    //     onSuccess: data => {
-    //         setLocations(data);
-    //     }
-    // });
+    const { setLocations } = useMyLocationState();
     const { mutate: deleteLocation } = useMutation(deleteMyLocation, {
-        onMutate: addressId => {
-            console.log(addressId.addressId);
-            return locations?.filter(location => location.addressId !== addressId.addressId);
+        onMutate: ({ addressId }) => {
+            setLocations(locations => {
+                if (!locations) return;
+
+                return locations.filter(location => {
+                    console.log(location);
+                    location.addressId !== addressId;
+                });
+            });
         }
     });
 
     const onClickLocation = useCallback(
         (addressId: number) => {
-            // setPlaceDetail({ placeId: addressId });
-            // setMapDetail(detail => ({ ...detail!, isFavorite: true }));
-            setAddressId(addressId);
             navigate(`/mypage/${addressId}`);
         },
-        [setMapDetail]
+        [navigate]
     );
 
     const onDeleteClick = useCallback(
