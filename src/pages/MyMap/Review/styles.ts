@@ -67,15 +67,21 @@ export const TextArea = styled.textarea`
     }
 `;
 
-export const RegisterButton = styled.button<{ active: boolean }>`
+export const RegisterButton = styled.button`
     padding: 0.5rem;
     margin-top: 0.875rem;
-    background-color: ${({ active }) => (active ? Color.blue : Color.grey[100])};
+    background-color: ${Color.blue};
     border-radius: 0.25rem;
-    color: ${({ active }) => (active ? Color.white : Color.grey[600])};
-    cursor: ${({ active }) => (active ? 'pointer' : 'auto')};
+    color: ${Color.white};
+    cursor: pointer;
     font-weight: 500;
     line-height: 2;
+
+    :disabled {
+        background-color: ${Color.grey[100]}
+        color: ${Color.grey[600]};
+        cursor: auto;
+    }
 `;
 
 export const Line = styled.hr`

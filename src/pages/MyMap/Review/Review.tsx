@@ -35,8 +35,8 @@ const Review: FC = () => {
     const navigate = useNavigate();
 
     const { ref, inView } = useInView();
+
     const { me } = useMeState();
-    console.log('@#@#@#@#', { me });
     const { markers, setMarkers } = useMapMarkerState();
     const { markerReplies, setMarkerReplies } = useMarkerRepliesState();
 
@@ -135,7 +135,7 @@ const Review: FC = () => {
                         value={textAreaValue}
                         onChange={event => setTextAreaValue(event.target.value)}
                     />
-                    <RegisterButton active={0 < textAreaValue.length} onClick={onRegisterClick}>
+                    <RegisterButton data-testid='registerButton' disabled={0 === textAreaValue.length} onClick={onRegisterClick}>
                         등록하기
                     </RegisterButton>
                 </Info>
@@ -143,7 +143,7 @@ const Review: FC = () => {
                 <ReviewArea>
                     <Top>
                         <ReviewTitle>후기</ReviewTitle>
-                        <ReviewCount>{place.replyCount}개</ReviewCount>
+                        <ReviewCount data-testid='replyCount'>{place.replyCount}개</ReviewCount>
                     </Top>
                     <ReviewList>
                         {!markerReplies ? (
