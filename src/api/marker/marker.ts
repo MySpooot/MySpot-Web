@@ -19,17 +19,17 @@ export const createMarker = ({ mapId }: CreateMarkerParam, body: CreateMarkerBod
 };
 
 export const deleteMarker = ({ markerId }: DeleteMarkerParam) => {
-    return request({ method: 'DELETE', url: `map/marker/${markerId}` });
+    return request({ method: 'DELETE', url: `/map/marker/${markerId}` });
 };
 
 export const getMyLocation = () => {
-    return request({ method: 'GET', url: 'map/marker/location' });
+    return request({ method: 'GET', url: '/map/marker/location' });
 };
 
 export const createMyLocation = (body: CreateMyLocationBody) => {
-    return request({ method: 'POST', url: 'map/marker/location', data: body });
+    return request({ method: 'POST', url: '/map/marker/location', data: body });
 };
 
 export const deleteMyLocation = ({ addressId }: DeleteMyLocationParam) => {
-    return request({ method: 'DELETE', url: `map/marker/location/${addressId}` });
+    return request({ method: 'DELETE', url: `/map/marker/location/${addressId}` });
 };
