@@ -78,7 +78,7 @@ export const RegisterButton = styled.button`
     line-height: 2;
 
     :disabled {
-        background-color: ${Color.grey[100]}
+        background-color: ${Color.grey[100]};
         color: ${Color.grey[600]};
         cursor: auto;
     }
