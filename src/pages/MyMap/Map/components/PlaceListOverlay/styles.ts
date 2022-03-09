@@ -44,8 +44,8 @@ export const CloseIcon = styled(Icon)`
 export const PlaceList = styled.ul`
     ${ScrollbarStyle}
     display: flex;
+    overflow: auto;
     min-height: 35rem;
     max-height: 35rem;
     flex-direction: column;
-    overflow: auto;
 `;
