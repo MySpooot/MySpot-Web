@@ -1,6 +1,7 @@
 import React, { FC, useState, useEffect, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useInfiniteQuery, useMutation } from 'react-query';
+import { useInView } from 'react-intersection-observer';
 
 import {
     Container,
@@ -26,7 +27,6 @@ import { Path } from 'src/Constants';
 import { useMapMarkerState, useMarkerRepliesState, useMeState } from 'src/atoms';
 import { MapMarkerVO, MarkerReplyVO } from 'src/vo';
 import { getReplies, createReply, CreateReplyParam, CreateReplyBody, CreateReplyResponse } from 'src/api';
-import useIntersectionObserver from 'src/hooks/useIntersectionObserver';
 import MapDetailFooter from 'src/components/MapDetailFooter/MapDetailFooter';
 import Loading from 'src/components/Loading';
 
@@ -34,7 +34,9 @@ const Review: FC = () => {
     const { mapId, kakaoAddressId } = useParams<{ mapId: string; kakaoAddressId: string }>();
     const navigate = useNavigate();
 
+    const { ref, inView } = useInView();
     const { me } = useMeState();
+    console.log('@#@#@#@#', { me });
     const { markers, setMarkers } = useMapMarkerState();
     const { markerReplies, setMarkerReplies } = useMarkerRepliesState();
 
@@ -86,18 +88,11 @@ const Review: FC = () => {
         }
     );
 
-    const { setRef } = useIntersectionObserver({
-        callback: entries => {
-            if (
-                entries[0].isIntersecting &&
-                !isFetchingNextPage &&
-                (markerReplies?.length || 0) < (place?.replyCount ?? 0) &&
-                replyOffset < (place?.replyCount ?? 0)
-            ) {
-                fetchNextPage({ pageParam: { offset: replyOffset } });
-            }
+    useEffect(() => {
+        if (inView && !isFetchingNextPage && (markerReplies?.length || 0) < (place?.replyCount ?? 0) && replyOffset < (place?.replyCount ?? 0)) {
+            fetchNextPage({ pageParam: { offset: replyOffset } });
         }
-    });
+    }, [inView]); // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
         const place = markers?.find(marker => marker.kakaoAddressId === Number(kakaoAddressId));
@@ -107,7 +102,7 @@ const Review: FC = () => {
         }
 
         setPlace(place);
-    }, [markers]); // eslint-disable-line react-hooks/exhaustive-deps
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const onRegisterClick = useCallback(() => {
         if (textAreaValue.length > 64) {
@@ -133,6 +128,7 @@ const Review: FC = () => {
                         <RoadAddress>{place.roadAddress}</RoadAddress>
                     </RoadAddressArea>
                     <TextArea
+                        data-testid='commentTextarea'
                         disabled={!me}
                         placeholder={me ? '후기를 작성해 보세요.' : '로그인한 유저만 후기를 작성할 수 있습니다.'}
                         rows={3}
@@ -158,7 +154,7 @@ const Review: FC = () => {
                             markerReplies.map(reply => <ReplyItem key={reply.id} reply={reply} />)
                         )}
                     </ReviewList>
-                    <div ref={setRef} />
+                    <div ref={ref} />
                     {isFetchingNextPage && <Loading />}
                 </ReviewArea>
             </Main>
