@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import { Container } from './styles';
 import KakaoPlaceIframe from 'src/components/KakaoPlaceIframe';
-import MapDetailFooter from 'src/components/MapDetailFooter/MapDetailFooter';
+import MapDetailFooter from 'src/components/MapDetailFooter';
 import { MapMarkerVO } from 'src/vo';
 import { Path } from 'src/Constants';
 import { useMapMarkerState } from 'src/atoms';

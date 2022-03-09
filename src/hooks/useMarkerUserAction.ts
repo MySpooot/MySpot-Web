@@ -2,11 +2,12 @@ import { useCallback } from 'react';
 import { useMutation } from 'react-query';
 
 import { createMyLocation, deleteMyLocation, createMarkerLike, deleteMarkerLike } from 'src/api';
-import { useMapMarkerState } from 'src/atoms';
+import { useMapMarkerState, useMapPlaceOverlayState } from 'src/atoms';
 import { MapMarkerVO } from 'src/vo';
 
 const useMarkerUserAction = () => {
     const { setMarkers } = useMapMarkerState();
+    const { setMapPlaceOverlay } = useMapPlaceOverlayState();
 
     const { mutate: fetchCreateMyLocation, isLoading: isCreatMyLocationLoading } = useMutation(createMyLocation, {
         onMutate: ({ addressId }) => {
@@ -20,6 +21,16 @@ const useMarkerUserAction = () => {
 
                     return marker;
                 });
+            });
+
+            setMapPlaceOverlay(value => {
+                if (!value) return;
+
+                if (value.id === addressId) {
+                    return { ...value, isMyLocation: true };
+                }
+
+                return value;
             });
         }
     });
@@ -36,6 +47,16 @@ const useMarkerUserAction = () => {
 
                     return marker;
                 });
+            });
+
+            setMapPlaceOverlay(value => {
+                if (!value) return;
+
+                if (value.id === addressId) {
+                    return { ...value, isMyLocation: false };
+                }
+
+                return value;
             });
         }
     });

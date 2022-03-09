@@ -132,7 +132,12 @@ const globalStyle = css`
         overflow: visible;
         border: none;
         background: transparent;
+        cursor: pointer;
         outline: none;
+
+        :disabled {
+            cursor: auto;
+        }
     }
 
     textarea {

@@ -1,16 +1,16 @@
-import React, { FC, useMemo, useCallback } from 'react';
+import React, { FC, useState, useMemo, useCallback } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { Map as KakaoMap, MapMarker } from 'react-kakao-maps-sdk';
 
 import { Container, MapContainer, HeaderIcon, FavoriteIcon } from './styles';
+import { PlaceOverlay, PlaceListOverlay, PlaceListButton } from './components';
 import { createRecentMap, createFavoriteMap, deleteFavoriteMap } from 'src/api/map';
 import { Path } from 'src/Constants';
 import { useMeState, useMapAccessible, useMapDetailState, useMapMarkerState } from 'src/atoms';
 import { useMapPlaceOverlayState } from 'src/atoms/mapPlaceOverlay';
 import useKeyPress from 'src/hooks/useKeyPress';
 import HeaderWithLeftArrow from 'src/components/HeaderWithLeftArrow';
-import MyMapPlaceOverlay from './components/PlaceOverlay';
 import Loading from 'src/components/Loading';
 
 import icSearch from 'src/assets/mymap/ic_search.svg';
@@ -23,6 +23,8 @@ import icSetting from 'src/assets/mymap/ic_setting.svg';
 const Map: FC = () => {
     const navigate = useNavigate();
     const { mapId } = useParams<{ mapId: string }>();
+
+    const [isOpenPlayListOverlay, setIsOpenPlayListOverlay] = useState(false);
 
     const { mapDetail, setMapDetail } = useMapDetailState();
     const { markers } = useMapMarkerState();
@@ -95,7 +97,9 @@ const Map: FC = () => {
                                     onClick={() => setMapPlaceOverlay(markers[index])}
                                 />
                             ))}
-                            {mapPlaceOverlay && <MyMapPlaceOverlay />}
+                            <PlaceListButton up={!!mapPlaceOverlay} onClick={() => setIsOpenPlayListOverlay(true)} />
+                            {mapPlaceOverlay && <PlaceOverlay />}
+                            {isOpenPlayListOverlay && <PlaceListOverlay close={() => setIsOpenPlayListOverlay(false)} />}
                         </KakaoMap>
                         <FavoriteIcon alt='favorite' src={mapDetail.isFavorite ? icFavoriteOn : icFavoriteOff} onClick={onFavoriteClick} />
                     </MapContainer>

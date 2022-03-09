@@ -27,7 +27,7 @@ import { Path } from 'src/Constants';
 import { useMapMarkerState, useMarkerRepliesState, useMeState } from 'src/atoms';
 import { MapMarkerVO, MarkerReplyVO } from 'src/vo';
 import { getReplies, createReply, CreateReplyParam, CreateReplyBody, CreateReplyResponse } from 'src/api';
-import MapDetailFooter from 'src/components/MapDetailFooter/MapDetailFooter';
+import MapDetailFooter from 'src/components/MapDetailFooter';
 import Loading from 'src/components/Loading';
 
 const Review: FC = () => {

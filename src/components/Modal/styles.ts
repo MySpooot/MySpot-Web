@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 
 export const Container = styled.div`
     position: absolute;
+    z-index: 99;
     top: 0;
     right: 0;
     bottom: 0;
