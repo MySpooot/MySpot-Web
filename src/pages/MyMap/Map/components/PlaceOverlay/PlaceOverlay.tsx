@@ -72,7 +72,7 @@ const PlaceOverlay: FC = () => {
     }
 
     return (
-        <Container>
+        <Container data-testid='placeOverlay'>
             <Wrapper>
                 <div className='title'>
                     <BookMarkIcon
@@ -80,7 +80,7 @@ const PlaceOverlay: FC = () => {
                         onClick={() => onBookMarkClick(mapPlaceOverlay)}
                     />
                     <div style={{ display: 'flex' }} onClick={onPlaceOverlayClick}>
-                        <div>{mapPlaceOverlay.name}</div>
+                        <h3>{mapPlaceOverlay.name}</h3>
                         <EqRightIcon src={icEqRight} />
                     </div>
                     {mapDetail?.isOwner && (
@@ -96,11 +96,11 @@ const PlaceOverlay: FC = () => {
                         </Popup>
                     )}
                 </div>
-                <Address>{mapPlaceOverlay.address}</Address>
+                <Address data-testid='address'>{mapPlaceOverlay.address}</Address>
                 {mapPlaceOverlay.roadAddress && (
                     <RoadAddress>
                         <div className='label'>지번</div>
-                        <div>{mapPlaceOverlay.roadAddress}</div>
+                        <div data-testid='roadAddress'>{mapPlaceOverlay.roadAddress}</div>
                     </RoadAddress>
                 )}
             </Wrapper>
