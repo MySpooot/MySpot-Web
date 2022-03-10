@@ -21,6 +21,7 @@ const Setting = lazy(() => import('src/pages/MyMap/Setting'));
 const MyPage = lazy(() => import('src/pages/MyPage'));
 const MapList = lazy(() => import('src/pages/MapList'));
 const KakaoLoginCallback = lazy(() => import('src/pages/KakaoLoginCallback'));
+const NewMap = lazy(() => import('src/pages/NewMap'));
 
 const App: FC = () => {
     const [isLoading, setLoading] = useState(true);
@@ -55,8 +56,10 @@ const App: FC = () => {
                     {me ? (
                         <>
                             <Route element={<Home />} path={Path.home} />
-                            <Route element={<MyPage />} path={Path.myPage} />
-                            <Route element={<LocationDetail />} path={'/mypage/:kakaoAddressId'} />
+                            <Route element={<MyPage />} path={Path.myPage}>
+                                <Route element={<LocationDetail />} path={':kakaoAddressId'} />
+                            </Route>
+                            <Route element={<NewMap />} path={Path.newMap} />
                         </>
                     ) : (
                         <>
@@ -69,7 +72,6 @@ const App: FC = () => {
                         <Route element={<Search />} path={`:mapId${Path.search}`} />
                         <Route element={<Setting />} path={`:mapId${Path.setting}`} />
                         <Route element={<KakaoDetail />} path={':mapId/kakao/:kakaoAddressId'} />
-
                         <Route element={<Review />} path={':mapId/review/:kakaoAddressId'} />
                     </Route>
                     <Route element={<KakaoLoginCallback />} path={Path.authKakao} />

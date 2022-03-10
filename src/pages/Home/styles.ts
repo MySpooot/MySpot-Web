@@ -1,8 +1,7 @@
 import styled from '@emotion/styled';
 
-import { Palette, Dimension } from 'src/Constants';
+import { Color, Dimension } from 'src/Constants';
 
-// main by haeun
 export const Container = styled.div`
     display: flex;
     height: 100vh;
@@ -111,24 +110,15 @@ export const MapChip = styled.div`
     width: fit-content;
     height: 1.875rem;
     align-items: center;
-    padding-right: 1rem;
-    padding-left: 1rem;
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
     margin-right: 0.375rem;
     margin-bottom: 0.375rem;
     background-color: #fff;
-    border-radius: 1.125rem;
-    color: #666666;
+    border-radius: 0.125rem;
+    color: ${Color.grey[700]};
     cursor: pointer;
-
-    .map-name {
-        overflow: hidden;
-        max-width: 170px;
-        font-size: 0.875rem;
-        letter-spacing: 0.00625rem;
-        line-height: 1.14;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
+    font-size: 0.875rem;
 `;
 
 export const Maps = styled.div`
@@ -151,7 +141,7 @@ export const Maps = styled.div`
         }
 
         .see-more {
-            color: ${Palette.Grey[500]};
+            color: ${Color.grey[500]};
             cursor: pointer;
             font-size: 0.875rem;
             letter-spacing: 0.00625rem;

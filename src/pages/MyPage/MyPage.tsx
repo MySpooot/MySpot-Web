@@ -14,7 +14,7 @@ const MyPage: FC = () => {
     const { me, setMe } = useMeState();
     const navigate = useNavigate();
 
-    const { data: locations } = useQuery('getLocations', () => getMyLocation());
+    const { data: locations } = useQuery('getLocations', () => getMyLocation({ offset: 50, limit: 50 }));
     const { setLocations } = useMyLocationState();
     const { mutate: deleteLocation } = useMutation(deleteMyLocation, {
         onMutate: ({ addressId }) => {
@@ -22,8 +22,7 @@ const MyPage: FC = () => {
                 if (!locations) return;
 
                 return locations.filter(location => {
-                    console.log(location);
-                    location.addressId !== addressId;
+                    return location.addressId !== addressId;
                 });
             });
         }
@@ -31,7 +30,7 @@ const MyPage: FC = () => {
 
     const onClickLocation = useCallback(
         (addressId: number) => {
-            navigate(`/mypage/${addressId}`);
+            navigate(`${Path.myPage}/${addressId}`);
         },
         [navigate]
     );
@@ -47,11 +46,11 @@ const MyPage: FC = () => {
         navigate(Path.home);
     }, [navigate]);
 
-    const logout = () => {
+    const logout = useCallback(() => {
         localStorage.removeItem('token');
         setMe(undefined);
         navigate(Path.login);
-    };
+    }, [navigate, setMe]);
 
     return (
         <Container>
@@ -62,7 +61,7 @@ const MyPage: FC = () => {
             </HeaderWithLeftArrow>
             <UserInfo>
                 <User>
-                    <img className='mypage-img' src={me?.thumbnail ? me?.thumbnail : mypage} />
+                    <img className='mypage-img' src={me?.thumbnail || mypage} />
                     <div className='user-txt'>{me?.nickname}</div>
                     <UpdateBtn>수정</UpdateBtn>
                 </User>
@@ -75,12 +74,7 @@ const MyPage: FC = () => {
             <Locations>
                 {locations?.map(({ id, name, address, roadAddress, addressId }) => (
                     <LocationCard key={id}>
-                        <div
-                            style={{ display: 'flex', flexDirection: 'column' }}
-                            onClick={() => {
-                                onClickLocation(addressId);
-                            }}
-                        >
+                        <div style={{ display: 'flex', flexDirection: 'column' }} onClick={() => onClickLocation(addressId)}>
                             <div className='location-title'>{name}</div>
                             <div className='location-address'>{roadAddress}</div>
                             <div style={{ display: 'flex', alignItems: 'align-items' }}>
@@ -88,18 +82,10 @@ const MyPage: FC = () => {
                                 <div className='location-address'>{address}</div>
                             </div>
                         </div>
-                        <UpdateBtn
-                            onClick={() => {
-                                onDeleteClick(addressId);
-                            }}
-                        >
-                            삭제
-                        </UpdateBtn>
+                        <UpdateBtn onClick={() => onDeleteClick(addressId)}>삭제</UpdateBtn>
                     </LocationCard>
                 ))}
             </Locations>
-            {/* {addressId && <KakaoPlaceIframe addressId={addressId} />} */}
-            {/* {mapDetail && <KakaoPlaceIframe addressId={addressId} />} */}
         </Container>
     );
 };

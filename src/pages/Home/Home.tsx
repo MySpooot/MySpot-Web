@@ -27,8 +27,8 @@ const Home: FC = () => {
     const { data: recentMaps, isLoading: isRecentLoading } = useQuery('getRecentMaps', () => getRecentMaps());
 
     const onNewMapClick = useCallback(() => {
-        setNewMapModalOpen(open => !open);
-    }, []);
+        navigate(Path.newMap);
+    }, [navigate]);
 
     const goMyPage = useCallback(() => {
         navigate(Path.myPage);
@@ -62,7 +62,7 @@ const Home: FC = () => {
                             {isRecentLoading && <Loading />}
                             {recentMaps?.map((map, idx) => (
                                 <MapChip key={idx} onClick={() => onClickRecentMap(map)}>
-                                    <div className='map-name'>{map.mapName}</div>
+                                    {map.mapName}
                                 </MapChip>
                             ))}
                         </div>

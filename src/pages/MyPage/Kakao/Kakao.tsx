@@ -6,7 +6,7 @@ import KakaoPlaceIframe from 'src/components/KakaoPlaceIframe';
 import { Path } from 'src/Constants';
 
 const Kakao: FC = () => {
-    const { kakaoAddressId } = useParams<{ mapId: string; kakaoAddressId: string }>();
+    const { kakaoAddressId } = useParams<{ kakaoAddressId: string }>();
     const navigate = useNavigate();
 
     const onCloseClick = useCallback(() => {
