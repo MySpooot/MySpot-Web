@@ -1,11 +1,13 @@
+import { BaseUrl } from '@/Constants';
+
 export const loginUser = () => {
     cy.setToken();
 
     cy.fixture('/auth/me').then(me => {
-        cy.intercept('https://myspot-server-dev.herokuapp.com/auth/me', me);
+        cy.intercept(`${BaseUrl}/auth/me`);
     });
 
-    cy.intercept('https://myspot-server-dev.herokuapp.com/map/111/detail', {
+    cy.intercept(`${BaseUrl}/map/111/detail`, {
         accessible: true,
         isFavorite: true,
         isOwner: true,
@@ -13,7 +15,7 @@ export const loginUser = () => {
         mapId: 111,
         mapName: 'Cypress Map'
     });
-    cy.intercept('https://myspot-server-dev.herokuapp.com/map/111/marker', [
+    cy.intercept(`${BaseUrl}/map/111/marker`, [
         {
             address: '서울 송파구 방이동 89-28',
             addressId: 21160754,
@@ -35,7 +37,7 @@ export const loginUser = () => {
 export const notLoginUser = () => {
     cy.clearToken();
 
-    cy.intercept('https://myspot-server-dev.herokuapp.com/map/111/detail', {
+    cy.intercept(`${BaseUrl}/map/111/detail`, {
         accessible: true,
         isFavorite: true,
         isOwner: true,
@@ -43,7 +45,7 @@ export const notLoginUser = () => {
         mapId: 111,
         mapName: 'Cypress Map'
     });
-    cy.intercept('https://myspot-server-dev.herokuapp.com/map/111/marker', [
+    cy.intercept(`${BaseUrl}/map/111/marker`, [
         {
             address: '서울 송파구 방이동 89-28',
             addressId: 21160754,
