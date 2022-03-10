@@ -8,7 +8,8 @@ import type {
     DeleteMarkerParam,
     CreateMyLocationBody,
     DeleteMyLocationParam,
-    GetMyLocationResponse
+    GetMyLocationResponse,
+    GetLocationsQuery
 } from './types';
 
 export const getMarkers = ({ mapId }: GetMarkerParam) => {

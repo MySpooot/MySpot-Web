@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Palette } from 'src/Constants';
+import { Color } from 'src/Constants';
 
 export const Container = styled.div`
     display: flex;
@@ -40,10 +40,10 @@ export const User = styled.div`
 export const UpdateBtn = styled.button`
     width: 2.625rem;
     height: 1.25rem;
-    border: solid 1px ${Palette.Grey[300]};
-    background-color: ${Palette.White};
+    border: solid 1px ${Color.grey[300]};
+    background-color: ${Color.white};
     border-radius: 4px;
-    color: ${Palette.Grey[500]};
+    color: ${Color.grey[500]};
     font-size: 0.75rem;
     font-weight: 500;
     letter-spacing: -0.17px;
@@ -64,8 +64,8 @@ export const UpdateBtn = styled.button`
 
 export const LogoutBtn = styled.button`
     border: none;
-    background-color: ${Palette.White};
-    color: ${Palette.Grey[500]};
+    background-color: ${Color.white};
+    color: ${Color.grey[500]};
     cursor: pointer;
     font-size: 0.75rem;
 `;
@@ -75,7 +75,7 @@ export const Locations = styled.div`
     height: 100%;
     flex-direction: column;
     padding: 1rem 1.25rem;
-    background-color: ${Palette.Grey[100]};
+    background-color: ${Color.grey[100]};
 `;
 
 export const LocationCard = styled.div`
@@ -84,7 +84,7 @@ export const LocationCard = styled.div`
     justify-content: space-between;
     padding: 1.25rem 1.125rem;
     margin-bottom: 0.75rem;
-    background-color: ${Palette.White};
+    background-color: ${Color.white};
     border-radius: 0.375rem;
     cursor: pointer;
 
