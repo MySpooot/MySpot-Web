@@ -14,7 +14,7 @@ const MyPage: FC = () => {
     const { me, setMe } = useMeState();
     const navigate = useNavigate();
 
-    const { data: locations } = useQuery('getLocations', () => getMyLocation({ offset: 50, limit: 50 }));
+    const { data: locations } = useQuery('getLocations', () => getMyLocation({ offset: 0, limit: 50 }));
     const { setLocations } = useMyLocationState();
     const { mutate: deleteLocation } = useMutation(deleteMyLocation, {
         onMutate: ({ addressId }) => {
