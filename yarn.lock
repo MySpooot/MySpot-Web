@@ -11480,7 +11480,6 @@ __metadata:
     react-copy-to-clipboard: ^5.0.4
     react-dom: ^17.0.2
     react-error-overlay: 6.0.9
-    react-icons: ^4.3.1
     react-intersection-observer: ^8.33.1
     react-kakao-maps-sdk: ^1.0.4
     react-query: ^3.34.11
@@ -13907,15 +13906,6 @@ __metadata:
   version: 6.0.10
   resolution: "react-error-overlay@npm:6.0.10"
   checksum: e7384f086a0162eecac8e081fe3c79b32f4ac8690c56bde35ab6b6380d10e6c8375bbb689a450902b6615261fcf6c95ea016fc0b200934667089ca83536bc4a7
-  languageName: node
-  linkType: hard
-
-"react-icons@npm:^4.3.1":
-  version: 4.3.1
-  resolution: "react-icons@npm:4.3.1"
-  peerDependencies:
-    react: "*"
-  checksum: 2cc608acdd3e906aa3aaee290b8398220639677c949382d86e554020e5dab6a9f1ed7484418aa5272cb5c5c018e1fc9a323d433d901697a76530029f9ecb1263
   languageName: node
   linkType: hard
 

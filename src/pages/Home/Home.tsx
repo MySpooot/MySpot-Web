@@ -1,4 +1,4 @@
-import React, { FC, useState, useCallback } from 'react';
+import React, { FC, useCallback } from 'react';
 import { useNavigate } from 'react-router';
 import { useQuery } from 'react-query';
 
@@ -8,25 +8,24 @@ import { getMaps, getFavoriteMap, getRecentMaps } from 'src/api/map';
 import { Path } from 'src/Constants';
 import { useMeState } from 'src/atoms';
 import Card from 'src/components/MapCard';
-import NewMapModal from 'src/components/NewMapModal';
 import Loading from 'src/components/Loading';
 
 import mypage from 'src/assets/main/btn-mypage.svg';
+import whitearrow from 'src/assets/main/ic-arrow.svg';
+import blackarrow from 'src/assets/main/ic-arrow-b.svg';
 
 const Home: FC = () => {
     const navigate = useNavigate();
 
     const { me } = useMeState();
 
-    const [newMapModalOpen, setNewMapModalOpen] = useState(false);
-
-    const { data: maps, isLoading: isMapLoading, refetch: refetchMaps } = useQuery('getMaps', () => getMaps(), { enabled: !newMapModalOpen });
+    const { data: maps, isLoading: isMapLoading, refetch: refetchMaps } = useQuery('getMaps', () => getMaps());
     const { data: favoriteMaps, isLoading: isFavoriteLoading, refetch: refetchFavorite } = useQuery('getFavoriteMap', () => getFavoriteMap());
     const { data: recentMaps, isLoading: isRecentLoading } = useQuery('getRecentMaps', () => getRecentMaps());
 
     const onNewMapClick = useCallback(() => {
-        setNewMapModalOpen(open => !open);
-    }, []);
+        navigate(Path.newMap);
+    }, [navigate]);
 
     const goMyPage = useCallback(() => {
         navigate(Path.myPage);
@@ -54,9 +53,7 @@ const Home: FC = () => {
                     <RecentMap>
                         <div className='text-bar'>
                             <div className='title'>#최근 본 지도</div>
-                            <div className='see-more' onClick={() => onClickMoreMap('recent')}>
-                                더보기
-                            </div>
+                            <img src={whitearrow} onClick={() => onClickMoreMap('recent')} />
                         </div>
                         <div className='map-area'>
                             {isRecentLoading && <Loading />}
@@ -71,9 +68,7 @@ const Home: FC = () => {
                 <Maps>
                     <div className='title-area'>
                         <span className='title'>나의 지도</span>
-                        <span className='see-more' onClick={() => onClickMoreMap('my')}>
-                            더보기
-                        </span>
+                        <img src={blackarrow} onClick={() => onClickMoreMap('my')} />
                     </div>
                     <div className='map-area'>
                         {isMapLoading && <Loading />}
@@ -85,9 +80,7 @@ const Home: FC = () => {
                 <Maps>
                     <div className='title-area'>
                         <span className='title'>즐겨찾는 지도</span>
-                        <span className='see-more' onClick={() => onClickMoreMap('favorite')}>
-                            더보기
-                        </span>
+                        <img src={blackarrow} onClick={() => onClickMoreMap('favorite')} />
                     </div>
                     <div className='map-area'>
                         {isFavoriteLoading && <Loading />}
@@ -100,8 +93,6 @@ const Home: FC = () => {
                     <NewBtn onClick={onNewMapClick}>new</NewBtn>
                 </FloatingWrapper>
             </Main>
-
-            <NewMapModal open={newMapModalOpen} refetch={() => refetchMaps()} setNewMapModalOpen={setNewMapModalOpen} />
         </Container>
     );
 };

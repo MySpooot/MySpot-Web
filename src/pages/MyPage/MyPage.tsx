@@ -1,56 +1,93 @@
-import React, { FC, useState, useCallback, useEffect } from 'react';
+import React, { FC, useCallback } from 'react';
 import { useNavigate } from 'react-router';
-import { HiHome as Home, HiPencil } from 'react-icons/hi';
+import { useMutation, useQuery } from 'react-query';
 
-import { Container, Header, UserInfo, LogoutBtn, UserImg, UserNickname, UserTab, Tab } from './styles';
+import { Container, UpdateBtn, UserInfo, LogoutBtn, User, Locations, LocationCard } from './styles';
+import HeaderWithLeftArrow from 'src/components/HeaderWithLeftArrow';
+import { Path } from 'src/Constants';
+import { useMeState, useMyLocationState } from 'src/atoms';
+import { getMyLocation, deleteMyLocation } from 'src/api/marker';
 
-const user = [{ id: 1, nickname: '배하은', thumbnail: 'http://k.kakaocdn.net/dn/bbjv2A/btrhfyU2P02/KxZzzoJLsJDSwdd4ICJqY1/img_110x110.jpg' }];
+import mypage from 'src/assets/mypage/user-img.png';
 
 const MyPage: FC = () => {
+    const { me, setMe } = useMeState();
     const navigate = useNavigate();
-    const [activeIndex, setActiveIndex] = useState(0);
 
-    const tabClickHandler = useCallback((index: number) => {
-        setActiveIndex(index);
-    }, []);
+    const { data: locations } = useQuery('getLocations', () => getMyLocation({ offset: 0, limit: 50 }));
+    const { setLocations } = useMyLocationState();
+    const { mutate: deleteLocation } = useMutation(deleteMyLocation, {
+        onMutate: ({ addressId }) => {
+            setLocations(locations => {
+                if (!locations) return;
+
+                return locations.filter(location => {
+                    return location.addressId !== addressId;
+                });
+            });
+        }
+    });
+
+    const onClickLocation = useCallback(
+        (addressId: number) => {
+            navigate(`${Path.myPage}/${addressId}`);
+        },
+        [navigate]
+    );
+
+    const onDeleteClick = useCallback(
+        (addressId: number) => {
+            deleteLocation({ addressId });
+        },
+        [deleteLocation]
+    );
 
     const onClickHome = useCallback(() => {
-        navigate('/home');
+        navigate(Path.home);
     }, [navigate]);
 
-    useEffect(() => {
-        console.log('useEffect');
-    }, []);
+    const logout = useCallback(() => {
+        localStorage.removeItem('token');
+        setMe(undefined);
+        navigate(Path.login);
+    }, [navigate, setMe]);
 
     return (
         <Container>
-            <Header>
-                <Home onClick={onClickHome}></Home>
-            </Header>
-            <UserInfo>
-                <UserImg></UserImg>
-                <LogoutBtn>로그아웃</LogoutBtn>
-                <UserNickname>
-                    닉네임
-                    <div className='nickname-update'>
-                        {user[0].nickname}
-                        <HiPencil></HiPencil>
-                    </div>
-                </UserNickname>
-            </UserInfo>
-            <UserTab>
-                <div className='tabs'>
-                    <h2 onClick={() => tabClickHandler(0)}>사진</h2>
-                    <h2 onClick={() => tabClickHandler(1)}>저장</h2>
+            <HeaderWithLeftArrow onLeftArrowClick={() => onClickHome()}>
+                <div style={{ display: 'flex', width: '100%', justifyContent: 'center' }}>
+                    <h3 className='title'>마이페이지</h3>
                 </div>
-                <Tab active={activeIndex === 0}>
-                    <div className='boxed'> 사진 영역 </div>
-                </Tab>
+            </HeaderWithLeftArrow>
+            <UserInfo>
+                <User>
+                    <img className='mypage-img' src={me?.thumbnail || mypage} />
+                    <div className='user-txt'>{me?.nickname}</div>
+                    <UpdateBtn>수정</UpdateBtn>
+                </User>
 
-                <Tab active={activeIndex === 1}>
-                    <div className='boxed'> 저장 장소 </div>
-                </Tab>
-            </UserTab>
+                <LogoutBtn onClick={logout}>로그아웃</LogoutBtn>
+            </UserInfo>
+            <div style={{ marginLeft: '1rem', marginBottom: '0.75rem' }}>
+                <h2>저장한 장소</h2>
+            </div>
+            <Locations>
+                <div style={{ overflowY: 'scroll' }}>
+                    {locations?.map(({ id, name, address, roadAddress, addressId }) => (
+                        <LocationCard key={id}>
+                            <div style={{ display: 'flex', flexDirection: 'column' }} onClick={() => onClickLocation(addressId)}>
+                                <div className='location-title'>{name}</div>
+                                <div className='location-address'>{roadAddress}</div>
+                                <div style={{ display: 'flex', alignItems: 'align-items' }}>
+                                    <div className='address'>지번</div>
+                                    <div className='location-address'>{address}</div>
+                                </div>
+                            </div>
+                            <UpdateBtn onClick={() => onDeleteClick(addressId)}>삭제</UpdateBtn>
+                        </LocationCard>
+                    ))}
+                </div>
+            </Locations>
         </Container>
     );
 };

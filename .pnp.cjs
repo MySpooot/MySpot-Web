@@ -76,7 +76,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-copy-to-clipboard", "virtual:02d8742e7b47f1d78206683ff3b5288c6b240f04f7553fca18cd95bdacd72a7a05c415944246e7ac5ccd18f47e816d71ca22d8e7a1dc0bc0a03204616c6d5886#npm:5.0.4"],
             ["react-dom", "virtual:02d8742e7b47f1d78206683ff3b5288c6b240f04f7553fca18cd95bdacd72a7a05c415944246e7ac5ccd18f47e816d71ca22d8e7a1dc0bc0a03204616c6d5886#npm:17.0.2"],
             ["react-error-overlay", "npm:6.0.9"],
-            ["react-icons", "virtual:02d8742e7b47f1d78206683ff3b5288c6b240f04f7553fca18cd95bdacd72a7a05c415944246e7ac5ccd18f47e816d71ca22d8e7a1dc0bc0a03204616c6d5886#npm:4.3.1"],
             ["react-intersection-observer", "virtual:02d8742e7b47f1d78206683ff3b5288c6b240f04f7553fca18cd95bdacd72a7a05c415944246e7ac5ccd18f47e816d71ca22d8e7a1dc0bc0a03204616c6d5886#npm:8.33.1"],
             ["react-kakao-maps-sdk", "virtual:02d8742e7b47f1d78206683ff3b5288c6b240f04f7553fca18cd95bdacd72a7a05c415944246e7ac5ccd18f47e816d71ca22d8e7a1dc0bc0a03204616c6d5886#npm:1.0.4"],
             ["react-query", "virtual:02d8742e7b47f1d78206683ff3b5288c6b240f04f7553fca18cd95bdacd72a7a05c415944246e7ac5ccd18f47e816d71ca22d8e7a1dc0bc0a03204616c6d5886#npm:3.34.11"],
@@ -14930,7 +14929,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-copy-to-clipboard", "virtual:02d8742e7b47f1d78206683ff3b5288c6b240f04f7553fca18cd95bdacd72a7a05c415944246e7ac5ccd18f47e816d71ca22d8e7a1dc0bc0a03204616c6d5886#npm:5.0.4"],
             ["react-dom", "virtual:02d8742e7b47f1d78206683ff3b5288c6b240f04f7553fca18cd95bdacd72a7a05c415944246e7ac5ccd18f47e816d71ca22d8e7a1dc0bc0a03204616c6d5886#npm:17.0.2"],
             ["react-error-overlay", "npm:6.0.9"],
-            ["react-icons", "virtual:02d8742e7b47f1d78206683ff3b5288c6b240f04f7553fca18cd95bdacd72a7a05c415944246e7ac5ccd18f47e816d71ca22d8e7a1dc0bc0a03204616c6d5886#npm:4.3.1"],
             ["react-intersection-observer", "virtual:02d8742e7b47f1d78206683ff3b5288c6b240f04f7553fca18cd95bdacd72a7a05c415944246e7ac5ccd18f47e816d71ca22d8e7a1dc0bc0a03204616c6d5886#npm:8.33.1"],
             ["react-kakao-maps-sdk", "virtual:02d8742e7b47f1d78206683ff3b5288c6b240f04f7553fca18cd95bdacd72a7a05c415944246e7ac5ccd18f47e816d71ca22d8e7a1dc0bc0a03204616c6d5886#npm:1.0.4"],
             ["react-query", "virtual:02d8742e7b47f1d78206683ff3b5288c6b240f04f7553fca18cd95bdacd72a7a05c415944246e7ac5ccd18f47e816d71ca22d8e7a1dc0bc0a03204616c6d5886#npm:3.34.11"],
@@ -17744,28 +17742,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/react-error-overlay-npm-6.0.9-96e7e1e53a-695853bc88.zip/node_modules/react-error-overlay/",
           "packageDependencies": [
             ["react-error-overlay", "npm:6.0.9"]
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
-      ["react-icons", [
-        ["npm:4.3.1", {
-          "packageLocation": "./.yarn/cache/react-icons-npm-4.3.1-46cb955834-2cc608acdd.zip/node_modules/react-icons/",
-          "packageDependencies": [
-            ["react-icons", "npm:4.3.1"]
-          ],
-          "linkType": "SOFT",
-        }],
-        ["virtual:02d8742e7b47f1d78206683ff3b5288c6b240f04f7553fca18cd95bdacd72a7a05c415944246e7ac5ccd18f47e816d71ca22d8e7a1dc0bc0a03204616c6d5886#npm:4.3.1", {
-          "packageLocation": "./.yarn/__virtual__/react-icons-virtual-c5cb39e063/0/cache/react-icons-npm-4.3.1-46cb955834-2cc608acdd.zip/node_modules/react-icons/",
-          "packageDependencies": [
-            ["react-icons", "virtual:02d8742e7b47f1d78206683ff3b5288c6b240f04f7553fca18cd95bdacd72a7a05c415944246e7ac5ccd18f47e816d71ca22d8e7a1dc0bc0a03204616c6d5886#npm:4.3.1"],
-            ["@types/react", "npm:17.0.38"],
-            ["react", "npm:17.0.2"]
-          ],
-          "packagePeers": [
-            "@types/react",
-            "react"
           ],
           "linkType": "HARD",
         }]

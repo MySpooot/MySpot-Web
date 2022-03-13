@@ -1,8 +1,7 @@
 import styled from '@emotion/styled';
 
-import { Palette, Dimension } from 'src/Constants';
+import { Color, Dimension } from 'src/Constants';
 
-// main by haeun
 export const Container = styled.div`
     display: flex;
     height: 100vh;
@@ -117,11 +116,9 @@ export const MapChip = styled.div`
     margin-bottom: 0.375rem;
     background-color: #fff;
     border-radius: 0.125rem;
-    color: #008fff;
+    color: ${Color.grey[700]};
     cursor: pointer;
     font-size: 0.875rem;
-    letter-spacing: 0.00625rem;
-    line-height: 1.14;
 `;
 
 export const Maps = styled.div`
@@ -144,7 +141,7 @@ export const Maps = styled.div`
         }
 
         .see-more {
-            color: ${Palette.Grey[500]};
+            color: ${Color.grey[500]};
             cursor: pointer;
             font-size: 0.875rem;
             letter-spacing: 0.00625rem;
@@ -162,9 +159,9 @@ export const FloatingWrapper = styled.div<{ active: boolean }>`
     position: fixed;
     bottom: 1rem;
     display: flex;
+    width: 100%;
     max-width: calc(${Dimension.MaxWidth} - 2rem);
     justify-content: flex-end;
-    padding: 1rem;
 `;
 
 export const NewBtn = styled.div`

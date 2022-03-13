@@ -4,3 +4,4 @@ export * from './mapMarkers';
 export * from './mapAccessible';
 export * from './mapPlaceOverlay';
 export * from './markerReplies';
+export * from './myLocations';

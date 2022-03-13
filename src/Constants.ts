@@ -17,7 +17,8 @@ export const Path = {
     setting: '/setting',
     authKakao: '/auth/kakao',
     myPage: '/mypage',
-    mapList: '/maplist'
+    mapList: '/maplist',
+    newMap: '/newmap'
 } as const;
 
 export const QueryKey = {} as const;

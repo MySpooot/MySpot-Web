@@ -54,3 +54,16 @@ export type CreateMyLocationBody = {
 export type DeleteMyLocationParam = {
     addressId: number;
 };
+
+export type GetMyLocationResponse = {
+    name: string;
+    id: number;
+    address?: string;
+    roadAddress?: string;
+    addressId: number;
+};
+
+export type GetLocationsQuery = {
+    offset?: number;
+    limit?: number;
+};
