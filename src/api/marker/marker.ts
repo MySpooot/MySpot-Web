@@ -24,8 +24,8 @@ export const deleteMarker = ({ markerId }: DeleteMarkerParam) => {
     return request({ method: 'DELETE', url: `/map/marker/${markerId}` });
 };
 
-export const getMyLocation = () => {
-    return request<GetMyLocationResponse[]>({ method: 'GET', url: '/map/marker/location' });
+export const getMyLocation = (query: GetLocationsQuery) => {
+    return request<GetMyLocationResponse[]>({ method: 'GET', url: '/map/marker/location', params: query });
 };
 
 export const createMyLocation = (body: CreateMyLocationBody) => {
