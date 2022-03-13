@@ -119,7 +119,7 @@ const Review: FC = () => {
 
     return (
         <Container>
-            <Main>
+            <Main data-testid='reviewMain'>
                 <Info>
                     <PlaceName>{place.name}</PlaceName>
                     <Address>{place.address}</Address>

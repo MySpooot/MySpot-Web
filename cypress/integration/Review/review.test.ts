@@ -18,6 +18,46 @@ describe('Review: loginUser', () => {
 
         cy.get('h3').last().should('have.text', '후기');
         cy.get('h3 + div').last().should('have.text', '31개');
+
+        cy.fixture('/marker/replies').then(replies => {
+            cy.getByTestId('replyItemNickname').each((el, index) => {
+                cy.wrap(el).should('have.text', replies[index].userNickName);
+            });
+
+            cy.getByTestId('replyItemContent').each((el, index) => {
+                cy.wrap(el).should('have.text', replies[index].message);
+            });
+        });
+
+        cy.getByTestId('reviewMain').scrollTo('bottom');
+        cy.wait(1000);
+
+        cy.fixture('/marker/replies2').then(replies => {
+            cy.getByTestId('replyItemNickname').each((el, index) => {
+                if (index < 10) return;
+                cy.wrap(el).should('have.text', replies[index - 10].userNickName);
+            });
+
+            cy.getByTestId('replyItemContent').each((el, index) => {
+                if (index < 10) return;
+                cy.wrap(el).should('have.text', replies[index - 10].message);
+            });
+        });
+
+        cy.getByTestId('reviewMain').scrollTo('bottom');
+        cy.wait(1000);
+
+        cy.fixture('/marker/replies3').then(replies => {
+            cy.getByTestId('replyItemNickname').each((el, index) => {
+                if (index < 20) return;
+                cy.wrap(el).should('have.text', replies[index - 20].userNickName);
+            });
+
+            cy.getByTestId('replyItemContent').each((el, index) => {
+                if (index < 20) return;
+                cy.wrap(el).should('have.text', replies[index - 20].message);
+            });
+        });
     });
 });
 

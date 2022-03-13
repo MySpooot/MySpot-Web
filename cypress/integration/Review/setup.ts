@@ -31,6 +31,16 @@ export const loginUser = () => {
         }
     ]);
 
+    cy.fixture('/marker/replies').then(replies => {
+        cy.intercept({ url: `${BaseUrl}/map/marker/*/replies?*`, query: { offset: '0' } }, replies);
+    });
+    cy.fixture('/marker/replies2').then(replies => {
+        cy.intercept({ url: `${BaseUrl}/map/marker/*/replies?*`, query: { offset: '10' } }, replies);
+    });
+    cy.fixture('/marker/replies3').then(replies => {
+        cy.intercept({ url: `${BaseUrl}/map/marker/*/replies?*`, query: { offset: '20' } }, replies);
+    });
+
     cy.visit('/map/111/review/21160754');
 };
 
