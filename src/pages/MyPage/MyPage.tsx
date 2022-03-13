@@ -14,7 +14,7 @@ const MyPage: FC = () => {
     const { me, setMe } = useMeState();
     const navigate = useNavigate();
 
-    const { data: locations } = useQuery('getLocations', () => getMyLocation({ offset: 50, limit: 50 }));
+    const { data: locations } = useQuery('getLocations', () => getMyLocation({ offset: 0, limit: 50 }));
     const { setLocations } = useMyLocationState();
     const { mutate: deleteLocation } = useMutation(deleteMyLocation, {
         onMutate: ({ addressId }) => {
@@ -72,19 +72,21 @@ const MyPage: FC = () => {
                 <h2>저장한 장소</h2>
             </div>
             <Locations>
-                {locations?.map(({ id, name, address, roadAddress, addressId }) => (
-                    <LocationCard key={id}>
-                        <div style={{ display: 'flex', flexDirection: 'column' }} onClick={() => onClickLocation(addressId)}>
-                            <div className='location-title'>{name}</div>
-                            <div className='location-address'>{roadAddress}</div>
-                            <div style={{ display: 'flex', alignItems: 'align-items' }}>
-                                <div className='address'>지번</div>
-                                <div className='location-address'>{address}</div>
+                <div style={{ overflowY: 'scroll' }}>
+                    {locations?.map(({ id, name, address, roadAddress, addressId }) => (
+                        <LocationCard key={id}>
+                            <div style={{ display: 'flex', flexDirection: 'column' }} onClick={() => onClickLocation(addressId)}>
+                                <div className='location-title'>{name}</div>
+                                <div className='location-address'>{roadAddress}</div>
+                                <div style={{ display: 'flex', alignItems: 'align-items' }}>
+                                    <div className='address'>지번</div>
+                                    <div className='location-address'>{address}</div>
+                                </div>
                             </div>
-                        </div>
-                        <UpdateBtn onClick={() => onDeleteClick(addressId)}>삭제</UpdateBtn>
-                    </LocationCard>
-                ))}
+                            <UpdateBtn onClick={() => onDeleteClick(addressId)}>삭제</UpdateBtn>
+                        </LocationCard>
+                    ))}
+                </div>
             </Locations>
         </Container>
     );

@@ -1,4 +1,4 @@
-import React, { FC, useState, useCallback } from 'react';
+import React, { FC, useCallback } from 'react';
 import { useNavigate } from 'react-router';
 import { useQuery } from 'react-query';
 
@@ -8,7 +8,6 @@ import { getMaps, getFavoriteMap, getRecentMaps } from 'src/api/map';
 import { Path } from 'src/Constants';
 import { useMeState } from 'src/atoms';
 import Card from 'src/components/MapCard';
-import NewMapModal from 'src/components/NewMapModal';
 import Loading from 'src/components/Loading';
 
 import mypage from 'src/assets/main/btn-mypage.svg';
@@ -20,9 +19,7 @@ const Home: FC = () => {
 
     const { me } = useMeState();
 
-    const [newMapModalOpen, setNewMapModalOpen] = useState(false);
-
-    const { data: maps, isLoading: isMapLoading, refetch: refetchMaps } = useQuery('getMaps', () => getMaps(), { enabled: !newMapModalOpen });
+    const { data: maps, isLoading: isMapLoading, refetch: refetchMaps } = useQuery('getMaps', () => getMaps());
     const { data: favoriteMaps, isLoading: isFavoriteLoading, refetch: refetchFavorite } = useQuery('getFavoriteMap', () => getFavoriteMap());
     const { data: recentMaps, isLoading: isRecentLoading } = useQuery('getRecentMaps', () => getRecentMaps());
 
@@ -96,8 +93,6 @@ const Home: FC = () => {
                     <NewBtn onClick={onNewMapClick}>new</NewBtn>
                 </FloatingWrapper>
             </Main>
-
-            <NewMapModal open={newMapModalOpen} refetch={() => refetchMaps()} setNewMapModalOpen={setNewMapModalOpen} />
         </Container>
     );
 };
