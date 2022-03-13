@@ -9,8 +9,7 @@
     },
     "env": {
         "browser": true,
-        "es2021": true,
-        "jest": true
+        "es2021": true
     },
     "plugins": ["@typescript-eslint/eslint-plugin", "prettier", "react", "react-hooks", "import"],
     "extends": [
@@ -53,5 +52,5 @@
             "typescript": {}
         }
     },
-    "ignorePatterns": ["jest.*.ts", "cypress/"]
+    "ignorePatterns": ["cypress/"]
 }

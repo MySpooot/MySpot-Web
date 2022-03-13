@@ -1,87 +1,37 @@
-import React, { FC, useState, useCallback, useRef } from 'react';
-import { useParams } from 'react-router';
+import React, { FC, useState, useCallback, useMemo, useRef } from 'react';
 
-import { useMutation } from 'react-query';
-
-import { Container, Top, Nickname, Created, Content, TextArea, ButtonArea, OwnerButton } from './styles';
-import { updateReply, deleteReply, UpdateReplyParam, UpdateReplyBody } from 'src/api';
-import { useMapMarkerState, useMarkerRepliesState, useMeState } from 'src/atoms';
+import { Container, Top, Nickname, Created, Content, TextArea, ButtonArea, OwnerButton, MoreTextLabel } from './styles';
+import { useMeState } from 'src/atoms';
 import { MarkerReplyVO } from 'src/vo';
+import useReplyItem from 'src/hooks/useReplyItem';
 
 type ReplyItemProps = {
     reply: MarkerReplyVO;
 };
 
 const ReplyItem: FC<ReplyItemProps> = ({ reply }) => {
-    const { kakaoAddressId } = useParams<{ kakaoAddressId: string }>();
-
     const { me } = useMeState();
-    const { setMarkerReplies } = useMarkerRepliesState();
-    const { setMarkers } = useMapMarkerState();
+    const { mutateUpdateReply, mutateDeleteReply } = useReplyItem();
 
     const [isModifiyMode, setIsModifiyMode] = useState(false);
     const [modifyReviewText, setModifyReviewText] = useState(reply.message);
+    const [showMoreText, setShowMoreText] = useState(false);
+    const [tempItemHeight, setTempItemHeight] = useState(0);
 
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
+    const replyRef = useRef<HTMLDivElement>(null);
 
-    const { mutate: mutateUpdateReply } = useMutation<unknown, unknown, UpdateReplyParam & UpdateReplyBody>(
-        ({ replyId, message }) => updateReply({ replyId }, { message }),
-        {
-            onMutate: ({ replyId, message }) => {
-                setMarkerReplies(replies => {
-                    if (!replies) return;
-
-                    return replies.map(reply => {
-                        if (reply.id === replyId) {
-                            return { ...reply, message };
-                        }
-
-                        return reply;
-                    });
-                });
-            },
-            onError: error => {
-                // TODO: 실패시 롤백
-                console.error(error);
-            }
-        }
-    );
-
-    const { mutate: mutateDeleteReply } = useMutation(deleteReply, {
-        onMutate: ({ replyId }) => {
-            setMarkers(markers => {
-                if (!markers) return;
-
-                return markers.map(marker => {
-                    if (marker.kakaoAddressId === Number(kakaoAddressId)) {
-                        return { ...marker, replyCount: marker.replyCount - 1 };
-                    }
-                    return marker;
-                });
-            });
-            setMarkerReplies(replies => {
-                if (!replies) return;
-
-                return replies.filter(reply => reply.id !== replyId);
-            });
-        },
-        onError: error => {
-            // TODO: 실패시 롤백
-            console.error(error);
-        }
-    });
+    const isShowMoreButton = useMemo(() => tempItemHeight > 80, [tempItemHeight]);
 
     const onModifyModeChangeClick = useCallback((flag: boolean) => {
+        setIsModifiyMode(flag);
+
         if (flag) {
-            setIsModifiyMode(flag);
             setTimeout(() => {
                 textAreaRef.current?.focus();
                 textAreaRef.current?.setSelectionRange(textAreaRef.current.value.length, textAreaRef.current.value.length);
             }, 100);
-            return;
         }
-
-        setIsModifiyMode(flag);
     }, []);
 
     const onModifyClick = useCallback(
@@ -94,10 +44,18 @@ const ReplyItem: FC<ReplyItemProps> = ({ reply }) => {
 
     const onDeleteClick = useCallback(
         (replyId: number) => {
+            if (!confirm('정말 삭제하시겠습니까?')) return;
+
             mutateDeleteReply({ replyId });
         },
         [mutateDeleteReply]
     );
+
+    const onMoreTextLabelClick = useCallback(() => {
+        setTempItemHeight(replyRef.current?.clientHeight ?? 0);
+
+        setShowMoreText(value => !value);
+    }, []);
 
     return (
         <Container data-testid='replyItem'>
@@ -106,16 +64,21 @@ const ReplyItem: FC<ReplyItemProps> = ({ reply }) => {
                 <Created>{reply.created}</Created>
             </Top>
             {isModifiyMode ? (
-                <TextArea ref={textAreaRef} rows={3} value={modifyReviewText} onChange={event => setModifyReviewText(event.target.value)} />
+                <TextArea ref={textAreaRef} rows={5} value={modifyReviewText} onChange={event => setModifyReviewText(event.target.value)} />
             ) : (
-                <Content data-testid='replyItemContent'>
-                    {reply.message.split('\n').map((value, index) => (
-                        <span key={index}>
-                            {value}
-                            <br />
-                        </span>
-                    ))}
-                </Content>
+                <>
+                    <Content ref={replyRef} data-testid='replyItemContent' hide={showMoreText}>
+                        {reply.message.split('\n').map((value, index) => (
+                            <span key={index}>
+                                {value}
+                                <br />
+                            </span>
+                        ))}
+                    </Content>
+                    {((replyRef.current?.clientHeight ?? 0) > 80 || isShowMoreButton) && (
+                        <MoreTextLabel onClick={onMoreTextLabelClick}>{showMoreText ? '접기' : '더보기'}</MoreTextLabel>
+                    )}
+                </>
             )}
             {me?.id === reply.userId && (
                 <ButtonArea>

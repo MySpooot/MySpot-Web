@@ -46,7 +46,12 @@ const App: FC = () => {
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     if (isLoading) {
-        return <Loading />;
+        return (
+            <AppContainer>
+                <GlobalStyle />
+                <Loading />
+            </AppContainer>
+        );
     }
 
     return (

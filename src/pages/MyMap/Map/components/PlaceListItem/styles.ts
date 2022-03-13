@@ -94,7 +94,7 @@ export const ButtonWrapper = styled.div`
         font-size: 0.5rem;
     }
 
-    :first-child {
+    :first-of-type {
         margin-right: 0.5rem;
     }
 `;

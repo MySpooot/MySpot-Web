@@ -31,9 +31,6 @@ jobs:
             - name: Check Lint & Stylelint
               run: yarn lint & yarn stylelint
 
-            - name: Run Test
-              run: yarn test
-
             - name: Generate Environment Variables - dev
               uses: SpicyPizza/create-envfile@v1
               with:

@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import { Color, ScrollbarStyle } from 'src/Constants';
+import { Color } from 'src/Constants';
 
 export const Container = styled.li`
     padding: 1rem;
@@ -28,14 +28,13 @@ export const Created = styled.div`
     font-size: 0.625rem;
 `;
 
-export const Content = styled.p`
-    ${ScrollbarStyle}
-    max-height: 10rem;
+export const Content = styled.p<{ hide: boolean }>`
+    max-height: ${({ hide }) => (hide ? 'unset' : '7.5rem')};
     padding: 0.5rem 0;
     color: ${Color.grey[600]};
     font-size: 0.75rem;
     line-height: 1.5;
-    overflow-y: auto;
+    overflow-y: hidden;
     word-break: break-all;
 `;
 
@@ -61,4 +60,9 @@ export const OwnerButton = styled.button`
     &:last-child {
         margin-left: 0.375rem;
     }
+`;
+
+export const MoreTextLabel = styled.div`
+    font-size: 0.75rem;
+    cursor: pointer;
 `;

@@ -1,9 +1,11 @@
 import React, { FC } from 'react';
 
-import { Container } from './styles';
+import { Container, Spinner } from './styles';
 
-const Loading: FC = () => {
-    return <Container>Loading...</Container>;
-};
+const Loading: FC = () => (
+    <Container>
+        <Spinner />
+    </Container>
+);
 
 export default Loading;

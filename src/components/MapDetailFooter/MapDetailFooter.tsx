@@ -27,10 +27,6 @@ const MapDetailFooter: FC<MapDetailFooterProps> = ({ marker, viewButton }) => {
     const { me } = useMeState();
     const { onBookmarkClick: onBookmarkClick_, onLikeClick: onLikeClick_ } = useMarkerUserAction();
 
-    const onBackButtonClick = useCallback(() => {
-        navigate(`${Path.myMap}/${mapId}`);
-    }, [navigate, mapId]);
-
     const onBookmarkClick = useCallback(() => {
         if (!me) return;
 
@@ -54,7 +50,7 @@ const MapDetailFooter: FC<MapDetailFooterProps> = ({ marker, viewButton }) => {
                 <BookmarkIcon src={marker.isMyLocation ? icMarkedBookmark : icBookmark} onClick={onBookmarkClick} />
             </Top>
             <Bottom>
-                <BackButton onClick={onBackButtonClick}>
+                <BackButton onClick={() => navigate(`${Path.myMap}/${mapId}`)}>
                     <BackIcon src={icArrowLeft} />
                 </BackButton>
                 <ViewButton onClick={viewButton.onClick}>{viewButton.text}</ViewButton>

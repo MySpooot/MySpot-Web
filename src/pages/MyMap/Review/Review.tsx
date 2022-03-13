@@ -102,7 +102,7 @@ const Review: FC = () => {
         }
 
         setPlace(place);
-    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    }, [markers]); // eslint-disable-line react-hooks/exhaustive-deps
 
     const onRegisterClick = useCallback(() => {
         if (textAreaValue.length > 64) {
