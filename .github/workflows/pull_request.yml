@@ -34,6 +34,21 @@ jobs:
             - name: Run Test
               run: yarn test
 
+            - name: Generate Environment Variables - dev
+              uses: SpicyPizza/create-envfile@v1
+              with:
+                  envkey_REACT_APP_ENV: dev
+                  envkey_REACT_APP_KAKAO_KEY: ${{ secrets.REACT_APP_KAKAO_KEY }}
+                  file_name: .env
+
+            - name: Run Cypress
+              uses: cypress-io/github-action@v2
+              with:
+                  command: yarn e2e
+                  start: yarn start
+                  wait-on: 'http://localhost:3000, https://myspot-server-dev.herokuapp.com/api'
+                  wait-on-timeout: 180
+
             - name: Build
               run: yarn build
 

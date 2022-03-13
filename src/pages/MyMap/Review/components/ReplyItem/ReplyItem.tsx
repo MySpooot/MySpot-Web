@@ -100,15 +100,15 @@ const ReplyItem: FC<ReplyItemProps> = ({ reply }) => {
     );
 
     return (
-        <Container>
+        <Container data-testid='replyItem'>
             <Top>
-                <Nickname>{reply.nickName}</Nickname>
+                <Nickname data-testid='replyItemNickname'>{reply.nickName}</Nickname>
                 <Created>{reply.created}</Created>
             </Top>
             {isModifiyMode ? (
                 <TextArea ref={textAreaRef} rows={3} value={modifyReviewText} onChange={event => setModifyReviewText(event.target.value)} />
             ) : (
-                <Content>
+                <Content data-testid='replyItemContent'>
                     {reply.message.split('\n').map((value, index) => (
                         <span key={index}>
                             {value}

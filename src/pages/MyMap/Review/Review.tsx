@@ -119,7 +119,7 @@ const Review: FC = () => {
 
     return (
         <Container>
-            <Main>
+            <Main data-testid='reviewMain'>
                 <Info>
                     <PlaceName>{place.name}</PlaceName>
                     <Address>{place.address}</Address>
@@ -135,7 +135,7 @@ const Review: FC = () => {
                         value={textAreaValue}
                         onChange={event => setTextAreaValue(event.target.value)}
                     />
-                    <RegisterButton data-testid='registerButton' disabled={0 === textAreaValue.length} onClick={onRegisterClick}>
+                    <RegisterButton data-testid='registerButton' disabled={textAreaValue.length === 0} onClick={onRegisterClick}>
                         등록하기
                     </RegisterButton>
                 </Info>

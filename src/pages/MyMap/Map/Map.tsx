@@ -92,7 +92,11 @@ const Map: FC = () => {
                             {markers.map((marker, index) => (
                                 <MapMarker
                                     key={marker.id}
-                                    image={{ src: marker.isMyLocation ? icMarkedMarker : icMarker, size: { height: 40, width: 30 } }}
+                                    image={{
+                                        src: marker.isMyLocation ? icMarkedMarker : icMarker,
+                                        size: { height: 40, width: 30 },
+                                        options: { alt: 'marker' }
+                                    }}
                                     position={{ lat: Number(marker.latitude), lng: Number(marker.longitude) }}
                                     onClick={() => setMapPlaceOverlay(markers[index])}
                                 />
