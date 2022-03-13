@@ -57,7 +57,7 @@ export const LogoutBtn = styled.button`
 
 export const Locations = styled.div`
     display: flex;
-    height: 100%;
+    height: 44.4375rem;
     flex-direction: column;
     padding: 1rem 1.25rem;
     background-color: ${Color.grey[100]};
