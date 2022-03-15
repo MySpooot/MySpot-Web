@@ -43,7 +43,7 @@ jobs:
               with:
                   command: yarn e2e
                   start: yarn start
-                  wait-on: 'http://localhost:3000, https://myspot-server-dev.herokuapp.com/api'
+                  wait-on: 'http://localhost:3000'
                   wait-on-timeout: 180
 
             - name: Build

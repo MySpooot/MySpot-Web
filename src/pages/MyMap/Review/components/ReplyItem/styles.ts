@@ -63,6 +63,6 @@ export const OwnerButton = styled.button`
 `;
 
 export const MoreTextLabel = styled.div`
-    font-size: 0.75rem;
     cursor: pointer;
+    font-size: 0.75rem;
 `;
