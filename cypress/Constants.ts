@@ -1,1 +1,1 @@
-export const BaseUrl = 'https://myspot-server-dev.herokuapp.com';
+export const BaseUrl = 'https://jsyth59asa.execute-api.ap-northeast-2.amazonaws.com/dev';
