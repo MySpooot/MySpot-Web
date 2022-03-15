@@ -1,10 +1,7 @@
 import axios, { AxiosRequestConfig } from 'axios';
 
 const instance = axios.create({
-    baseURL: 'https://myspot-server-dev.herokuapp.com/',
-    headers: {
-        clientVersion: require('../../package.json').version // eslint-disable-line @typescript-eslint/no-var-requires
-    }
+    baseURL: 'https://jsyth59asa.execute-api.ap-northeast-2.amazonaws.com/dev/'
 });
 
 export const request = async <T = unknown>(config: AxiosRequestConfig): Promise<T> => {
