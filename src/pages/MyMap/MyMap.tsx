@@ -2,12 +2,11 @@ import React, { FC, useEffect } from 'react';
 import { Outlet, useParams } from 'react-router';
 import { useQuery } from 'react-query';
 
-import { getMapDetail } from 'src/api/map';
-import { getMarkers } from 'src/api/marker';
+import { getMapDetail, getMarkers } from 'src/api';
 import { useMapDetailState, useMapMarkerState, useMapAccessible, useMapPlaceOverlayState } from 'src/atoms';
 import { MapDetailVO, MapMarkerVO } from 'src/vo';
 import Loading from 'src/components/Loading';
-import PrivateCodeModal from 'src/components/PrivateCodeModal/PrivateCodeModal';
+import PrivateCodeModal from 'src/components/PrivateCodeModal';
 
 const MyMap: FC = () => {
     const { mapId } = useParams<{ mapId: string }>();

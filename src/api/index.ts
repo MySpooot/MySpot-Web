@@ -3,3 +3,4 @@ export * from './auth';
 export * from './marker';
 export * from './reply';
 export * from './like';
+export * from './map';
