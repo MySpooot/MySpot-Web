@@ -6,7 +6,7 @@ describe('Map', () => {
     });
 
     it('loggedIn & has map accessible user', () => {
-        cy.get('h3').should('have.text', 'Cypress Map');
+        cy.get('h1').should('have.text', 'Cypress Map');
 
         cy.get('img[alt="marker"]').first().click();
 
