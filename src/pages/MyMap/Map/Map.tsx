@@ -1,27 +1,22 @@
 import React, { FC, useState, useMemo, useCallback } from 'react';
-import { useNavigate, useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { Map as KakaoMap, MapMarker } from 'react-kakao-maps-sdk';
 
-import { Container, MapContainer, HeaderIcon, FavoriteIcon } from './styles';
-import { PlaceOverlay, PlaceListOverlay, PlaceListButton } from './components';
+import { Container, MapContainer, FavoriteIcon } from './styles';
+import { MapHeader, PlaceOverlay, PlaceListOverlay, PlaceListButton } from './components';
 import { createRecentMap, createFavoriteMap, deleteFavoriteMap } from 'src/api/map';
-import { Path } from 'src/Constants';
 import { useMeState, useMapAccessible, useMapDetailState, useMapMarkerState } from 'src/atoms';
 import { useMapPlaceOverlayState } from 'src/atoms/mapPlaceOverlay';
 import useKeyPress from 'src/hooks/useKeyPress';
-import HeaderWithLeftArrow from 'src/components/HeaderWithLeftArrow';
 import Loading from 'src/components/Loading';
 
-import icSearch from 'src/assets/mymap/ic_search.svg';
 import icFavoriteOn from 'src/assets/mymap/ic_favorite_on.svg';
 import icFavoriteOff from 'src/assets/mymap/ic_favorite_off.svg';
 import icMarker from 'src/assets/mymap/ic_marker.svg';
 import icMarkedMarker from 'src/assets/mymap/ic_marked_marker.svg';
-import icSetting from 'src/assets/mymap/ic_setting.svg';
 
 const Map: FC = () => {
-    const navigate = useNavigate();
     const { mapId } = useParams<{ mapId: string }>();
 
     const [isOpenPlayListOverlay, setIsOpenPlayListOverlay] = useState(false);
@@ -72,17 +67,7 @@ const Map: FC = () => {
         <>
             {mapAccessible && markers && (
                 <Container>
-                    <HeaderWithLeftArrow style={{ justifyContent: 'space-between' }} onLeftArrowClick={() => navigate(Path.home)}>
-                        <h3 className='title'>{mapDetail.name}</h3>
-                        <div style={{ display: 'flex', alignItems: 'center' }}>
-                            <Link to={`${Path.myMap}/${mapId}${Path.search}`}>
-                                <HeaderIcon alt='search' src={icSearch} />
-                            </Link>
-                            <Link to={`${Path.myMap}/${mapId}/setting`}>
-                                <HeaderIcon alt='setting' src={icSetting} style={{ marginLeft: '0.5rem' }} />
-                            </Link>
-                        </div>
-                    </HeaderWithLeftArrow>
+                    <MapHeader mapName={mapDetail.name} showTooltip={markers.length === 0} />
                     <MapContainer>
                         <KakaoMap
                             center={{ lat: centerLocation.latitude, lng: centerLocation.longitude }}
@@ -97,7 +82,7 @@ const Map: FC = () => {
                                         size: { height: 40, width: 30 },
                                         options: { alt: 'marker' }
                                     }}
-                                    position={{ lat: Number(marker.latitude), lng: Number(marker.longitude) }}
+                                    position={{ lat: marker.latitude, lng: marker.longitude }}
                                     onClick={() => setMapPlaceOverlay(markers[index])}
                                 />
                             ))}

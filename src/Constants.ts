@@ -21,9 +21,9 @@ export const Path = {
     newMap: '/newmap'
 } as const;
 
-export const QueryKey = {} as const;
-
-// TODO: 삭제 예정
+/**
+ * @deprecated
+ */
 export const Palette = {
     White: '#ffffff',
     Black: '#000000',

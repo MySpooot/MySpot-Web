@@ -1,3 +1,4 @@
+export { default as MapHeader } from './MapHeader';
 export { default as PlaceListButton } from './PlaceListButton';
 export { default as PlaceOverlay } from './PlaceOverlay';
 export { default as PlaceListOverlay } from './PlaceListOverlay';

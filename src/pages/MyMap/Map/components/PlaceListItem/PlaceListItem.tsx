@@ -74,6 +74,8 @@ const PlaceListItem: FC<PlaceListItemProps> = ({ place }) => {
     }, [navigate, mapId, place]);
 
     const onDeleteClick = useCallback(() => {
+        if (!confirm('정말 삭제하시겠습니까?')) return;
+
         fetchDeleteMarker({ markerId: place.id });
     }, [fetchDeleteMarker, place]);
 
