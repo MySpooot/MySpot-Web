@@ -45,7 +45,7 @@ export const PlaceList = styled.ul`
     ${ScrollbarStyle}
     display: flex;
     overflow: auto;
-    min-height: 35rem;
+    min-height: 20rem;
     max-height: 35rem;
     flex-direction: column;
 `;
