@@ -30,7 +30,10 @@ const Setting: FC = () => {
             <HeaderWithLeftArrow onLeftArrowClick={() => navigate(`${Path.myMap}/${mapId}`)}>
                 <div>지도 상세 설정</div>
             </HeaderWithLeftArrow>
-            <CopyToClipboard text={`${window.location.origin}${Path.myMap}/${mapId}`} onCopy={() => alert('복사 성공')}>
+            <CopyToClipboard
+                text={`${window.location.origin}${Path.myMap}/${mapId}${privateCode ? `?code=${privateCode}` : ''}`}
+                onCopy={() => alert('복사 성공')}
+            >
                 <div
                     style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', borderBottom: '1px solid lightgrey', padding: '1rem 0.5rem' }}
                 >

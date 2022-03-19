@@ -6,6 +6,7 @@ export class MapDetailVO {
     isFavorite: boolean;
     isOwner: boolean;
     isPrivate: boolean;
+    accessible: boolean;
 
     static from(mapDetail: GetMapDetailResponse) {
         return new MapDetailVO(mapDetail);
@@ -17,5 +18,6 @@ export class MapDetailVO {
         this.isFavorite = mapDetail.isFavorite;
         this.isOwner = mapDetail.isOwner;
         this.isPrivate = mapDetail.isPrivate;
+        this.accessible = mapDetail.accessible;
     }
 }

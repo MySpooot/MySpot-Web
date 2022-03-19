@@ -1,6 +1,5 @@
 import React, { FC, useMemo } from 'react';
-import { useNavigate, useLocation } from 'react-router';
-import { parse } from 'query-string';
+import { useNavigate } from 'react-router';
 import { useQuery } from 'react-query';
 
 import { Container, TitleTab, Tab, Maps } from 'src/pages/MapList/styles';
@@ -8,24 +7,24 @@ import HeaderWithLeftArrow from 'src/components/HeaderWithLeftArrow';
 import { getMaps, getRecentMaps, getFavoriteMap } from 'src/api/map';
 import { Path } from 'src/Constants';
 import Card from 'src/components/MapCard';
+import useQueryString from 'src/hooks/useQueryString';
 
 const MapList: FC = () => {
     const navigate = useNavigate();
-    const location = useLocation();
-    const query = parse(location.search);
+    const { type } = useQueryString<{ type: 'my' | 'favorite' | 'recent' }>();
 
-    const { data: maps, refetch: refetchMaps } = useQuery('getMaps', () => getMaps(), {
-        enabled: query.type === 'my'
+    const { data: maps } = useQuery('getMaps', () => getMaps(), {
+        enabled: type === 'my'
     });
-    const { data: favoriteMaps, refetch: refetchFavoriteMaps } = useQuery('getFavoriteMap', () => getFavoriteMap(), {
-        enabled: query.type === 'favorite'
+    const { data: favoriteMaps } = useQuery('getFavoriteMap', () => getFavoriteMap(), {
+        enabled: type === 'favorite'
     });
-    const { data: recentMaps, refetch: refetchRecentMaps } = useQuery('getRecentMaps', () => getRecentMaps(), {
-        enabled: query.type === 'recent'
+    const { data: recentMaps } = useQuery('getRecentMaps', () => getRecentMaps(), {
+        enabled: type === 'recent'
     });
 
     const fetchMaps = useMemo(() => {
-        switch (query.type) {
+        switch (type) {
             case 'my':
                 return maps;
             case 'favorite':
@@ -35,42 +34,25 @@ const MapList: FC = () => {
             default:
                 return maps;
         }
-    }, [maps, favoriteMaps, recentMaps, query.type]);
-
-    const fetchData = () => {
-        switch (query.type) {
-            case 'my':
-                refetchMaps();
-                return;
-            case 'favorite':
-                refetchFavoriteMaps();
-                return;
-            case 'recent':
-                refetchRecentMaps();
-                return;
-            default:
-                refetchMaps();
-                return;
-        }
-    };
+    }, [maps, favoriteMaps, recentMaps, type]);
 
     return (
         <Container>
             <HeaderWithLeftArrow onLeftArrowClick={() => navigate(Path.home)}></HeaderWithLeftArrow>
             <TitleTab>
-                <Tab active={query.type === 'my'} onClick={() => navigate(`${Path.mapList}?type=my`)}>
+                <Tab active={type === 'my'} onClick={() => navigate(`${Path.mapList}?type=my`)}>
                     나의 지도
                 </Tab>
-                <Tab active={query.type === 'favorite'} onClick={() => navigate(`${Path.mapList}?type=favorite`)}>
+                <Tab active={type === 'favorite'} onClick={() => navigate(`${Path.mapList}?type=favorite`)}>
                     즐겨찾는 지도
                 </Tab>
-                <Tab active={query.type === 'recent'} onClick={() => navigate(`${Path.mapList}?type=recent`)}>
+                <Tab active={type === 'recent'} onClick={() => navigate(`${Path.mapList}?type=recent`)}>
                     최근 본 지도
                 </Tab>
             </TitleTab>
             <Maps>
                 {fetchMaps?.map((map, idx) => (
-                    <Card key={idx} map={map} refetch={() => fetchData()} />
+                    <Card key={idx} map={map} />
                 ))}
             </Maps>
         </Container>

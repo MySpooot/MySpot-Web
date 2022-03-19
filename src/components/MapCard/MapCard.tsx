@@ -1,5 +1,6 @@
-import React, { FC, useState, useCallback, useEffect } from 'react';
+import React, { FC, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router';
+import { useMutation } from 'react-query';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Popup } from 'reactjs-popup';
 import dayjs from 'dayjs';
@@ -15,7 +16,6 @@ import circles from 'src/assets/main/ic-vertical-circle.svg';
 
 interface MapCardProps {
     map: { id: number; mapName: string; isPrivate: boolean; created?: number };
-    refetch: any;
 }
 
 const MapCard: FC<MapCardProps> = ({ map }) => {
@@ -23,31 +23,46 @@ const MapCard: FC<MapCardProps> = ({ map }) => {
 
     const [privateCode, setPrivateCode] = useState<string>();
 
-    const onClickItem = () => {
-        navigate(`${Path.myMap}/${map.id}`);
-    };
+    const { mutate } = useMutation(() => getPrivateCode({ mapId: map.id }), {
+        onSuccess: response => {
+            setPrivateCode(response.code);
+        }
+    });
 
-    const deleteItem = useCallback(async (mapId: number) => {
+    const onCardClick = useCallback(() => {
+        navigate(`${Path.myMap}/${map.id}`);
+    }, [navigate, map]);
+
+    const onPopupClick = useCallback(() => {
+        if (!map.isPrivate) return;
+
+        mutate();
+    }, [map, mutate]);
+
+    const onCopyClick = useCallback(() => {
+        if (map.isPrivate && !privateCode) return;
+
+        alert(`복사 성공 : ${privateCode}`);
+    }, [map, privateCode]);
+
+    const onDeleteCardClick = useCallback(async (mapId: number, close: () => void) => {
         const deleteCheck = confirm('지도를 삭제하시겠습니까?');
 
         if (deleteCheck) {
             await deleteMap(mapId);
             alert('지도가 삭제되었습니다.');
             //getmap다시 호출
+            close();
         }
     }, []);
 
-    useEffect(() => {
-        getPrivateCode({ mapId: map.id }).then(({ code }) => setPrivateCode(code));
-    }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-    const dateFilter = date => {
+    const dateFilter = useCallback(date => {
         return dayjs(date).format('YYYY-MM-DD');
-    };
+    }, []);
 
     return (
         <Card>
-            <CardText onClick={onClickItem}>
+            <CardText onClick={onCardClick}>
                 <span className='map-title'>{map.mapName}</span>
                 <span className='create-date'>{dateFilter(map.created)}</span>
             </CardText>
@@ -57,25 +72,21 @@ const MapCard: FC<MapCardProps> = ({ map }) => {
                     position='bottom right'
                     trigger={<Icon alt='더보기' className='vertical-circle' src={circles} />}
                     closeOnDocumentClick
+                    onOpen={onPopupClick}
                 >
                     {close => (
                         <SeeMore>
                             <CopyToClipboard
-                                text={`${window.location.origin}${window.location.pathname}`}
-                                onCopy={() => alert(`복사 성공 : ${privateCode}`)}
+                                text={`${window.location.origin}${Path.myMap}/${map.id}${map.isPrivate ? `?code=${privateCode}` : ''}`}
+                                onCopy={onCopyClick}
                             >
                                 <MapBtn>
                                     <Icon alt='공유' className='ic-share' src={share} />
                                     공유
                                 </MapBtn>
                             </CopyToClipboard>
-                            <VerticalDivider></VerticalDivider>
-                            <MapBtn
-                                onClick={() => {
-                                    deleteItem(map.id);
-                                    close();
-                                }}
-                            >
+                            <VerticalDivider />
+                            <MapBtn onClick={() => onDeleteCardClick(map.id, close)}>
                                 <Icon alt='삭제' className='ic-remove' src={remove} />
                                 삭제
                             </MapBtn>
