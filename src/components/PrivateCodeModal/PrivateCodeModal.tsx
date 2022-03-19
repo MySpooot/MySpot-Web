@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import { useParams } from 'react-router';
 import { useMutation } from 'react-query';
 
-import { Container, Input, Button } from './styles';
+import { Container, Title, Input, Button } from './styles';
 import { checkPrivateCode } from 'src/api/map';
 import { useMapAccessible } from 'src/atoms';
 import Modal from 'src/components/Modal';
@@ -14,22 +14,28 @@ const PrivateCodeModal: FC = () => {
     const { setMapAccessible } = useMapAccessible();
 
     const { mutate: fetchCheckPrivateCode } = useMutation(() => checkPrivateCode({ mapId: Number(mapId) }, { code: inputValue }), {
-        onSuccess: response => {
-            if (!response) {
-                alert('잘못된 코드입니다.');
+        onSuccess: accessible => {
+            if (!accessible) {
+                alert('잘못된 입력입니다.');
             }
 
-            setMapAccessible(response);
+            setMapAccessible(accessible);
         }
     });
 
     return (
         <Modal>
             <Container>
-                <div>초대코드를 입력하세요.</div>
-                <Input value={inputValue} onChange={event => setInputValue(event.target.value)} />
+                <Title>접근이 제한되어 있는 지도</Title>
+                <Input
+                    maxLength={4}
+                    placeholder='보안코드를 입력해주세요.'
+                    value={inputValue}
+                    autoFocus
+                    onChange={event => setInputValue(event.target.value)}
+                />
                 <Button disabled={inputValue.length < 4} onClick={() => fetchCheckPrivateCode()}>
-                    확인
+                    입력완료
                 </Button>
             </Container>
         </Modal>

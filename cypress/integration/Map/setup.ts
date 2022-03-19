@@ -45,3 +45,16 @@ export const common = () => {
 
     cy.visit('/map/111');
 };
+
+export const privateMap = () => {
+    cy.intercept(`${BaseUrl}/map/112/detail`, {
+        accessible: false,
+        isFavorite: false,
+        isOwner: false,
+        isPrivate: true,
+        mapId: 112,
+        mapName: 'Cypress Map'
+    });
+
+    cy.visit('/map/112');
+};
