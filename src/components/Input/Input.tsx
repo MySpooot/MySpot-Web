@@ -9,21 +9,30 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
     onEnterPress?: () => void;
 }
 
-const Input: FC<InputProps> = ({ fullWidth = true, onEnterPress, children, ...props }) => {
+const Input: FC<InputProps> = ({ fullWidth = true, onEnterPress, style, children, ...props }) => {
     const { keyPressRef } = useKeyPress<HTMLInputElement>('Enter', () => onEnterPress?.(), { runOnlyFocusedElement: true });
 
     return (
-        <Container ref={keyPressRef} fullWidth={fullWidth} {...props}>
+        <Container fullWidth={fullWidth} style={style}>
+            <InputBox ref={keyPressRef} {...props} />
             {children}
         </Container>
     );
 };
 
-const Container = styled.input<{ fullWidth: boolean }>`
+const Container = styled.div<{ fullWidth: boolean }>`
+    display: flex;
     width: ${({ fullWidth }) => (fullWidth ? '100%' : 'auto')};
-    padding: 1rem 0.75rem;
+    height: 3rem;
+    align-items: center;
+    padding: 0.5rem 0.75rem;
     border: 1px solid ${Color.grey[300]};
     border-radius: 0.25rem;
+`;
+
+const InputBox = styled.input`
+    width: 100%;
+    border: none;
     outline: none;
 
     &::placeholder {
