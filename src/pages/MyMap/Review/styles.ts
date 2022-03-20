@@ -67,23 +67,6 @@ export const TextArea = styled.textarea`
     }
 `;
 
-export const RegisterButton = styled.button`
-    padding: 0.5rem;
-    margin-top: 0.875rem;
-    background-color: ${Color.blue};
-    border-radius: 0.25rem;
-    color: ${Color.white};
-    cursor: pointer;
-    font-weight: 500;
-    line-height: 2;
-
-    :disabled {
-        background-color: ${Color.grey[100]};
-        color: ${Color.grey[600]};
-        cursor: auto;
-    }
-`;
-
 export const Line = styled.hr`
     width: 100%;
     height: 0.375rem;

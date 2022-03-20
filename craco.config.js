@@ -1,5 +1,4 @@
 /* eslint-disable */
-const emotionBabelPreset = require('@emotion/babel-preset-css-prop').default(undefined, {});
 const cracoSwcPlugin = require('craco-swc');
 
 module.exports = {
@@ -22,6 +21,7 @@ module.exports = {
         }
     ],
     babel: {
-        plugins: [...emotionBabelPreset.plugins]
+        plugins: ['@emotion/babel-plugin'],
+        presets: ['@emotion/babel-preset-css-prop']
     }
 };
