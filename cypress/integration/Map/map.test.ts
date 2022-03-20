@@ -6,6 +6,8 @@ describe('Map', () => {
     });
 
     it('loggedIn & has map accessible user', () => {
+        cy.visit('/map/111');
+
         cy.get('h1').should('have.text', 'Cypress Map');
 
         cy.get('img[alt="marker"]').first().click();
@@ -23,10 +25,19 @@ describe('Private Map', () => {
     });
 
     it('should show code input', () => {
+        cy.visit('/map/112');
+
         cy.get('h3').should('have.text', '접근이 제한되어 있는 지도');
 
         const input = cy.findByPlaceholderText('보안코드를 입력해주세요.');
+
+        input.type('123a');
+        input.invoke('val').should('eq', '123a');
+        cy.findByRole('button', { name: '입력완료' }).should('be.disabled');
+
+        input.focused().clear();
         input.type('12345');
         input.invoke('val').should('eq', '1234');
+        cy.findByRole('button', { name: '입력완료' }).should('be.enabled');
     });
 });

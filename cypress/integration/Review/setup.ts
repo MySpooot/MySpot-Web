@@ -3,10 +3,6 @@ import { BaseUrl } from '@/Constants';
 export const loginUser = () => {
     cy.setToken();
 
-    cy.fixture('/auth/me').then(me => {
-        cy.intercept(`${BaseUrl}/auth/me`);
-    });
-
     cy.intercept(`${BaseUrl}/map/111/detail`, {
         accessible: true,
         isFavorite: true,
