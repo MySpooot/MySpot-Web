@@ -41,9 +41,9 @@ export const RoadAddress = styled.div`
 `;
 
 export const AddButton = styled.button`
-    font-size: 0.875rem;
     padding: 0.5rem 0.75rem;
     background-color: ${Color.grey[100]};
     border-radius: 0.25rem;
     color: ${Color.grey[600]};
+    font-size: 0.875rem;
 `;
