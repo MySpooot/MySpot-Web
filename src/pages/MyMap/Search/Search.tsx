@@ -2,13 +2,14 @@ import React, { FC, useState, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useMutation } from 'react-query';
 
-import { Container, PlaceInput, Main, PlaceItem, HeaderIcon, Info, PlaceName, Address, RoadAddress, AddButton } from './styles';
+import { Container, Main, HeaderIcon } from './styles';
+import { SearchItem } from './components';
 import { Path } from 'src/Constants';
 import { useMapMarkerState, useMapDetailState } from 'src/atoms';
 import { createMarker, CreateMarkerBody, CreateMarkerParam, CreateMarkerResponse } from 'src/api/marker';
 import useSearchPlace, { Place } from 'src/hooks/useSearchPlace';
-import useKeyPress from 'src/hooks/useKeyPress';
 import HeaderWithLeftArrow from 'src/components/HeaderWithLeftArrow';
+import Input from 'src/components/Input';
 
 import icSearch from 'src/assets/mymap/ic_search.svg';
 
@@ -16,9 +17,15 @@ const Search: FC = () => {
     const navigate = useNavigate();
     const { mapId } = useParams<{ mapId: string }>();
 
+    const { markers, setMarkers } = useMapMarkerState();
     const { mapDetail } = useMapDetailState();
     const { places, searchPlaces } = useSearchPlace();
-    const { markers, setMarkers } = useMapMarkerState();
+
+    const [keyword, setKeyword] = useState('');
+
+    const onSearchClick = useCallback(() => {
+        searchPlaces(keyword);
+    }, [searchPlaces, keyword]);
 
     const { mutate: fetchCreateMarker } = useMutation<CreateMarkerResponse, unknown, CreateMarkerParam & CreateMarkerBody>(
         ({ mapId, ...body }) => createMarker({ mapId }, body),
@@ -48,12 +55,6 @@ const Search: FC = () => {
         }
     );
 
-    const [keyword, setKeyword] = useState('');
-
-    const onSearchClick = useCallback(() => {
-        searchPlaces(keyword);
-    }, [searchPlaces, keyword]);
-
     const onAddPlaceClick = useCallback(
         (place: Place) => {
             if (!mapDetail?.isOwner) return;
@@ -69,32 +70,21 @@ const Search: FC = () => {
         [mapId, mapDetail?.isOwner, fetchCreateMarker, markers]
     );
 
-    useKeyPress('Enter', onSearchClick);
-
     return (
         <Container>
             <HeaderWithLeftArrow onLeftArrowClick={() => navigate(`${Path.myMap}/${mapId}`)}>
-                <PlaceInput>
-                    <input placeholder='검색하실 장소를 입력해 주세요' value={keyword} onChange={event => setKeyword(event.target.value)} />
+                <Input
+                    placeholder='검색하실 장소를 입력해 주세요'
+                    value={keyword}
+                    onChange={event => setKeyword(event.target.value)}
+                    onEnterPress={onSearchClick}
+                >
                     <HeaderIcon src={icSearch} onClick={onSearchClick} />
-                </PlaceInput>
+                </Input>
             </HeaderWithLeftArrow>
             <Main>
-                {!places && <div>장소를 검색해주세요.</div>}
                 {places?.map(place => (
-                    <PlaceItem key={place.id}>
-                        <Info>
-                            <PlaceName>{place.locationName}</PlaceName>
-                            <Address>{place.address}</Address>
-                            {place.roadAddress && (
-                                <RoadAddress>
-                                    <div className='label'>지번</div>
-                                    <div>{place.roadAddress}</div>
-                                </RoadAddress>
-                            )}
-                        </Info>
-                        {mapDetail?.isOwner && <AddButton onClick={() => onAddPlaceClick(place)}>추가</AddButton>}
-                    </PlaceItem>
+                    <SearchItem key={place.id} activeAddButton={!!mapDetail?.isOwner} place={place} onAddClick={() => onAddPlaceClick(place)} />
                 ))}
             </Main>
         </Container>
