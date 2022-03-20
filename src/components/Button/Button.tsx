@@ -1,4 +1,4 @@
-import React, { ButtonHTMLAttributes, FC } from 'react';
+import React, { FC, ButtonHTMLAttributes } from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
@@ -16,18 +16,18 @@ const Button: FC<ButtonProps> = ({ type = 'default', fullWidth = true, children,
 );
 
 const Container = styled.button<{ type_: 'primary' | 'bordered' | 'default'; fullWidth: boolean }>`
+    display: flex;
+    width: ${({ fullWidth }) => (fullWidth ? '100%' : 'auto')};
+    height: 3rem;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem;
+    border-radius: 0.25rem;
     font-size: 1rem;
     font-weight: 500;
     letter-spacing: 0.11px;
     line-height: 2;
-    height: 3rem;
-    width: ${({ fullWidth }) => (fullWidth ? '100%' : 'auto')};
-    border-radius: 0.25rem;
     user-select: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0.75rem;
 
     ${props => {
         switch (props.type_) {
@@ -45,16 +45,16 @@ const Container = styled.button<{ type_: 'primary' | 'bordered' | 'default'; ful
             default:
                 return css`
                     background-color: none;
-                    color: ${Color.grey[300]};
+                    color: ${Color.grey[600]};
                     border: 1px solid ${Color.grey[300]};
                 `;
         }
     }}
 
     :disabled {
+        border: unset;
         background-color: ${Color.grey[100]};
         color: ${Color.grey[600]};
-        border: unset;
     }
 `;
 

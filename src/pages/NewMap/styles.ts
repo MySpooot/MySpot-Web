@@ -59,32 +59,3 @@ export const ButtonArea = styled.div`
     justify-content: space-between;
     margin-top: auto;
 `;
-
-export const Button = styled.button`
-    width: 48%;
-    height: 48px;
-    border: none;
-    border-radius: 0.25rem;
-    cursor: pointer;
-    font-size: 1rem;
-    font-weight: 500;
-    letter-spacing: 0.11px;
-    line-height: 2;
-    outline: none;
-    text-align: center;
-
-    &:hover {
-        opacity: 0.8;
-    }
-
-    &:first-child {
-        border: solid 1px #d3d3d3;
-        background-color: ${Palette.White};
-        color: ${Palette.Grey[500]};
-    }
-
-    &:last-child {
-        background-color: ${Palette.Blue[500]};
-        color: ${Palette.White};
-    }
-`;

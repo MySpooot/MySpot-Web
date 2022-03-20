@@ -1,9 +1,10 @@
 import React, { useState, useCallback, ChangeEvent, FC } from 'react';
 import { useNavigate } from 'react-router';
 
-import { Container, Title, InputArea, Input, ButtonArea, Button, Desc } from './styles';
+import { Container, Title, InputArea, Input, ButtonArea, Desc } from './styles';
 import { createMap } from 'src/api/map';
 import { Path } from 'src/Constants';
+import Button from 'src/components/Button';
 
 import code from 'src/assets/newmap/private-code.png';
 
@@ -45,8 +46,12 @@ const NewMap: FC = () => {
                 </div>
             </InputArea>
             <ButtonArea>
-                <Button onClick={onCancelClick}>취소</Button>
-                <Button onClick={onCreateClick}>완료</Button>
+                <Button style={{ marginRight: '0.5rem' }} onClick={onCancelClick}>
+                    취소
+                </Button>
+                <Button type='primary' onClick={onCreateClick}>
+                    완료
+                </Button>
             </ButtonArea>
         </Container>
     );

@@ -28,17 +28,3 @@ export const Input = styled.input`
         color: ${Color.grey[400]};
     }
 `;
-
-export const Button = styled.button`
-    width: 100%;
-    padding: 0.75rem 0;
-    background-color: ${Color.blue};
-    border-radius: 0.25rem;
-    color: ${Color.white};
-    line-height: 1.25rem;
-
-    :disabled {
-        background-color: ${Color.grey[100]};
-        color: ${Color.grey[600]};
-    }
-`;
