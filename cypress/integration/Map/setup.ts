@@ -1,11 +1,6 @@
 import { BaseUrl } from '@/Constants';
 
 export const common = () => {
-    cy.intercept(`${BaseUrl}/auth/me`, {
-        id: 7,
-        nickname: '백인재',
-        thumbnail: 'http://k.kakaocdn.net/dn/CKOTn/btrfEm77yMD/0yeOb5spzcu4Edr1c6bwHk/img_110x110.jpg'
-    });
     cy.intercept(`${BaseUrl}/map/111/detail`, {
         accessible: true,
         isFavorite: true,
@@ -42,8 +37,6 @@ export const common = () => {
             roadAddress: '서울 송파구 양재대로 지하 1233'
         }
     ]);
-
-    cy.visit('/map/111');
 };
 
 export const privateMap = () => {
@@ -55,6 +48,5 @@ export const privateMap = () => {
         mapId: 112,
         mapName: 'Cypress Map'
     });
-
-    cy.visit('/map/112');
+    cy.intercept(`${BaseUrl}/map/112/code/match`, {});
 };
