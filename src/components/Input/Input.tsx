@@ -20,11 +20,11 @@ const Input: FC<InputProps> = ({ fullWidth = true, onEnterPress, children, ...pr
 };
 
 const Container = styled.input<{ fullWidth: boolean }>`
-    padding: 1rem 0.75rem;
-    border-radius: 0.25rem;
-    border: 1px solid ${Color.grey[300]};
-    outline: none;
     width: ${({ fullWidth }) => (fullWidth ? '100%' : 'auto')};
+    padding: 1rem 0.75rem;
+    border: 1px solid ${Color.grey[300]};
+    border-radius: 0.25rem;
+    outline: none;
 
     &::placeholder {
         color: ${Color.grey[400]};
