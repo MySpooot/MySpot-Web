@@ -13,7 +13,6 @@ import {
     AddressLabel,
     RoadAddress,
     TextArea,
-    RegisterButton,
     Line,
     ReviewArea,
     Top,
@@ -28,6 +27,7 @@ import { useMapMarkerState, useMarkerRepliesState, useMeState } from 'src/atoms'
 import { MapMarkerVO, MarkerReplyVO } from 'src/vo';
 import { getReplies, createReply, CreateReplyParam, CreateReplyBody, CreateReplyResponse } from 'src/api';
 import MapDetailFooter from 'src/components/MapDetailFooter';
+import Button from 'src/components/Button';
 import Loading from 'src/components/Loading';
 
 const Review: FC = () => {
@@ -135,9 +135,15 @@ const Review: FC = () => {
                         value={textAreaValue}
                         onChange={event => setTextAreaValue(event.target.value)}
                     />
-                    <RegisterButton data-testid='registerButton' disabled={textAreaValue.length === 0} onClick={onRegisterClick}>
+                    <Button
+                        data-testid='registerButton'
+                        disabled={textAreaValue.length === 0}
+                        style={{ marginTop: '0.875rem' }}
+                        type='primary'
+                        onClick={onRegisterClick}
+                    >
                         등록하기
-                    </RegisterButton>
+                    </Button>
                 </Info>
                 <Line />
                 <ReviewArea>
