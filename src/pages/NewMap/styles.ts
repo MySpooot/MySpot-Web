@@ -40,20 +40,6 @@ export const InputArea = styled.div`
     margin-top: 1.875rem;
 `;
 
-export const Input = styled.input`
-    height: 1.25rem;
-    padding: 1.45rem;
-    border: 1px solid ${Palette.Grey[400]};
-    margin-bottom: 1.25rem;
-    border-radius: 0.25rem;
-
-    &::placeholder {
-        color: #bebebe;
-        font-size: 0.9375rem;
-        letter-spacing: -0.21px;
-    }
-`;
-
 export const ButtonArea = styled.div`
     display: flex;
     justify-content: space-between;
