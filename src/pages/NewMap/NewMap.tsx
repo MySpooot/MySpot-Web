@@ -1,10 +1,11 @@
 import React, { useState, useCallback, ChangeEvent, FC } from 'react';
 import { useNavigate } from 'react-router';
 
-import { Container, Title, InputArea, Input, ButtonArea, Desc } from './styles';
+import { Container, Title, InputArea, ButtonArea, Desc } from './styles';
 import { createMap } from 'src/api/map';
 import { Path } from 'src/Constants';
 import Button from 'src/components/Button';
+import Input from 'src/components/Input';
 
 import code from 'src/assets/newmap/private-code.png';
 
@@ -38,7 +39,14 @@ const NewMap: FC = () => {
             <Title>지도 만들기</Title>
             <Desc>나만의 지도를 만들고 공유하세요</Desc>
             <InputArea>
-                <Input placeholder='지도이름을 입력해 주세요.' type='text' value={mapName} onChange={onInputChange} />
+                <Input
+                    placeholder='지도이름을 입력해 주세요.'
+                    style={{ marginBottom: '1.25rem' }}
+                    type='text'
+                    value={mapName}
+                    onChange={onInputChange}
+                    onEnterPress={onCreateClick}
+                />
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                     <input checked={isPrivate} type='checkbox' onChange={onCheckboxChange} />
                     <span style={{ marginLeft: '8px' }}>프라이빗 지도</span>
