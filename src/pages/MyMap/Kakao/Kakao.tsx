@@ -6,13 +6,13 @@ import KakaoPlaceIframe from 'src/components/KakaoPlaceIframe';
 import MapDetailFooter from 'src/components/MapDetailFooter';
 import { MapMarkerVO } from 'src/vo';
 import { Path } from 'src/Constants';
-import { useMapMarkerState } from 'src/atoms';
+import { getMarkersHelper } from 'src/query';
 
 const Kakao: FC = () => {
     const { mapId, kakaoAddressId } = useParams<{ mapId: string; kakaoAddressId: string }>();
     const navigate = useNavigate();
 
-    const { markers } = useMapMarkerState();
+    const { data: markers } = getMarkersHelper.useQuery(Number(mapId));
 
     const [marker, setMarker] = useState<MapMarkerVO>();
 

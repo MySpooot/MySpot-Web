@@ -11910,6 +11910,7 @@ __metadata:
     react-intersection-observer: ^8.33.1
     react-kakao-maps-sdk: ^1.0.4
     react-query: ^3.34.11
+    react-query-helper: ^0.1.0
     react-responsive: ^9.0.0-beta.4
     react-router: ^6.2.1
     react-router-dom: ^6.2.1
@@ -14396,6 +14397,18 @@ __metadata:
     react: ">=17.0.2 || >=16.9.0"
     react-dom: ">=17.0.2 || >=16.9.0"
   checksum: d6b4589fbd7689a98fbe66f168d297f98a294ab1b29bc486f91feb44da41ce1c7f673dca94a66313955f84d142562b6417876fab4cd72a59a971c907d612754c
+  languageName: node
+  linkType: hard
+
+"react-query-helper@npm:^0.1.0":
+  version: 0.1.0
+  resolution: "react-query-helper@npm:0.1.0"
+  peerDependencies:
+    react-query: 3
+  dependenciesMeta:
+    tsup@5.7.2:
+      unplugged: true
+  checksum: a99b5bbf030226076abdc5e463c2cd918f278a60e2bc71119aa40ac0c7b4a954c2b501b04f52005262dc3a43be74427e9059671c7a203fe8236479499c2fd9e7
   languageName: node
   linkType: hard
 

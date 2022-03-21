@@ -23,7 +23,8 @@ import {
 } from './styles';
 import { ReplyItem } from './components';
 import { Path } from 'src/Constants';
-import { useMapMarkerState, useMarkerRepliesState, useMeState } from 'src/atoms';
+import { useMarkerRepliesState } from 'src/atoms';
+import { getMeHelper, getMarkersHelper } from 'src/query';
 import { MapMarkerVO, MarkerReplyVO } from 'src/vo';
 import { getReplies, createReply, CreateReplyParam, CreateReplyBody, CreateReplyResponse } from 'src/api';
 import MapDetailFooter from 'src/components/MapDetailFooter';
@@ -36,9 +37,10 @@ const Review: FC = () => {
 
     const { ref, inView } = useInView();
 
-    const { me } = useMeState();
-    const { markers, setMarkers } = useMapMarkerState();
+    const { data: me } = getMeHelper.useQuery();
     const { markerReplies, setMarkerReplies } = useMarkerRepliesState();
+
+    const { data: markers } = getMarkersHelper.useQuery(Number(mapId));
 
     const [place, setPlace] = useState<MapMarkerVO>();
     const [textAreaValue, setTextAreaValue] = useState('');
@@ -70,7 +72,7 @@ const Review: FC = () => {
 
                     return { ...place, replyCount: place.replyCount + 1 };
                 });
-                setMarkers(markers => {
+                getMarkersHelper.setQueryData(Number(mapId), markers => {
                     if (!markers) return;
 
                     return markers.map(marker => {

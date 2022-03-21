@@ -3,10 +3,10 @@ import { useNavigate } from 'react-router';
 import { useQuery } from 'react-query';
 
 import { Main, Top, User, Container, Header, Maps, FloatingWrapper, NewBtn, RecentMap, MapChip } from './styles';
-import { Map, mapType } from './types';
-import { getMaps, getFavoriteMap, getRecentMaps } from 'src/api/map';
+import { Map, MapType } from './types';
+import { getMaps, getFavoriteMap, getRecentMaps } from 'src/api';
 import { Path } from 'src/Constants';
-import { useMeState } from 'src/atoms';
+import { getMeHelper } from 'src/query';
 import Card from 'src/components/MapCard';
 import Loading from 'src/components/Loading';
 
@@ -17,7 +17,7 @@ import blackarrow from 'src/assets/main/ic-arrow-b.svg';
 const Home: FC = () => {
     const navigate = useNavigate();
 
-    const { me } = useMeState();
+    const { data: me } = getMeHelper.useQuery();
 
     const { data: maps, isLoading: isMapLoading } = useQuery('getMaps', () => getMaps());
     const { data: favoriteMaps, isLoading: isFavoriteLoading } = useQuery('getFavoriteMap', () => getFavoriteMap());
@@ -39,7 +39,7 @@ const Home: FC = () => {
     );
 
     const onMoreMapClick = useCallback(
-        (type: mapType) => {
+        (type: MapType) => {
             navigate(`${Path.mapList}?type=${type}`);
         },
         [navigate]

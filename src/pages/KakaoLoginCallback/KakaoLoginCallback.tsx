@@ -1,22 +1,24 @@
 import React, { FC, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { parse } from 'query-string';
+import { useNavigate } from 'react-router-dom';
 
 import { Path } from 'src/Constants';
 import { logIn, setAccessToken } from 'src/api';
-import { useMeState } from 'src/atoms';
+import { getMeHelper } from 'src/query';
+import useQueryString from 'src/hooks/useQueryString';
 import Loading from 'src/components/Loading';
 
 const KakaoLoginCallback: FC = () => {
     const navigate = useNavigate();
-    const location = useLocation();
-    const { setMe } = useMeState();
-
-    const { code, state, error, error_description } = parse(location.search);
+    const {
+        code,
+        state,
+        error,
+        error_description: errorDescription
+    } = useQueryString<{ code: string; state: string; error: string; error_description: string }>();
 
     useEffect(() => {
         if (error) {
-            alert(error_description);
+            alert(errorDescription);
 
             return navigate(Path.login);
         }
@@ -28,8 +30,7 @@ const KakaoLoginCallback: FC = () => {
         }
 
         // TODO: 뒤로가기로 접근하였을때 페이지 이동 처리 필요
-
-        logIn({ code: code as string })
+        logIn({ code })
             .then(data => {
                 switch (data.active) {
                     case 0: // Inactive
@@ -40,12 +41,14 @@ const KakaoLoginCallback: FC = () => {
                     case 1: // Active
                         localStorage.setItem('token', data.token as string);
                         setAccessToken(data.token!); // eslint-disable-line @typescript-eslint/no-non-null-assertion
-                        setMe(data);
+                        getMeHelper.setQueryData(data);
                         navigate(Path.home);
+
                         break;
 
                     case 2: // Pending
                         navigate(Path.join, { state: { id: data.id, nickname: data.nickname } });
+
                         break;
 
                     default:
@@ -54,8 +57,13 @@ const KakaoLoginCallback: FC = () => {
             })
             .catch(err => {
                 console.error(err);
+
+                getMeHelper.setQueryData(undefined);
+                localStorage.removeItem('token');
+
                 alert('Backend Server Error!');
-                navigate(-1);
+
+                navigate(Path.login);
             });
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 

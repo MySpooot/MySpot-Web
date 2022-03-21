@@ -1,7 +1,8 @@
-import React, { FC, useRef, useEffect } from 'react';
+import React, { FC, useEffect, useRef } from 'react';
+import { useParams } from 'react-router-dom';
 
 import { Container, Wrapper, Top, Total, CloseIcon, PlaceList } from './styles';
-import { useMapMarkerState } from 'src/atoms';
+import { getMarkersHelper } from 'src/query';
 import { PlaceListItem } from 'src/pages/MyMap/Map/components';
 
 import icClose from 'src/assets/mymap/ic_close.svg';
@@ -11,8 +12,10 @@ type PlaceListOverlayProps = {
 };
 
 const PlaceListOverlay: FC<PlaceListOverlayProps> = ({ close }) => {
+    const { mapId } = useParams<{ mapId: string }>();
+    const { data: markers } = getMarkersHelper.useQuery(Number(mapId));
+
     const ref = useRef<HTMLDivElement>(null);
-    const { markers } = useMapMarkerState();
 
     useEffect(() => {
         const handler = (event: MouseEvent) => {

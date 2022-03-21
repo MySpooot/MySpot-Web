@@ -4,9 +4,10 @@ import { useMutation } from 'react-query';
 import { Popup } from 'reactjs-popup';
 
 import { Container, Wrapper, EqRightIcon, BookMarkIcon, VerticalThreeIcon, DeletePopup, Address, RoadAddress } from './styles';
-import { useMapPlaceOverlayState, useMapMarkerState, useMeState, useMapDetailState } from 'src/atoms';
+import { useMapPlaceOverlayState } from 'src/atoms';
 import { MapMarkerVO } from 'src/vo';
 import { deleteMarker } from 'src/api';
+import { getMeHelper, getMapDetailHelper, getMarkersHelper } from 'src/query';
 import useMarkerUserAction from 'src/hooks/useMarkerUserAction';
 
 import icEqRight from 'src/assets/mymap/ic_eq_right.svg';
@@ -18,17 +19,17 @@ const PlaceOverlay: FC = () => {
     const navigate = useNavigate();
     const { mapId } = useParams<{ mapId: string }>();
 
-    const { me } = useMeState();
-    const { mapDetail } = useMapDetailState();
-    const { setMarkers } = useMapMarkerState();
     const { mapPlaceOverlay, setMapPlaceOverlay } = useMapPlaceOverlayState();
 
     const { onBookmarkClick: onBookmarkClick_ } = useMarkerUserAction();
 
+    const { data: me } = getMeHelper.useQuery();
+    const { data: mapDetail } = getMapDetailHelper.useQuery(Number(mapId));
+
     const { mutate: fetchDeleteMarker } = useMutation(deleteMarker, {
         onMutate: () => {
             setMapPlaceOverlay(undefined);
-            setMarkers(markers => {
+            getMarkersHelper.setQueryData(Number(mapId), markers => {
                 if (!markers) return undefined;
 
                 return markers.filter(marker => marker.kakaoAddressId !== mapPlaceOverlay?.kakaoAddressId);
