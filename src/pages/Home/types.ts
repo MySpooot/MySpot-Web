@@ -5,4 +5,4 @@ export type Map = {
     created?: number;
 };
 
-export type mapType = 'recent' | 'my' | 'favorite';
+export type MapType = 'recent' | 'my' | 'favorite';

@@ -20,8 +20,8 @@ import {
 import { Path } from 'src/Constants';
 import { MapMarkerVO } from 'src/vo';
 import useMarkerUserAction from 'src/hooks/useMarkerUserAction';
-import { useMapDetailState, useMapMarkerState } from 'src/atoms';
 import { deleteMarker } from 'src/api';
+import { getMapDetailHelper, getMarkersHelper } from 'src/query';
 import Icon from 'src/components/Icon';
 
 import icBookmark from 'src/assets/mymap/ic_bookmark.svg';
@@ -39,12 +39,12 @@ const PlaceListItem: FC<PlaceListItemProps> = ({ place }) => {
     const { mapId } = useParams<{ mapId: string }>();
 
     const { onBookmarkClick: onBookmarkClick_, onLikeClick: onLikeClick_ } = useMarkerUserAction();
-    const { mapDetail } = useMapDetailState();
-    const { setMarkers } = useMapMarkerState();
+
+    const { data: mapDetail } = getMapDetailHelper.useQuery(Number(mapId));
 
     const { mutate: fetchDeleteMarker } = useMutation(deleteMarker, {
         onSuccess: () => {
-            setMarkers(markers => {
+            getMarkersHelper.setQueryData(Number(mapId), markers => {
                 if (!markers) return;
 
                 return markers.filter(marker => marker.id !== place.id);

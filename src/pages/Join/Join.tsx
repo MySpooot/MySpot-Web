@@ -5,14 +5,14 @@ import { Container } from './styles';
 import { JoinState } from './types';
 import { updateUserNickname } from 'src/api/auth';
 import { Path } from 'src/Constants';
-import { useMeState } from 'src/atoms';
+import { getMeHelper } from 'src/query';
 import { setAccessToken } from 'src/api';
 
 const Join: FC = () => {
     const navigate = useNavigate();
     const { state } = useLocation();
 
-    const { me, setMe } = useMeState();
+    const { data: me } = getMeHelper.useQuery();
 
     const [nickname, setNickname] = useState('');
 
@@ -43,13 +43,13 @@ const Join: FC = () => {
             const me = await updateUserNickname(id, nickname);
             localStorage.setItem('token', me.token);
             setAccessToken(me.token);
-            setMe(me);
+            getMeHelper.setQueryData(me);
             navigate(Path.home);
         } catch (err) {
             console.error(err);
             alert('Error!');
         }
-    }, [nickname, setMe, navigate, state]);
+    }, [nickname, navigate, state]);
 
     const onNicknameChange = useCallback((evt: ChangeEvent<HTMLInputElement>) => {
         setNickname(evt.target.value);

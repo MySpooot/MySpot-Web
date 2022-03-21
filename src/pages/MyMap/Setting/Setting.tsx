@@ -4,8 +4,8 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import { Path } from 'src/Constants';
 import HeaderWithLeftArrow from 'src/components/HeaderWithLeftArrow';
-import { useMapDetailState } from 'src/atoms/mapDetail';
 import { getPrivateCode } from 'src/api/map';
+import { getMapDetailHelper } from 'src/query';
 import Icon from 'src/components/Icon';
 
 import icShare from 'src/assets/mymap/ic_share.svg';
@@ -17,7 +17,7 @@ const Setting: FC = () => {
 
     const [privateCode, setPrivateCode] = useState<string>();
 
-    const { mapDetail } = useMapDetailState();
+    const { data: mapDetail } = getMapDetailHelper.useQuery(Number(mapId));
 
     useEffect(() => {
         if (!mapDetail?.isPrivate) return;

@@ -1,28 +1,16 @@
-import React, { FC, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { FC, useCallback } from 'react';
 
 import { Container, LabelArea, LoginButton } from './styles';
-import { Path } from 'src/Constants';
-import { useMeState } from 'src/atoms';
 
 const Login: FC = () => {
-    const navigate = useNavigate();
-    const { me } = useMeState();
-
-    useEffect(() => {
-        if (me) {
-            navigate(Path.home);
-        }
-    }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-    const onKakaoLoginClick = () => {
+    const onKakaoLoginClick = useCallback(() => {
         if (window.Kakao?.isInitialized()) {
             window.Kakao.Auth.authorize({
                 redirectUri: encodeURI(`${window.location.origin}/auth/kakao`),
                 state: encodeURI(window.location.origin)
             });
         }
-    };
+    }, []);
 
     return (
         <Container>

@@ -2,16 +2,16 @@ import { useCallback } from 'react';
 import { useMutation } from 'react-query';
 
 import { createMyLocation, deleteMyLocation, createMarkerLike, deleteMarkerLike } from 'src/api';
-import { useMapMarkerState, useMapPlaceOverlayState } from 'src/atoms';
+import { useMapPlaceOverlayState } from 'src/atoms';
+import { getMarkersHelper } from 'src/query';
 import { MapMarkerVO } from 'src/vo';
 
-const useMarkerUserAction = () => {
-    const { setMarkers } = useMapMarkerState();
+const useMarkerUserAction = (mapId?: string) => {
     const { setMapPlaceOverlay } = useMapPlaceOverlayState();
 
     const { mutate: fetchCreateMyLocation, isLoading: isCreatMyLocationLoading } = useMutation(createMyLocation, {
         onMutate: ({ addressId }) => {
-            setMarkers(markers => {
+            getMarkersHelper.setQueryData(Number(mapId), markers => {
                 if (!markers) return;
 
                 return markers.map(marker => {
@@ -37,7 +37,7 @@ const useMarkerUserAction = () => {
 
     const { mutate: fetchDeleteMyLocation, isLoading: isDeleteMyLocationLoading } = useMutation(deleteMyLocation, {
         onMutate: ({ addressId }) => {
-            setMarkers(markers => {
+            getMarkersHelper.setQueryData(Number(mapId), markers => {
                 if (!markers) return;
 
                 return markers.map(marker => {
@@ -81,7 +81,7 @@ const useMarkerUserAction = () => {
 
     const { mutate: fetchCreateMarkerLike, isLoading: isCreateMarkerLikeLoading } = useMutation(createMarkerLike, {
         onMutate: ({ markerId }) => {
-            setMarkers(markers => {
+            getMarkersHelper.setQueryData(Number(mapId), markers => {
                 if (!markers) return;
 
                 return markers.map(marker => {
@@ -101,7 +101,7 @@ const useMarkerUserAction = () => {
 
     const { mutate: fetchDeleteMarkerLike, isLoading: isDeleteMarkerLikeLoading } = useMutation(deleteMarkerLike, {
         onMutate: ({ markerId }) => {
-            setMarkers(markers => {
+            getMarkersHelper.setQueryData(Number(mapId), markers => {
                 if (!markers) return;
 
                 return markers.map(marker => {

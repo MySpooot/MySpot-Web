@@ -8,6 +8,9 @@ interface Me {
 
 const meState = atom<Me | undefined>(undefined);
 
+/**
+ * @deprecated
+ */
 export const useMeState = () => {
     const [me, setMe] = useAtom(meState);
 

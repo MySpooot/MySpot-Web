@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-import { QueryClientProvider, QueryClient } from 'react-query';
+import { QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 
 import App from './App';
+import { queryClient } from 'src/query';
 
 (() => {
     if (window.Kakao?.Auth) return;
@@ -21,14 +22,6 @@ import App from './App';
 
     document.body.appendChild(script);
 })();
-
-const queryClient = new QueryClient({
-    defaultOptions: {
-        queries: {
-            refetchOnWindowFocus: false
-        }
-    }
-});
 
 ReactDOM.render(
     <React.StrictMode>

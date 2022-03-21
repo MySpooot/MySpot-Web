@@ -5,7 +5,7 @@ import { useMutation } from 'react-query';
 import { Container, Main, HeaderIcon } from './styles';
 import { SearchItem } from './components';
 import { Path } from 'src/Constants';
-import { useMapMarkerState, useMapDetailState } from 'src/atoms';
+import { getMapDetailHelper, getMarkersHelper } from 'src/query';
 import { createMarker, CreateMarkerBody, CreateMarkerParam, CreateMarkerResponse } from 'src/api/marker';
 import useSearchPlace, { Place } from 'src/hooks/useSearchPlace';
 import HeaderWithLeftArrow from 'src/components/HeaderWithLeftArrow';
@@ -17,8 +17,9 @@ const Search: FC = () => {
     const navigate = useNavigate();
     const { mapId } = useParams<{ mapId: string }>();
 
-    const { markers, setMarkers } = useMapMarkerState();
-    const { mapDetail } = useMapDetailState();
+    const { data: mapDetail } = getMapDetailHelper.useQuery(Number(mapId));
+    const { data: markers } = getMarkersHelper.useQuery(Number(mapId));
+
     const { places, searchPlaces } = useSearchPlace();
 
     const [keyword, setKeyword] = useState('');
@@ -32,7 +33,8 @@ const Search: FC = () => {
         {
             onSuccess: response => {
                 alert('추가되었습니다.');
-                setMarkers(markers => {
+
+                getMarkersHelper.setQueryData(Number(mapId), markers => {
                     if (!markers) return;
 
                     return [
@@ -50,6 +52,7 @@ const Search: FC = () => {
                         }
                     ];
                 });
+
                 navigate(`${Path.myMap}/${mapId}`);
             }
         }

@@ -1,7 +1,8 @@
 import React, { FC, useState, useCallback, useMemo, useRef } from 'react';
+import { useParams } from 'react-router-dom';
 
 import { Container, Top, Nickname, Created, Content, TextArea, ButtonArea, OwnerButton, MoreTextLabel } from './styles';
-import { useMeState } from 'src/atoms';
+import { getMeHelper } from 'src/query';
 import { MarkerReplyVO } from 'src/vo';
 import useReplyItem from 'src/hooks/useReplyItem';
 
@@ -10,8 +11,10 @@ type ReplyItemProps = {
 };
 
 const ReplyItem: FC<ReplyItemProps> = ({ reply }) => {
-    const { me } = useMeState();
-    const { mutateUpdateReply, mutateDeleteReply } = useReplyItem();
+    const { mapId, kakaoAddressId } = useParams<{ mapId: string; kakaoAddressId: string }>();
+
+    const { data: me } = getMeHelper.useQuery();
+    const { mutateUpdateReply, mutateDeleteReply } = useReplyItem(mapId, kakaoAddressId);
 
     const [isModifiyMode, setIsModifiyMode] = useState(false);
     const [modifyReviewText, setModifyReviewText] = useState(reply.message);

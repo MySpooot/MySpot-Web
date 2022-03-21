@@ -1,14 +1,11 @@
-import { useParams } from 'react-router';
 import { useMutation } from 'react-query';
 
 import { updateReply, deleteReply, UpdateReplyParam, UpdateReplyBody } from 'src/api';
-import { useMapMarkerState, useMarkerRepliesState } from 'src/atoms';
+import { useMarkerRepliesState } from 'src/atoms';
+import { getMarkersHelper } from 'src/query';
 
-const useReplyItem = () => {
-    const { kakaoAddressId } = useParams<{ kakaoAddressId: string }>();
-
+const useReplyItem = (mapId?: string, kakaoAddressId?: string) => {
     const { setMarkerReplies } = useMarkerRepliesState();
-    const { setMarkers } = useMapMarkerState();
 
     const { mutate: mutateUpdateReply } = useMutation<unknown, unknown, UpdateReplyParam & UpdateReplyBody>(
         ({ replyId, message }) => updateReply({ replyId }, { message }),
@@ -35,7 +32,7 @@ const useReplyItem = () => {
 
     const { mutate: mutateDeleteReply } = useMutation(deleteReply, {
         onMutate: ({ replyId }) => {
-            setMarkers(markers => {
+            getMarkersHelper.setQueryData(Number(mapId), markers => {
                 if (!markers) return;
 
                 return markers.map(marker => {

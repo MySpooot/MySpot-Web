@@ -6,7 +6,8 @@ import { Map as KakaoMap, MapMarker } from 'react-kakao-maps-sdk';
 import { Container, MapContainer, FavoriteIcon } from './styles';
 import { MapHeader, PlaceOverlay, PlaceListOverlay, PlaceListButton } from './components';
 import { createRecentMap, createFavoriteMap, deleteFavoriteMap } from 'src/api/map';
-import { useMeState, useMapAccessible, useMapDetailState, useMapMarkerState } from 'src/atoms';
+import { useMapAccessible } from 'src/atoms';
+import { getMeHelper, getMapDetailHelper, getMarkersHelper } from 'src/query';
 import { useMapPlaceOverlayState } from 'src/atoms/mapPlaceOverlay';
 import useKeyPress from 'src/hooks/useKeyPress';
 import Loading from 'src/components/Loading';
@@ -21,11 +22,12 @@ const Map: FC = () => {
 
     const [isOpenPlayListOverlay, setIsOpenPlayListOverlay] = useState(false);
 
-    const { mapDetail, setMapDetail } = useMapDetailState();
-    const { markers } = useMapMarkerState();
+    const { data: me } = getMeHelper.useQuery();
+    const { data: mapDetail } = getMapDetailHelper.useQuery(Number(mapId));
+    const { data: markers } = getMarkersHelper.useQuery(Number(mapId));
+
     const { mapAccessible } = useMapAccessible();
     const { mapPlaceOverlay, setMapPlaceOverlay } = useMapPlaceOverlayState();
-    const { me } = useMeState();
 
     useQuery('createRecentMap', () => createRecentMap({ recentMapId: Number(mapId) }), { enabled: !!me && mapAccessible });
 
@@ -49,15 +51,15 @@ const Map: FC = () => {
         if (!mapDetail) return;
 
         if (mapDetail?.isFavorite) {
-            setMapDetail(detail => ({ ...detail!, isFavorite: false })); // eslint-disable-line @typescript-eslint/no-non-null-assertion
+            getMapDetailHelper.setQueryData(Number(mapId), detail => ({ ...detail!, isFavorite: false })); // eslint-disable-line @typescript-eslint/no-non-null-assertion
             deleteFavoriteMap({ favoriteMapId: Number(mapId) });
 
             return;
         }
 
-        setMapDetail(detail => ({ ...detail!, isFavorite: true })); // eslint-disable-line @typescript-eslint/no-non-null-assertion
+        getMapDetailHelper.setQueryData(Number(mapId), detail => ({ ...detail!, isFavorite: true })); // eslint-disable-line @typescript-eslint/no-non-null-assertion
         createFavoriteMap({ favoriteMapId: Number(mapId) });
-    }, [mapId, mapDetail, setMapDetail]);
+    }, [mapId, mapDetail]);
 
     if (!mapDetail) {
         return <Loading />;

@@ -1,11 +1,10 @@
-import React, { FC, useEffect, useState, lazy, Suspense } from 'react';
+import React, { FC, lazy, Suspense } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import styled from '@emotion/styled';
 import Div100vh from '@rodmg/react-div-100vh';
 
 import { Dimension, Path } from './Constants';
-import { useMeState } from 'src/atoms';
-import { getMe, setAccessToken } from 'src/api';
+import { getMeHelper } from 'src/query';
 import GlobalStyle from 'src/components/GlobalStyle';
 import Loading from 'src/components/Loading';
 
@@ -24,26 +23,17 @@ const MapList = lazy(() => import('src/pages/MapList'));
 const KakaoLoginCallback = lazy(() => import('src/pages/KakaoLoginCallback'));
 const NewMap = lazy(() => import('src/pages/NewMap'));
 
-const App: FC = () => {
-    const [isLoading, setLoading] = useState(true);
-    const { me, setMe } = useMeState();
+const token = localStorage.getItem('token');
 
-    useEffect(() => {
-        const token = localStorage.getItem('token');
-        if (token) {
-            setAccessToken(token);
-            getMe()
-                .then(setMe)
-                .catch(err => {
-                    localStorage.removeItem('token');
-                    console.error(err);
-                    alert('Error!');
-                })
-                .finally(() => setLoading(false));
-        } else {
-            setLoading(false);
+const App: FC = () => {
+    const { data: me, isLoading } = getMeHelper.useQuery({
+        enabled: !!token,
+        onError: err => {
+            localStorage.removeItem('token');
+            console.error(err);
+            alert('Error!');
         }
-    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    });
 
     if (isLoading) {
         return (
