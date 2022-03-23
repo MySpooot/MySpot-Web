@@ -61,7 +61,7 @@ export const Color = {
     white: '#ffffff',
     black: '#000000',
     blue: '#008fff',
-    red: 'ff7854',
+    red: '#ff7854',
     grey: {
         '100': '#f5f5f5',
         '200': '#e8e8e8',

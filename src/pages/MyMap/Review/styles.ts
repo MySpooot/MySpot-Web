@@ -56,15 +56,29 @@ export const RoadAddress = styled.div`
     font-size: 0.75rem;
 `;
 
-export const TextArea = styled.textarea`
-    padding: 1rem 0.75rem;
+export const TextAreaWrapper = styled.div`
     border: 1px solid ${Color.grey[300]};
     margin-top: 1.75rem;
+    border-radius: 0.25rem;
+`;
+
+export const TextArea = styled.textarea`
+    width: 100%;
+    padding: 1rem 0.75rem 0;
     border-radius: 0.25rem;
 
     :disabled {
         opacity: 0.5;
     }
+`;
+
+export const CommentCounter = styled.div<{ error: boolean }>`
+    margin-right: 0.25rem;
+    margin-bottom: 0.25rem;
+    color: ${({ error }) => (error ? Color.red : 'unset')};
+    font-size: 0.625rem;
+    letter-spacing: 0.5px;
+    text-align: end;
 `;
 
 export const Line = styled.hr`
