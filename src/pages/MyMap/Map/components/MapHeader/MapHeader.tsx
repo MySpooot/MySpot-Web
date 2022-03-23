@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 
-import { Title, RightArea, HeaderIcon, Tooltip } from './styles';
+import { Title, RightArea, HeaderIcon, Tooltip, TooltipDescription, TooltipButton } from './styles';
 import { Path } from 'src/Constants';
 import HeaderWithLeftArrow from 'src/components/HeaderWithLeftArrow';
 
@@ -29,10 +29,15 @@ const MapHeader: FC<MapHeaderProps> = ({ mapName, showTooltip }) => {
                     <HeaderIcon alt='setting' src={icSetting} style={{ marginLeft: '0.5rem' }} />
                 </Link>
                 {showTooltip && openToolTip && (
-                    <Tooltip onClick={() => setOpenToolTip(false)}>
+                    <Tooltip>
                         <h3>이용 Tip</h3>
-                        <div>저장되어 있는 장소가 없어요!</div>
-                        <div>나만의 장소를 추가해 보세요.</div>
+                        <TooltipDescription>
+                            저장되어 있는 장소가 없어요!
+                            <br />
+                            나만의 장소를 추가해 보세요.
+                        </TooltipDescription>
+
+                        <TooltipButton onClick={() => setOpenToolTip(false)}>확인</TooltipButton>
                     </Tooltip>
                 )}
             </RightArea>

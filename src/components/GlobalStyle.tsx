@@ -87,7 +87,7 @@ const globalStyle = css`
         padding: 0;
         border: 0;
         margin: 0;
-        font: inherit;
+        font-family: 'Spoqa Han Sans Neo-Medium', sans-serif;
         font-size: 100%;
         vertical-align: baseline;
     }
@@ -153,7 +153,6 @@ const globalStyle = css`
 
     * {
         box-sizing: border-box;
-        font-family: 'Spoqa Han Sans Neo', sans-serif;
     }
 `;
 
