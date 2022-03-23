@@ -26,7 +26,7 @@ import Icon from 'src/components/Icon';
 
 import icBookmark from 'src/assets/mymap/ic_bookmark.svg';
 import icMarkedBookmark from 'src/assets/mymap/ic_marked_bookmark.svg';
-// import icLike from 'src/assets/mymap/ic_marked_bookmark.svg';
+import icLikeOn from 'src/assets/mymap/ic_like_on.svg';
 import icLikeOff from 'src/assets/mymap/ic_like_off.svg';
 import icComment from 'src/assets/mymap/ic_comment.svg';
 
@@ -38,7 +38,7 @@ const PlaceListItem: FC<PlaceListItemProps> = ({ place }) => {
     const navigate = useNavigate();
     const { mapId } = useParams<{ mapId: string }>();
 
-    const { onBookmarkClick: onBookmarkClick_, onLikeClick: onLikeClick_ } = useMarkerUserAction();
+    const { onBookmarkClick: onBookmarkClick_, onLikeClick: onLikeClick_ } = useMarkerUserAction(mapId);
 
     const { data: mapDetail } = getMapDetailHelper.useQuery(Number(mapId));
 
@@ -102,7 +102,7 @@ const PlaceListItem: FC<PlaceListItemProps> = ({ place }) => {
                 {mapDetail?.isOwner && <DeleteButton onClick={onDeleteClick}>삭제</DeleteButton>}
                 <ButtonArea>
                     <ButtonWrapper onClick={onLikeClick}>
-                        <Icon alt='like' src={place.isLike ? '' : icLikeOff} />
+                        <Icon alt='like' src={place.isLike ? icLikeOn : icLikeOff} />
                         <span>{place.likeCount}</span>
                     </ButtonWrapper>
                     <ButtonWrapper onClick={onCommentClick}>
