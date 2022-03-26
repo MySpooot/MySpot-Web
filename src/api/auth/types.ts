@@ -4,6 +4,10 @@ export type GetMeResponse = {
     thumbnail?: string;
 };
 
+export type LogInBody = {
+    code: string;
+};
+
 // 가입함 + 닉네임입력 -> 토큰있음
 // 가입함 + 닉네임입력안함 -> 토큰없음
 // 아예 첫 가입 -> 닉네임 입력 전이라 토큰 없음
@@ -21,4 +25,12 @@ export type UpdateUserNicknameResponse = {
     thumbnail: string;
     active: number;
     token: string;
+};
+
+export type UpdateUserNicknameParams = {
+    userId: number;
+};
+
+export type UpdateUserNicknameBody = {
+    nickname: string;
 };
