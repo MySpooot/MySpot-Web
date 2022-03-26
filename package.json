@@ -4,8 +4,8 @@
     "private": true,
     "scripts": {
         "start": "cross-env REACT_APP_ENV=local craco start",
-        "start:dev": "cross-env REACT_APP_ENV=dev craco start",
-        "build": "REACT_APP_ENV=production GENERATE_SOURCEMAP=false craco build",
+        "build:dev": "REACT_APP_ENV=development GENERATE_SOURCEMAP=false craco build",
+        "build:prod": "REACT_APP_ENV=production GENERATE_SOURCEMAP=false craco build",
         "eject": "craco eject",
         "lint": "eslint --ext ts,tsx ./",
         "lint:fix": "eslint --ext ts,tsx ./ --fix",
