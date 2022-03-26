@@ -4389,7 +4389,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"aws-sdk@npm:2, aws-sdk@npm:^2.1100.0":
+"aws-sdk@npm:2":
   version: 2.1100.0
   resolution: "aws-sdk@npm:2.1100.0"
   dependencies:
@@ -12069,7 +12069,6 @@ __metadata:
     "@types/react-dom": ^17.0.0
     "@typescript-eslint/eslint-plugin": ^5.2.0
     "@typescript-eslint/parser": ^5.2.0
-    aws-sdk: ^2.1100.0
     axios: ^0.24.0
     craco-swc: ^0.2.0
     cross-env: ^7.0.3
