@@ -37,7 +37,7 @@ jobs:
                   file_name: .env
 
             - name: Build
-              run: yarn build
+              run: yarn build:prod
 
             - name: Deploy - PROD
               env:
