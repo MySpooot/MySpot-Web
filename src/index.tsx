@@ -34,3 +34,16 @@ ReactDOM.render(
     </React.StrictMode>,
     document.getElementById('root')
 );
+
+/* eslint-disable @typescript-eslint/no-var-requires */
+console.log(`
+███╗   ███╗██╗   ██╗███████╗██████╗  ██████╗ ████████╗
+████╗ ████║╚██╗ ██╔╝██╔════╝██╔══██╗██╔═══██╗╚══██╔══╝
+██╔████╔██║ ╚████╔╝ ███████╗██████╔╝██║   ██║   ██║   
+██║╚██╔╝██║  ╚██╔╝  ╚════██║██╔═══╝ ██║   ██║   ██║   
+██║ ╚═╝ ██║   ██║   ███████║██║     ╚██████╔╝   ██║   
+╚═╝     ╚═╝   ╚═╝   ╚══════╝╚═╝      ╚═════╝    ╚═╝   
+
+version: ${require('../package.json').version} 
+                                                     
+`);
