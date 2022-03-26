@@ -1,26 +1,40 @@
 import React, { FC, useState, useEffect, useCallback, ChangeEvent } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useMutation } from 'react-query';
 
-import { Container } from './styles';
-import { JoinState } from './types';
+import { Container, Title, Description, InputArea } from './styles';
+import type { JoinState } from './types';
+import type { UpdateUserNicknameResponse, UpdateUserNicknameParams, UpdateUserNicknameBody } from 'src/api';
 import { updateUserNickname } from 'src/api/auth';
 import { Path } from 'src/Constants';
 import { getMeHelper } from 'src/query';
 import { setAccessToken } from 'src/api';
+import Input from 'src/components/Input';
+import Button from 'src/components/Button';
 
 const Join: FC = () => {
     const navigate = useNavigate();
     const { state } = useLocation();
 
-    const { data: me } = getMeHelper.useQuery();
-
     const [nickname, setNickname] = useState('');
 
-    useEffect(() => {
-        if (me) {
-            return navigate(Path.home);
+    const { mutate: fetchUpdateUserNickname } = useMutation<UpdateUserNicknameResponse, unknown, UpdateUserNicknameParams & UpdateUserNicknameBody>(
+        ({ userId, nickname }) => updateUserNickname({ userId }, { nickname }),
+        {
+            onSuccess: me => {
+                localStorage.setItem('token', me.token);
+                setAccessToken(me.token);
+                getMeHelper.setQueryData(me);
+                navigate(Path.home);
+            },
+            onError: err => {
+                console.error(err);
+                alert('Error!');
+            }
         }
+    );
 
+    useEffect(() => {
         const { id, nickname } = state as JoinState;
 
         if (!id || !nickname) {
@@ -39,17 +53,8 @@ const Join: FC = () => {
             return alert('닉네임을 입력해주세요!');
         }
 
-        try {
-            const me = await updateUserNickname(id, nickname);
-            localStorage.setItem('token', me.token);
-            setAccessToken(me.token);
-            getMeHelper.setQueryData(me);
-            navigate(Path.home);
-        } catch (err) {
-            console.error(err);
-            alert('Error!');
-        }
-    }, [nickname, navigate, state]);
+        fetchUpdateUserNickname({ userId: id, nickname });
+    }, [fetchUpdateUserNickname, nickname, state]);
 
     const onNicknameChange = useCallback((evt: ChangeEvent<HTMLInputElement>) => {
         setNickname(evt.target.value);
@@ -57,12 +62,21 @@ const Join: FC = () => {
 
     return (
         <Container>
-            <h3>가입하기</h3>
-            <h5>닉네임을 입력하고 회원가입을 완료하세요</h5>
-            <div>
-                <input placeholder='닉네임을 입력하세요' type='text' value={nickname} onChange={onNicknameChange} />
-                <button onClick={onJoinClick}>회원가입</button>
-            </div>
+            <Title>가입하기</Title>
+            <Description>닉네임을 입력하고 회원가입을 완료하세요</Description>
+            <InputArea>
+                <Input
+                    maxLength={12}
+                    placeholder='닉네임을 입력하세요'
+                    style={{ marginBottom: '0.5rem' }}
+                    type='text'
+                    value={nickname}
+                    onChange={onNicknameChange}
+                />
+                <Button type='primary' onClick={onJoinClick}>
+                    회원가입
+                </Button>
+            </InputArea>
         </Container>
     );
 };
