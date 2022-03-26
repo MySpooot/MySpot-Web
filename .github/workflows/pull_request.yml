@@ -47,7 +47,7 @@ jobs:
                   wait-on-timeout: 180
 
             - name: Build
-              run: yarn build
+              run: yarn build:prod
 
             - name: Slack Notification on Success
               if: success()
