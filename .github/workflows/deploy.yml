@@ -58,7 +58,7 @@ jobs:
                   attachments: |
                       [
                         {
-                          "title": "사전 검증에 성공하였습니다.",
+                          "title": "Deploy succeed",
                           "color": "good",
                           "author_name": "${{ github.actor }}",
                           "author_icon": "${{ github.event.sender.avatar_url }}"
@@ -75,7 +75,7 @@ jobs:
                   attachments: |
                       [
                         {
-                          "title": "사전 검증에 실패하였습니다.",
+                          "title": "Deploy failure",
                           "color": "danger",
                           "author_name": "${{ github.actor }}",
                           "author_icon": "${{ github.event.sender.avatar_url }}"
