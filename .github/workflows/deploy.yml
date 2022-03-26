@@ -54,7 +54,7 @@ jobs:
               env:
                   INCOMING_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
               with:
-                  text: '*<${{ github.event.repository.html_url }}/actions/runs/${{ github.run_id }}|WEB Pull Request Succeed::${{ env.GITHUB_REF_SLUG }}>*'
+                  text: '*<${{ github.event.repository.html_url }}/actions/runs/${{ github.run_id }}|MySpot-Web Deploy Succeed::${{ env.GITHUB_REF_SLUG }}>*'
                   attachments: |
                       [
                         {
@@ -71,7 +71,7 @@ jobs:
               env:
                   INCOMING_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
               with:
-                  text: '*<${{ github.event.repository.html_url }}/actions/runs/${{ github.run_id }}|WEB Pull Request Failure::${{ env.GITHUB_REF_SLUG }}>*'
+                  text: '*<${{ github.event.repository.html_url }}/actions/runs/${{ github.run_id }}|MySpot-Web Deploy Failure::${{ env.GITHUB_REF_SLUG }}>*'
                   attachments: |
                       [
                         {
