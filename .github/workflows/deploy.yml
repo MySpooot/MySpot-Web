@@ -30,10 +30,10 @@ jobs:
             - name: Install Packages
               run: yarn install --frozen-lockfile
 
-            - name: Generate Environment Variables - dev
+            - name: Generate Environment Variables
               uses: SpicyPizza/create-envfile@v1
               with:
-                  envkey_REACT_APP_ENV: dev
+                  envkey_REACT_APP_ENV: production
                   envkey_REACT_APP_KAKAO_KEY: ${{ secrets.REACT_APP_KAKAO_KEY }}
                   file_name: .env
 
