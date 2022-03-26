@@ -5,7 +5,7 @@
     "scripts": {
         "start": "cross-env REACT_APP_ENV=local craco start",
         "start:dev": "cross-env REACT_APP_ENV=dev craco start",
-        "build": "craco build",
+        "build": "REACT_APP_ENV=production GENERATE_SOURCEMAP=false craco build",
         "eject": "craco eject",
         "lint": "eslint --ext ts,tsx ./",
         "lint:fix": "eslint --ext ts,tsx ./ --fix",
@@ -13,7 +13,8 @@
         "stylelint:fix": "stylelint \"./src/**/*.{ts,tsx}\" --fix",
         "prettier": "prettier -w ./src",
         "e2e": "cypress run",
-        "e2e:open": "cypress open"
+        "e2e:open": "cypress open",
+        "deploy": "deploy-aws-s3-cloudfront --bucket myspot.co.kr --source ./build --delete true --non-interactive --distribution E1DAGMAK50L60D --invalidation-path '/*'"
     },
     "dependencies": {
         "@emotion/react": "^11.5.0",
@@ -56,6 +57,7 @@
         "craco-swc": "^0.2.0",
         "cross-env": "^7.0.3",
         "cypress": "^9.5.2",
+        "deploy-aws-s3-cloudfront": "^3.6.0",
         "eslint": "^7.11.0",
         "eslint-config-prettier": "^8.3.0",
         "eslint-import-resolver-alias": "^1.1.2",
