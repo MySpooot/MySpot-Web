@@ -14,7 +14,7 @@
         "prettier": "prettier -w ./src",
         "e2e": "cypress run",
         "e2e:open": "cypress open",
-        "deploy": "deploy-aws-s3-cloudfront --bucket myspot.co.kr --source ./build --delete true --distribution E1DAGMAK50L60D --invalidation-path '/*'"
+        "deploy": "deploy-aws-s3-cloudfront --bucket myspot.co.kr --source ./build --delete true --non-interactive --distribution E1DAGMAK50L60D --invalidation-path '/*'"
     },
     "dependencies": {
         "@emotion/react": "^11.5.0",
