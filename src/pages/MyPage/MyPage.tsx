@@ -1,21 +1,31 @@
 import React, { FC, useCallback } from 'react';
 import { useNavigate } from 'react-router';
 import { useMutation, useQuery } from 'react-query';
+import { getMeHelper } from 'src/query';
+import { createUserImg } from 'src/api/auth';
+import { useUpdateState } from 'src/atoms/me';
 
 import { Container, UpdateBtn, UserInfo, LogoutBtn, User, Locations, LocationCard } from './styles';
 import HeaderWithLeftArrow from 'src/components/HeaderWithLeftArrow';
 import { Path } from 'src/Constants';
-import { useMeState, useMyLocationState } from 'src/atoms';
+import { useMyLocationState } from 'src/atoms';
 import { getMyLocation, deleteMyLocation } from 'src/api/marker';
+import Modal from 'src/components/NicknameModal';
 
 import mypage from 'src/assets/mypage/user-img.png';
+import camera from 'src/assets/mypage/camera.png';
 
 const MyPage: FC = () => {
-    const { me, setMe } = useMeState();
+    const { data: me } = getMeHelper.useQuery();
     const navigate = useNavigate();
-
-    const { data: locations } = useQuery('getLocations', () => getMyLocation({ offset: 0, limit: 50 }));
     const { setLocations } = useMyLocationState();
+    const { setUpdate } = useUpdateState();
+
+    const { data: locations } = useQuery('getLocations', () => getMyLocation({ offset: 0, limit: 50 }), {
+        onSuccess: response => {
+            setLocations(response);
+        }
+    });
     const { mutate: deleteLocation } = useMutation(deleteMyLocation, {
         onMutate: ({ addressId }) => {
             setLocations(locations => {
@@ -36,8 +46,13 @@ const MyPage: FC = () => {
     );
 
     const onDeleteClick = useCallback(
-        (addressId: number) => {
-            deleteLocation({ addressId });
+        async (addressId: number) => {
+            const confirm = window.confirm('해당 장소를 삭제하시겠습니까?');
+
+            if (confirm) {
+                await deleteLocation({ addressId });
+                window.alert('삭제되었습니다.');
+            } else return;
         },
         [deleteLocation]
     );
@@ -48,9 +63,31 @@ const MyPage: FC = () => {
 
     const logout = useCallback(() => {
         localStorage.removeItem('token');
-        setMe(undefined);
+        getMeHelper.setQueryData(undefined);
         navigate(Path.login);
-    }, [navigate, setMe]);
+    }, [navigate]);
+
+    const onChange = async e => {
+        const img = e.target.files[0];
+        const formData = new FormData();
+        formData.append('file', img);
+
+        const resultThumnail = await createUserImg(formData);
+        console.log(resultThumnail);
+
+        const updateUser = {
+            id: Number(me?.id),
+            nickname: String(me?.nickname),
+            thumnail: resultThumnail
+        };
+        getMeHelper.setQueryData(updateUser);
+    };
+
+    const updateNickname = useCallback(() => {
+        setUpdate(true);
+    }, [setUpdate]);
+
+    let inputRef;
 
     return (
         <Container>
@@ -61,9 +98,17 @@ const MyPage: FC = () => {
             </HeaderWithLeftArrow>
             <UserInfo>
                 <User>
+                    <input
+                        ref={refParam => (inputRef = refParam)}
+                        accept='image/jpg,impge/png,image/jpeg,image/gif'
+                        className='profile_img'
+                        type='file'
+                        onChange={onChange}
+                    />
                     <img className='mypage-img' src={me?.thumbnail || mypage} />
+                    <img className='upload-img' src={camera} onClick={() => inputRef.click()} />
                     <div className='user-txt'>{me?.nickname}</div>
-                    <UpdateBtn>수정</UpdateBtn>
+                    <UpdateBtn onClick={() => updateNickname()}>수정</UpdateBtn>
                 </User>
 
                 <LogoutBtn onClick={logout}>로그아웃</LogoutBtn>
@@ -71,8 +116,8 @@ const MyPage: FC = () => {
             <div style={{ marginLeft: '1rem', marginBottom: '0.75rem' }}>
                 <h2>저장한 장소</h2>
             </div>
-            <Locations>
-                <div style={{ overflowY: 'scroll' }}>
+            <Locations style={{ overflowY: 'auto' }}>
+                <div>
                     {locations?.map(({ id, name, address, roadAddress, addressId }) => (
                         <LocationCard key={id}>
                             <div style={{ display: 'flex', flexDirection: 'column' }} onClick={() => onClickLocation(addressId)}>
@@ -88,6 +133,7 @@ const MyPage: FC = () => {
                     ))}
                 </div>
             </Locations>
+            <Modal children={me?.id}></Modal>
         </Container>
     );
 };

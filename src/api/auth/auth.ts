@@ -16,3 +16,17 @@ export const logOut = () => {
 export const updateUserNickname = ({ userId }: UpdateUserNicknameParams, body: UpdateUserNicknameBody) => {
     return request<UpdateUserNicknameResponse>({ method: 'PUT', url: `/auth/user/${userId}`, data: body });
 };
+export const updateUserNicknameMypage = (userId: any, nickname: string) => {
+    return request<UpdateUserNicknameResponse>({ method: 'put', url: `/user`, data: { nickname } });
+};
+
+export const createUserImg = (file: FormData) => {
+    return request({
+        method: 'post',
+        url: `/user/upload`,
+        data: file,
+        headers: {
+            'Content-Type': `multipart/form-data; `
+        }
+    });
+};
