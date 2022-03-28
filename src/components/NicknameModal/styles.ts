@@ -15,3 +15,13 @@ export const Title = styled.h3`
     font-size: 1.125rem;
     font-weight: 700;
 `;
+
+export const BtnArea = styled.div`
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+
+    .btn-half {
+        width: 47%;
+    }
+`;
