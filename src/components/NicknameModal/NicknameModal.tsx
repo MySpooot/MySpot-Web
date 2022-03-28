@@ -3,7 +3,7 @@ import { useUpdateState } from 'src/atoms/me';
 import { updateUserNickname } from 'src/api/auth';
 import { getMeHelper } from 'src/query';
 
-import { Container, Title } from './styles';
+import { Container, Title, BtnArea } from './styles';
 import Modal from 'src/components/Modal';
 import Button from 'src/components/Button';
 import Input from 'src/components/Input';
@@ -35,14 +35,14 @@ const NicknameModal: FC = id => {
                             autoFocus
                             onChange={event => setInputValue(event.target.value)}
                         />
-                        <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
-                            <Button style={{ width: '47%' }} onClick={() => setUpdate(false)}>
+                        <BtnArea>
+                            <Button className='btn-half' onClick={() => setUpdate(false)}>
                                 닫기
                             </Button>
-                            <Button style={{ width: '47%' }} type='primary' onClick={() => saveNickname(inputValue)}>
+                            <Button className='btn-half' type='primary' onClick={() => saveNickname(inputValue)}>
                                 저장하기
                             </Button>
-                        </div>
+                        </BtnArea>
                     </Container>
                 </Modal>
             )}
