@@ -22,5 +22,3 @@ export type UpdateUserNicknameResponse = {
     active: number;
     token: string;
 };
-
-// export type UpdateUserImgResponse = {};
