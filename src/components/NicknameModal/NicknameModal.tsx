@@ -1,6 +1,6 @@
 import React, { FC, useState, useCallback } from 'react';
 import { useUpdateState } from 'src/atoms/me';
-import { updateUserNickname } from 'src/api/auth';
+import { updateUserNicknameMypage } from 'src/api/auth';
 import { getMeHelper } from 'src/query';
 
 import { Container, Title, BtnArea } from './styles';
@@ -8,18 +8,21 @@ import Modal from 'src/components/Modal';
 import Button from 'src/components/Button';
 import Input from 'src/components/Input';
 
-const NicknameModal: FC = id => {
+interface NicknameProps {
+    id: number | undefined;
+}
+const NicknameModal: FC<NicknameProps> = ({ id }) => {
     const [inputValue, setInputValue] = useState('');
     const { update, setUpdate } = useUpdateState();
 
     const saveNickname = useCallback(
         async value => {
-            const nickname = await updateUserNickname(id.children, value);
+            const nickname = await updateUserNicknameMypage(id, value);
 
             getMeHelper.setQueryData(nickname);
             setUpdate(false);
         },
-        [setUpdate, id.children]
+        [setUpdate, id]
     );
 
     return (

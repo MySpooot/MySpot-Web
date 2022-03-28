@@ -47,6 +47,7 @@ export type DeleteRecentMapsParam = {
 export type GetFavoriteMapsResponse = {
     id: number;
     userId: number;
+    mapId: number;
     mapName: string;
     isPrivate: boolean;
     created: number;

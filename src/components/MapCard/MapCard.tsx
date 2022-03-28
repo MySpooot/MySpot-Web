@@ -1,5 +1,5 @@
 import React, { FC, useState, useCallback } from 'react';
-import { useNavigate } from 'react-router';
+// import { useNavigate } from 'react-router';
 import { useMutation } from 'react-query';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Popup } from 'reactjs-popup';
@@ -16,10 +16,11 @@ import circles from 'src/assets/main/ic-vertical-circle.svg';
 
 interface MapCardProps {
     map: { id: number; mapName: string; isPrivate: boolean; created?: number; mapId?: number };
+    onClick: () => void;
 }
 
-const MapCard: FC<MapCardProps> = ({ map }) => {
-    const navigate = useNavigate();
+const MapCard: FC<MapCardProps> = ({ map, onClick }) => {
+    // const navigate = useNavigate();
 
     const [privateCode, setPrivateCode] = useState<string>();
 
@@ -29,9 +30,10 @@ const MapCard: FC<MapCardProps> = ({ map }) => {
         }
     });
 
-    const onCardClick = useCallback(() => {
-        navigate(`${Path.myMap}/${map.mapId}`);
-    }, [navigate, map]);
+    const onCardClick = () => {
+        // navigate(`${Path.myMap}/${map.mapId}`);
+        onClick();
+    };
 
     const onPopupClick = useCallback(() => {
         if (!map.isPrivate) return;

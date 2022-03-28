@@ -1,4 +1,4 @@
-import React, { FC, useMemo } from 'react';
+import React, { FC, useMemo, useCallback } from 'react';
 import { useNavigate } from 'react-router';
 import { useQuery } from 'react-query';
 
@@ -8,6 +8,7 @@ import { getMaps, getRecentMaps, getFavoriteMap } from 'src/api/map';
 import { Path } from 'src/Constants';
 import Card from 'src/components/MapCard';
 import useQueryString from 'src/hooks/useQueryString';
+import { Map } from './types';
 
 const MapList: FC = () => {
     const navigate = useNavigate();
@@ -36,6 +37,17 @@ const MapList: FC = () => {
         }
     }, [maps, favoriteMaps, recentMaps, type]);
 
+    const onClickMap = useCallback(
+        (map: Map) => {
+            if (type === 'my') {
+                navigate(`${Path.myMap}/${map.id}`);
+            } else {
+                navigate(`${Path.myMap}/${map.mapId}`);
+            }
+        },
+        [navigate, type]
+    );
+
     return (
         <Container>
             <HeaderWithLeftArrow onLeftArrowClick={() => navigate(Path.home)}></HeaderWithLeftArrow>
@@ -52,7 +64,7 @@ const MapList: FC = () => {
             </TitleTab>
             <Maps>
                 {fetchMaps?.map((map, idx) => (
-                    <Card key={idx} map={map} />
+                    <Card key={idx} map={map} onClick={() => onClickMap(map)} />
                 ))}
             </Maps>
         </Container>

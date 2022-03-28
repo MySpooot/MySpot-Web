@@ -133,7 +133,7 @@ const MyPage: FC = () => {
                     ))}
                 </div>
             </Locations>
-            <Modal children={me?.id}></Modal>
+            <Modal id={me?.id}></Modal>
         </Container>
     );
 };

@@ -45,6 +45,17 @@ const Home: FC = () => {
         [navigate]
     );
 
+    const onClickMap = useCallback(
+        (mapId: number) => {
+            // if (type === 'my') {
+            navigate(`${Path.myMap}/${mapId}`);
+            // } else {
+            //     navigate(`${Path.myMap}/${map.mapId}`);
+            // }
+        },
+        [navigate]
+    );
+
     return (
         <Container>
             <Main>
@@ -79,7 +90,7 @@ const Home: FC = () => {
                     <div className='map-area'>
                         {isMapLoading && <Loading />}
                         {maps?.map((map, idx) => (
-                            <Card key={idx} map={map} />
+                            <Card key={idx} map={map} onClick={() => onClickMap(map.id)} />
                         ))}
                     </div>
                 </Maps>
@@ -91,7 +102,7 @@ const Home: FC = () => {
                     <div className='map-area'>
                         {isFavoriteLoading && <Loading />}
                         {favoriteMaps?.map((map, idx) => (
-                            <Card key={idx} map={map} />
+                            <Card key={idx} map={map} onClick={() => onClickMap(map.mapId)} />
                         ))}
                     </div>
                 </Maps>
