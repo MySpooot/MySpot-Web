@@ -51,7 +51,7 @@ const Home: FC = () => {
                 <Top>
                     <Header>
                         <div className='myspot-title'>my spot</div>
-                        <img className='mypage-img' src={mypage} onClick={goMyPage} />
+                        <img className='mypage-img' src={me?.thumbnail || mypage} onClick={goMyPage} />
                     </Header>
 
                     <User>{me?.nickname}님 안녕하세요!</User>

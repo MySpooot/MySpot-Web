@@ -13,6 +13,17 @@ export const logOut = () => {
     return request({ method: 'post', url: '/auth/logout' });
 };
 
-export const updateUserNickname = (userId: number, nickname: string) => {
-    return request<UpdateUserNicknameResponse>({ method: 'put', url: `/auth/user/${userId}`, data: { nickname } });
+export const updateUserNickname = (userId: any, nickname: string) => {
+    return request<UpdateUserNicknameResponse>({ method: 'put', url: `/user`, data: { nickname } });
+};
+
+export const createUserImg = (file: FormData) => {
+    return request({
+        method: 'post',
+        url: `/user/upload`,
+        data: file,
+        headers: {
+            'Content-Type': `multipart/form-data; `
+        }
+    });
 };

@@ -51,6 +51,7 @@ export const Header = styled.header`
         width: 2rem;
         height: 2rem;
         margin-right: 1.125rem;
+        border-radius: 1.25rem;
         cursor: pointer;
     }
 `;

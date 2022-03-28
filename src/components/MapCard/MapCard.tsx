@@ -15,7 +15,7 @@ import remove from 'src/assets/main/ic-remove.svg';
 import circles from 'src/assets/main/ic-vertical-circle.svg';
 
 interface MapCardProps {
-    map: { id: number; mapName: string; isPrivate: boolean; created?: number };
+    map: { id: number; mapName: string; isPrivate: boolean; created?: number; mapId?: number };
 }
 
 const MapCard: FC<MapCardProps> = ({ map }) => {
@@ -30,7 +30,7 @@ const MapCard: FC<MapCardProps> = ({ map }) => {
     });
 
     const onCardClick = useCallback(() => {
-        navigate(`${Path.myMap}/${map.id}`);
+        navigate(`${Path.myMap}/${map.mapId}`);
     }, [navigate, map]);
 
     const onPopupClick = useCallback(() => {

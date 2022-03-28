@@ -13,7 +13,7 @@ export const Header = styled.div`
 `;
 export const UserInfo = styled.div`
     display: flex;
-    min-height: 6.25rem;
+    min-height: 8.25rem;
     align-items: center;
     justify-content: space-between;
     padding: 0 1.5rem;
@@ -32,6 +32,19 @@ export const User = styled.div`
     .user-txt {
         margin-right: 14px;
         margin-left: 18px;
+    }
+
+    .profile_img {
+        display: none;
+    }
+
+    .upload-img {
+        position: absolute;
+        z-index: 10;
+        top: 11.5%;
+        left: 13%;
+        width: 1.5rem;
+        cursor: pointer;
     }
 `;
 
@@ -57,7 +70,6 @@ export const LogoutBtn = styled.button`
 
 export const Locations = styled.div`
     display: flex;
-    height: 44.4375rem;
     flex-direction: column;
     padding: 1rem 1.25rem;
     background-color: ${Color.grey[100]};
@@ -65,7 +77,7 @@ export const Locations = styled.div`
 
 export const LocationCard = styled.div`
     display: flex;
-    width: 25.6rem;
+    width: 100%;
     justify-content: space-between;
     padding: 1.25rem 1.125rem;
     margin-bottom: 0.75rem;
