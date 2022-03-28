@@ -1,16 +1,16 @@
 import { request } from 'src/api';
-import type { GetMeResponse, LogInResponse, UpdateUserNicknameResponse } from './types';
+import type { GetMeResponse, LogInBody, LogInResponse, UpdateUserNicknameParams, UpdateUserNicknameBody, UpdateUserNicknameResponse } from './types';
 
 export const getMe = () => {
-    return request<GetMeResponse>({ method: 'get', url: '/auth/me' });
+    return request<GetMeResponse>({ method: 'GET', url: '/auth/me' });
 };
 
-export const logIn = (data: { code: string }) => {
-    return request<LogInResponse>({ method: 'post', url: '/auth/login', data });
+export const logIn = (data: LogInBody) => {
+    return request<LogInResponse>({ method: 'POST', url: '/auth/login', data });
 };
 
 export const logOut = () => {
-    return request({ method: 'post', url: '/auth/logout' });
+    return request({ method: 'POST', url: '/auth/logout' });
 };
 
 export const updateUserNickname = (userId: any, nickname: string) => {
@@ -26,4 +26,3 @@ export const createUserImg = (file: FormData) => {
             'Content-Type': `multipart/form-data; `
         }
     });
-};

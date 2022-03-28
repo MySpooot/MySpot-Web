@@ -1,6 +1,6 @@
 import { makeQueryHelper } from 'react-query-helper';
 
-import { getMe, setAccessToken } from 'src/api';
+import { getMe, logIn, setAccessToken } from 'src/api';
 import { queryClient } from 'src/query';
 
 export const getMeHelper = makeQueryHelper({
@@ -13,4 +13,10 @@ export const getMeHelper = makeQueryHelper({
         setAccessToken(token);
         return getMe();
     }
+});
+
+export const logInHelper = makeQueryHelper({
+    baseQueryKey: ['logIn'],
+    queryClient,
+    queryFn: () => (code: string) => logIn({ code })
 });

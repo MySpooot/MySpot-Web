@@ -21,7 +21,7 @@ const PlaceOverlay: FC = () => {
 
     const { mapPlaceOverlay, setMapPlaceOverlay } = useMapPlaceOverlayState();
 
-    const { onBookmarkClick: onBookmarkClick_ } = useMarkerUserAction();
+    const { onBookmarkClick: onBookmarkClick_ } = useMarkerUserAction(mapId);
 
     const { data: me } = getMeHelper.useQuery();
     const { data: mapDetail } = getMapDetailHelper.useQuery(Number(mapId));

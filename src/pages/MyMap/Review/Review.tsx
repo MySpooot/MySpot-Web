@@ -12,7 +12,9 @@ import {
     RoadAddressArea,
     AddressLabel,
     RoadAddress,
+    TextAreaWrapper,
     TextArea,
+    CommentCounter,
     Line,
     ReviewArea,
     Top,
@@ -129,14 +131,17 @@ const Review: FC = () => {
                         <AddressLabel>지번</AddressLabel>
                         <RoadAddress>{place.roadAddress}</RoadAddress>
                     </RoadAddressArea>
-                    <TextArea
-                        data-testid='commentTextarea'
-                        disabled={!me}
-                        placeholder={me ? '후기를 작성해 보세요.' : '로그인한 유저만 후기를 작성할 수 있습니다.'}
-                        rows={3}
-                        value={textAreaValue}
-                        onChange={event => setTextAreaValue(event.target.value)}
-                    />
+                    <TextAreaWrapper>
+                        <TextArea
+                            data-testid='commentTextarea'
+                            disabled={!me}
+                            placeholder={me ? '후기를 작성해 보세요.' : '로그인한 유저만 후기를 작성할 수 있습니다.'}
+                            rows={3}
+                            value={textAreaValue}
+                            onChange={event => setTextAreaValue(event.target.value)}
+                        />
+                        <CommentCounter error={textAreaValue.length > 64}>{textAreaValue.length}/64</CommentCounter>
+                    </TextAreaWrapper>
                     <Button
                         data-testid='registerButton'
                         disabled={textAreaValue.length === 0}

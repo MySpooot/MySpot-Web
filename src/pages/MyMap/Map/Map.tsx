@@ -51,13 +51,27 @@ const Map: FC = () => {
         if (!mapDetail) return;
 
         if (mapDetail?.isFavorite) {
-            getMapDetailHelper.setQueryData(Number(mapId), detail => ({ ...detail!, isFavorite: false })); // eslint-disable-line @typescript-eslint/no-non-null-assertion
+            getMapDetailHelper.setQueryData(Number(mapId), detail => {
+                if (!detail) return;
+
+                return {
+                    ...detail,
+                    isFavorite: false
+                };
+            }); // eslint-disable-line @typescript-eslint/no-non-null-assertion
             deleteFavoriteMap({ favoriteMapId: Number(mapId) });
 
             return;
         }
 
-        getMapDetailHelper.setQueryData(Number(mapId), detail => ({ ...detail!, isFavorite: true })); // eslint-disable-line @typescript-eslint/no-non-null-assertion
+        getMapDetailHelper.setQueryData(Number(mapId), detail => {
+            if (!detail) return;
+
+            return {
+                ...detail,
+                isFavorite: true
+            };
+        }); // eslint-disable-line @typescript-eslint/no-non-null-assertion
         createFavoriteMap({ favoriteMapId: Number(mapId) });
     }, [mapId, mapDetail]);
 

@@ -55,6 +55,7 @@ const App: FC = () => {
                             <Route element={<MyPage />} path={Path.myPage}>
                                 <Route element={<LocationDetail />} path={':kakaoAddressId'} />
                             </Route>
+                            <Route element={<MapList />} path={Path.mapList} />
                             <Route element={<NewMap />} path={Path.newMap} />
                         </>
                     ) : (
@@ -71,7 +72,6 @@ const App: FC = () => {
                         <Route element={<Review />} path={':mapId/review/:kakaoAddressId'} />
                     </Route>
                     <Route element={<KakaoLoginCallback />} path={Path.authKakao} />
-                    <Route element={<MapList />} path={Path.mapList} />
                     <Route element={<Navigate to={me ? Path.home : Path.login} replace />} path='*' />
                 </Routes>
             </Suspense>
