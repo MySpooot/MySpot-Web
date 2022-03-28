@@ -4,7 +4,7 @@ import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import { checkPrivateCode } from 'src/api/map';
 import { useMapAccessible, useMapPlaceOverlayState } from 'src/atoms';
 import { Path } from 'src/Constants';
-import { getMapDetailHelper, getMarkersHelper } from 'src/query';
+import { getMapDetailHelper, getMarkersHelper, getMeHelper } from 'src/query';
 import Loading from 'src/components/Loading';
 import PrivateCodeModal from 'src/components/PrivateCodeModal/PrivateCodeModal';
 import useQueryString from 'src/hooks/useQueryString';
@@ -21,8 +21,15 @@ const MyMap: FC = () => {
         return !mapAccessible && Number(code) && (code ?? '').length === 4;
     }, [mapAccessible, code]);
 
+    const { data: me } = getMeHelper.useQuery();
     const { data: mapDetail } = getMapDetailHelper.useQuery(Number(mapId), {
         onSuccess: response => {
+            if (!response) {
+                alert('잘못된 접근입니다.');
+
+                return navigate(me ? Path.home : Path.login);
+            }
+
             setMapAccessible(response.accessible);
         }
     });
