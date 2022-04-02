@@ -47,6 +47,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@swc/helpers", "npm:0.3.2"],
             ["@testing-library/cypress", "virtual:02d8742e7b47f1d78206683ff3b5288c6b240f04f7553fca18cd95bdacd72a7a05c415944246e7ac5ccd18f47e816d71ca22d8e7a1dc0bc0a03204616c6d5886#npm:8.0.2"],
             ["@types/node", "npm:12.20.38"],
+            ["@types/prop-types", "npm:15.7.4"],
             ["@types/react", "npm:17.0.38"],
             ["@types/react-copy-to-clipboard", "npm:5.0.2"],
             ["@types/react-dom", "npm:17.0.11"],
@@ -70,11 +71,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["jotai", "virtual:02d8742e7b47f1d78206683ff3b5288c6b240f04f7553fca18cd95bdacd72a7a05c415944246e7ac5ccd18f47e816d71ca22d8e7a1dc0bc0a03204616c6d5886#npm:1.6.0"],
             ["postcss-safe-parser", "npm:4.0.2"],
             ["prettier", "npm:2.5.1"],
+            ["prop-types", "npm:15.8.1"],
             ["query-string", "npm:7.1.1"],
             ["react", "npm:17.0.2"],
             ["react-copy-to-clipboard", "virtual:02d8742e7b47f1d78206683ff3b5288c6b240f04f7553fca18cd95bdacd72a7a05c415944246e7ac5ccd18f47e816d71ca22d8e7a1dc0bc0a03204616c6d5886#npm:5.0.4"],
             ["react-dom", "virtual:02d8742e7b47f1d78206683ff3b5288c6b240f04f7553fca18cd95bdacd72a7a05c415944246e7ac5ccd18f47e816d71ca22d8e7a1dc0bc0a03204616c6d5886#npm:17.0.2"],
             ["react-error-overlay", "npm:6.0.9"],
+            ["react-ga", "virtual:02d8742e7b47f1d78206683ff3b5288c6b240f04f7553fca18cd95bdacd72a7a05c415944246e7ac5ccd18f47e816d71ca22d8e7a1dc0bc0a03204616c6d5886#npm:3.3.0"],
             ["react-intersection-observer", "virtual:02d8742e7b47f1d78206683ff3b5288c6b240f04f7553fca18cd95bdacd72a7a05c415944246e7ac5ccd18f47e816d71ca22d8e7a1dc0bc0a03204616c6d5886#npm:8.33.1"],
             ["react-kakao-maps-sdk", "virtual:02d8742e7b47f1d78206683ff3b5288c6b240f04f7553fca18cd95bdacd72a7a05c415944246e7ac5ccd18f47e816d71ca22d8e7a1dc0bc0a03204616c6d5886#npm:1.0.4"],
             ["react-query", "virtual:02d8742e7b47f1d78206683ff3b5288c6b240f04f7553fca18cd95bdacd72a7a05c415944246e7ac5ccd18f47e816d71ca22d8e7a1dc0bc0a03204616c6d5886#npm:3.34.11"],
@@ -15605,6 +15608,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@swc/helpers", "npm:0.3.2"],
             ["@testing-library/cypress", "virtual:02d8742e7b47f1d78206683ff3b5288c6b240f04f7553fca18cd95bdacd72a7a05c415944246e7ac5ccd18f47e816d71ca22d8e7a1dc0bc0a03204616c6d5886#npm:8.0.2"],
             ["@types/node", "npm:12.20.38"],
+            ["@types/prop-types", "npm:15.7.4"],
             ["@types/react", "npm:17.0.38"],
             ["@types/react-copy-to-clipboard", "npm:5.0.2"],
             ["@types/react-dom", "npm:17.0.11"],
@@ -15628,11 +15632,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["jotai", "virtual:02d8742e7b47f1d78206683ff3b5288c6b240f04f7553fca18cd95bdacd72a7a05c415944246e7ac5ccd18f47e816d71ca22d8e7a1dc0bc0a03204616c6d5886#npm:1.6.0"],
             ["postcss-safe-parser", "npm:4.0.2"],
             ["prettier", "npm:2.5.1"],
+            ["prop-types", "npm:15.8.1"],
             ["query-string", "npm:7.1.1"],
             ["react", "npm:17.0.2"],
             ["react-copy-to-clipboard", "virtual:02d8742e7b47f1d78206683ff3b5288c6b240f04f7553fca18cd95bdacd72a7a05c415944246e7ac5ccd18f47e816d71ca22d8e7a1dc0bc0a03204616c6d5886#npm:5.0.4"],
             ["react-dom", "virtual:02d8742e7b47f1d78206683ff3b5288c6b240f04f7553fca18cd95bdacd72a7a05c415944246e7ac5ccd18f47e816d71ca22d8e7a1dc0bc0a03204616c6d5886#npm:17.0.2"],
             ["react-error-overlay", "npm:6.0.9"],
+            ["react-ga", "virtual:02d8742e7b47f1d78206683ff3b5288c6b240f04f7553fca18cd95bdacd72a7a05c415944246e7ac5ccd18f47e816d71ca22d8e7a1dc0bc0a03204616c6d5886#npm:3.3.0"],
             ["react-intersection-observer", "virtual:02d8742e7b47f1d78206683ff3b5288c6b240f04f7553fca18cd95bdacd72a7a05c415944246e7ac5ccd18f47e816d71ca22d8e7a1dc0bc0a03204616c6d5886#npm:8.33.1"],
             ["react-kakao-maps-sdk", "virtual:02d8742e7b47f1d78206683ff3b5288c6b240f04f7553fca18cd95bdacd72a7a05c415944246e7ac5ccd18f47e816d71ca22d8e7a1dc0bc0a03204616c6d5886#npm:1.0.4"],
             ["react-query", "virtual:02d8742e7b47f1d78206683ff3b5288c6b240f04f7553fca18cd95bdacd72a7a05c415944246e7ac5ccd18f47e816d71ca22d8e7a1dc0bc0a03204616c6d5886#npm:3.34.11"],
@@ -18498,6 +18504,32 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/react-error-overlay-npm-6.0.9-96e7e1e53a-695853bc88.zip/node_modules/react-error-overlay/",
           "packageDependencies": [
             ["react-error-overlay", "npm:6.0.9"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["react-ga", [
+        ["npm:3.3.0", {
+          "packageLocation": "./.yarn/cache/react-ga-npm-3.3.0-caa04fb49d-b4f5b0ed3a.zip/node_modules/react-ga/",
+          "packageDependencies": [
+            ["react-ga", "npm:3.3.0"]
+          ],
+          "linkType": "SOFT",
+        }],
+        ["virtual:02d8742e7b47f1d78206683ff3b5288c6b240f04f7553fca18cd95bdacd72a7a05c415944246e7ac5ccd18f47e816d71ca22d8e7a1dc0bc0a03204616c6d5886#npm:3.3.0", {
+          "packageLocation": "./.yarn/__virtual__/react-ga-virtual-34ff2aa70e/0/cache/react-ga-npm-3.3.0-caa04fb49d-b4f5b0ed3a.zip/node_modules/react-ga/",
+          "packageDependencies": [
+            ["react-ga", "virtual:02d8742e7b47f1d78206683ff3b5288c6b240f04f7553fca18cd95bdacd72a7a05c415944246e7ac5ccd18f47e816d71ca22d8e7a1dc0bc0a03204616c6d5886#npm:3.3.0"],
+            ["@types/prop-types", "npm:15.7.4"],
+            ["@types/react", "npm:17.0.38"],
+            ["prop-types", "npm:15.8.1"],
+            ["react", "npm:17.0.2"]
+          ],
+          "packagePeers": [
+            "@types/prop-types",
+            "@types/react",
+            "prop-types",
+            "react"
           ],
           "linkType": "HARD",
         }]

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
+import { initialize } from 'react-ga';
 
 import App from './App';
 import { queryClient } from 'src/query';
@@ -21,6 +22,10 @@ import { queryClient } from 'src/query';
     };
 
     document.body.appendChild(script);
+})();
+
+(() => {
+    process.env.REACT_APP_GA && initialize(process.env.REACT_APP_GA);
 })();
 
 ReactDOM.render(
