@@ -127,7 +127,7 @@ const MyPage: FC = () => {
                     ))}
                 </div>
             </Locations>
-            <Modal id={me?.id} open={nicknamePopup} setOpen={() => setNicknamePopup(false)}></Modal>
+            {nicknamePopup && <Modal id={me?.id} setOpen={() => setNicknamePopup(false)}></Modal>}
         </Container>
     );
 };

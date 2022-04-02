@@ -4,12 +4,11 @@ import { Container, Wrapper } from './styles';
 
 type ModalProps = {
     onClose?: () => void;
-    open?: boolean;
 };
 
-const Modal: FC<ModalProps> = ({ children, open }) => {
+const Modal: FC<ModalProps> = ({ children }) => {
     return (
-        <Container open={open}>
+        <Container>
             <Wrapper>{children}</Wrapper>
         </Container>
     );

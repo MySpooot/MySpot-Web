@@ -9,10 +9,9 @@ import Input from 'src/components/Input';
 
 interface NicknameProps {
     id: number | undefined;
-    open: boolean;
     setOpen: () => void;
 }
-const NicknameModal: FC<NicknameProps> = ({ id, open, setOpen }) => {
+const NicknameModal: FC<NicknameProps> = ({ id, setOpen }) => {
     const [inputValue, setInputValue] = useState('');
 
     const saveNickname = useCallback(
@@ -26,7 +25,7 @@ const NicknameModal: FC<NicknameProps> = ({ id, open, setOpen }) => {
     );
 
     return (
-        <Modal open={open}>
+        <Modal>
             <Container>
                 <Title>닉네임</Title>
                 <Input

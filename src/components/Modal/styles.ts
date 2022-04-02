@@ -1,13 +1,13 @@
 import styled from '@emotion/styled';
 
-export const Container = styled.div<{ open: boolean | undefined }>`
+export const Container = styled.div`
     position: absolute;
     z-index: 99;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
-    display: ${props => (props.open ? 'flex' : 'none')};
+    display: flex;
     width: 100%;
     align-items: center;
     justify-content: center;
