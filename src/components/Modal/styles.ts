@@ -7,12 +7,11 @@ export const Container = styled.div<{ open: boolean | undefined }>`
     right: 0;
     bottom: 0;
     left: 0;
-    display: flex;
+    display: ${props => (props.open ? 'flex' : 'none')};
     width: 100%;
     align-items: center;
     justify-content: center;
     background-color: rgba(0, 0, 0, 0.25);
-    display: ${props => (props.open ? 'inlineblock' : 'none')};
 `;
 
 export const Wrapper = styled.div`
