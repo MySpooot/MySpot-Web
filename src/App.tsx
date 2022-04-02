@@ -1,5 +1,6 @@
-import React, { FC, lazy, Suspense } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import React, { FC, useEffect, lazy, Suspense } from 'react';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { pageview, set } from 'react-ga';
 import styled from '@emotion/styled';
 import Div100vh from '@rodmg/react-div-100vh';
 
@@ -26,6 +27,8 @@ const NewMap = lazy(() => import('src/pages/NewMap'));
 const token = localStorage.getItem('token');
 
 const App: FC = () => {
+    const location = useLocation();
+
     const { data: me, isLoading } = getMeHelper.useQuery({
         enabled: !!token,
         onError: err => {
@@ -34,6 +37,11 @@ const App: FC = () => {
             alert('Error!');
         }
     });
+
+    useEffect(() => {
+        set({ page: location.pathname });
+        pageview(location.pathname);
+    }, [location]);
 
     if (isLoading) {
         return (
