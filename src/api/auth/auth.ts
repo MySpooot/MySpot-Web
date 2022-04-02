@@ -21,7 +21,7 @@ export const updateUserNicknameMypage = (userId: number | undefined, nickname: s
 };
 
 export const createUserImg = (file: FormData) => {
-    return request({
+    return request<string>({
         method: 'post',
         url: `/user/upload`,
         data: file,

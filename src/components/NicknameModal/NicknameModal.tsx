@@ -1,5 +1,4 @@
 import React, { FC, useState, useCallback } from 'react';
-import { useUpdateState } from 'src/atoms/me';
 import { updateUserNicknameMypage } from 'src/api/auth';
 import { getMeHelper } from 'src/query';
 
@@ -10,46 +9,43 @@ import Input from 'src/components/Input';
 
 interface NicknameProps {
     id: number | undefined;
+    open: boolean;
+    setOpen: () => void;
 }
-const NicknameModal: FC<NicknameProps> = ({ id }) => {
+const NicknameModal: FC<NicknameProps> = ({ id, open, setOpen }) => {
     const [inputValue, setInputValue] = useState('');
-    const { update, setUpdate } = useUpdateState();
 
     const saveNickname = useCallback(
         async value => {
-            const nickname = await updateUserNicknameMypage(id, value);
+            const me = await updateUserNicknameMypage(id, value);
 
-            getMeHelper.setQueryData(nickname);
-            setUpdate(false);
+            getMeHelper.setQueryData(me);
+            setOpen();
         },
-        [setUpdate, id]
+        [id, setOpen]
     );
 
     return (
-        <div>
-            {update && (
-                <Modal>
-                    <Container>
-                        <Title>닉네임</Title>
-                        <Input
-                            maxLength={30}
-                            style={{ margin: '1.25rem' }}
-                            value={inputValue}
-                            autoFocus
-                            onChange={event => setInputValue(event.target.value)}
-                        />
-                        <BtnArea>
-                            <Button className='btn-half' onClick={() => setUpdate(false)}>
-                                닫기
-                            </Button>
-                            <Button className='btn-half' type='primary' onClick={() => saveNickname(inputValue)}>
-                                저장하기
-                            </Button>
-                        </BtnArea>
-                    </Container>
-                </Modal>
-            )}
-        </div>
+        <Modal open={open}>
+            <Container>
+                <Title>닉네임</Title>
+                <Input
+                    maxLength={30}
+                    style={{ margin: '1.25rem' }}
+                    value={inputValue}
+                    autoFocus
+                    onChange={event => setInputValue(event.target.value)}
+                />
+                <BtnArea>
+                    <Button className='btn-half' onClick={() => setOpen()}>
+                        닫기
+                    </Button>
+                    <Button className='btn-half' type='primary' onClick={() => saveNickname(inputValue)}>
+                        저장하기
+                    </Button>
+                </BtnArea>
+            </Container>
+        </Modal>
     );
 };
 

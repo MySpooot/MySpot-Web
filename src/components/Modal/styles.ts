@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-export const Container = styled.div`
+export const Container = styled.div<{ open: boolean | undefined }>`
     position: absolute;
     z-index: 99;
     top: 0;
@@ -12,6 +12,7 @@ export const Container = styled.div`
     align-items: center;
     justify-content: center;
     background-color: rgba(0, 0, 0, 0.25);
+    display: ${props => (props.open ? 'inlineblock' : 'none')};
 `;
 
 export const Wrapper = styled.div`
