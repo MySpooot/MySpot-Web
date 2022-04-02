@@ -1,10 +1,9 @@
-import React, { FC, useCallback } from 'react';
+import React, { FC, useCallback, useState, useRef } from 'react';
 import { useNavigate } from 'react-router';
+
 import { useMutation, useQuery } from 'react-query';
 import { getMeHelper } from 'src/query';
 import { createUserImg } from 'src/api/auth';
-import { useUpdateState } from 'src/atoms/me';
-
 import { Container, UpdateBtn, UserInfo, LogoutBtn, User, Locations, LocationCard } from './styles';
 import HeaderWithLeftArrow from 'src/components/HeaderWithLeftArrow';
 import { Path } from 'src/Constants';
@@ -19,7 +18,7 @@ const MyPage: FC = () => {
     const { data: me } = getMeHelper.useQuery();
     const navigate = useNavigate();
     const { setLocations } = useMyLocationState();
-    const { setUpdate } = useUpdateState();
+    const [nicknamePopup, setNicknamePopup] = useState(false);
 
     const { data: locations } = useQuery('getLocations', () => getMyLocation({ offset: 0, limit: 50 }), {
         onSuccess: response => {
@@ -52,7 +51,7 @@ const MyPage: FC = () => {
             if (confirm) {
                 await deleteLocation({ addressId });
                 window.alert('삭제되었습니다.');
-            } else return;
+            }
         },
         [deleteLocation]
     );
@@ -67,27 +66,28 @@ const MyPage: FC = () => {
         navigate(Path.login);
     }, [navigate]);
 
-    const onChange = async e => {
-        const img = e.target.files[0];
-        const formData = new FormData();
-        formData.append('file', img);
+    const onChange = useCallback(
+        async e => {
+            const img = e.target.files[0];
+            const formData = new FormData();
+            formData.append('file', img);
 
-        const resultThumnail = await createUserImg(formData);
-        console.log(resultThumnail);
+            const resultThumnail = await createUserImg(formData);
 
-        const updateUser = {
-            id: Number(me?.id),
-            nickname: String(me?.nickname),
-            thumnail: resultThumnail
-        };
-        getMeHelper.setQueryData(updateUser);
-    };
+            getMeHelper.setQueryData({ ...me, thumbnail: resultThumnail });
+        },
+        [me]
+    );
 
     const updateNickname = useCallback(() => {
-        setUpdate(true);
-    }, [setUpdate]);
+        setNicknamePopup(true);
+    }, [setNicknamePopup]);
 
-    let inputRef;
+    const inputRef = useRef<HTMLInputElement>(null);
+
+    const clickCamera = () => {
+        inputRef.current?.click();
+    };
 
     return (
         <Container>
@@ -98,15 +98,9 @@ const MyPage: FC = () => {
             </HeaderWithLeftArrow>
             <UserInfo>
                 <User>
-                    <input
-                        ref={refParam => (inputRef = refParam)}
-                        accept='image/jpg,impge/png,image/jpeg,image/gif'
-                        className='profile_img'
-                        type='file'
-                        onChange={onChange}
-                    />
+                    <input ref={inputRef} accept='image/jpg,impge/png,image/jpeg,image/gif' className='profile_img' type='file' onChange={onChange} />
                     <img className='mypage-img' src={me?.thumbnail || mypage} />
-                    <img className='upload-img' src={camera} onClick={() => inputRef.click()} />
+                    <img className='upload-img' src={camera} onClick={() => clickCamera()} />
                     <div className='user-txt'>{me?.nickname}</div>
                     <UpdateBtn onClick={() => updateNickname()}>수정</UpdateBtn>
                 </User>
@@ -133,7 +127,7 @@ const MyPage: FC = () => {
                     ))}
                 </div>
             </Locations>
-            <Modal id={me?.id}></Modal>
+            <Modal id={me?.id} open={nicknamePopup} setOpen={() => setNicknamePopup(false)}></Modal>
         </Container>
     );
 };
