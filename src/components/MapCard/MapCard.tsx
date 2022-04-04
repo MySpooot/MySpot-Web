@@ -1,5 +1,4 @@
 import React, { FC, useState, useCallback } from 'react';
-// import { useNavigate } from 'react-router';
 import { useMutation } from 'react-query';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Popup } from 'reactjs-popup';
@@ -20,8 +19,6 @@ interface MapCardProps {
 }
 
 const MapCard: FC<MapCardProps> = ({ map, onClick }) => {
-    // const navigate = useNavigate();
-
     const [privateCode, setPrivateCode] = useState<string>();
 
     const { mutate } = useMutation(() => getPrivateCode({ mapId: map.id }), {
@@ -29,11 +26,6 @@ const MapCard: FC<MapCardProps> = ({ map, onClick }) => {
             setPrivateCode(response.code);
         }
     });
-
-    const onCardClick = () => {
-        // navigate(`${Path.myMap}/${map.mapId}`);
-        onClick();
-    };
 
     const onPopupClick = useCallback(() => {
         if (!map.isPrivate) return;
@@ -64,7 +56,7 @@ const MapCard: FC<MapCardProps> = ({ map, onClick }) => {
 
     return (
         <Card>
-            <CardText onClick={onCardClick}>
+            <CardText onClick={() => onClick()}>
                 <span className='map-title'>{map.mapName}</span>
                 <span className='create-date'>{dateFilter(map.created)}</span>
             </CardText>

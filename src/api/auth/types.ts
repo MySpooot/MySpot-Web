@@ -34,3 +34,11 @@ export type UpdateUserNicknameParams = {
 export type UpdateUserNicknameBody = {
     nickname: string;
 };
+
+export type UpdateUserNicknameMypageBody = {
+    nickname: string;
+};
+
+export type UpdateUserImgBody = {
+    file: FormData;
+};

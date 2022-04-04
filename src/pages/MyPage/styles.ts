@@ -23,12 +23,6 @@ export const User = styled.div`
     display: flex;
     align-items: center;
 
-    .mypage-img {
-        width: 3.375rem;
-        height: 3.375rem;
-        border-radius: 1.6875rem;
-    }
-
     .user-txt {
         margin-right: 14px;
         margin-left: 18px;
@@ -37,14 +31,22 @@ export const User = styled.div`
     .profile_img {
         display: none;
     }
+`;
+
+export const InputImg = styled.div`
+    cursor: pointer;
+    .mypage-img {
+        width: 3.375rem;
+        height: 3.375rem;
+        border-radius: 1.6875rem;
+    }
 
     .upload-img {
         position: absolute;
         z-index: 10;
-        top: 11.5%;
+        top: 10.5%;
         left: 13%;
         width: 1.5rem;
-        cursor: pointer;
     }
 `;
 
@@ -73,6 +75,7 @@ export const Locations = styled.div`
     flex-direction: column;
     padding: 1rem 1.25rem;
     background-color: ${Color.grey[100]};
+    overflow-y: auto;
 `;
 
 export const LocationCard = styled.div`

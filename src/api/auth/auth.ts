@@ -1,5 +1,14 @@
 import { request } from 'src/api';
-import { GetMeResponse, LogInBody, LogInResponse, UpdateUserNicknameParams, UpdateUserNicknameBody, UpdateUserNicknameResponse } from './types';
+import type {
+    GetMeResponse,
+    LogInBody,
+    LogInResponse,
+    UpdateUserNicknameParams,
+    UpdateUserNicknameBody,
+    UpdateUserNicknameResponse,
+    UpdateUserNicknameMypageBody,
+    UpdateUserImgBody
+} from './types';
 
 export const getMe = () => {
     return request<GetMeResponse>({ method: 'GET', url: '/auth/me' });
@@ -16,17 +25,17 @@ export const logOut = () => {
 export const updateUserNickname = ({ userId }: UpdateUserNicknameParams, body: UpdateUserNicknameBody) => {
     return request<UpdateUserNicknameResponse>({ method: 'PUT', url: `/auth/user/${userId}`, data: body });
 };
-export const updateUserNicknameMypage = (userId: number | undefined, nickname: string) => {
-    return request<UpdateUserNicknameResponse>({ method: 'put', url: `/user`, data: { nickname } });
+export const updateUserNicknameMypage = (body: UpdateUserNicknameMypageBody) => {
+    return request<UpdateUserNicknameResponse>({ method: 'put', url: `/user`, data: body });
 };
 
-export const createUserImg = (file: FormData) => {
+export const createUserImg = (body: UpdateUserImgBody) => {
     return request<string>({
         method: 'post',
-        url: `/user/upload`,
-        data: file,
+        url: '/user/upload',
+        data: body,
         headers: {
-            'Content-Type': `multipart/form-data; `
+            'Content-Type': 'multipart/form-data'
         }
     });
 };

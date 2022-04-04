@@ -47,11 +47,7 @@ const Home: FC = () => {
 
     const onClickMap = useCallback(
         (mapId: number) => {
-            // if (type === 'my') {
             navigate(`${Path.myMap}/${mapId}`);
-            // } else {
-            //     navigate(`${Path.myMap}/${map.mapId}`);
-            // }
         },
         [navigate]
     );
