@@ -35,6 +35,7 @@ export const User = styled.div`
 
 export const InputImg = styled.div`
     cursor: pointer;
+
     .mypage-img {
         width: 3.375rem;
         height: 3.375rem;
