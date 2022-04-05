@@ -32,9 +32,9 @@ jobs:
             - name: Generate Environment Variables
               uses: SpicyPizza/create-envfile@v1
               with:
-                  envkey_REACT_APP_ENV: production
-                  envkey_REACT_APP_KAKAO_KEY: ${{ secrets.REACT_APP_KAKAO_KEY }}
-                  envkey_REACT_APP_GA: ${{ secrets.REACT_APP_GA }}
+                  envkey_VITE_APP_ENV: production
+                  envkey_VITE_APP_KAKAO_KEY: ${{ secrets.VITE_APP_KAKAO_KEY }}
+                  envkey_VITE_APP_GA: ${{ secrets.VITE_APP_GA }}
                   file_name: .env
 
             - name: Build
