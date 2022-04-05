@@ -2,7 +2,7 @@ import axios, { AxiosRequestConfig } from 'axios';
 
 const instance = axios.create({
     baseURL:
-        process.env.REACT_APP_ENV === 'production'
+        import.meta.env.VITE_ENV === 'production'
             ? 'https://afijgf54ce.execute-api.ap-northeast-2.amazonaws.com/prod/'
             : 'https://jsyth59asa.execute-api.ap-northeast-2.amazonaws.com/dev/'
 });
