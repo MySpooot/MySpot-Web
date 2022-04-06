@@ -3,7 +3,9 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
-import { initialize } from 'react-ga';
+import * as ReactGA from 'react-ga';
+import * as Sentry from '@sentry/react';
+import { BrowserTracing } from '@sentry/tracing';
 
 import App from './App';
 import { queryClient } from 'src/query';
@@ -26,7 +28,12 @@ import { version } from '../package.json';
 })();
 
 (() => {
-    import.meta.env.VITE_APP_GA && initialize(import.meta.env.VITE_APP_GA);
+    import.meta.env.VITE_APP_GA && ReactGA.initialize(import.meta.env.VITE_APP_GA);
+    import.meta.env.VITE_APP_SENTRY_DSN &&
+        Sentry.init({
+            dsn: import.meta.env.VITE_APP_SENTRY_DSN,
+            integrations: [new BrowserTracing()]
+        });
 })();
 
 ReactDOM.render(

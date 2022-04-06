@@ -1,4 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios';
+import * as Sentry from '@sentry/react';
 
 const instance = axios.create({
     baseURL:
@@ -8,9 +9,16 @@ const instance = axios.create({
 });
 
 export const request = async <T = unknown>(config: AxiosRequestConfig): Promise<T> => {
-    const { data } = await instance(config);
+    try {
+        const { data } = await instance(config);
 
-    return data;
+        return data;
+    } catch (err: any) {
+        console.error(err);
+        Sentry.captureException(err, { tags: { type: 'ApiError' } });
+
+        throw new Error(err);
+    }
 };
 
 export const setAccessToken = (token: string) => {

@@ -971,6 +971,99 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sentry/browser@npm:6.19.4":
+  version: 6.19.4
+  resolution: "@sentry/browser@npm:6.19.4"
+  dependencies:
+    "@sentry/core": 6.19.4
+    "@sentry/types": 6.19.4
+    "@sentry/utils": 6.19.4
+    tslib: ^1.9.3
+  checksum: 2b937f42478ce9b748051d851ef38077654e69e9cc344ace06af6276f415817ddcf5ef3d4194e63d21cff486ebc9ef420f60bcdd082a89b05be749cd12015619
+  languageName: node
+  linkType: hard
+
+"@sentry/core@npm:6.19.4":
+  version: 6.19.4
+  resolution: "@sentry/core@npm:6.19.4"
+  dependencies:
+    "@sentry/hub": 6.19.4
+    "@sentry/minimal": 6.19.4
+    "@sentry/types": 6.19.4
+    "@sentry/utils": 6.19.4
+    tslib: ^1.9.3
+  checksum: 57461794ef67d041367b4e44dd02dac87abe9ac9281bc251269ea8ec46f512307a9701dd179effa869ee831d1e969ab54acf9f7c5c706568fce2c9b086c93a09
+  languageName: node
+  linkType: hard
+
+"@sentry/hub@npm:6.19.4":
+  version: 6.19.4
+  resolution: "@sentry/hub@npm:6.19.4"
+  dependencies:
+    "@sentry/types": 6.19.4
+    "@sentry/utils": 6.19.4
+    tslib: ^1.9.3
+  checksum: ef755239c15df41d6ad2cf2c65918ff5c90d50799e76b6c2f17ef69a3324cc606798f07ee74cf8fe411b5b455fe4224fc4452b080891a24952c9192aaea15c56
+  languageName: node
+  linkType: hard
+
+"@sentry/minimal@npm:6.19.4":
+  version: 6.19.4
+  resolution: "@sentry/minimal@npm:6.19.4"
+  dependencies:
+    "@sentry/hub": 6.19.4
+    "@sentry/types": 6.19.4
+    tslib: ^1.9.3
+  checksum: 2a3ca95b082c03afb760933da2024e44770a59fa4410a856455c481846f22d499b3d45583f4d9a61c7ea2a7130a27bf2757ff208eb717c9a4e80ccdcf9e6d7cb
+  languageName: node
+  linkType: hard
+
+"@sentry/react@npm:^6.19.4":
+  version: 6.19.4
+  resolution: "@sentry/react@npm:6.19.4"
+  dependencies:
+    "@sentry/browser": 6.19.4
+    "@sentry/minimal": 6.19.4
+    "@sentry/types": 6.19.4
+    "@sentry/utils": 6.19.4
+    hoist-non-react-statics: ^3.3.2
+    tslib: ^1.9.3
+  peerDependencies:
+    react: 15.x || 16.x || 17.x || 18.x
+  checksum: e9862416dd4f738b0349eb004b858f3c083ca3a50afec3735174b73989c4e7448e0f6d5010533454f43c2548e1adab61b5368f51b6259678b549c8529eed9beb
+  languageName: node
+  linkType: hard
+
+"@sentry/tracing@npm:^6.19.4":
+  version: 6.19.4
+  resolution: "@sentry/tracing@npm:6.19.4"
+  dependencies:
+    "@sentry/hub": 6.19.4
+    "@sentry/minimal": 6.19.4
+    "@sentry/types": 6.19.4
+    "@sentry/utils": 6.19.4
+    tslib: ^1.9.3
+  checksum: 5e663aed771f94cfca562edbba23d763d531142825358ab9ae84beb8ce9e79ac318cd64e8d5b7f81710d6447c22dee6339142a39fbe160aa423ea2d17249f6fa
+  languageName: node
+  linkType: hard
+
+"@sentry/types@npm:6.19.4":
+  version: 6.19.4
+  resolution: "@sentry/types@npm:6.19.4"
+  checksum: 907b98b4171e12c607a8c58075589fb8610cfff2cea60cff4d664987e502cde467c0777c79989af539fb8fce5aa31619fe68ad3b68e57219cd99635c9d3d48fc
+  languageName: node
+  linkType: hard
+
+"@sentry/utils@npm:6.19.4":
+  version: 6.19.4
+  resolution: "@sentry/utils@npm:6.19.4"
+  dependencies:
+    "@sentry/types": 6.19.4
+    tslib: ^1.9.3
+  checksum: f2bcb6a45b9041811a37daf51f103fdb833673f0d7873759e2f708db77cac629846be188733a7a6193f3e8cd9896a685ac382c2bf96f01e03b0a6214496de3ee
+  languageName: node
+  linkType: hard
+
 "@stylelint/postcss-css-in-js@npm:^0.37.2":
   version: 0.37.2
   resolution: "@stylelint/postcss-css-in-js@npm:0.37.2"
@@ -3779,7 +3872,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hoist-non-react-statics@npm:^3.3.1":
+"hoist-non-react-statics@npm:^3.3.1, hoist-non-react-statics@npm:^3.3.2":
   version: 3.3.2
   resolution: "hoist-non-react-statics@npm:3.3.2"
   dependencies:
@@ -5047,6 +5140,8 @@ __metadata:
     "@emotion/react": ^11.5.0
     "@emotion/styled": ^11.3.0
     "@rodmg/react-div-100vh": ^0.3.5
+    "@sentry/react": ^6.19.4
+    "@sentry/tracing": ^6.19.4
     "@stylelint/postcss-css-in-js": ^0.37.2
     "@testing-library/cypress": ^8.0.2
     "@types/node": ^12.0.0
@@ -7107,7 +7202,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^1.8.1":
+"tslib@npm:^1.8.1, tslib@npm:^1.9.3":
   version: 1.14.1
   resolution: "tslib@npm:1.14.1"
   checksum: dbe628ef87f66691d5d2959b3e41b9ca0045c3ee3c7c7b906cc1e328b39f199bb1ad9e671c39025bd56122ac57dfbf7385a94843b1cc07c60a4db74795829acd
