@@ -34,8 +34,8 @@ jobs:
             - name: Generate Environment Variables - dev
               uses: SpicyPizza/create-envfile@v1
               with:
-                  envkey_REACT_APP_ENV: dev
-                  envkey_REACT_APP_KAKAO_KEY: ${{ secrets.REACT_APP_KAKAO_KEY }}
+                  envkey_VITE_APP_ENV: development
+                  envkey_VITE_APP_KAKAO_KEY: ${{ secrets.VITE_APP_KAKAO_KEY }}
                   file_name: .env
 
             - name: Run Cypress

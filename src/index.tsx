@@ -7,6 +7,7 @@ import { initialize } from 'react-ga';
 
 import App from './App';
 import { queryClient } from 'src/query';
+import { version } from '../package.json';
 
 (() => {
     if (window.Kakao?.Auth) return;
@@ -17,7 +18,7 @@ import { queryClient } from 'src/query';
     script.defer = true;
     script.onload = () => {
         if (window.Kakao && !window.Kakao.isInitialized()) {
-            window.Kakao.init(process.env.REACT_APP_KAKAO_KEY);
+            window.Kakao.init(import.meta.env.VITE_APP_KAKAO_KEY);
         }
     };
 
@@ -25,7 +26,7 @@ import { queryClient } from 'src/query';
 })();
 
 (() => {
-    process.env.REACT_APP_GA && initialize(process.env.REACT_APP_GA);
+    import.meta.env.VITE_APP_GA && initialize(import.meta.env.VITE_APP_GA);
 })();
 
 ReactDOM.render(
@@ -40,7 +41,6 @@ ReactDOM.render(
     document.getElementById('root')
 );
 
-/* eslint-disable @typescript-eslint/no-var-requires */
 console.log(`
 ███╗   ███╗██╗   ██╗███████╗██████╗  ██████╗ ████████╗
 ████╗ ████║╚██╗ ██╔╝██╔════╝██╔══██╗██╔═══██╗╚══██╔══╝
@@ -49,6 +49,6 @@ console.log(`
 ██║ ╚═╝ ██║   ██║   ███████║██║     ╚██████╔╝   ██║   
 ╚═╝     ╚═╝   ╚═╝   ╚══════╝╚═╝      ╚═════╝    ╚═╝   
 
-version: ${require('../package.json').version} 
-                                                     
+version: ${version} 
+
 `);

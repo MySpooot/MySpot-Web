@@ -19,7 +19,7 @@
         "removeComments": true,
         "noEmit": true,
         "jsx": "react-jsx",
-        "types": ["node"]
+        "types": ["node", "vite/client"]
     },
     "include": ["src", "craco.config.js"],
     "exclude": ["node_modules"]

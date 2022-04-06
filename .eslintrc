@@ -52,5 +52,5 @@
             "typescript": {}
         }
     },
-    "ignorePatterns": ["cypress/"]
+    "ignorePatterns": ["cypress/", "vite.config.ts"]
 }
