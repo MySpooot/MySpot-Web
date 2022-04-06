@@ -1,6 +1,6 @@
 {
     "name": "myspot",
-    "version": "0.1.2",
+    "version": "0.1.3",
     "private": true,
     "scripts": {
         "start": "vite",
@@ -19,6 +19,8 @@
         "@emotion/react": "^11.5.0",
         "@emotion/styled": "^11.3.0",
         "@rodmg/react-div-100vh": "^0.3.5",
+        "@sentry/react": "^6.19.4",
+        "@sentry/tracing": "^6.19.4",
         "axios": "^0.24.0",
         "dayjs": "^1.10.7",
         "jotai": "^1.6.0",
