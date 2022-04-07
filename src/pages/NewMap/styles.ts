@@ -1,13 +1,14 @@
 import styled from '@emotion/styled';
 
-import { Palette, Dimension } from 'src/Constants';
+import { Color, Dimension } from 'src/Constants';
 
 export const Container = styled.div`
     position: absolute;
     z-index: 99;
     bottom: 0;
     display: flex;
-    width: ${Dimension.MaxWidth};
+    width: 100%;
+    max-width: ${Dimension.MaxWidth};
     height: 100vh;
     flex-direction: column;
     padding: 1.0625rem;
@@ -27,7 +28,7 @@ export const Title = styled.div`
 
 export const Desc = styled.div`
     margin-top: 0.3125rem;
-    color: ${Palette.Grey[500]};
+    color: ${Color.grey[500]};
     font-size: 1rem;
     font-weight: 300;
     letter-spacing: 0.006875rem;

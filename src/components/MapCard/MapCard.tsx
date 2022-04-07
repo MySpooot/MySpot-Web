@@ -56,7 +56,7 @@ const MapCard: FC<MapCardProps> = ({ map, onClick }) => {
 
     return (
         <Card>
-            <CardText onClick={() => onClick()}>
+            <CardText onClick={onClick}>
                 <span className='map-title'>{map.mapName}</span>
                 <span className='create-date'>{dateFilter(map.created)}</span>
             </CardText>

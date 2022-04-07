@@ -66,20 +66,19 @@ const MyPage: FC = () => {
         navigate(Path.login);
     }, [navigate]);
 
-    const onChange = useCallback(
-        async (e: ChangeEvent<HTMLInputElement>) => {
-            const img = e.target.files?.[0];
-            if (!img) return;
-            const formData = new FormData();
-            formData.append('file', img);
+    const onChange = useCallback(async (e: ChangeEvent<HTMLInputElement>) => {
+        const img = e.target.files?.[0];
+        if (!img) return;
+        const formData = new FormData();
+        formData.append('file', img);
 
-            const resultThumnail = await createUserImg({ file: formData });
+        const resultThumnail = await createUserImg({ file: formData });
 
+        getMeHelper.setQueryData(me => {
             if (!me) return;
-            getMeHelper.setQueryData(me => ({ ...me, thumbnail: resultThumnail }));
-        },
-        [me]
-    );
+            return { ...me, thumbnail: resultThumnail };
+        });
+    }, []);
 
     const updateNickname = useCallback(() => {
         setNicknamePopup(true);

@@ -1,6 +1,6 @@
 export type GetMeResponse = {
-    id?: number;
-    nickname?: string;
+    id: number;
+    nickname: string;
     thumbnail?: string;
 };
 

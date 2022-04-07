@@ -33,7 +33,7 @@ export const createUserImg = (body: UpdateUserImgBody) => {
     return request<string>({
         method: 'post',
         url: '/user/upload',
-        data: body,
+        data: body.file,
         headers: {
             'Content-Type': 'multipart/form-data'
         }

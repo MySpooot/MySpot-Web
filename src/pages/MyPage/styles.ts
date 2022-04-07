@@ -3,7 +3,7 @@ import { Color } from 'src/Constants';
 
 export const Container = styled.div`
     display: flex;
-    width: 28.125rem;
+    width: 100%;
     height: 100vh;
     flex-direction: column;
 `;
@@ -34,6 +34,7 @@ export const User = styled.div`
 `;
 
 export const InputImg = styled.div`
+    position: relative;
     cursor: pointer;
 
     .mypage-img {
@@ -45,8 +46,8 @@ export const InputImg = styled.div`
     .upload-img {
         position: absolute;
         z-index: 10;
-        top: 10.5%;
-        left: 13%;
+        top: 51.5%;
+        left: 63%;
         width: 1.5rem;
     }
 `;
