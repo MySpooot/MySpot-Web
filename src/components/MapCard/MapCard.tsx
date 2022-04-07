@@ -1,5 +1,4 @@
 import React, { FC, useState, useCallback } from 'react';
-import { useNavigate } from 'react-router';
 import { useMutation } from 'react-query';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Popup } from 'reactjs-popup';
@@ -15,12 +14,11 @@ import remove from 'src/assets/main/ic-remove.svg';
 import circles from 'src/assets/main/ic-vertical-circle.svg';
 
 interface MapCardProps {
-    map: { id: number; mapName: string; isPrivate: boolean; created?: number };
+    map: { id: number; mapName: string; isPrivate: boolean; created?: number; mapId?: number };
+    onClick: () => void;
 }
 
-const MapCard: FC<MapCardProps> = ({ map }) => {
-    const navigate = useNavigate();
-
+const MapCard: FC<MapCardProps> = ({ map, onClick }) => {
     const [privateCode, setPrivateCode] = useState<string>();
 
     const { mutate } = useMutation(() => getPrivateCode({ mapId: map.id }), {
@@ -28,10 +26,6 @@ const MapCard: FC<MapCardProps> = ({ map }) => {
             setPrivateCode(response.code);
         }
     });
-
-    const onCardClick = useCallback(() => {
-        navigate(`${Path.myMap}/${map.id}`);
-    }, [navigate, map]);
 
     const onPopupClick = useCallback(() => {
         if (!map.isPrivate) return;
@@ -62,7 +56,7 @@ const MapCard: FC<MapCardProps> = ({ map }) => {
 
     return (
         <Card>
-            <CardText onClick={onCardClick}>
+            <CardText onClick={onClick}>
                 <span className='map-title'>{map.mapName}</span>
                 <span className='create-date'>{dateFilter(map.created)}</span>
             </CardText>

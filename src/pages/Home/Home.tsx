@@ -45,13 +45,20 @@ const Home: FC = () => {
         [navigate]
     );
 
+    const onClickMap = useCallback(
+        (mapId: number) => {
+            navigate(`${Path.myMap}/${mapId}`);
+        },
+        [navigate]
+    );
+
     return (
         <Container>
             <Main>
                 <Top>
                     <Header>
                         <div className='myspot-title'>my spot</div>
-                        <img className='mypage-img' src={mypage} onClick={goMyPage} />
+                        <img className='mypage-img' src={me?.thumbnail || mypage} onClick={goMyPage} />
                     </Header>
 
                     <User>{me?.nickname}님 안녕하세요!</User>
@@ -79,7 +86,7 @@ const Home: FC = () => {
                     <div className='map-area'>
                         {isMapLoading && <Loading />}
                         {maps?.map((map, idx) => (
-                            <Card key={idx} map={map} />
+                            <Card key={idx} map={map} onClick={() => onClickMap(map.id)} />
                         ))}
                     </div>
                 </Maps>
@@ -91,7 +98,7 @@ const Home: FC = () => {
                     <div className='map-area'>
                         {isFavoriteLoading && <Loading />}
                         {favoriteMaps?.map((map, idx) => (
-                            <Card key={idx} map={map} />
+                            <Card key={idx} map={map} onClick={() => onClickMap(map.mapId)} />
                         ))}
                     </div>
                 </Maps>

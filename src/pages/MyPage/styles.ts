@@ -3,7 +3,7 @@ import { Color } from 'src/Constants';
 
 export const Container = styled.div`
     display: flex;
-    width: 28.125rem;
+    width: 100%;
     height: 100vh;
     flex-direction: column;
 `;
@@ -13,7 +13,7 @@ export const Header = styled.div`
 `;
 export const UserInfo = styled.div`
     display: flex;
-    min-height: 6.25rem;
+    min-height: 8.25rem;
     align-items: center;
     justify-content: space-between;
     padding: 0 1.5rem;
@@ -23,15 +23,32 @@ export const User = styled.div`
     display: flex;
     align-items: center;
 
+    .user-txt {
+        margin-right: 14px;
+        margin-left: 18px;
+    }
+
+    .profile_img {
+        display: none;
+    }
+`;
+
+export const InputImg = styled.div`
+    position: relative;
+    cursor: pointer;
+
     .mypage-img {
         width: 3.375rem;
         height: 3.375rem;
         border-radius: 1.6875rem;
     }
 
-    .user-txt {
-        margin-right: 14px;
-        margin-left: 18px;
+    .upload-img {
+        position: absolute;
+        z-index: 10;
+        top: 51.5%;
+        left: 63%;
+        width: 1.5rem;
     }
 `;
 
@@ -57,15 +74,15 @@ export const LogoutBtn = styled.button`
 
 export const Locations = styled.div`
     display: flex;
-    height: 44.4375rem;
     flex-direction: column;
     padding: 1rem 1.25rem;
     background-color: ${Color.grey[100]};
+    overflow-y: auto;
 `;
 
 export const LocationCard = styled.div`
     display: flex;
-    width: 25.6rem;
+    width: 100%;
     justify-content: space-between;
     padding: 1.25rem 1.125rem;
     margin-bottom: 0.75rem;
