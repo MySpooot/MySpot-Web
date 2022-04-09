@@ -28,6 +28,8 @@ import { version } from '../package.json';
 })();
 
 (() => {
+    if (import.meta.env.VITE_ENV !== 'production') return;
+
     import.meta.env.VITE_APP_GA && ReactGA.initialize(import.meta.env.VITE_APP_GA);
     import.meta.env.VITE_APP_SENTRY_DSN &&
         Sentry.init({
