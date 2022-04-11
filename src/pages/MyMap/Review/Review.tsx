@@ -63,11 +63,21 @@ const Review: FC = () => {
     const { mutate: mutateCreateReply } = useMutation<CreateReplyResponse, unknown, CreateReplyParam & CreateReplyBody>(
         ({ markerId, message }) => createReply({ markerId }, { message }),
         {
-            onSuccess: response => {
+            onMutate() {
                 setMarkerReplies(replies => {
-                    if (!replies) return;
+                    if (!replies || !me || !place) return;
 
-                    return [MarkerReplyVO.from(response), ...replies];
+                    return [
+                        MarkerReplyVO.from({
+                            id: replies[0].id + 1,
+                            created: Date.now(),
+                            userId: me.id,
+                            userNickName: me.nickname,
+                            message: textAreaValue,
+                            markerId: place.id
+                        }),
+                        ...replies
+                    ];
                 });
                 setPlace(place => {
                     if (!place) return;
@@ -86,8 +96,31 @@ const Review: FC = () => {
                     });
                 });
             },
-            onError: error => {
+            onError(error) {
                 console.error(error);
+
+                setMarkerReplies(replies => {
+                    if (!replies) return;
+
+                    return replies.filter((_, index) => index !== 0);
+                });
+
+                setPlace(place => {
+                    if (!place) return;
+
+                    return { ...place, replyCount: place.replyCount - 1 };
+                });
+                getMarkersHelper.setQueryData(Number(mapId), markers => {
+                    if (!markers) return;
+
+                    return markers.map(marker => {
+                        if (marker.kakaoAddressId === Number(kakaoAddressId)) {
+                            return { ...marker, replyCount: marker.replyCount - 1 };
+                        }
+
+                        return marker;
+                    });
+                });
             }
         }
     );
