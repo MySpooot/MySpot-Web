@@ -4,10 +4,10 @@ import { useMutation } from 'react-query';
 import { Popup } from 'reactjs-popup';
 
 import { Container, Wrapper, EqRightIcon, BookMarkIcon, VerticalThreeIcon, DeletePopup, Address, RoadAddress } from './styles';
-import { useMapPlaceOverlayState } from 'src/atoms';
+import { useMapPlaceOverlayState, useMeState } from 'src/atoms';
 import { MapMarkerVO } from 'src/vo';
 import { deleteMarker } from 'src/api';
-import { getMeHelper, getMapDetailHelper, getMarkersHelper } from 'src/query';
+import { getMapDetailHelper, getMarkersHelper } from 'src/query';
 import useMarkerUserAction from 'src/hooks/useMarkerUserAction';
 
 import icEqRight from 'src/assets/mymap/ic_eq_right.svg';
@@ -23,7 +23,7 @@ const PlaceOverlay: FC = () => {
 
     const { onBookmarkClick: onBookmarkClick_ } = useMarkerUserAction(mapId);
 
-    const { data: me } = getMeHelper.useQuery();
+    const { me } = useMeState();
     const { data: mapDetail } = getMapDetailHelper.useQuery(Number(mapId));
 
     const { mutate: fetchDeleteMarker } = useMutation(deleteMarker, {

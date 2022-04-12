@@ -2,20 +2,20 @@ import React, { FC, useCallback, useState, useRef, ChangeEvent } from 'react';
 import { useNavigate } from 'react-router';
 
 import { useMutation, useQuery } from 'react-query';
-import { getMeHelper } from 'src/query';
 import { createUserImg } from 'src/api/auth';
 import { Container, UpdateBtn, UserInfo, LogoutBtn, User, Locations, LocationCard, InputImg } from './styles';
 import HeaderWithLeftArrow from 'src/components/HeaderWithLeftArrow';
 import { Path } from 'src/Constants';
-import { useMyLocationState } from 'src/atoms';
+import { useMeState, useMyLocationState } from 'src/atoms';
 import { getMyLocation, deleteMyLocation } from 'src/api/marker';
+
 import NickNameUpdateModal from 'src/components/NicknameModal';
 
 import mypage from 'src/assets/mypage/user-img.png';
 import camera from 'src/assets/mypage/camera.png';
 
 const MyPage: FC = () => {
-    const { data: me } = getMeHelper.useQuery();
+    const { me, setMe } = useMeState();
     const navigate = useNavigate();
     const { setLocations } = useMyLocationState();
     const [nicknamePopup, setNicknamePopup] = useState(false);
@@ -62,23 +62,26 @@ const MyPage: FC = () => {
 
     const logout = useCallback(() => {
         localStorage.removeItem('token');
-        getMeHelper.setQueryData(undefined);
+        setMe(undefined);
         navigate(Path.login);
-    }, [navigate]);
+    }, [navigate, setMe]);
 
-    const onChange = useCallback(async (e: ChangeEvent<HTMLInputElement>) => {
-        const img = e.target.files?.[0];
-        if (!img) return;
-        const formData = new FormData();
-        formData.append('file', img);
+    const onChange = useCallback(
+        async (e: ChangeEvent<HTMLInputElement>) => {
+            const img = e.target.files?.[0];
+            if (!img) return;
+            const formData = new FormData();
+            formData.append('file', img);
 
-        const resultThumnail = await createUserImg({ file: formData });
+            const resultThumnail = await createUserImg({ file: formData });
 
-        getMeHelper.setQueryData(me => {
-            if (!me) return;
-            return { ...me, thumbnail: resultThumnail };
-        });
-    }, []);
+            setMe(me => {
+                if (!me) return;
+                return { ...me, thumbnail: resultThumnail };
+            });
+        },
+        [setMe]
+    );
 
     const updateNickname = useCallback(() => {
         setNicknamePopup(true);

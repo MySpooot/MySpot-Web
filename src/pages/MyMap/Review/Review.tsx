@@ -25,8 +25,8 @@ import {
 } from './styles';
 import { ReplyItem } from './components';
 import { Path } from 'src/Constants';
-import { useMarkerRepliesState } from 'src/atoms';
-import { getMeHelper, getMarkersHelper } from 'src/query';
+import { useMarkerRepliesState, useMeState } from 'src/atoms';
+import { getMarkersHelper } from 'src/query';
 import { MapMarkerVO, MarkerReplyVO } from 'src/vo';
 import { getReplies, createReply, CreateReplyParam, CreateReplyBody, CreateReplyResponse } from 'src/api';
 import MapDetailFooter from 'src/components/MapDetailFooter';
@@ -39,7 +39,7 @@ const Review: FC = () => {
 
     const { ref, inView } = useInView();
 
-    const { data: me } = getMeHelper.useQuery();
+    const { me } = useMeState();
     const { markerReplies, setMarkerReplies } = useMarkerRepliesState();
 
     const { data: markers } = getMarkersHelper.useQuery(Number(mapId));
