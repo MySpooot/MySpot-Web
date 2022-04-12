@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Container, Top, LikeArea, LikeIcon, BookmarkIcon, Bottom, BackIcon } from './styles';
 import { MapMarkerVO } from 'src/vo';
 import { Path } from 'src/Constants';
-import { getMeHelper } from 'src/query';
+import { useMeState } from 'src/atoms';
 import useMarkerUserAction from 'src/hooks/useMarkerUserAction';
 import Button from 'src/components/Button';
 
@@ -26,7 +26,7 @@ const MapDetailFooter: FC<MapDetailFooterProps> = ({ marker, viewButton }) => {
     const { mapId } = useParams<{ mapId: string }>();
     const navigate = useNavigate();
 
-    const { data: me } = getMeHelper.useQuery();
+    const { me } = useMeState();
     const { onBookmarkClick: onBookmarkClick_, onLikeClick: onLikeClick_ } = useMarkerUserAction(mapId);
 
     const onBookmarkClick = useCallback(() => {

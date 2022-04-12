@@ -6,8 +6,8 @@ import { Map as KakaoMap, MapMarker } from 'react-kakao-maps-sdk';
 import { Container, MapContainer, FavoriteIcon } from './styles';
 import { MapHeader, PlaceOverlay, PlaceListOverlay, PlaceListButton } from './components';
 import { createRecentMap, createFavoriteMap, deleteFavoriteMap } from 'src/api/map';
-import { useMapAccessible } from 'src/atoms';
-import { getMeHelper, getMapDetailHelper, getMarkersHelper } from 'src/query';
+import { useMapAccessible, useMeState } from 'src/atoms';
+import { getMapDetailHelper, getMarkersHelper } from 'src/query';
 import { useMapPlaceOverlayState } from 'src/atoms/mapPlaceOverlay';
 import useKeyPress from 'src/hooks/useKeyPress';
 import Loading from 'src/components/Loading';
@@ -22,7 +22,7 @@ const Map: FC = () => {
 
     const [isOpenPlayListOverlay, setIsOpenPlayListOverlay] = useState(false);
 
-    const { data: me } = getMeHelper.useQuery();
+    const { me } = useMeState();
     const { data: mapDetail } = getMapDetailHelper.useQuery(Number(mapId));
     const { data: markers } = getMarkersHelper.useQuery(Number(mapId));
 

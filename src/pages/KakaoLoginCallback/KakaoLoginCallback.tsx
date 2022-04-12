@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 
 import { Path } from 'src/Constants';
 import { setAccessToken } from 'src/api';
-import { getMeHelper, logInHelper } from 'src/query';
+import { logInHelper } from 'src/query';
+import { useMeState } from 'src/atoms';
 import useQueryString from 'src/hooks/useQueryString';
 import Loading from 'src/components/Loading';
 
@@ -16,7 +17,7 @@ const KakaoLoginCallback: FC = () => {
         error_description: errorDescription
     } = useQueryString<{ code: string; state: string; error: string; error_description: string }>();
 
-    const { data: me } = getMeHelper.useQuery();
+    const { me, setMe } = useMeState();
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     logInHelper.useQuery(code!, {
         enabled: !me && !!code && !!state,
@@ -34,7 +35,7 @@ const KakaoLoginCallback: FC = () => {
 
                     localStorage.setItem('token', data.token);
                     setAccessToken(data.token);
-                    getMeHelper.setQueryData(data);
+                    setMe(data);
                     navigate(Path.home);
 
                     break;
@@ -51,7 +52,7 @@ const KakaoLoginCallback: FC = () => {
         onError: err => {
             console.error(err);
 
-            getMeHelper.setQueryData(undefined);
+            setMe(undefined);
             localStorage.removeItem('token');
 
             alert('Backend Server Error!');

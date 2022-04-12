@@ -4,9 +4,9 @@ import { useQuery } from 'react-query';
 
 import { Main, Top, User, Container, Header, Maps, FloatingWrapper, NewBtn, RecentMap, MapChip } from './styles';
 import { Map, MapType } from './types';
-import { getMaps, getFavoriteMap, getRecentMaps } from 'src/api';
 import { Path } from 'src/Constants';
-import { getMeHelper } from 'src/query';
+import { getMaps, getFavoriteMap, getRecentMaps } from 'src/api';
+import { useMeState } from 'src/atoms';
 import Card from 'src/components/MapCard';
 import Loading from 'src/components/Loading';
 
@@ -17,7 +17,7 @@ import blackarrow from 'src/assets/main/ic-arrow-b.svg';
 const Home: FC = () => {
     const navigate = useNavigate();
 
-    const { data: me } = getMeHelper.useQuery();
+    const { me } = useMeState();
 
     const { data: maps, isLoading: isMapLoading } = useQuery('getMaps', () => getMaps());
     const { data: favoriteMaps, isLoading: isFavoriteLoading } = useQuery('getFavoriteMap', () => getFavoriteMap());

@@ -1,8 +1,8 @@
 import React, { FC, useState, useCallback } from 'react';
 
-import { updateUserNicknameMypage } from 'src/api/auth';
-import { getMeHelper } from 'src/query';
 import { Container, Title, BtnArea } from './styles';
+import { updateUserNicknameMypage } from 'src/api/auth';
+import { useMeState } from 'src/atoms';
 import Modal from 'src/components/Modal';
 import Button from 'src/components/Button';
 import Input from 'src/components/Input';
@@ -11,16 +11,17 @@ interface NicknameProps {
     setClose: () => void;
 }
 const NicknameModal: FC<NicknameProps> = ({ setClose }) => {
+    const { setMe } = useMeState();
     const [inputValue, setInputValue] = useState('');
 
     const saveNickname = useCallback(
         async (value: string) => {
             const me = await updateUserNicknameMypage({ nickname: value });
 
-            getMeHelper.setQueryData(me);
+            setMe(me);
             setClose();
         },
-        [setClose]
+        [setClose, setMe]
     );
 
     return (

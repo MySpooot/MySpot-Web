@@ -7,14 +7,15 @@ import type { JoinState } from './types';
 import type { UpdateUserNicknameResponse, UpdateUserNicknameParams, UpdateUserNicknameBody } from 'src/api';
 import { updateUserNickname } from 'src/api/auth';
 import { Path } from 'src/Constants';
-import { getMeHelper } from 'src/query';
 import { setAccessToken } from 'src/api';
+import { useMeState } from 'src/atoms';
 import Input from 'src/components/Input';
 import Button from 'src/components/Button';
 
 const Join: FC = () => {
     const navigate = useNavigate();
     const { state } = useLocation();
+    const { setMe } = useMeState();
 
     const [nickname, setNickname] = useState('');
 
@@ -24,7 +25,7 @@ const Join: FC = () => {
             onSuccess: me => {
                 localStorage.setItem('token', me.token);
                 setAccessToken(me.token);
-                getMeHelper.setQueryData(me);
+                setMe(me);
                 navigate(Path.home);
             },
             onError: err => {
