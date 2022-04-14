@@ -2,10 +2,12 @@ import React, { FC, useState, useMemo, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { Map as KakaoMap, MapMarker } from 'react-kakao-maps-sdk';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-import { Container, MapContainer, FavoriteIcon } from './styles';
+import { Container, MapContainer, FavoriteIcon, ShareIcon } from './styles';
 import { MapHeader, PlaceOverlay, PlaceListOverlay, PlaceListButton } from './components';
-import { createRecentMap, createFavoriteMap, deleteFavoriteMap } from 'src/api/map';
+import { createRecentMap, createFavoriteMap, deleteFavoriteMap, getPrivateCode } from 'src/api/map';
+import { Path } from 'src/Constants';
 import { useMapAccessible, useMeState } from 'src/atoms';
 import { getMapDetailHelper, getMarkersHelper } from 'src/query';
 import { useMapPlaceOverlayState } from 'src/atoms/mapPlaceOverlay';
@@ -16,6 +18,7 @@ import icFavoriteOn from 'src/assets/mymap/ic_favorite_on.svg';
 import icFavoriteOff from 'src/assets/mymap/ic_favorite_off.svg';
 import icMarker from 'src/assets/mymap/ic_marker.svg';
 import icMarkedMarker from 'src/assets/mymap/ic_marked_marker.svg';
+import icShare from 'src/assets/mymap/ic_share.svg';
 
 const Map: FC = () => {
     const { mapId } = useParams<{ mapId: string }>();
@@ -25,6 +28,10 @@ const Map: FC = () => {
     const { me } = useMeState();
     const { data: mapDetail } = getMapDetailHelper.useQuery(Number(mapId));
     const { data: markers } = getMarkersHelper.useQuery(Number(mapId));
+
+    const { data: privateCode } = useQuery(['getPrivateCode', mapId], () => getPrivateCode({ mapId: Number(mapId) }).then(({ code }) => code), {
+        enabled: !!mapDetail?.isPrivate
+    });
 
     const { mapAccessible } = useMapAccessible();
     const { mapPlaceOverlay, setMapPlaceOverlay } = useMapPlaceOverlayState();
@@ -107,6 +114,12 @@ const Map: FC = () => {
                             {isOpenPlayListOverlay && <PlaceListOverlay close={() => setIsOpenPlayListOverlay(false)} />}
                         </KakaoMap>
                         <FavoriteIcon alt='favorite' src={mapDetail.isFavorite ? icFavoriteOn : icFavoriteOff} onClick={onFavoriteClick} />
+                        <CopyToClipboard
+                            text={`${window.location.origin}${Path.myMap}/${mapId}${privateCode ? `?code=${privateCode}` : ''}`}
+                            onCopy={() => alert('복사 성공')}
+                        >
+                            <ShareIcon src={icShare} />
+                        </CopyToClipboard>
                     </MapContainer>
                 </Container>
             )}

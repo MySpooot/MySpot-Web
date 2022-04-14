@@ -6,7 +6,6 @@ import { Path } from 'src/Constants';
 import HeaderWithLeftArrow from 'src/components/HeaderWithLeftArrow';
 
 import icSearch from 'src/assets/mymap/ic_search.svg';
-import icSetting from 'src/assets/mymap/ic_setting.svg';
 
 type MapHeaderProps = {
     mapName: string;
@@ -25,9 +24,7 @@ const MapHeader: FC<MapHeaderProps> = ({ mapName, showTooltip }) => {
                 <Link to={`${Path.myMap}/${mapId}${Path.search}`}>
                     <HeaderIcon alt='search' src={icSearch} />
                 </Link>
-                <Link to={`${Path.myMap}/${mapId}/setting`}>
-                    <HeaderIcon alt='setting' src={icSetting} style={{ marginLeft: '0.5rem' }} />
-                </Link>
+
                 {showTooltip && openToolTip && (
                     <Tooltip>
                         <h3>이용 Tip</h3>

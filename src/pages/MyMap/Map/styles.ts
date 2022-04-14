@@ -24,7 +24,17 @@ export const FavoriteIcon = styled(Icon)`
     z-index: 11;
     top: 3.5rem;
     left: 0.5rem;
-    width: 1.875rem;
-    height: 1.875rem;
+    width: 3rem;
+    height: 3rem;
+    cursor: pointer;
+`;
+
+export const ShareIcon = styled(Icon)`
+    position: absolute;
+    z-index: 11;
+    top: 7rem;
+    left: 0.5rem;
+    width: 3rem;
+    height: 3rem;
     cursor: pointer;
 `;
