@@ -14,7 +14,6 @@ export const Path = {
     join: '/join',
     myMap: '/map',
     search: '/search',
-    setting: '/setting',
     authKakao: '/auth/kakao',
     myPage: '/mypage',
     mapList: '/maplist',
