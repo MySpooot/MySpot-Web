@@ -1,82 +1,85 @@
-[
-    {
-        "id": 1,
-        "created": 1647064383675,
-        "userId": 2,
-        "userNickName": "nickname",
-        "markerId": 11,
-        "message": "후기 내용"
-    },
-    {
-        "id": 2,
-        "created": 1647064383675,
-        "userId": 2,
-        "userNickName": "nickname2",
-        "markerId": 11,
-        "message": "후기 내용2"
-    },
-    {
-        "id": 3,
-        "created": 1647064383675,
-        "userId": 2,
-        "userNickName": "nickname3",
-        "markerId": 11,
-        "message": "후기 내용3"
-    },
-    {
-        "id": 4,
-        "created": 1647064383675,
-        "userId": 2,
-        "userNickName": "nickname4",
-        "markerId": 11,
-        "message": "후기 내용4"
-    },
-    {
-        "id": 5,
-        "created": 1647064383675,
-        "userId": 2,
-        "userNickName": "nickname5",
-        "markerId": 11,
-        "message": "후기 내용5"
-    },
-    {
-        "id": 6,
-        "created": 1647064383675,
-        "userId": 2,
-        "userNickName": "nickname",
-        "markerId": 11,
-        "message": "후기 내용6"
-    },
-    {
-        "id": 7,
-        "created": 1647064383675,
-        "userId": 2,
-        "userNickName": "nickname",
-        "markerId": 11,
-        "message": "후기 내용7"
-    },
-    {
-        "id": 8,
-        "created": 1647064383675,
-        "userId": 2,
-        "userNickName": "nickname",
-        "markerId": 11,
-        "message": "후기 내용8"
-    },
-    {
-        "id": 9,
-        "created": 1647064383675,
-        "userId": 2,
-        "userNickName": "nickname",
-        "markerId": 11,
-        "message": "후기 내용9"
-    },
-    {
-        "id": 10,
-        "created": 1647064383675,
-        "userId": 2,
-        "userNickName": "nickname",
-        "markerId": 11,
-        "message": "후기 내용10"
-    }
-]
+{
+    "code": 200,
+    "data": [
+        {
+            "id": 1,
+            "created": 1647064383675,
+            "userId": 2,
+            "userNickName": "nickname",
+            "markerId": 11,
+            "message": "후기 내용"
+        },
+        {
+            "id": 2,
+            "created": 1647064383675,
+            "userId": 2,
+            "userNickName": "nickname2",
+            "markerId": 11,
+            "message": "후기 내용2"
+        },
+        {
+            "id": 3,
+            "created": 1647064383675,
+            "userId": 2,
+            "userNickName": "nickname3",
+            "markerId": 11,
+            "message": "후기 내용3"
+        },
+        {
+            "id": 4,
+            "created": 1647064383675,
+            "userId": 2,
+            "userNickName": "nickname4",
+            "markerId": 11,
+            "message": "후기 내용4"
+        },
+        {
+            "id": 5,
+            "created": 1647064383675,
+            "userId": 2,
+            "userNickName": "nickname5",
+            "markerId": 11,
+            "message": "후기 내용5"
+        },
+        {
+            "id": 6,
+            "created": 1647064383675,
+            "userId": 2,
+            "userNickName": "nickname",
+            "markerId": 11,
+            "message": "후기 내용6"
+        },
+        {
+            "id": 7,
+            "created": 1647064383675,
+            "userId": 2,
+            "userNickName": "nickname",
+            "markerId": 11,
+            "message": "후기 내용7"
+        },
+        {
+            "id": 8,
+            "created": 1647064383675,
+            "userId": 2,
+            "userNickName": "nickname",
+            "markerId": 11,
+            "message": "후기 내용8"
+        },
+        {
+            "id": 9,
+            "created": 1647064383675,
+            "userId": 2,
+            "userNickName": "nickname",
+            "markerId": 11,
+            "message": "후기 내용9"
+        },
+        {
+            "id": 10,
+            "created": 1647064383675,
+            "userId": 2,
+            "userNickName": "nickname",
+            "markerId": 11,
+            "message": "후기 내용10"
+        }
+    ]
+}

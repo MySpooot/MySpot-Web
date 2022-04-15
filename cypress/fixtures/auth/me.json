@@ -1,5 +1,8 @@
 {
-    "id": 7,
-    "nickname": "백인재",
-    "thumbnail": "http://k.kakaocdn.net/dn/CKOTn/btrfEm77yMD/0yeOb5spzcu4Edr1c6bwHk/img_110x110.jpg"
+    "code": 200,
+    "data": {
+        "id": 7,
+        "nickname": "백인재",
+        "thumbnail": "http://k.kakaocdn.net/dn/CKOTn/btrfEm77yMD/0yeOb5spzcu4Edr1c6bwHk/img_110x110.jpg"
+    }
 }

@@ -21,11 +21,11 @@ describe('Review: loginUser', () => {
 
         cy.fixture('/marker/replies').then(replies => {
             cy.getByTestId('replyItemNickname').each((el, index) => {
-                cy.wrap(el).should('have.text', replies[index].userNickName);
+                cy.wrap(el).should('have.text', replies.data[index].userNickName);
             });
 
             cy.getByTestId('replyItemContent').each((el, index) => {
-                cy.wrap(el).should('have.text', replies[index].message);
+                cy.wrap(el).should('have.text', replies.data[index].message);
             });
         });
 
@@ -35,12 +35,12 @@ describe('Review: loginUser', () => {
         cy.fixture('/marker/replies2').then(replies => {
             cy.getByTestId('replyItemNickname').each((el, index) => {
                 if (index < 10) return;
-                cy.wrap(el).should('have.text', replies[index - 10].userNickName);
+                cy.wrap(el).should('have.text', replies.data[index - 10].userNickName);
             });
 
             cy.getByTestId('replyItemContent').each((el, index) => {
                 if (index < 10) return;
-                cy.wrap(el).should('have.text', replies[index - 10].message);
+                cy.wrap(el).should('have.text', replies.data[index - 10].message);
             });
         });
 
@@ -50,12 +50,12 @@ describe('Review: loginUser', () => {
         cy.fixture('/marker/replies3').then(replies => {
             cy.getByTestId('replyItemNickname').each((el, index) => {
                 if (index < 20) return;
-                cy.wrap(el).should('have.text', replies[index - 20].userNickName);
+                cy.wrap(el).should('have.text', replies.data[index - 20].userNickName);
             });
 
             cy.getByTestId('replyItemContent').each((el, index) => {
                 if (index < 20) return;
-                cy.wrap(el).should('have.text', replies[index - 20].message);
+                cy.wrap(el).should('have.text', replies.data[index - 20].message);
             });
         });
     });
