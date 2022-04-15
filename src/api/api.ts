@@ -12,7 +12,11 @@ export const request = async <T = unknown>(config: AxiosRequestConfig): Promise<
     try {
         const { data } = await instance(config);
 
-        return data;
+        if (data.code === 200) {
+            return data.data;
+        }
+
+        throw new ApiError(data.code, data.message);
     } catch (err: any) {
         console.error(err);
         Sentry.captureException(err, { tags: { type: 'ApiError' } });
@@ -20,6 +24,17 @@ export const request = async <T = unknown>(config: AxiosRequestConfig): Promise<
         throw new Error(err);
     }
 };
+
+class ApiError extends Error {
+    code: number;
+    message: string;
+
+    constructor(code: number, message: string) {
+        super();
+        this.code = code;
+        this.message = message;
+    }
+}
 
 export const setAccessToken = (token: string) => {
     instance.defaults.headers.common['Authorization'] = token;
