@@ -21,11 +21,11 @@ describe('Review: loginUser', () => {
 
         cy.fixture('/marker/replies').then(replies => {
             cy.getByTestId('replyItemNickname').each((el, index) => {
-                cy.wrap(el).should('have.text', replies[index].userNickName);
+                cy.wrap(el).should('have.text', replies.data[index].userNickName);
             });
 
             cy.getByTestId('replyItemContent').each((el, index) => {
-                cy.wrap(el).should('have.text', replies[index].message);
+                cy.wrap(el).should('have.text', replies.data[index].message);
             });
         });
 
