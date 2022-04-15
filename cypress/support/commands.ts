@@ -5,7 +5,7 @@ Cypress.Commands.add('getByTestId', (id: string, selector: string = '') => cy.ge
 Cypress.Commands.add('setToken', () => {
     localStorage.setItem(
         'token',
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjcsInVzZXJMZXZlbCI6MSwiaWF0IjoxNjQ2NTYwMTEwLCJleHAiOjE2NDkxNTIxMTB9.OqRwlbSMciT_VbCoB_9cPXDf-unph0JV9_-JIOGseU0'
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE0LCJ1c2VyTGV2ZWwiOjEsImlhdCI6MTY0OTc2OTE0MCwiZXhwIjoxNjUyMzYxMTQwfQ.CRTiFxVb9Iw4GknUEC6CmMebb7WL_qwZe6R8PDQiGpU'
     );
 });
 
