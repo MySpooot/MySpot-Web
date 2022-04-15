@@ -60,10 +60,10 @@ export const notLoginUser = () => {
             mapName: 'Cypress Map'
         }
     });
-    cy.intercept(`${BaseUrl}/map/111/marker`, [
-        {
-            code: 200,
-            data: {
+    cy.intercept(`${BaseUrl}/map/111/marker`, {
+        code: 200,
+        data: [
+            {
                 address: '서울 송파구 방이동 89-28',
                 addressId: 21160754,
                 id: 41,
@@ -76,8 +76,8 @@ export const notLoginUser = () => {
                 replyCount: 31,
                 roadAddress: '서울 송파구 양재대로 지하 1233'
             }
-        }
-    ]);
+        ]
+    });
 
     cy.visit('/map/111/review/21160754');
 };
