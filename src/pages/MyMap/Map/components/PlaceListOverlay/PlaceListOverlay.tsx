@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { Container, Wrapper, Top, Total, CloseIcon, PlaceList } from './styles';
+import { Container, Wrapper, Top, Title, Total, CloseIcon, PlaceList } from './styles';
 import { getMarkersHelper } from 'src/query';
 import { PlaceListItem } from 'src/pages/MyMap/Map/components';
 
@@ -37,7 +37,10 @@ const PlaceListOverlay: FC<PlaceListOverlayProps> = ({ close }) => {
         <Container>
             <Wrapper ref={ref}>
                 <Top>
-                    <Total>총 {markers.length}개</Total>
+                    <Title>
+                        장소목록&nbsp;
+                        <Total>{markers.length}개</Total>
+                    </Title>
                     <CloseIcon src={icClose} onClick={close} />
                 </Top>
                 <PlaceList>

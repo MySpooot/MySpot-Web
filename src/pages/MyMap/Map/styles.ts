@@ -22,7 +22,7 @@ export const Map = styled.div`
 export const FavoriteIcon = styled(Icon)`
     position: absolute;
     z-index: 11;
-    top: 3.5rem;
+    top: 5rem;
     left: 0.5rem;
     width: 3rem;
     height: 3rem;
@@ -32,7 +32,7 @@ export const FavoriteIcon = styled(Icon)`
 export const ShareIcon = styled(Icon)`
     position: absolute;
     z-index: 11;
-    top: 7rem;
+    top: 8.25rem;
     left: 0.5rem;
     width: 3rem;
     height: 3rem;

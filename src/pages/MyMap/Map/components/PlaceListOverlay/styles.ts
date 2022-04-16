@@ -22,6 +22,7 @@ export const Wrapper = styled.div`
     bottom: 0;
     width: 100%;
     background-color: ${Color.white};
+    border-radius: 0.75rem 0.75rem 0 0;
 `;
 
 export const Top = styled.div`
@@ -29,6 +30,13 @@ export const Top = styled.div`
     align-items: center;
     justify-content: space-between;
     padding: 0.75rem 1rem;
+`;
+
+export const Title = styled.div`
+    display: flex;
+    font-size: 1.125rem;
+    font-weight: 400;
+    line-height: 1.375rem;
 `;
 
 export const Total = styled.div`

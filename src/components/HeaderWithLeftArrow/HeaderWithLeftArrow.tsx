@@ -10,13 +10,11 @@ type HeaderWithLeftArrowProps = {
     style?: CSSProperties;
 };
 
-const HeaderWithLeftArrow: FC<HeaderWithLeftArrowProps> = ({ children, style, onLeftArrowClick }) => {
-    return (
-        <Container style={style}>
-            <Icon alt='arrowLeft' src={icArrowLeft} style={{ cursor: 'pointer', width: '2.25rem', height: '2.25rem' }} onClick={onLeftArrowClick} />
-            {children}
-        </Container>
-    );
-};
+const HeaderWithLeftArrow: FC<HeaderWithLeftArrowProps> = ({ children, style, onLeftArrowClick }) => (
+    <Container style={style}>
+        <Icon alt='arrowLeft' src={icArrowLeft} style={{ cursor: 'pointer', width: '2.125rem', height: '2.125rem' }} onClick={onLeftArrowClick} />
+        {children}
+    </Container>
+);
 
 export default HeaderWithLeftArrow;

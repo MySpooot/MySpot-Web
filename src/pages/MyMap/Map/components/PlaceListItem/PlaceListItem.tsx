@@ -15,7 +15,8 @@ import {
     RightArea,
     DeleteButton,
     ButtonArea,
-    ButtonWrapper
+    ButtonWrapper,
+    ActiveSpan
 } from './styles';
 import { Path } from 'src/Constants';
 import { MapMarkerVO } from 'src/vo';
@@ -103,11 +104,11 @@ const PlaceListItem: FC<PlaceListItemProps> = ({ place }) => {
                 <ButtonArea>
                     <ButtonWrapper onClick={onLikeClick}>
                         <Icon alt='like' src={place.isLike ? icLikeOn : icLikeOff} />
-                        <span>{place.likeCount}</span>
+                        <ActiveSpan active={place.isLike}>{place.likeCount}</ActiveSpan>
                     </ButtonWrapper>
                     <ButtonWrapper onClick={onCommentClick}>
                         <Icon alt='comment' src={icComment} />
-                        <span>{place.replyCount}</span>
+                        <ActiveSpan>{place.replyCount}</ActiveSpan>
                     </ButtonWrapper>
                 </ButtonArea>
             </RightArea>
