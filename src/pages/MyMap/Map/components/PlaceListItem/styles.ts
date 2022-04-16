@@ -17,14 +17,15 @@ export const Container = styled.li`
 `;
 
 export const AddressName = styled.h3`
-    font-size: 1rem;
-    font-weight: 500;
+    font-size: 1.125rem;
+    font-weight: 400;
+    line-height: 1.375rem;
 `;
 
 export const JibunAddress = styled.div`
     margin-top: 0.25rem;
-    color: #7f7f7f;
-    font-size: 0.75rem;
+    color: ${Color.grey[800]};
+    font-size: 1rem;
 `;
 
 export const RoadAddressWrapper = styled.div`
@@ -39,12 +40,12 @@ export const RoadAddressLabel = styled.div`
     margin-right: 0.25rem;
     border-radius: 0.25rem;
     color: ${Color.grey[400]};
-    font-size: 0.625rem;
+    font-size: 0.75rem;
 `;
 
 export const RoadAddress = styled.div`
-    color: #7f7f7f;
-    font-size: 0.75rem;
+    color: ${Color.grey[600]};
+    font-size: 0.875rem;
 `;
 
 export const LeftArea = styled.div`
@@ -73,8 +74,8 @@ export const DeleteButton = styled.button`
     width: fit-content;
     align-self: flex-end;
     padding: 0.125rem 0.25rem;
-    border: 1px solid #e8e8e8;
-    background-color: #ffffff;
+    border: 1px solid ${Color.grey[200]};
+    background-color: ${Color.white};
     border-radius: 0.25rem;
     color: #9e9e9e;
     font-size: 0.75rem;
@@ -89,12 +90,15 @@ export const ButtonWrapper = styled.div`
     align-items: center;
 
     span {
-        margin-left: 0.25rem;
-        color: ${Color.grey[600]};
-        font-size: 0.5rem;
     }
 
     :first-of-type {
         margin-right: 0.5rem;
     }
+`;
+
+export const ActiveSpan = styled.span<{ active?: boolean }>`
+    margin-left: 0.25rem;
+    color: ${({ active }) => (active ? Color.blue : Color.grey[600])};
+    font-size: 0.875rem;
 `;

@@ -82,48 +82,44 @@ const Map: FC = () => {
         createFavoriteMap({ favoriteMapId: Number(mapId) });
     }, [mapId, mapDetail]);
 
-    if (!mapDetail) {
+    if (!mapDetail || !markers) {
         return <Loading />;
     }
 
     return (
-        <>
-            {mapAccessible && markers && (
-                <Container>
-                    <MapHeader mapName={mapDetail.name} showTooltip={markers.length === 0} />
-                    <MapContainer>
-                        <KakaoMap
-                            center={{ lat: centerLocation.latitude, lng: centerLocation.longitude }}
-                            level={centerLocation.level}
-                            style={{ width: '100%', height: '100%' }}
-                        >
-                            {markers.map((marker, index) => (
-                                <MapMarker
-                                    key={marker.id}
-                                    image={{
-                                        src: marker.isMyLocation ? icMarkedMarker : icMarker,
-                                        size: { height: 40, width: 30 },
-                                        options: { alt: 'marker' }
-                                    }}
-                                    position={{ lat: marker.latitude, lng: marker.longitude }}
-                                    onClick={() => setMapPlaceOverlay(markers[index])}
-                                />
-                            ))}
-                            <PlaceListButton up={!!mapPlaceOverlay} onClick={() => setIsOpenPlayListOverlay(true)} />
-                            {mapPlaceOverlay && <PlaceOverlay />}
-                            {isOpenPlayListOverlay && <PlaceListOverlay close={() => setIsOpenPlayListOverlay(false)} />}
-                        </KakaoMap>
-                        <FavoriteIcon alt='favorite' src={mapDetail.isFavorite ? icFavoriteOn : icFavoriteOff} onClick={onFavoriteClick} />
-                        <CopyToClipboard
-                            text={`${window.location.origin}${Path.myMap}/${mapId}${privateCode ? `?code=${privateCode}` : ''}`}
-                            onCopy={() => alert('복사 성공')}
-                        >
-                            <ShareIcon src={icShare} />
-                        </CopyToClipboard>
-                    </MapContainer>
-                </Container>
-            )}
-        </>
+        <Container>
+            <MapHeader mapName={mapDetail.name} showTooltip={markers.length === 0} />
+            <MapContainer>
+                <KakaoMap
+                    center={{ lat: centerLocation.latitude, lng: centerLocation.longitude }}
+                    level={centerLocation.level}
+                    style={{ width: '100%', height: '100%' }}
+                >
+                    {markers.map((marker, index) => (
+                        <MapMarker
+                            key={marker.id}
+                            image={{
+                                src: marker.isMyLocation ? icMarkedMarker : icMarker,
+                                size: { height: 64, width: 51 },
+                                options: { alt: 'marker' }
+                            }}
+                            position={{ lat: marker.latitude, lng: marker.longitude }}
+                            onClick={() => setMapPlaceOverlay(markers[index])}
+                        />
+                    ))}
+                    <PlaceListButton up={!!mapPlaceOverlay} onClick={() => setIsOpenPlayListOverlay(true)} />
+                    {mapPlaceOverlay && <PlaceOverlay />}
+                    {isOpenPlayListOverlay && <PlaceListOverlay close={() => setIsOpenPlayListOverlay(false)} />}
+                </KakaoMap>
+                <FavoriteIcon alt='favorite' src={mapDetail.isFavorite ? icFavoriteOn : icFavoriteOff} onClick={onFavoriteClick} />
+                <CopyToClipboard
+                    text={`${window.location.origin}${Path.myMap}/${mapId}${privateCode ? `?code=${privateCode}` : ''}`}
+                    onCopy={() => alert('복사 성공')}
+                >
+                    <ShareIcon src={icShare} />
+                </CopyToClipboard>
+            </MapContainer>
+        </Container>
     );
 };
 

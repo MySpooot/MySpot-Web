@@ -4,13 +4,14 @@ import { Color } from 'src/Constants';
 import Icon from 'src/components/Icon';
 
 export const HeaderIcon = styled(Icon)`
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 2.125rem;
+    height: 2.125rem;
     cursor: pointer;
 `;
 
 export const Title = styled.h1`
-    font-weight: bold;
+    font-size: 1.25rem;
+    font-weight: 400;
 `;
 
 export const RightArea = styled.div`
