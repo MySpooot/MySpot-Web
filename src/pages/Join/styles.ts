@@ -20,7 +20,7 @@ export const Description = styled.h3`
     margin-top: 2.5rem;
     font-size: 1.625rem;
     font-weight: 400;
-    line-height: 2.5rem;
+    line-height: 2.25rem;
 `;
 
 export const InputArea = styled.div`

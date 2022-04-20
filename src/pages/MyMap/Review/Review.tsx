@@ -69,7 +69,7 @@ const Review: FC = () => {
 
                     return [
                         MarkerReplyVO.from({
-                            id: replies[0].id + 1,
+                            id: (replies[0]?.id || 0) + 1,
                             created: Date.now(),
                             userId: me.id,
                             userNickName: me.nickname,
