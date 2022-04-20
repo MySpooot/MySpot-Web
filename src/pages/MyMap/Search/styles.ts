@@ -13,6 +13,7 @@ export const Container = styled.div`
 export const Main = styled.ul`
     ${ScrollbarStyle}
     flex-grow: 1;
+    margin-top: 1.875rem;
     overflow-y: auto;
 `;
 

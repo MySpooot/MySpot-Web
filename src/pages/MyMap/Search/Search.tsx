@@ -75,16 +75,17 @@ const Search: FC = () => {
 
     return (
         <Container>
-            <HeaderWithLeftArrow onLeftArrowClick={() => navigate(`${Path.myMap}/${mapId}`)}>
-                <Input
-                    placeholder='검색하실 장소를 입력해 주세요'
-                    value={keyword}
-                    onChange={event => setKeyword(event.target.value)}
-                    onEnterPress={onSearchClick}
-                >
-                    <HeaderIcon src={icSearch} onClick={onSearchClick} />
-                </Input>
-            </HeaderWithLeftArrow>
+            <HeaderWithLeftArrow style={{ flexShrink: 0 }} onLeftArrowClick={() => navigate(`${Path.myMap}/${mapId}`)} />
+            <Input
+                placeholder='검색하실 장소를 입력해 주세요'
+                style={{ margin: '0 1.25rem', width: 'calc(100% - 2.5rem)', flexShrink: 0 }}
+                value={keyword}
+                autoFocus
+                onChange={event => setKeyword(event.target.value)}
+                onEnterPress={onSearchClick}
+            >
+                <HeaderIcon src={icSearch} onClick={onSearchClick} />
+            </Input>
             <Main>
                 {places?.map(place => (
                     <SearchItem key={place.id} activeAddButton={!!mapDetail?.isOwner} place={place} onAddClick={() => onAddPlaceClick(place)} />
