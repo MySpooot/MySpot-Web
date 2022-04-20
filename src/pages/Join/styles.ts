@@ -12,15 +12,15 @@ export const Container = styled.div`
 export const Title = styled.h1`
     margin-top: 3.125rem;
     color: ${Color.blue};
-    line-height: 1.375rem;
     font-weight: 400;
+    line-height: 1.375rem;
 `;
 
 export const Description = styled.h3`
     margin-top: 2.5rem;
     font-size: 1.625rem;
-    line-height: 2.5rem;
     font-weight: 400;
+    line-height: 2.5rem;
 `;
 
 export const InputArea = styled.div`
