@@ -63,19 +63,17 @@ const Join: FC = () => {
 
     return (
         <Container>
-            <Title>가입하기</Title>
-            <Description>닉네임을 입력하고 회원가입을 완료하세요</Description>
+            <div>my spot</div>
+            <Title>회원가입</Title>
+            <Description>
+                마이스팟에 가입하고
+                <br />
+                나만의 지도를 공유하세요.
+            </Description>
             <InputArea>
-                <Input
-                    maxLength={12}
-                    placeholder='닉네임을 입력하세요'
-                    style={{ marginBottom: '0.5rem' }}
-                    type='text'
-                    value={nickname}
-                    onChange={onNicknameChange}
-                />
-                <Button type='primary' onClick={onJoinClick}>
-                    회원가입
+                <Input maxLength={12} placeholder='닉네임을 입력하세요' type='text' value={nickname} onChange={onNicknameChange} />
+                <Button style={{ marginTop: '1.5rem' }} type='primary' onClick={onJoinClick}>
+                    완료
                 </Button>
             </InputArea>
         </Container>

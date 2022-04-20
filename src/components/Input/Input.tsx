@@ -23,7 +23,7 @@ const Input: FC<InputProps> = ({ fullWidth = true, onEnterPress, style, children
 const Container = styled.div<{ fullWidth: boolean }>`
     display: flex;
     width: ${({ fullWidth }) => (fullWidth ? '100%' : 'auto')};
-    height: 3rem;
+    height: 3.75rem;
     align-items: center;
     padding: 0.5rem 0.75rem;
     border: 1px solid ${Color.grey[300]};
