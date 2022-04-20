@@ -1,27 +1,30 @@
 import styled from '@emotion/styled';
 
+import { Color } from 'src/Constants';
+
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    justify-content: center;
-    padding: 0 2.5rem;
+    padding: 1.375rem 1.625rem;
 `;
 
 export const Title = styled.h1`
-    margin-bottom: 1.5rem;
-    font-size: 2rem;
-    font-weight: bold;
-    text-align: center;
+    margin-top: 3.125rem;
+    color: ${Color.blue};
+    font-weight: 400;
+    line-height: 1.375rem;
 `;
 
 export const Description = styled.h3`
-    margin-bottom: 2rem;
-    font-size: 0.875rem;
-    text-align: center;
+    margin-top: 2.5rem;
+    font-size: 1.625rem;
+    font-weight: 400;
+    line-height: 2.5rem;
 `;
 
 export const InputArea = styled.div`
     display: flex;
     flex-direction: column;
+    margin-top: 3.5rem;
 `;
