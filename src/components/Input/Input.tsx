@@ -1,4 +1,4 @@
-import React, { FC, InputHTMLAttributes } from 'react';
+import React, { FC, InputHTMLAttributes, useEffect } from 'react';
 import styled from '@emotion/styled';
 
 import { Color } from 'src/Constants';
@@ -7,10 +7,17 @@ import useKeyPress from 'src/hooks/useKeyPress';
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
     fullWidth?: boolean;
     onEnterPress?: () => void;
+    autoFocus?: boolean;
 }
 
-const Input: FC<InputProps> = ({ fullWidth = true, onEnterPress, style, children, ...props }) => {
+const Input: FC<InputProps> = ({ fullWidth = true, onEnterPress, autoFocus, style, children, ...props }) => {
     const { keyPressRef } = useKeyPress<HTMLInputElement>('Enter', () => onEnterPress?.(), { runOnlyFocusedElement: true });
+
+    useEffect(() => {
+        if (!autoFocus || !keyPressRef.current) return;
+
+        keyPressRef.current.focus();
+    }, [autoFocus, keyPressRef]);
 
     return (
         <Container fullWidth={fullWidth} style={style}>
