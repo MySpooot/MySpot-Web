@@ -1,12 +1,11 @@
 import React, { FC, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { Container, Top, LikeArea, LikeIcon, BookmarkIcon, Bottom, BackIcon } from './styles';
+import { Container, Top, LikeArea, LikeIcon, BookmarkIcon, Bottom, BackIcon, RoundedBackButton, RoundedViewButton } from './styles';
 import { MapMarkerVO } from 'src/vo';
 import { Path } from 'src/Constants';
 import { useMeState } from 'src/atoms';
 import useMarkerUserAction from 'src/hooks/useMarkerUserAction';
-import Button from 'src/components/Button';
 
 import icArrowLeft from 'src/assets/mymap/ic_arrow_left.svg';
 import icBookmark from 'src/assets/mymap/ic_bookmark.svg';
@@ -44,19 +43,17 @@ const MapDetailFooter: FC<MapDetailFooterProps> = ({ marker, viewButton }) => {
     return (
         <Container>
             <Top>
-                <LikeArea onClick={onLikeClick}>
+                <LikeArea on={marker.isLike} onClick={onLikeClick}>
                     <LikeIcon src={marker.isLike ? icLikeOn : icLikeOff} />
                     <div className='count'>{marker.likeCount}</div>
                 </LikeArea>
                 <BookmarkIcon src={marker.isMyLocation ? icMarkedBookmark : icBookmark} onClick={onBookmarkClick} />
             </Top>
             <Bottom>
-                <Button fullWidth={false} style={{ width: '3rem', marginRight: '0.625rem' }} onClick={() => navigate(`${Path.myMap}/${mapId}`)}>
+                <RoundedBackButton onClick={() => navigate(`${Path.myMap}/${mapId}`)}>
                     <BackIcon src={icArrowLeft} />
-                </Button>
-                <Button type='bordered' onClick={viewButton.onClick}>
-                    {viewButton.text}
-                </Button>
+                </RoundedBackButton>
+                <RoundedViewButton onClick={viewButton.onClick}>{viewButton.text}</RoundedViewButton>
             </Bottom>
         </Container>
     );
