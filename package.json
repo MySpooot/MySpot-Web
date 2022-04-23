@@ -1,6 +1,6 @@
 {
     "name": "myspot",
-    "version": "0.1.10",
+    "version": "0.1.11",
     "private": true,
     "scripts": {
         "start": "vite",
@@ -66,6 +66,7 @@
         "eslint-plugin-prettier": "^4.0.0",
         "eslint-plugin-react": "^7.26.1",
         "eslint-plugin-react-hooks": "^4.2.0",
+        "optionator": "^0.9.1",
         "postcss-safe-parser": "4.0.2",
         "prettier": "^2.4.1",
         "stylelint": "^13.13.1",
@@ -75,6 +76,7 @@
         "stylelint-order": "^5.0.0",
         "typescript": "^4.5.4",
         "vite": "^2.9.1",
+        "vite-plugin-checker": "^0.4.6",
         "vite-plugin-html-env": "^1.1.1"
     },
     "browserslist": {
