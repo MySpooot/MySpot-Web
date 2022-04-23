@@ -1,6 +1,8 @@
 export const BreakPoint = {
     PC: '@media (min-width: 768px)', // PC, Tablet
-    Phone: '@media (max-width: 768px)'
+    Phone: '@media (max-width: 768px)',
+    BelowThanTablet: '@media (max-width: 1000px)',
+    GreaterThanTablet: '@media (min-width: 1000px)'
 } as const;
 
 export const Dimension = {

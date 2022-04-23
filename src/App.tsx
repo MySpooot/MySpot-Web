@@ -4,11 +4,14 @@ import { pageview, set } from 'react-ga';
 import styled from '@emotion/styled';
 import Div100vh from '@rodmg/react-div-100vh';
 
-import { Dimension, Path } from './Constants';
+import { BreakPoint, Dimension, Path } from './Constants';
 import GlobalStyle from 'src/components/GlobalStyle';
 import Loading from 'src/components/Loading';
 import { useMeState } from './atoms';
 import { getMe, setAccessToken } from './api';
+
+import backgroundImage from 'src/assets/img_background.jpg';
+import useMediaQuery from './hooks/useMediaQuery';
 
 const Login = lazy(() => import('src/pages/Login'));
 const Join = lazy(() => import('src/pages/Join'));
@@ -26,6 +29,7 @@ const NewMap = lazy(() => import('src/pages/NewMap'));
 
 const App: FC = () => {
     const location = useLocation();
+    const { isBelowThanTablet } = useMediaQuery();
 
     const { me, setMe } = useMeState();
     const [isLoading, setIsLoading] = useState(true);
@@ -55,44 +59,50 @@ const App: FC = () => {
 
     if (isLoading) {
         return (
-            <AppContainer>
-                <GlobalStyle />
-                <Loading />
-            </AppContainer>
+            <>
+                <AppContainer>
+                    <GlobalStyle />
+                    <Loading />
+                </AppContainer>
+                {!isBelowThanTablet && <Background src={backgroundImage} />}
+            </>
         );
     }
 
     return (
-        <AppContainer>
-            <GlobalStyle />
-            <Suspense fallback={<Loading />}>
-                <Routes>
-                    {me ? (
-                        <>
-                            <Route element={<Home />} path={Path.home} />
-                            <Route element={<MyPage />} path={Path.myPage}>
-                                <Route element={<LocationDetail />} path={':kakaoAddressId'} />
-                            </Route>
-                            <Route element={<MapList />} path={Path.mapList} />
-                            <Route element={<NewMap />} path={Path.newMap} />
-                        </>
-                    ) : (
-                        <>
-                            <Route element={<Login />} path={Path.login} />
-                            <Route element={<Join />} path={Path.join} />
-                        </>
-                    )}
-                    <Route element={<MyMap />} path={Path.myMap}>
-                        <Route element={<Map />} path=':mapId' />
-                        <Route element={<Search />} path={`:mapId${Path.search}`} />
-                        <Route element={<KakaoDetail />} path={':mapId/kakao/:kakaoAddressId'} />
-                        <Route element={<Review />} path={':mapId/review/:kakaoAddressId'} />
-                    </Route>
-                    <Route element={<KakaoLoginCallback />} path={Path.authKakao} />
-                    <Route element={<Navigate to={me ? Path.home : Path.login} replace />} path='*' />
-                </Routes>
-            </Suspense>
-        </AppContainer>
+        <>
+            <AppContainer>
+                <GlobalStyle />
+                <Suspense fallback={<Loading />}>
+                    <Routes>
+                        {me ? (
+                            <>
+                                <Route element={<Home />} path={Path.home} />
+                                <Route element={<MyPage />} path={Path.myPage}>
+                                    <Route element={<LocationDetail />} path={':kakaoAddressId'} />
+                                </Route>
+                                <Route element={<MapList />} path={Path.mapList} />
+                                <Route element={<NewMap />} path={Path.newMap} />
+                            </>
+                        ) : (
+                            <>
+                                <Route element={<Login />} path={Path.login} />
+                                <Route element={<Join />} path={Path.join} />
+                            </>
+                        )}
+                        <Route element={<MyMap />} path={Path.myMap}>
+                            <Route element={<Map />} path=':mapId' />
+                            <Route element={<Search />} path={`:mapId${Path.search}`} />
+                            <Route element={<KakaoDetail />} path={':mapId/kakao/:kakaoAddressId'} />
+                            <Route element={<Review />} path={':mapId/review/:kakaoAddressId'} />
+                        </Route>
+                        <Route element={<KakaoLoginCallback />} path={Path.authKakao} />
+                        <Route element={<Navigate to={me ? Path.home : Path.login} replace />} path='*' />
+                    </Routes>
+                </Suspense>
+            </AppContainer>
+            {!isBelowThanTablet && <Background src={backgroundImage} />}
+        </>
     );
 };
 
@@ -106,4 +116,18 @@ const AppContainer = styled(Div100vh)`
     flex-direction: column;
     margin: auto;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
+
+    ${BreakPoint.GreaterThanTablet} {
+        transform: translateX(12.5rem);
+    }
+`;
+
+const Background = styled.img`
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 `;
