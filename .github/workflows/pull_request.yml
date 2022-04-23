@@ -38,13 +38,13 @@ jobs:
                   envkey_VITE_APP_KAKAO_KEY: ${{ secrets.VITE_APP_KAKAO_KEY }}
                   file_name: .env
 
-            - name: Run Cypress
-              uses: cypress-io/github-action@v2
-              with:
-                  command: yarn e2e
-                  start: yarn start
-                  wait-on: 'http://localhost:3000'
-                  wait-on-timeout: 180
+            # - name: Run Cypress
+            #   uses: cypress-io/github-action@v2
+            #   with:
+            #       command: yarn e2e
+            #       start: yarn start
+            #       wait-on: 'http://localhost:3000'
+            #       wait-on-timeout: 180
 
             - name: Build
               run: yarn build:prod
