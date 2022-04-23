@@ -100,7 +100,7 @@ const Map: FC = () => {
                             key={marker.id}
                             image={{
                                 src: marker.isMyLocation ? icMarkedMarker : icMarker,
-                                size: { height: 64, width: 51 },
+                                size: { height: 57, width: 46 },
                                 options: { alt: 'marker' }
                             }}
                             position={{ lat: marker.latitude, lng: marker.longitude }}
