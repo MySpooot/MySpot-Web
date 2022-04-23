@@ -36,10 +36,10 @@ const NicknameModal: FC<NicknameProps> = ({ setClose }) => {
                     onChange={event => setInputValue(event.target.value)}
                 />
                 <BtnArea>
-                    <Button className='btn-half' onClick={setClose}>
+                    <Button className='btn-half' popup onClick={setClose}>
                         닫기
                     </Button>
-                    <Button className='btn-half' type='primary' onClick={() => saveNickname(inputValue)}>
+                    <Button className='btn-half' type='primary' popup onClick={() => saveNickname(inputValue)}>
                         저장하기
                     </Button>
                 </BtnArea>

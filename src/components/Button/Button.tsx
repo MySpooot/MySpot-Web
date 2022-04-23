@@ -4,29 +4,26 @@ import { css } from '@emotion/react';
 
 import { Color } from 'src/Constants';
 
-interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'type'> {
-    type?: 'primary' | 'bordered' | 'default';
-    fullWidth?: boolean;
-}
+type ButtonType = 'primary' | 'bordered' | 'default';
+type Props = { type?: ButtonType; popup?: boolean; rounded?: boolean; fullWidth?: boolean };
+interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'type'>, Props {}
 
-const Button: FC<ButtonProps> = ({ type = 'default', fullWidth = true, children, ...props }) => (
-    <Container fullWidth={fullWidth} type_={type} {...props}>
+const Button: FC<ButtonProps> = ({ type = 'default', popup = false, rounded = false, fullWidth = true, children, ...props }) => (
+    <Container fullWidth={fullWidth} popup={popup} rounded={rounded} type_={type} {...props}>
         {children}
     </Container>
 );
 
-const Container = styled.button<{ type_: 'primary' | 'bordered' | 'default'; fullWidth: boolean }>`
+const Container = styled.button<Required<Omit<Props, 'type'>> & { type_: ButtonType }>`
     display: flex;
     width: ${({ fullWidth }) => (fullWidth ? '100%' : 'auto')};
-    height: 3rem;
+    height: ${({ popup }) => (popup ? '3.375rem' : '4.125rem')};
     align-items: center;
     justify-content: center;
     padding: 0.75rem;
-    border-radius: 0.25rem;
+    border-radius: ${({ rounded }) => (rounded ? '2.8125rem' : '0.25rem')};
     font-size: 1rem;
     font-weight: 500;
-    letter-spacing: 0.11px;
-    line-height: 2;
     user-select: none;
 
     ${props => {
@@ -44,7 +41,7 @@ const Container = styled.button<{ type_: 'primary' | 'bordered' | 'default'; ful
                 `;
             default:
                 return css`
-                    background-color: none;
+                    background-color: ${Color.white};
                     color: ${Color.grey[600]};
                     border: 1px solid ${Color.grey[300]};
                 `;

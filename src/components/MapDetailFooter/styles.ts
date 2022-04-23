@@ -1,11 +1,13 @@
 import styled from '@emotion/styled';
 
-import { Color } from 'src/Constants';
+import { Color, Dimension } from 'src/Constants';
 import Icon from 'src/components/Icon';
 
 export const Container = styled.footer`
-    position: relative;
+    position: absolute;
+    bottom: 0;
     display: flex;
+    width: ${Dimension.MaxWidth};
     box-sizing: border-box;
     flex-direction: column;
 `;
@@ -59,21 +61,7 @@ export const BackIcon = styled(Icon)`
     height: 2.375rem;
 `;
 
-export const RoundedBackButton = styled.button`
-    width: 4.1875rem;
-    height: 4.1875rem;
-    padding: 0.875rem;
-    border: 1px solid ${Color.grey[300]};
-    border-radius: 2.25rem;
-`;
-export const RoundedViewButton = styled.button`
-    flex-grow: 1;
-    padding: 1rem;
-    border: 1px solid ${Color.grey[300]};
-    margin-left: 1rem;
-    border-radius: 2.25rem;
+export const ButtonText = styled.span`
     color: ${Color.blue};
     font-size: 1.125rem;
-    font-weight: 400;
-    line-height: 2rem;
 `;
