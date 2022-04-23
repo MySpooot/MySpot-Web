@@ -6,7 +6,7 @@ import path from 'path';
 
 export default defineConfig({
     build: { outDir: 'build' },
-    plugins: [reactRefresh(), htmlEnvPlugin(), checker({ typescript: true, eslint: { lintCommand: 'eslint --ext ts,tsx ./' }, overlay: false })],
+    plugins: [reactRefresh(), htmlEnvPlugin(), checker({ typescript: true, eslint: { lintCommand: 'eslint --ext .ts,.tsx' }, overlay: false })],
     resolve: {
         alias: {
             src: path.resolve(__dirname, './src')
