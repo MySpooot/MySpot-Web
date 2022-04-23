@@ -1,11 +1,12 @@
 import React, { FC, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { Container, Top, LikeArea, LikeIcon, BookmarkIcon, Bottom, BackIcon, RoundedBackButton, RoundedViewButton } from './styles';
+import { Container, Top, LikeArea, LikeIcon, BookmarkIcon, Bottom, BackIcon, ButtonText } from './styles';
 import { MapMarkerVO } from 'src/vo';
 import { Path } from 'src/Constants';
 import { useMeState } from 'src/atoms';
 import useMarkerUserAction from 'src/hooks/useMarkerUserAction';
+import Button from 'src/components/Button';
 
 import icArrowLeft from 'src/assets/mymap/ic_arrow_left.svg';
 import icBookmark from 'src/assets/mymap/ic_bookmark.svg';
@@ -50,10 +51,12 @@ const MapDetailFooter: FC<MapDetailFooterProps> = ({ marker, viewButton }) => {
                 <BookmarkIcon src={marker.isMyLocation ? icMarkedBookmark : icBookmark} onClick={onBookmarkClick} />
             </Top>
             <Bottom>
-                <RoundedBackButton onClick={() => navigate(`${Path.myMap}/${mapId}`)}>
+                <Button fullWidth={false} rounded onClick={() => navigate(`${Path.myMap}/${mapId}`)}>
                     <BackIcon src={icArrowLeft} />
-                </RoundedBackButton>
-                <RoundedViewButton onClick={viewButton.onClick}>{viewButton.text}</RoundedViewButton>
+                </Button>
+                <Button style={{ marginLeft: '1rem' }} rounded onClick={viewButton.onClick}>
+                    <ButtonText>{viewButton.text}</ButtonText>
+                </Button>
             </Bottom>
         </Container>
     );

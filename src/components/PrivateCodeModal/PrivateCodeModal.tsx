@@ -40,7 +40,7 @@ const PrivateCodeModal: FC = () => {
                     onChange={event => setInputValue(event.target.value)}
                     onEnterPress={() => !isButtonDisabled && fetchCheckPrivateCode()}
                 />
-                <Button disabled={isButtonDisabled} type='primary' onClick={() => fetchCheckPrivateCode()}>
+                <Button disabled={isButtonDisabled} type='primary' popup onClick={() => fetchCheckPrivateCode()}>
                     입력완료
                 </Button>
             </Container>
