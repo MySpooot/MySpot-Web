@@ -13,7 +13,7 @@ export const Container = styled.button<{ up: boolean }>`
     box-sizing: border-box;
     align-items: center;
     justify-content: space-between;
-    padding: 0.5rem 0.875rem;
+    padding: 0.5rem 1.25rem;
     border: 1px solid ${Color.grey[200]};
     background-color: ${Color.white};
     border-radius: 2.75rem;
@@ -27,6 +27,6 @@ export const ButtonText = styled.div`
 `;
 
 export const ListIcon = styled(Icon)`
-    width: 1.875rem;
-    height: 1.875rem;
+    width: 1.375rem;
+    height: 1.375rem;
 `;

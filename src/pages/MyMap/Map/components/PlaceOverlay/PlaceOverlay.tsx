@@ -91,59 +91,65 @@ const PlaceOverlay: FC = () => {
     return (
         <Container data-testid='placeOverlay' onClick={onPlaceOverlayClick}>
             <Wrapper>
-                <BookMarkIcon
-                    src={mapPlaceOverlay.isMyLocation ? icMarkedBookmark : icBookmark}
-                    onClick={event => {
-                        event.stopPropagation();
-                        onBookMarkClick(mapPlaceOverlay);
-                    }}
-                />
-                <div style={{ flexGrow: 1 }}>
-                    <div className='title'>
-                        <PlaceName>{mapPlaceOverlay.name}</PlaceName>
-                        {mapDetail?.isOwner && (
-                            <Popup
-                                on='click'
-                                position='bottom right'
-                                trigger={
-                                    <VerticalThreeIcon src={icDotThree} onClick={(event: MouseEvent<HTMLImageElement>) => event.stopPropagation()} />
-                                }
-                                closeOnDocumentClick
-                            >
-                                {() => <DeletePopup onClick={onDeleteClick}>삭제</DeletePopup>}
-                            </Popup>
+                <div style={{ display: 'flex' }}>
+                    <BookMarkIcon
+                        src={mapPlaceOverlay.isMyLocation ? icMarkedBookmark : icBookmark}
+                        onClick={event => {
+                            event.stopPropagation();
+                            onBookMarkClick(mapPlaceOverlay);
+                        }}
+                    />
+                    <div style={{ flexGrow: 1 }}>
+                        <div className='title'>
+                            <PlaceName>{mapPlaceOverlay.name}</PlaceName>
+                            {mapDetail?.isOwner && (
+                                <Popup
+                                    on='click'
+                                    position='bottom right'
+                                    trigger={
+                                        <VerticalThreeIcon
+                                            src={icDotThree}
+                                            onClick={(event: MouseEvent<HTMLImageElement>) => event.stopPropagation()}
+                                        />
+                                    }
+                                    closeOnDocumentClick
+                                >
+                                    {() => <DeletePopup onClick={onDeleteClick}>삭제</DeletePopup>}
+                                </Popup>
+                            )}
+                        </div>
+                        <Address data-testid='address'>{mapPlaceOverlay.address}</Address>
+                        {mapPlaceOverlay.roadAddress && (
+                            <RoadAddress>
+                                <div className='label'>지번</div>
+                                <div data-testid='roadAddress'>{mapPlaceOverlay.roadAddress}</div>
+                            </RoadAddress>
                         )}
                     </div>
-                    <Address data-testid='address'>{mapPlaceOverlay.address}</Address>
-                    {mapPlaceOverlay.roadAddress && (
-                        <RoadAddress>
-                            <div className='label'>지번</div>
-                            <div data-testid='roadAddress'>{mapPlaceOverlay.roadAddress}</div>
-                        </RoadAddress>
-                    )}
-                    <ButtonArea>
-                        <Icon
-                            src={mapPlaceOverlay.isLike ? icLikeOn : icLikeOff}
-                            style={{ cursor: 'pointer', width: '1.75rem', height: '1.75rem' }}
-                            onClick={event => {
-                                event.stopPropagation();
-                                onLikeClick();
-                            }}
-                        />
-                        <ActiveSpan active={mapPlaceOverlay.isLike} style={{ marginRight: '0.875rem' }}>
-                            {mapPlaceOverlay.likeCount}
-                        </ActiveSpan>
-                        <Icon
-                            src={icComment}
-                            style={{ cursor: 'pointer', width: '1.75rem', height: '1.75rem' }}
-                            onClick={event => {
-                                event.stopPropagation();
-                                navigate(`${Path.myMap}/${mapId}/review/${mapPlaceOverlay.kakaoAddressId}`);
-                            }}
-                        />
-                        <ActiveSpan>{mapPlaceOverlay.replyCount}</ActiveSpan>
-                    </ButtonArea>
                 </div>
+
+                <ButtonArea>
+                    <Icon
+                        src={mapPlaceOverlay.isLike ? icLikeOn : icLikeOff}
+                        style={{ cursor: 'pointer', width: '1.75rem', height: '1.75rem' }}
+                        onClick={event => {
+                            event.stopPropagation();
+                            onLikeClick();
+                        }}
+                    />
+                    <ActiveSpan active={mapPlaceOverlay.isLike} style={{ marginRight: '0.875rem' }}>
+                        {mapPlaceOverlay.likeCount}
+                    </ActiveSpan>
+                    <Icon
+                        src={icComment}
+                        style={{ cursor: 'pointer', width: '1.75rem', height: '1.75rem' }}
+                        onClick={event => {
+                            event.stopPropagation();
+                            navigate(`${Path.myMap}/${mapId}/review/${mapPlaceOverlay.kakaoAddressId}`);
+                        }}
+                    />
+                    <ActiveSpan>{mapPlaceOverlay.replyCount}</ActiveSpan>
+                </ButtonArea>
             </Wrapper>
         </Container>
     );

@@ -4,7 +4,6 @@ import { useMutation } from 'react-query';
 
 import {
     Container,
-    LeftArea,
     BookmarkIcon,
     CenterArea,
     AddressName,
@@ -12,10 +11,10 @@ import {
     RoadAddressWrapper,
     RoadAddressLabel,
     RoadAddress,
-    RightArea,
     DeleteButton,
     ButtonArea,
     ButtonWrapper,
+    PlaceActionIcon,
     ActiveSpan
 } from './styles';
 import { Path } from 'src/Constants';
@@ -23,7 +22,6 @@ import { MapMarkerVO } from 'src/vo';
 import useMarkerUserAction from 'src/hooks/useMarkerUserAction';
 import { deleteMarker } from 'src/api';
 import { getMapDetailHelper, getMarkersHelper } from 'src/query';
-import Icon from 'src/components/Icon';
 
 import icBookmark from 'src/assets/mymap/ic_bookmark.svg';
 import icMarkedBookmark from 'src/assets/mymap/ic_marked_bookmark.svg';
@@ -82,36 +80,32 @@ const PlaceListItem: FC<PlaceListItemProps> = ({ place }) => {
 
     return (
         <Container>
-            <LeftArea>
+            <div style={{ display: 'flex' }}>
                 <BookmarkIcon alt='bookmark' src={place.isMyLocation ? icMarkedBookmark : icBookmark} onClick={event => onBookmarkClick(event)} />
-            </LeftArea>
-            <CenterArea onClick={onPlaceClick}>
-                <AddressName>{place.name}</AddressName>
-                <div>
-                    <div className='adress'>
-                        {place.address && <JibunAddress>{place.address}</JibunAddress>}
-                        {place.roadAddress && (
-                            <RoadAddressWrapper>
-                                <RoadAddressLabel>지번</RoadAddressLabel>
-                                <RoadAddress>{place.roadAddress}</RoadAddress>
-                            </RoadAddressWrapper>
-                        )}
+                <CenterArea onClick={onPlaceClick}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <AddressName>{place.name}</AddressName>
+                        {mapDetail?.isOwner && <DeleteButton onClick={onDeleteClick}>삭제</DeleteButton>}
                     </div>
-                </div>
-            </CenterArea>
-            <RightArea>
-                {mapDetail?.isOwner && <DeleteButton onClick={onDeleteClick}>삭제</DeleteButton>}
-                <ButtonArea>
-                    <ButtonWrapper onClick={onLikeClick}>
-                        <Icon alt='like' src={place.isLike ? icLikeOn : icLikeOff} />
-                        <ActiveSpan active={place.isLike}>{place.likeCount}</ActiveSpan>
-                    </ButtonWrapper>
-                    <ButtonWrapper onClick={onCommentClick}>
-                        <Icon alt='comment' src={icComment} />
-                        <ActiveSpan>{place.replyCount}</ActiveSpan>
-                    </ButtonWrapper>
-                </ButtonArea>
-            </RightArea>
+                    {place.address && <JibunAddress>{place.address}</JibunAddress>}
+                    {place.roadAddress && (
+                        <RoadAddressWrapper>
+                            <RoadAddressLabel>지번</RoadAddressLabel>
+                            <RoadAddress>{place.roadAddress}</RoadAddress>
+                        </RoadAddressWrapper>
+                    )}
+                </CenterArea>
+            </div>
+            <ButtonArea>
+                <ButtonWrapper onClick={onLikeClick}>
+                    <PlaceActionIcon alt='like' src={place.isLike ? icLikeOn : icLikeOff} />
+                    <ActiveSpan active={place.isLike}>{place.likeCount}</ActiveSpan>
+                </ButtonWrapper>
+                <ButtonWrapper onClick={onCommentClick}>
+                    <PlaceActionIcon alt='comment' src={icComment} />
+                    <ActiveSpan>{place.replyCount}</ActiveSpan>
+                </ButtonWrapper>
+            </ButtonArea>
         </Container>
     );
 };
