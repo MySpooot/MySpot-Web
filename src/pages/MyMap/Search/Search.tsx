@@ -1,5 +1,5 @@
 import React, { FC, useState, useCallback } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, Navigate } from 'react-router-dom';
 import { useMutation } from 'react-query';
 
 import { Container, Main, HeaderIcon } from './styles';
@@ -72,6 +72,10 @@ const Search: FC = () => {
         },
         [mapId, mapDetail?.isOwner, fetchCreateMarker, markers]
     );
+
+    if (!mapDetail?.isOwner) {
+        return <Navigate to={`${Path.myMap}/${mapId}`} />;
+    }
 
     return (
         <Container>

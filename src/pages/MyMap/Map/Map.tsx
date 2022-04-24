@@ -88,7 +88,7 @@ const Map: FC = () => {
 
     return (
         <Container>
-            <MapHeader mapName={mapDetail.name} showTooltip={markers.length === 0} />
+            <MapHeader />
             <MapContainer>
                 <KakaoMap
                     center={{ lat: centerLocation.latitude, lng: centerLocation.longitude }}
