@@ -21,6 +21,7 @@ export const Wrapper = styled.div`
     position: absolute;
     bottom: 0;
     width: 100%;
+    padding: 1.875rem 0;
     background-color: ${Color.white};
     border-radius: 0.75rem 0.75rem 0 0;
 `;
@@ -29,7 +30,7 @@ export const Top = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0.75rem 1rem;
+    padding: 0 1.25rem 1.5rem;
 `;
 
 export const Title = styled.div`
@@ -56,4 +57,9 @@ export const PlaceList = styled.ul`
     min-height: 20rem;
     max-height: 35rem;
     flex-direction: column;
+`;
+
+export const NoPlace = styled.div`
+    margin: 10rem 0;
+    text-align: center;
 `;

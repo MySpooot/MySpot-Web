@@ -17,7 +17,8 @@ export const Wrapper = styled.div`
     width: calc(100% - 2rem);
     height: 9.625rem;
     box-sizing: border-box;
-    justify-content: flex-start;
+    flex-direction: column;
+    justify-content: space-between;
     padding: 1.5rem 1.25rem;
     margin: 0 1rem;
     background-color: ${Color.white};
@@ -39,9 +40,9 @@ export const PlaceName = styled.h3`
 `;
 
 export const BookMarkIcon = styled(Icon)`
-    width: 1.5rem;
-    height: 1.5rem;
-    margin-right: 0.375rem;
+    width: 1.375rem;
+    height: 1.75rem;
+    margin-right: 1.125rem;
 `;
 
 export const VerticalThreeIcon = styled(Icon)`
@@ -78,6 +79,7 @@ export const RoadAddress = styled.div`
         border: 1px solid ${Color.grey[300]};
         margin-right: 0.25rem;
         border-radius: 0.25rem;
+        font-size: 0.6875rem;
         line-height: 130%;
     }
 `;

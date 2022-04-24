@@ -24,13 +24,13 @@ export const Tooltip = styled.div`
     z-index: 11;
     top: 0;
     display: flex;
-    width: 10rem;
+    width: 14rem;
     flex-direction: column;
     padding: 1rem 0.75rem;
     background-color: ${Color.blue};
     border-radius: 0.25rem;
     color: ${Color.white};
-    transform: translate(-70%, 70%);
+    transform: translate(-77.5%, 60%);
 
     :before {
         position: absolute;
@@ -44,25 +44,27 @@ export const Tooltip = styled.div`
     }
 
     h3 {
-        font-size: 0.75rem;
-        font-weight: 500;
+        font-size: 0.875rem;
+        font-weight: 400;
         line-height: 1.5;
     }
 `;
 
 export const TooltipDescription = styled.div`
-    font-size: 0.625rem;
+    margin-top: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 400;
     line-height: 1.3;
 `;
 
 export const TooltipButton = styled.button`
     width: fit-content;
     align-self: flex-end;
-    padding: 0.125rem 0.625rem;
+    padding: 0.25rem 0.875rem;
     margin-top: 0.5rem;
     background-color: ${Color.white};
     border-radius: 0.125rem;
     color: ${Color.blue};
-    font-size: 0.625rem;
+    font-size: 0.75rem;
     line-height: 1.3;
 `;

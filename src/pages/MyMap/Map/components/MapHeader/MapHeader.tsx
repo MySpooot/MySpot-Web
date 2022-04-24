@@ -31,7 +31,7 @@ const MapHeader: FC<MapHeaderProps> = ({ mapName, showTooltip }) => {
                         <TooltipDescription>
                             저장되어 있는 장소가 없어요!
                             <br />
-                            나만의 장소를 추가해 보세요.
+                            검색으로 나만의 장소를 추가해 보세요.
                         </TooltipDescription>
 
                         <TooltipButton onClick={() => setOpenToolTip(false)}>확인</TooltipButton>
