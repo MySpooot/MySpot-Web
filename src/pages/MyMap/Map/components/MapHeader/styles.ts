@@ -51,10 +51,10 @@ export const Tooltip = styled.div`
 `;
 
 export const TooltipDescription = styled.div`
-    font-size: 0.75rem;
-    line-height: 1.3;
     margin-top: 0.5rem;
+    font-size: 0.75rem;
     font-weight: 400;
+    line-height: 1.3;
 `;
 
 export const TooltipButton = styled.button`

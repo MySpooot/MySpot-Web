@@ -7,10 +7,9 @@ export const Container = styled.li`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 0 2rem;
+    padding: 1.25rem;
     border-bottom: 1px solid ${Color.grey[200]};
     cursor: pointer;
-    padding: 1.25rem;
 
     &:hover {
         opacity: 0.7;

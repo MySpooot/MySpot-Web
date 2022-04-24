@@ -14,10 +14,10 @@ export const Container = styled.div`
 
 export const Wrapper = styled.div`
     display: flex;
-    flex-direction: column;
     width: calc(100% - 2rem);
     height: 9.625rem;
     box-sizing: border-box;
+    flex-direction: column;
     justify-content: space-between;
     padding: 1.5rem 1.25rem;
     margin: 0 1rem;
@@ -77,9 +77,9 @@ export const RoadAddress = styled.div`
     .label {
         padding: 0 0.25rem;
         border: 1px solid ${Color.grey[300]};
-        font-size: 0.6875rem;
         margin-right: 0.25rem;
         border-radius: 0.25rem;
+        font-size: 0.6875rem;
         line-height: 130%;
     }
 `;

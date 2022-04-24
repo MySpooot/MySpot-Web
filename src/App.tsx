@@ -4,7 +4,7 @@ import * as ReactGA from 'react-ga';
 import styled from '@emotion/styled';
 import Div100vh from '@rodmg/react-div-100vh';
 
-import { BreakPoint, Dimension, Path } from 'src/Constants';
+import { BreakPoint, Color, Dimension, Path } from 'src/Constants';
 import { useMeState } from 'src/atoms';
 import { getMe, setAccessToken } from 'src/api';
 import useMediaQuery from 'src/hooks/useMediaQuery';
@@ -107,6 +107,7 @@ const AppContainer = styled(Div100vh)`
     max-width: ${Dimension.MaxWidth};
     flex-direction: column;
     margin: auto;
+    background-color: ${Color.white};
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
 
     ${BreakPoint.GreaterThanTablet} {

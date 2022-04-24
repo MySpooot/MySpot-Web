@@ -21,9 +21,9 @@ export const Wrapper = styled.div`
     position: absolute;
     bottom: 0;
     width: 100%;
+    padding: 1.875rem 0;
     background-color: ${Color.white};
     border-radius: 0.75rem 0.75rem 0 0;
-    padding: 1.875rem 0;
 `;
 
 export const Top = styled.div`
@@ -60,6 +60,6 @@ export const PlaceList = styled.ul`
 `;
 
 export const NoPlace = styled.div`
-    text-align: center;
     margin: 10rem 0;
+    text-align: center;
 `;
