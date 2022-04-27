@@ -24,6 +24,7 @@ const Map: FC = () => {
     const { mapId } = useParams<{ mapId: string }>();
 
     const [isOpenPlayListOverlay, setIsOpenPlayListOverlay] = useState(false);
+    const [mapLevel, setMapLevel] = useState(5);
 
     const { me } = useMeState();
     const { data: mapDetail } = getMapDetailHelper.useQuery(Number(mapId));
@@ -44,15 +45,30 @@ const Map: FC = () => {
 
     const centerLocation = useMemo(() => {
         if (!markers?.length) {
-            return { level: 5, latitude: 37.516, longitude: 127.13 };
+            return { latitude: 37.516, longitude: 127.13 };
         }
 
         if (mapPlaceOverlay) {
-            return { level: 5, latitude: mapPlaceOverlay.latitude, longitude: mapPlaceOverlay.longitude };
+            return { latitude: mapPlaceOverlay.latitude, longitude: mapPlaceOverlay.longitude };
         }
 
-        return { level: 5, latitude: markers[0].latitude, longitude: markers[0].longitude };
+        return { latitude: markers[0].latitude, longitude: markers[0].longitude };
     }, [markers, mapPlaceOverlay]);
+
+    const markerSize = useMemo(() => {
+        if (mapLevel >= 6 && mapLevel < 8) {
+            return { width: 46.8, height: 45.6 };
+        }
+
+        if (mapLevel >= 8 && mapLevel <= 10) {
+            return { width: 27.6, height: 34.2 };
+        }
+
+        return {
+            width: 46,
+            height: 57.5
+        };
+    }, [mapLevel]);
 
     const onFavoriteClick = useCallback(() => {
         if (!mapDetail) return;
@@ -92,15 +108,18 @@ const Map: FC = () => {
             <MapContainer>
                 <KakaoMap
                     center={{ lat: centerLocation.latitude, lng: centerLocation.longitude }}
-                    level={centerLocation.level}
+                    level={mapLevel}
+                    maxLevel={10}
+                    minLevel={2}
                     style={{ width: '100%', height: '100%' }}
+                    onZoomChanged={map => setMapLevel(map.getLevel())}
                 >
                     {markers.map((marker, index) => (
                         <MapMarker
                             key={marker.id}
                             image={{
                                 src: marker.isMyLocation ? icMarkedMarker : icMarker,
-                                size: { height: 57, width: 46 },
+                                size: markerSize,
                                 options: { alt: 'marker' }
                             }}
                             position={{ lat: marker.latitude, lng: marker.longitude }}
