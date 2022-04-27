@@ -9,6 +9,7 @@ import { getMapDetailHelper, getMarkersHelper } from 'src/query';
 import { createMarker, CreateMarkerBody, CreateMarkerParam, CreateMarkerResponse } from 'src/api/marker';
 import useSearchPlace, { Place } from 'src/hooks/useSearchPlace';
 import HeaderWithLeftArrow from 'src/components/HeaderWithLeftArrow';
+import FilledLoading from 'src/components/FilledLoading';
 import Input from 'src/components/Input';
 
 import icSearch from 'src/assets/mymap/ic_search.svg';
@@ -23,6 +24,7 @@ const Search: FC = () => {
     const { places, searchPlaces } = useSearchPlace();
 
     const [keyword, setKeyword] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
 
     const onSearchClick = useCallback(() => {
         searchPlaces(keyword);
@@ -31,6 +33,7 @@ const Search: FC = () => {
     const { mutate: fetchCreateMarker } = useMutation<CreateMarkerResponse, unknown, CreateMarkerParam & CreateMarkerBody>(
         ({ mapId, ...body }) => createMarker({ mapId }, body),
         {
+            onMutate: () => setIsLoading(true),
             onSuccess: response => {
                 alert('추가되었습니다.');
 
@@ -54,7 +57,8 @@ const Search: FC = () => {
                 });
 
                 navigate(`${Path.myMap}/${mapId}`);
-            }
+            },
+            onSettled: () => setIsLoading(false)
         }
     );
 
@@ -62,9 +66,9 @@ const Search: FC = () => {
         (place: Place) => {
             if (!mapDetail?.isOwner) return;
 
-            const isAllreadyAdded = markers?.some(marker => marker.kakaoAddressId === Number(place.addressId));
+            const isAlreadyAdded = markers?.some(marker => marker.kakaoAddressId === Number(place.addressId));
 
-            if (isAllreadyAdded) {
+            if (isAlreadyAdded) {
                 return alert('이미 추가된 장소입니다.');
             }
 
@@ -91,10 +95,11 @@ const Search: FC = () => {
                 <HeaderIcon src={icSearch} onClick={onSearchClick} />
             </Input>
             <Main>
-                {places?.map(place => (
-                    <SearchItem key={place.id} activeAddButton={!!mapDetail?.isOwner} place={place} onAddClick={() => onAddPlaceClick(place)} />
+                {places?.map((place, index) => (
+                    <SearchItem key={index} activeAddButton={!!mapDetail?.isOwner} place={place} onAddClick={() => onAddPlaceClick(place)} />
                 ))}
             </Main>
+            {isLoading && <FilledLoading />}
         </Container>
     );
 };
