@@ -15,7 +15,6 @@ export const Container = styled.div`
 export const Wrapper = styled.div`
     display: flex;
     width: calc(100% - 2rem);
-    height: 9.625rem;
     box-sizing: border-box;
     flex-direction: column;
     justify-content: space-between;
@@ -75,6 +74,7 @@ export const RoadAddress = styled.div`
     line-height: 1.125rem;
 
     .label {
+        flex-shrink: 0;
         padding: 0 0.25rem;
         border: 1px solid ${Color.grey[300]};
         margin-right: 0.25rem;

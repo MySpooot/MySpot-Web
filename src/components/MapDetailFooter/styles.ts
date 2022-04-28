@@ -7,7 +7,8 @@ export const Container = styled.footer`
     position: absolute;
     bottom: 0;
     display: flex;
-    width: ${Dimension.MaxWidth};
+    width: 100%;
+    max-width: ${Dimension.MaxWidth};
     box-sizing: border-box;
     flex-direction: column;
 `;
