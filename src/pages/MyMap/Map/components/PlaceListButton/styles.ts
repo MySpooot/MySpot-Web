@@ -4,10 +4,6 @@ import { Color } from 'src/Constants';
 import Icon from 'src/components/Icon';
 
 export const Container = styled.button<{ up: boolean }>`
-    position: absolute;
-    z-index: 11;
-    bottom: ${({ up }) => (up ? '12rem' : '3rem')};
-    left: 1rem;
     display: flex;
     width: 8.5rem;
     box-sizing: border-box;
@@ -15,10 +11,10 @@ export const Container = styled.button<{ up: boolean }>`
     justify-content: space-between;
     padding: 0.5rem 1.25rem;
     border: 1px solid ${Color.grey[200]};
+    margin-bottom: ${({ up }) => (up ? '0.75rem' : '1.75rem')};
     background-color: ${Color.white};
     border-radius: 2.75rem;
     box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.1);
-    cursor: pointer;
 `;
 
 export const ButtonText = styled.div`

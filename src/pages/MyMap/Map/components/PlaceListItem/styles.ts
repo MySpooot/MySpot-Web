@@ -35,6 +35,7 @@ export const RoadAddressWrapper = styled.div`
 `;
 
 export const RoadAddressLabel = styled.div`
+    flex-shrink: 0;
     padding: 0.125rem 0.25rem;
     border: 1px solid ${Color.grey[200]};
     margin-right: 0.25rem;
@@ -61,6 +62,8 @@ export const BookmarkIcon = styled(Icon)`
 `;
 
 export const DeleteButton = styled.button`
+    flex-shrink: 0;
+    align-self: flex-start;
     color: ${Color.grey[400]};
     font-size: 0.875rem;
     font-weight: 400;
@@ -69,6 +72,7 @@ export const DeleteButton = styled.button`
 export const ButtonArea = styled.div`
     display: flex;
     justify-content: flex-end;
+    margin-top: 0.5rem;
 `;
 
 export const ButtonWrapper = styled.div`
