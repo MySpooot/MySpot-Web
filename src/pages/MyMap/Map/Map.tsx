@@ -4,7 +4,7 @@ import { useQuery } from 'react-query';
 import { Map as KakaoMap, MapMarker } from 'react-kakao-maps-sdk';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-import { Container, MapContainer, FavoriteIcon, ShareIcon } from './styles';
+import { Container, MapContainer, FavoriteIcon, ShareIcon, OverlayContainer } from './styles';
 import { MapHeader, PlaceOverlay, PlaceListOverlay, PlaceListButton } from './components';
 import { createRecentMap, createFavoriteMap, deleteFavoriteMap, getPrivateCode } from 'src/api/map';
 import { Path } from 'src/Constants';
@@ -126,9 +126,14 @@ const Map: FC = () => {
                             onClick={() => setMapPlaceOverlay(markers[index])}
                         />
                     ))}
-                    <PlaceListButton up={!!mapPlaceOverlay} onClick={() => setIsOpenPlayListOverlay(true)} />
-                    {mapPlaceOverlay && <PlaceOverlay />}
-                    {isOpenPlayListOverlay && <PlaceListOverlay close={() => setIsOpenPlayListOverlay(false)} />}
+                    {isOpenPlayListOverlay ? (
+                        <PlaceListOverlay close={() => setIsOpenPlayListOverlay(false)} />
+                    ) : (
+                        <OverlayContainer>
+                            <PlaceListButton up={!!mapPlaceOverlay} onClick={() => setIsOpenPlayListOverlay(true)} />
+                            {mapPlaceOverlay && <PlaceOverlay />}
+                        </OverlayContainer>
+                    )}
                 </KakaoMap>
                 <FavoriteIcon alt='favorite' src={mapDetail.isFavorite ? icFavoriteOn : icFavoriteOff} onClick={onFavoriteClick} />
                 <CopyToClipboard

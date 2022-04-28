@@ -9,13 +9,11 @@ type PlaceListButtonProps = {
     onClick: () => void;
 };
 
-const PlaceListButton: FC<PlaceListButtonProps> = ({ up, onClick }) => {
-    return (
-        <Container up={up} onClick={onClick}>
-            <ListIcon src={icList} />
-            <ButtonText>장소목록</ButtonText>
-        </Container>
-    );
-};
+const PlaceListButton: FC<PlaceListButtonProps> = ({ up, onClick }) => (
+    <Container up={up} onClick={onClick}>
+        <ListIcon src={icList} />
+        <ButtonText>장소목록</ButtonText>
+    </Container>
+);
 
 export default PlaceListButton;

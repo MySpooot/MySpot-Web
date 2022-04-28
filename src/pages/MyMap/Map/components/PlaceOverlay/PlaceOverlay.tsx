@@ -3,7 +3,19 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useMutation } from 'react-query';
 import { Popup } from 'reactjs-popup';
 
-import { Container, Wrapper, PlaceName, BookMarkIcon, VerticalThreeIcon, DeletePopup, Address, RoadAddress, ButtonArea, ActiveSpan } from './styles';
+import {
+    Container,
+    Wrapper,
+    PlaceName,
+    BookMarkIcon,
+    VerticalThreeIcon,
+    DeletePopup,
+    Address,
+    RoadAddress,
+    RoadAddressName,
+    ButtonArea,
+    ActiveSpan
+} from './styles';
 import { Path } from 'src/Constants';
 import { useMapPlaceOverlayState, useMeState } from 'src/atoms';
 import { MapMarkerVO } from 'src/vo';
@@ -122,7 +134,7 @@ const PlaceOverlay: FC = () => {
                         {mapPlaceOverlay.roadAddress && (
                             <RoadAddress>
                                 <div className='label'>지번</div>
-                                <div data-testid='roadAddress'>{mapPlaceOverlay.roadAddress}</div>
+                                <RoadAddressName data-testid='roadAddress'>{mapPlaceOverlay.roadAddress}</RoadAddressName>
                             </RoadAddress>
                         )}
                     </div>

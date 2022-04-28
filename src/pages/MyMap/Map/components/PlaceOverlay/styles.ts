@@ -4,22 +4,17 @@ import { Color } from 'src/Constants';
 import Icon from 'src/components/Icon';
 
 export const Container = styled.div`
-    position: absolute;
-    z-index: 11;
-    bottom: 1.875rem;
     width: 100%;
+    margin-bottom: 1.75rem;
     cursor: pointer;
-    transition: bottom 0.5s;
 `;
 
 export const Wrapper = styled.div`
     display: flex;
-    width: calc(100% - 2rem);
     box-sizing: border-box;
     flex-direction: column;
     justify-content: space-between;
     padding: 1.5rem 1.25rem;
-    margin: 0 1rem;
     background-color: ${Color.white};
     border-radius: 0.625rem;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
@@ -47,6 +42,7 @@ export const BookMarkIcon = styled(Icon)`
 export const VerticalThreeIcon = styled(Icon)`
     width: 1.25rem;
     height: 1.25rem;
+    align-self: flex-start;
     margin-left: auto;
 `;
 
@@ -70,8 +66,6 @@ export const RoadAddress = styled.div`
     align-items: center;
     margin-top: 0.25rem;
     color: ${Color.grey[600]};
-    font-size: 0.875rem;
-    line-height: 1.125rem;
 
     .label {
         flex-shrink: 0;
@@ -84,10 +78,16 @@ export const RoadAddress = styled.div`
     }
 `;
 
+export const RoadAddressName = styled.div`
+    font-size: 0.875rem;
+    line-height: 1.125rem;
+`;
+
 export const ButtonArea = styled.div`
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    margin-top: 0.5rem;
 `;
 
 export const ActiveSpan = styled.span<{ active?: boolean }>`
