@@ -15,6 +15,7 @@ export const Container = styled.div`
 export const Wrapper = styled.div`
     display: flex;
     width: calc(100% - 2rem);
+    height: 9.625rem;
     box-sizing: border-box;
     flex-direction: column;
     justify-content: space-between;
@@ -63,6 +64,10 @@ export const Address = styled.div`
     color: ${Color.grey[600]};
     font-size: 1rem;
     line-height: 1.25rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 17rem;
 `;
 
 export const RoadAddress = styled.div`
@@ -71,10 +76,8 @@ export const RoadAddress = styled.div`
     margin-top: 0.25rem;
     color: ${Color.grey[600]};
     font-size: 0.875rem;
-    line-height: 1.125rem;
 
     .label {
-        flex-shrink: 0;
         padding: 0 0.25rem;
         border: 1px solid ${Color.grey[300]};
         margin-right: 0.25rem;
@@ -82,6 +85,14 @@ export const RoadAddress = styled.div`
         font-size: 0.6875rem;
         line-height: 130%;
     }
+`;
+
+export const RoadAddressName = styled.div`
+    line-height: 1.125rem;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 `;
 
 export const ButtonArea = styled.div`
