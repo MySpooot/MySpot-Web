@@ -4,7 +4,7 @@ import { Color, Dimension } from 'src/Constants';
 import Icon from 'src/components/Icon';
 
 export const Container = styled.footer`
-    position: absolute;
+    position: fixed;
     bottom: 0;
     display: flex;
     width: 100%;

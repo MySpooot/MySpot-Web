@@ -40,6 +40,7 @@ const Review: FC = () => {
     const { ref, inView } = useInView();
 
     const { me } = useMeState();
+
     const { markerReplies, setMarkerReplies } = useMarkerRepliesState();
 
     const { data: markers } = getMarkersHelper.useQuery(Number(mapId));
@@ -48,7 +49,7 @@ const Review: FC = () => {
     const [textAreaValue, setTextAreaValue] = useState('');
     const [replyOffset, setReplyOffset] = useState(0);
 
-    const { fetchNextPage, isFetchingNextPage } = useInfiniteQuery(
+    const { fetchNextPage, isFetchingNextPage, remove } = useInfiniteQuery(
         ['getReplies', place?.id],
         ({ pageParam }) => getReplies({ markerId: Number(place?.id) }, { offset: pageParam?.offset ?? 0 }),
         {
@@ -124,6 +125,13 @@ const Review: FC = () => {
             }
         }
     );
+
+    useEffect(() => {
+        return () => {
+            setMarkerReplies(undefined);
+            remove();
+        };
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
         if (inView && !isFetchingNextPage && (markerReplies?.length || 0) < (place?.replyCount ?? 0) && replyOffset < (place?.replyCount ?? 0)) {

@@ -54,12 +54,11 @@ export const PlaceList = styled.ul`
     ${ScrollbarStyle}
     display: flex;
     overflow: auto;
-    min-height: 20rem;
-    max-height: 35rem;
+    height: 20rem;
     flex-direction: column;
 `;
 
 export const NoPlace = styled.div`
-    margin: 10rem 0;
+    margin: 7.5rem 0;
     text-align: center;
 `;
