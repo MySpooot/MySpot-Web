@@ -90,8 +90,6 @@ export const RecentMap = styled.div`
         color: #fff;
         letter-spacing: 0.0075rem;
         line-height: 0.89;
-        padding: 20px;
-        align-items: center;
 
         .title {
             font-size: 1.125rem;

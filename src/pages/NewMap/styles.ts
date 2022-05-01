@@ -67,6 +67,7 @@ export const ButtonArea = styled.div`
     display: flex;
     justify-content: space-between;
     margin-top: auto;
+
     Button {
         height: 4.125rem;
         color: #7f7f7f;
