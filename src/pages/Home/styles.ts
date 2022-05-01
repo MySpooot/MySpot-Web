@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import { Color, Dimension } from 'src/Constants';
+import { Color } from 'src/Constants';
 
 export const Container = styled.div`
     display: flex;
@@ -72,7 +72,6 @@ export const User = styled.div`
     color: #fff;
     font-size: 1.25rem;
     font-weight: 400;
-    letter-spacing: 0.1647060066461563px;
     line-height: 1.625rem;
 
     .user-img {
@@ -91,11 +90,12 @@ export const RecentMap = styled.div`
         color: #fff;
         letter-spacing: 0.0075rem;
         line-height: 0.89;
+        padding: 20px;
+        align-items: center;
 
         .title {
             font-size: 1.125rem;
             font-weight: 700;
-            letter-spacing: 0.12352950125932693px;
             line-height: 1.25rem;
             text-align: left;
         }
@@ -107,7 +107,6 @@ export const RecentMap = styled.div`
             cursor: pointer;
             font-size: 0.875rem;
             font-weight: 400;
-            letter-spacing: 0.1647060066461563px;
             line-height: 1.625rem;
             text-align: right;
 
@@ -149,7 +148,6 @@ export const MapChip = styled.div`
     cursor: pointer;
     font-size: 1rem;
     font-weight: 400;
-    letter-spacing: 0.09607850015163422px;
     line-height: 1rem;
     text-align: center;
 `;
@@ -217,7 +215,6 @@ export const Maps = styled.div`
             font-size: 0.875rem;
             letter-spacing: 0.00625rem;
             line-height: 1.14;
-
             img {
                 width: 1.125rem;
                 height: 1.25rem;

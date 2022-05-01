@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import { Color, Dimension } from 'src/Constants';
+import { Dimension } from 'src/Constants';
 
 export const Container = styled.div`
     position: absolute;
@@ -67,7 +67,6 @@ export const ButtonArea = styled.div`
     display: flex;
     justify-content: space-between;
     margin-top: auto;
-
     Button {
         height: 4.125rem;
         color: #7f7f7f;
