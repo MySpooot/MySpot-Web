@@ -19,6 +19,7 @@ const Home = lazy(() => import('src/pages/Home'));
 const MyMap = lazy(() => import('src/pages/MyMap'));
 const Map = lazy(() => import('src/pages/MyMap/Map'));
 const Search = lazy(() => import('src/pages/MyMap/Search'));
+const SearchDetail = lazy(() => import('src/pages/MyMap/Search/SearchDetail'));
 const KakaoDetail = lazy(() => import('src/pages/MyMap/Kakao'));
 const LocationDetail = lazy(() => import('src/pages/MyPage/Kakao'));
 const Review = lazy(() => import('src/pages/MyMap/Review'));
@@ -84,6 +85,7 @@ const App: FC = () => {
                             <Route element={<MyMap />} path={Path.myMap}>
                                 <Route element={<Map />} path=':mapId' />
                                 <Route element={<Search />} path={`:mapId${Path.search}`} />
+                                <Route element={<SearchDetail />} path=':mapId/search/:kakaoAddressId' />
                                 <Route element={<KakaoDetail />} path=':mapId/kakao/:kakaoAddressId' />
                                 <Route element={<Review />} path=':mapId/review/:kakaoAddressId' />
                             </Route>
