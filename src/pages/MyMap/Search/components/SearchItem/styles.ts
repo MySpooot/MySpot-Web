@@ -7,6 +7,7 @@ export const Container = styled.li`
     align-items: center;
     padding: 1.25rem 1rem;
     border-bottom: 1px solid ${Color.grey[100]};
+    cursor: pointer;
 `;
 
 export const Info = styled.div`
@@ -46,4 +47,8 @@ export const AddButton = styled.button`
     border-radius: 0.25rem;
     color: ${Color.grey[600]};
     font-size: 0.875rem;
+
+    :hover {
+        opacity: 0.7;
+    }
 `;
