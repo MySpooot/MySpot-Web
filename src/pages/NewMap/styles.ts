@@ -17,11 +17,11 @@ export const Container = styled.div`
 `;
 
 export const Main = styled.div`
-    padding: 1.25rem;
-    height: calc(100vh - 9.5rem);
     display: flex;
+    height: calc(100vh - 9.5rem);
     flex-direction: column;
     justify-content: space-between;
+    padding: 1.25rem;
 `;
 
 export const Title = styled.div`
@@ -36,8 +36,8 @@ export const Desc = styled.div`
     margin-bottom: 2.75rem;
     color: #000000;
     font-size: 1.625rem;
-    line-height: 2.25rem;
     font-weight: 500;
+    line-height: 2.25rem;
 `;
 
 export const InputArea = styled.div`
@@ -45,8 +45,8 @@ export const InputArea = styled.div`
     flex-direction: column;
 
     input {
-        font-weight: 400;
         font-size: 1rem;
+        font-weight: 400;
         line-height: 1.25rem;
     }
 
@@ -57,16 +57,17 @@ export const InputArea = styled.div`
 `;
 
 export const ClickPrivate = styled.div`
-    cursor: pointer;
     display: flex;
-    alignitems: center;
     width: fit-content;
+    alignitems: center;
+    cursor: pointer;
 `;
 
 export const ButtonArea = styled.div`
     display: flex;
     justify-content: space-between;
     margin-top: auto;
+
     Button {
         height: 4.125rem;
         color: #7f7f7f;

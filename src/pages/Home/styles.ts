@@ -67,13 +67,13 @@ export const WelcomeSection = styled.div`
 export const User = styled.div`
     display: flex;
     height: 8rem;
+    align-items: center;
+    padding: 2.5rem 1.2rem;
     color: #fff;
     font-size: 1.25rem;
     font-weight: 400;
-    line-height: 1.625rem;
     letter-spacing: 0.1647060066461563px;
-    padding: 2.5rem 1.2rem;
-    align-items: center;
+    line-height: 1.625rem;
 
     .user-img {
         width: 2.875rem;
@@ -85,31 +85,31 @@ export const User = styled.div`
 export const RecentMap = styled.div`
     .section-title {
         display: flex;
+        align-items: center;
         justify-content: space-between;
+        padding: 20px;
         color: #fff;
         letter-spacing: 0.0075rem;
         line-height: 0.89;
-        padding: 20px;
-        align-items: center;
 
         .title {
             font-size: 1.125rem;
             font-weight: 700;
-            line-height: 1.25rem;
             letter-spacing: 0.12352950125932693px;
+            line-height: 1.25rem;
             text-align: left;
         }
 
         .more-map {
             display: flex;
             align-items: center;
+            color: #aee2ff;
             cursor: pointer;
             font-size: 0.875rem;
             font-weight: 400;
-            line-height: 1.625rem;
             letter-spacing: 0.1647060066461563px;
+            line-height: 1.625rem;
             text-align: right;
-            color: #aee2ff;
 
             img {
                 width: 1.125rem;
@@ -121,10 +121,9 @@ export const RecentMap = styled.div`
 
 export const MapArea = styled.div`
     display: flex;
+    overflow: auto;
     flex-wrap: nowrap;
     margin: 0 1.25rem 1rem 1.25rem;
-    overflow: scroll;
-    overflow: auto;
     white-space: nowrap;
 
     &::-webkit-scrollbar {
@@ -132,8 +131,8 @@ export const MapArea = styled.div`
     }
 
     .no-recent-map {
-        color: #88cbff;
         margin-bottom: 1.25rem;
+        color: #88cbff;
     }
 `;
 
@@ -141,19 +140,18 @@ export const MapChip = styled.div`
     display: flex;
     width: fit-content;
     align-items: center;
+    padding: 0.75rem 0.875rem;
     margin-right: 0.375rem;
     margin-bottom: 0.375rem;
     background-color: #fff;
     border-radius: 1.125rem;
     color: #7f7f7f;
     cursor: pointer;
-    font-size: 0.875rem;
     font-size: 1rem;
     font-weight: 400;
-    line-height: 1rem;
     letter-spacing: 0.09607850015163422px;
+    line-height: 1rem;
     text-align: center;
-    padding: 0.75rem 0.875rem;
 `;
 
 export const ContentSpace = styled.div`
@@ -164,22 +162,24 @@ export const EmptySpace = styled.div`
     display: flex;
 
     .content {
-        flex-direction: column;
         display: flex;
-        margin-top: 4.375rem;
         width: 100%;
         height: fit-content;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
+        margin-top: 4.375rem;
+
         img {
             width: 24.5rem;
             height: 10.3rem;
             margin-bottom: 2.125rem;
         }
+
         div {
+            color: #d3d3d3;
             font-size: 1.125rem;
             line-height: 1.375rem;
-            color: #d3d3d3;
             text-align: center;
         }
     }
@@ -210,13 +210,14 @@ export const Maps = styled.div`
         }
 
         .see-more {
+            display: flex;
+            align-items: center;
             color: ${Color.grey[500]};
             cursor: pointer;
             font-size: 0.875rem;
             letter-spacing: 0.00625rem;
             line-height: 1.14;
-            display: flex;
-            align-items: center;
+
             img {
                 width: 1.125rem;
                 height: 1.25rem;
@@ -232,8 +233,9 @@ export const Maps = styled.div`
 
 export const NewBtn = styled.div`
     position: absolute;
-    bottom: 5rem;
+    z-index: 10;
     right: 0.7rem;
+    bottom: 5rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -241,7 +243,6 @@ export const NewBtn = styled.div`
     border-radius: 3rem;
     color: #fff;
     cursor: pointer;
-    z-index: 10;
 
     img {
         width: 5.25rem;
