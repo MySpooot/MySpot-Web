@@ -10,7 +10,7 @@ export const Card = styled.div`
     padding: 0.75rem;
     border: solid 0.0625rem ${Palette.Grey[300]};
     margin-bottom: 0.625rem;
-    border-radius: 0.25rem;
+    border-radius: 0.625rem;
 `;
 
 export const CardText = styled.div`
@@ -29,7 +29,7 @@ export const CardText = styled.div`
 
     .create-date {
         margin: 0.125rem;
-        color: #7f7f7f;
+        color: #a4a4a4;
         font-size: 0.6875rem;
         line-height: 1.27;
     }
@@ -39,7 +39,7 @@ export const UpdateMap = styled.div`
     position: relative;
     display: block;
 
-    .vertical-circle: {
+    .vertical-circle {
         width: 1.375rem;
         height: 1.375rem;
         cursor: pointer;

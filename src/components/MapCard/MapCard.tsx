@@ -6,7 +6,7 @@ import dayjs from 'dayjs';
 
 import { Card, MapBtn, UpdateMap, CardText, VerticalDivider, SeeMore } from 'src/components/MapCard/styles';
 import { Path } from 'src/Constants';
-import { deleteMap, getPrivateCode } from 'src/api/map';
+import { deleteMap, getPrivateCode, getMaps, getFavoriteMap } from 'src/api/map';
 import Icon from 'src/components/Icon';
 
 import share from 'src/assets/main/ic-share.svg';
@@ -34,7 +34,7 @@ const MapCard: FC<MapCardProps> = ({ map, onClick }) => {
     }, [map, mutate]);
 
     const onCopyClick = useCallback(() => {
-        if (map.isPrivate && !privateCode) return;
+        if (map.isPrivate || !privateCode) return alert('프라이빗 지도가 아닙니다.');
 
         alert(`복사 성공 : ${privateCode}`);
     }, [map, privateCode]);
@@ -51,7 +51,7 @@ const MapCard: FC<MapCardProps> = ({ map, onClick }) => {
     }, []);
 
     const dateFilter = useCallback(date => {
-        return dayjs(date).format('YYYY-MM-DD');
+        return dayjs(date).format('YYYY.MM.DD');
     }, []);
 
     return (

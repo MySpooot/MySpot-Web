@@ -4,6 +4,7 @@ import { Color, Dimension } from 'src/Constants';
 
 export const Container = styled.div`
     display: flex;
+    width: 100%;
     height: 100vh;
     flex-direction: column;
     justify-content: space-between;
@@ -27,30 +28,29 @@ export const Main = styled.div`
 `;
 
 export const Top = styled.div`
-    height: fit-content;
-    max-height: 20.3125rem;
+    max-height: 19.5rem;
     background-color: #008fff;
+    border-radius: 0 0 0 2.125rem;
 `;
 
 export const Header = styled.header`
     display: flex;
-    height: 2.9rem;
+    height: 3.125rem;
     align-items: center;
     justify-content: space-between;
+    padding: 1.25rem 1.625rem;
 
     .myspot-title {
-        margin-left: 0.75rem;
         color: #fff;
         font-size: 1.5rem;
         font-weight: bold;
-        letter-spacing: 0.16px;
+        letter-spacing: 0.01rem;
         line-height: 1.33;
     }
 
     .mypage-img {
         width: 2rem;
         height: 2rem;
-        margin-right: 1.125rem;
         border-radius: 1.25rem;
         cursor: pointer;
     }
@@ -66,60 +66,128 @@ export const WelcomeSection = styled.div`
 
 export const User = styled.div`
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    margin-top: 1.8125rem;
-    margin-bottom: 1rem;
-    margin-left: 1rem;
+    height: 8rem;
     color: #fff;
-    font-size: 1.5rem;
-    font-weight: 300;
-    letter-spacing: 0.01rem;
-    line-height: 1.33;
+    font-size: 1.25rem;
+    font-weight: 400;
+    line-height: 1.625rem;
+    letter-spacing: 0.1647060066461563px;
+    padding: 2.5rem 1.2rem;
+    align-items: center;
+
+    .user-img {
+        width: 2.875rem;
+        height: 2.875rem;
+        margin-right: 1.1rem;
+        border-radius: 2.25rem;
+    }
 `;
 export const RecentMap = styled.div`
-    margin: 2.125rem 1rem;
-
-    .text-bar {
+    .section-title {
         display: flex;
         justify-content: space-between;
-        margin-bottom: 1.3125rem;
         color: #fff;
         letter-spacing: 0.0075rem;
         line-height: 0.89;
+        padding: 20px;
+        align-items: center;
 
         .title {
             font-size: 1.125rem;
+            font-weight: 700;
+            line-height: 1.25rem;
+            letter-spacing: 0.12352950125932693px;
+            text-align: left;
         }
 
-        .see-more {
+        .more-map {
+            display: flex;
+            align-items: center;
             cursor: pointer;
             font-size: 0.875rem;
-            font-weight: 500;
+            font-weight: 400;
+            line-height: 1.625rem;
+            letter-spacing: 0.1647060066461563px;
+            text-align: right;
+            color: #aee2ff;
+
+            img {
+                width: 1.125rem;
+                height: 1.25rem;
+            }
         }
     }
+`;
 
-    .map-area {
-        display: flex;
-        height: fit-content;
-        flex-wrap: wrap;
+export const MapArea = styled.div`
+    display: flex;
+    flex-wrap: nowrap;
+    margin: 0 1.25rem 1rem 1.25rem;
+    overflow: scroll;
+    overflow: auto;
+    white-space: nowrap;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    .no-recent-map {
+        color: #88cbff;
+        margin-bottom: 1.25rem;
     }
 `;
 
 export const MapChip = styled.div`
     display: flex;
     width: fit-content;
-    height: 1.875rem;
     align-items: center;
-    padding-right: 0.5rem;
-    padding-left: 0.5rem;
     margin-right: 0.375rem;
     margin-bottom: 0.375rem;
     background-color: #fff;
-    border-radius: 0.125rem;
-    color: ${Color.grey[700]};
+    border-radius: 1.125rem;
+    color: #7f7f7f;
     cursor: pointer;
     font-size: 0.875rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1rem;
+    letter-spacing: 0.09607850015163422px;
+    text-align: center;
+    padding: 0.75rem 0.875rem;
+`;
+
+export const ContentSpace = styled.div`
+    height: 100%;
+`;
+
+export const EmptySpace = styled.div`
+    display: flex;
+
+    .content {
+        flex-direction: column;
+        display: flex;
+        margin-top: 4.375rem;
+        width: 100%;
+        height: fit-content;
+        align-items: center;
+        justify-content: center;
+        img {
+            width: 24.5rem;
+            height: 10.3rem;
+            margin-bottom: 2.125rem;
+        }
+        div {
+            font-size: 1.125rem;
+            line-height: 1.375rem;
+            color: #d3d3d3;
+            text-align: center;
+        }
+    }
+`;
+
+export const MapSpace = styled.div`
+    display: flex;
+    flex-direction: column;
 `;
 
 export const Maps = styled.div`
@@ -147,6 +215,12 @@ export const Maps = styled.div`
             font-size: 0.875rem;
             letter-spacing: 0.00625rem;
             line-height: 1.14;
+            display: flex;
+            align-items: center;
+            img {
+                width: 1.125rem;
+                height: 1.25rem;
+            }
         }
     }
 
@@ -156,26 +230,21 @@ export const Maps = styled.div`
     }
 `;
 
-export const FloatingWrapper = styled.div<{ active: boolean }>`
-    position: fixed;
-    bottom: 1rem;
-    display: flex;
-    width: 100%;
-    max-width: calc(${Dimension.MaxWidth} - 2rem);
-    justify-content: flex-end;
-`;
-
 export const NewBtn = styled.div`
+    position: absolute;
+    bottom: 5rem;
+    right: 0.7rem;
     display: flex;
-    width: 3.375rem;
-    height: 3.375rem;
     align-items: center;
     justify-content: center;
-    background-color: #008fff;
-    border-radius: 1.875rem;
+    background-color: #eff6fd;
+    border-radius: 3rem;
     color: #fff;
     cursor: pointer;
-    font-size: 1rem;
-    font-weight: 500;
-    letter-spacing: 0.006875rem;
+    z-index: 10;
+
+    img {
+        width: 5.25rem;
+        height: 5.25rem;
+    }
 `;
