@@ -1,4 +1,4 @@
-import { GetMapDetailResponse } from 'src/api/map';
+import { GetMapDetailResponse } from '@myspooot/myspot-backend';
 
 export class MapDetailVO {
     id: number;

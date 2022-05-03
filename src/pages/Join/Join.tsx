@@ -1,10 +1,10 @@
 import React, { FC, useState, useEffect, useCallback, ChangeEvent } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useMutation } from 'react-query';
+import type { PutUserParam, PutUserBody, PutUserResponse } from '@myspooot/myspot-backend';
 
 import { Container, Title, Description, InputArea } from './styles';
 import type { JoinState } from './types';
-import type { UpdateUserNicknameResponse, UpdateUserNicknameParams, UpdateUserNicknameBody } from 'src/api';
 import { updateUserNickname } from 'src/api/auth';
 import { Path } from 'src/Constants';
 import { setAccessToken } from 'src/api';
@@ -19,7 +19,7 @@ const Join: FC = () => {
 
     const [nickname, setNickname] = useState('');
 
-    const { mutate: fetchUpdateUserNickname } = useMutation<UpdateUserNicknameResponse, unknown, UpdateUserNicknameParams & UpdateUserNicknameBody>(
+    const { mutate: fetchUpdateUserNickname } = useMutation<PutUserResponse, unknown, PutUserParam & PutUserBody>(
         ({ userId, nickname }) => updateUserNickname({ userId }, { nickname }),
         {
             onSuccess: me => {

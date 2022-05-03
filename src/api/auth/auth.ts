@@ -1,37 +1,39 @@
-import { request } from 'src/api';
-import type {
+import {
     GetMeResponse,
-    LogInBody,
-    LogInResponse,
-    UpdateUserNicknameParams,
-    UpdateUserNicknameBody,
-    UpdateUserNicknameResponse,
-    UpdateUserNicknameMypageBody,
-    UpdateUserImgBody
-} from './types';
+    PostLoginBody,
+    PostLoginResponse,
+    PutUserParam,
+    PutUserBody,
+    PutUserResponse,
+    PutUserNicknameBody,
+    PutUserNicknameResponse,
+    PostUploadImageBody
+} from '@myspooot/myspot-backend';
+
+import { request } from 'src/api';
 
 export const getMe = () => {
     return request<GetMeResponse>({ method: 'GET', url: '/auth/me' });
 };
 
-export const logIn = (data: LogInBody) => {
-    return request<LogInResponse>({ method: 'POST', url: '/auth/login', data });
+export const logIn = (body: PostLoginBody) => {
+    return request<PostLoginResponse>({ method: 'POST', url: '/auth/login', data: body });
 };
 
 export const logOut = () => {
     return request({ method: 'POST', url: '/auth/logout' });
 };
 
-export const updateUserNickname = ({ userId }: UpdateUserNicknameParams, body: UpdateUserNicknameBody) => {
-    return request<UpdateUserNicknameResponse>({ method: 'PUT', url: `/auth/user/${userId}`, data: body });
+export const updateUserNickname = ({ userId }: PutUserParam, body: PutUserBody) => {
+    return request<PutUserResponse>({ method: 'PUT', url: `/auth/user/${userId}`, data: body });
 };
-export const updateUserNicknameMypage = (body: UpdateUserNicknameMypageBody) => {
-    return request<UpdateUserNicknameResponse>({ method: 'put', url: `/user`, data: body });
+export const updateUserNicknameMypage = (body: PutUserNicknameBody) => {
+    return request<PutUserNicknameResponse>({ method: 'PUT', url: '/user', data: body });
 };
 
-export const createUserImg = (body: UpdateUserImgBody) => {
+export const createUserImg = (body: PostUploadImageBody) => {
     return request<string>({
-        method: 'post',
+        method: 'POST',
         url: '/user/upload',
         data: body.file,
         headers: {

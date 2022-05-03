@@ -1,7 +1,8 @@
-import { request } from 'src/api';
-import type { CreateMarkerLikeParam, DeleteMarkerLikeParam } from './types';
+import { PostMarkerLikeParam, DeleteMarkerLikeParam } from '@myspooot/myspot-backend';
 
-export const createMarkerLike = ({ markerId }: CreateMarkerLikeParam) => {
+import { request } from 'src/api';
+
+export const createMarkerLike = ({ markerId }: PostMarkerLikeParam) => {
     return request({ method: 'POST', url: `/map/marker/${markerId}/like` });
 };
 
