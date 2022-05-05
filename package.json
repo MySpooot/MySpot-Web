@@ -1,6 +1,6 @@
 {
     "name": "myspot",
-    "version": "0.1.19",
+    "version": "0.1.20",
     "private": true,
     "scripts": {
         "start": "vite",
@@ -38,7 +38,6 @@
         "react-router": "^6.2.1",
         "react-router-dom": "^6.2.1",
         "reactjs-popup": "^2.0.5",
-        "regenerator-runtime": "^0.13.9",
         "src": "link:./src"
     },
     "devDependencies": {
