@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import { Dimension } from 'src/Constants';
+import { Color, Dimension } from 'src/Constants';
 
 export const Container = styled.div`
     position: absolute;

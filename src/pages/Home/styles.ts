@@ -16,7 +16,7 @@ export const Main = styled.div`
     width: 100%;
     height: 100vh;
     flex-direction: column;
-    background-color: #ffffff;
+    background-color: ${Color.white};
     overflow-y: auto;
 
     .desc {
@@ -41,7 +41,7 @@ export const Header = styled.header`
     padding: 1.25rem 1.625rem;
 
     .myspot-title {
-        color: #fff;
+        color: ${Color.white};
         font-size: 1.5rem;
         font-weight: bold;
         line-height: 1.33;
@@ -68,7 +68,7 @@ export const User = styled.div`
     height: 8rem;
     align-items: center;
     padding: 2.5rem 1.2rem;
-    color: #fff;
+    color: ${Color.white};
     font-size: 1.25rem;
     font-weight: 400;
     line-height: 1.625rem;
@@ -86,7 +86,7 @@ export const RecentMap = styled.div`
         align-items: center;
         justify-content: space-between;
         padding: 20px;
-        color: #fff;
+        color: ${Color.white};
         line-height: 0.89;
 
         .title {
