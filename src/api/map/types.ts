@@ -74,3 +74,7 @@ export type GetPrivateCodeParam = {
 export type GetPrivateCodeResponse = {
     code: string;
 };
+
+export type GetCreateMyMapResponse = {
+    id: number;
+};

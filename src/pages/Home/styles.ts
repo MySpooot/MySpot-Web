@@ -1,9 +1,10 @@
 import styled from '@emotion/styled';
 
-import { Color, Dimension } from 'src/Constants';
+import { Color } from 'src/Constants';
 
 export const Container = styled.div`
     display: flex;
+    width: 100%;
     height: 100vh;
     flex-direction: column;
     justify-content: space-between;
@@ -15,8 +16,8 @@ export const Main = styled.div`
     width: 100%;
     height: 100vh;
     flex-direction: column;
-    background-color: #ffffff;
-    overflow-y: scroll;
+    background-color: ${Color.white};
+    overflow-y: auto;
 
     .desc {
         padding-bottom: 3rem;
@@ -27,30 +28,28 @@ export const Main = styled.div`
 `;
 
 export const Top = styled.div`
-    height: fit-content;
-    max-height: 20.3125rem;
-    background-color: #008fff;
+    max-height: 19.5rem;
+    background-color: ${Color.blue};
+    border-radius: 0 0 0 2.125rem;
 `;
 
 export const Header = styled.header`
     display: flex;
-    height: 2.9rem;
+    height: 3.125rem;
     align-items: center;
     justify-content: space-between;
+    padding: 1.25rem 1.625rem;
 
     .myspot-title {
-        margin-left: 0.75rem;
-        color: #fff;
+        color: ${Color.white};
         font-size: 1.5rem;
         font-weight: bold;
-        letter-spacing: 0.16px;
         line-height: 1.33;
     }
 
     .mypage-img {
         width: 2rem;
         height: 2rem;
-        margin-right: 1.125rem;
         border-radius: 1.25rem;
         cursor: pointer;
     }
@@ -66,60 +65,122 @@ export const WelcomeSection = styled.div`
 
 export const User = styled.div`
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    margin-top: 1.8125rem;
-    margin-bottom: 1rem;
-    margin-left: 1rem;
-    color: #fff;
-    font-size: 1.5rem;
-    font-weight: 300;
-    letter-spacing: 0.01rem;
-    line-height: 1.33;
+    height: 8rem;
+    align-items: center;
+    padding: 2.5rem 1.2rem;
+    color: ${Color.white};
+    font-size: 1.25rem;
+    font-weight: 400;
+    line-height: 1.625rem;
+
+    .user-img {
+        width: 2.875rem;
+        height: 2.875rem;
+        margin-right: 1.1rem;
+        border-radius: 2.25rem;
+    }
 `;
 export const RecentMap = styled.div`
-    margin: 2.125rem 1rem;
-
-    .text-bar {
+    .section-title {
         display: flex;
+        align-items: center;
         justify-content: space-between;
-        margin-bottom: 1.3125rem;
-        color: #fff;
-        letter-spacing: 0.0075rem;
+        padding: 20px;
+        color: ${Color.white};
         line-height: 0.89;
 
         .title {
             font-size: 1.125rem;
+            font-weight: 700;
+            line-height: 1.25rem;
+            text-align: left;
         }
 
-        .see-more {
+        .more-map {
+            display: flex;
+            align-items: center;
+            color: #aee2ff;
             cursor: pointer;
             font-size: 0.875rem;
-            font-weight: 500;
+            font-weight: 400;
+            line-height: 1.625rem;
+            text-align: right;
+
+            img {
+                width: 1.125rem;
+                height: 1.25rem;
+            }
         }
     }
+`;
 
-    .map-area {
-        display: flex;
-        height: fit-content;
-        flex-wrap: wrap;
+export const MapArea = styled.div`
+    display: flex;
+    overflow: auto;
+    flex-wrap: nowrap;
+    margin: 0 1.25rem 1rem 1.25rem;
+    white-space: nowrap;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    .no-recent-map {
+        margin-bottom: 1.25rem;
+        color: #88cbff;
     }
 `;
 
 export const MapChip = styled.div`
     display: flex;
     width: fit-content;
-    height: 1.875rem;
     align-items: center;
-    padding-right: 0.5rem;
-    padding-left: 0.5rem;
+    padding: 0.75rem 0.875rem;
     margin-right: 0.375rem;
     margin-bottom: 0.375rem;
     background-color: #fff;
-    border-radius: 0.125rem;
-    color: ${Color.grey[700]};
+    border-radius: 1.125rem;
+    color: #7f7f7f;
     cursor: pointer;
-    font-size: 0.875rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1rem;
+    text-align: center;
+`;
+
+export const ContentSpace = styled.div`
+    height: 100%;
+`;
+
+export const EmptySpace = styled.div`
+    display: flex;
+
+    .content {
+        display: flex;
+        width: 100%;
+        height: fit-content;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-top: 4.375rem;
+
+        img {
+            height: 10.3rem;
+            margin-bottom: 2.125rem;
+        }
+
+        div {
+            color: ${Color.grey[300]};
+            font-size: 1.125rem;
+            line-height: 1.375rem;
+            text-align: center;
+        }
+    }
+`;
+
+export const MapSpace = styled.div`
+    display: flex;
+    flex-direction: column;
 `;
 
 export const Maps = styled.div`
@@ -137,16 +198,21 @@ export const Maps = styled.div`
             color: #000;
             font-size: 1.125rem;
             font-weight: bold;
-            letter-spacing: 0.0075rem;
             line-height: 0.89;
         }
 
         .see-more {
+            display: flex;
+            align-items: center;
             color: ${Color.grey[500]};
             cursor: pointer;
             font-size: 0.875rem;
-            letter-spacing: 0.00625rem;
             line-height: 1.14;
+
+            img {
+                width: 1.125rem;
+                height: 1.25rem;
+            }
         }
     }
 
@@ -156,26 +222,13 @@ export const Maps = styled.div`
     }
 `;
 
-export const FloatingWrapper = styled.div<{ active: boolean }>`
-    position: fixed;
-    bottom: 1rem;
-    display: flex;
-    width: 100%;
-    max-width: calc(${Dimension.MaxWidth} - 2rem);
-    justify-content: flex-end;
-`;
-
 export const NewBtn = styled.div`
-    display: flex;
-    width: 3.375rem;
-    height: 3.375rem;
-    align-items: center;
-    justify-content: center;
-    background-color: #008fff;
-    border-radius: 1.875rem;
-    color: #fff;
-    cursor: pointer;
-    font-size: 1rem;
-    font-weight: 500;
-    letter-spacing: 0.006875rem;
+    img {
+        position: fixed;
+        z-index: 10;
+        right: 0.7rem;
+        bottom: 1rem;
+        width: 5.25rem;
+        height: 5.25rem;
+    }
 `;

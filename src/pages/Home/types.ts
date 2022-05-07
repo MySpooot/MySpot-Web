@@ -3,6 +3,8 @@ export type Map = {
     mapName: string;
     isPrivate: boolean;
     created?: number;
+    userId?: number;
+    mapId?: number;
 };
 
 export type MapType = 'recent' | 'my' | 'favorite';

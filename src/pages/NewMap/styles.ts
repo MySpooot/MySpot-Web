@@ -11,38 +11,64 @@ export const Container = styled.div`
     max-width: ${Dimension.MaxWidth};
     height: 100vh;
     flex-direction: column;
-    padding: 1.0625rem;
-    background-color: #ffffff;
+    background-color: ${Color.white};
     overflow-y: hidden;
     transition: height 0.5s;
 `;
 
+export const Main = styled.div`
+    display: flex;
+    height: calc(100vh - 9.5rem);
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1.25rem;
+`;
+
 export const Title = styled.div`
-    margin-top: 7.625rem;
-    color: #333;
-    font-size: 1.625rem;
-    font-weight: bold;
-    letter-spacing: 0.01125rem;
-    line-height: 1;
+    margin-top: 2rem;
+    margin-bottom: 2.5rem;
+    color: ${Color.blue};
+    font-weight: 500;
+    line-height: 1.375rem;
 `;
 
 export const Desc = styled.div`
-    margin-top: 0.3125rem;
-    color: ${Color.grey[500]};
-    font-size: 1rem;
-    font-weight: 300;
-    letter-spacing: 0.006875rem;
-    line-height: 2;
+    margin-bottom: 2.75rem;
+    color: ${Color.black};
+    font-size: 1.625rem;
+    font-weight: 500;
+    line-height: 2.25rem;
 `;
 
 export const InputArea = styled.div`
     display: flex;
     flex-direction: column;
-    margin-top: 1.875rem;
+
+    input {
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.25rem;
+    }
+
+    img {
+        width: 1.375rem;
+        height: 1.375rem;
+    }
+`;
+
+export const ClickPrivate = styled.div`
+    display: flex;
+    width: fit-content;
+    align-items: center;
+    cursor: pointer;
 `;
 
 export const ButtonArea = styled.div`
     display: flex;
     justify-content: space-between;
     margin-top: auto;
+
+    Button {
+        color: ${Color.grey};
+    }
 `;
