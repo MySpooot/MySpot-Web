@@ -208,6 +208,7 @@ export const Maps = styled.div`
             cursor: pointer;
             font-size: 0.875rem;
             line-height: 1.14;
+
             img {
                 width: 1.125rem;
                 height: 1.25rem;

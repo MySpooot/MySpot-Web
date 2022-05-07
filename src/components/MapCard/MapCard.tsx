@@ -34,7 +34,7 @@ const MapCard: FC<MapCardProps> = ({ map, onClick }) => {
     }, [map, mutate]);
 
     const onCopyClick = useCallback(() => {
-        if (map.isPrivate) return alert(`복사 성공 : ${privateCode}`);
+        if (map.isPrivate && !privateCode) return alert('프라이빗 코드 에러');
         else return alert('복사성공');
     }, [map, privateCode]);
 
