@@ -11,7 +11,7 @@ export const Container = styled.div`
     max-width: ${Dimension.MaxWidth};
     height: 100vh;
     flex-direction: column;
-    background-color: #ffffff;
+    background-color: ${Color.white};
     overflow-y: hidden;
     transition: height 0.5s;
 `;
@@ -27,14 +27,14 @@ export const Main = styled.div`
 export const Title = styled.div`
     margin-top: 2rem;
     margin-bottom: 2.5rem;
-    color: #008fff;
+    color: ${Color.blue};
     font-weight: 500;
     line-height: 1.375rem;
 `;
 
 export const Desc = styled.div`
     margin-bottom: 2.75rem;
-    color: #000000;
+    color: ${Color.black};
     font-size: 1.625rem;
     font-weight: 500;
     line-height: 2.25rem;
@@ -59,7 +59,7 @@ export const InputArea = styled.div`
 export const ClickPrivate = styled.div`
     display: flex;
     width: fit-content;
-    alignitems: center;
+    align-items: center;
     cursor: pointer;
 `;
 
@@ -69,7 +69,6 @@ export const ButtonArea = styled.div`
     margin-top: auto;
 
     Button {
-        height: 4.125rem;
-        color: #7f7f7f;
+        color: ${Color.grey};
     }
 `;

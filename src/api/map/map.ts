@@ -12,7 +12,8 @@ import type {
     CreateRecenMapsParam,
     DeleteRecentMapsParam,
     GetPrivateCodeParam,
-    GetPrivateCodeResponse
+    GetPrivateCodeResponse,
+    GetCreateMyMapResponse
 } from './types';
 
 // 지도 상세
@@ -25,7 +26,7 @@ export const getMaps = (params?: GetMapsQuery) => {
     return request<GetMapsResponse[]>({ method: 'GET', url: '/map', params });
 };
 export const createMap = (body: CreateMapBody) => {
-    return request({ method: 'POST', url: '/map', data: body });
+    return request<GetCreateMyMapResponse>({ method: 'POST', url: '/map', data: body });
 };
 export const updateMap = () => {
     return request({ method: 'PUT', url: '/map/mapId' });

@@ -88,59 +88,54 @@ const Home: FC = () => {
                         </MapArea>
                     </RecentMap>
                 </Top>
-                {(isFavoriteLoading || isMapLoading) && <Loading />}
-                {!isFavoriteLoading && !isMapLoading && (
-                    <ContentSpace>
-                        {!maps && !favoriteMaps && (
-                            <EmptySpace>
-                                <div className='content'>
-                                    <img src={empty}></img>
-                                    <div>
-                                        나만의 지도를 만들어 <br></br>장소를 저장하고, 공유해 보세요.
+                {isFavoriteLoading && isMapLoading && <Loading />}
+                {maps?.length === 0 && favoriteMaps?.length === 0 ? (
+                    <EmptySpace>
+                        <div className='content'>
+                            <img src={empty} />
+                            <div>
+                                나만의 지도를 만들어 <br></br>장소를 저장하고, 공유해 보세요.
+                            </div>
+                        </div>
+                    </EmptySpace>
+                ) : (
+                    <MapSpace>
+                        {maps && maps.length !== 0 && (
+                            <Maps>
+                                <div className='title-area'>
+                                    <span className='title'>내가 만든 map</span>
+                                    <div className='see-more' onClick={() => onMoreMapClick('my')}>
+                                        <span>더 보기</span>
+                                        <img src={greyarrow} />
                                     </div>
                                 </div>
-                            </EmptySpace>
+                                <div className='map-area'>
+                                    {maps?.map((map, idx) => (
+                                        <Card key={idx} map={map} onClick={() => onClickMap(map.id)} />
+                                    ))}
+                                </div>
+                            </Maps>
                         )}
-                        {(maps || favoriteMaps) && (
-                            <MapSpace>
-                                {maps?.length === 0 || (
-                                    <Maps>
-                                        <div className='title-area'>
-                                            <span className='title'>내가 만든 map</span>
-                                            <div className='see-more' onClick={() => onMoreMapClick('my')}>
-                                                <span>더 보기</span>
-                                                <img src={greyarrow} />
-                                            </div>
-                                        </div>
-                                        <div className='map-area'>
-                                            {maps?.map((map, idx) => (
-                                                <Card key={idx} map={map} onClick={() => onClickMap(map.id)} />
-                                            ))}
-                                        </div>
-                                    </Maps>
-                                )}
-                                {favoriteMaps?.length === 0 || (
-                                    <Maps>
-                                        <div className='title-area'>
-                                            <span className='title'>즐겨찾는 map</span>
-                                            <div className='see-more' onClick={() => onMoreMapClick('favorite')}>
-                                                <span>더 보기</span>
-                                                <img src={greyarrow} />
-                                            </div>
-                                        </div>
-                                        <div className='map-area'>
-                                            {favoriteMaps?.map((map, idx) => (
-                                                <Card key={idx} map={map} onClick={() => onClickMap(map.mapId)} />
-                                            ))}
-                                        </div>
-                                    </Maps>
-                                )}
-                            </MapSpace>
+                        {favoriteMaps && favoriteMaps?.length !== 0 && (
+                            <Maps>
+                                <div className='title-area'>
+                                    <span className='title'>즐겨찾는 map</span>
+                                    <div className='see-more' onClick={() => onMoreMapClick('favorite')}>
+                                        <span>더 보기</span>
+                                        <img src={greyarrow} />
+                                    </div>
+                                </div>
+                                <div className='map-area'>
+                                    {favoriteMaps?.map((map, idx) => (
+                                        <Card key={idx} map={map} onClick={() => onClickMap(map.mapId)} />
+                                    ))}
+                                </div>
+                            </Maps>
                         )}
-                    </ContentSpace>
+                    </MapSpace>
                 )}
                 <NewBtn onClick={onNewMapClick}>
-                    <img src={newbtn}></img>
+                    <img src={newbtn} />
                 </NewBtn>
             </Main>
         </Container>

@@ -28,11 +28,11 @@ const NewMap: FC = () => {
 
     const onCreateClick = useCallback(async () => {
         setIsLoading(true);
-        await createMap({ mapName, isPrivate });
+        const res = await createMap({ mapName, isPrivate });
         setIsLoading(false);
-        alert('Success!');
+        alert(`Success! `);
         setMapName('');
-        navigate(Path.home);
+        navigate(`${Path.myMap}/${res.id}`);
     }, [mapName, isPrivate, navigate]);
 
     const onCancelClick = () => {
@@ -57,7 +57,7 @@ const NewMap: FC = () => {
                             onEnterPress={onCreateClick}
                         />
                         <ClickPrivate style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }} onClick={onCheckboxChange}>
-                            <img src={isPrivate ? checkon : checkoff}></img>
+                            <img src={isPrivate ? checkon : checkoff} />
                             <span style={{ marginLeft: '8px' }}>프라이빗 지도</span>
                             <img src={code} />
                         </ClickPrivate>
@@ -67,7 +67,7 @@ const NewMap: FC = () => {
                     <Button style={{ marginRight: '0.5rem', width: '30%' }} onClick={onCancelClick}>
                         닫기
                     </Button>
-                    <Button disabled={isLoading} style={{ color: '#FFFFFF' }} type='primary' onClick={onCreateClick}>
+                    <Button disabled={isLoading} type='primary' onClick={onCreateClick}>
                         완료
                     </Button>
                 </ButtonArea>

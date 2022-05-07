@@ -17,7 +17,7 @@ export const Main = styled.div`
     height: 100vh;
     flex-direction: column;
     background-color: #ffffff;
-    overflow-y: scroll;
+    overflow-y: auto;
 
     .desc {
         padding-bottom: 3rem;
@@ -29,7 +29,7 @@ export const Main = styled.div`
 
 export const Top = styled.div`
     max-height: 19.5rem;
-    background-color: #008fff;
+    background-color: ${Color.blue};
     border-radius: 0 0 0 2.125rem;
 `;
 
@@ -44,7 +44,6 @@ export const Header = styled.header`
         color: #fff;
         font-size: 1.5rem;
         font-weight: bold;
-        letter-spacing: 0.01rem;
         line-height: 1.33;
     }
 
@@ -88,7 +87,6 @@ export const RecentMap = styled.div`
         justify-content: space-between;
         padding: 20px;
         color: #fff;
-        letter-spacing: 0.0075rem;
         line-height: 0.89;
 
         .title {
@@ -167,13 +165,12 @@ export const EmptySpace = styled.div`
         margin-top: 4.375rem;
 
         img {
-            width: 24.5rem;
             height: 10.3rem;
             margin-bottom: 2.125rem;
         }
 
         div {
-            color: #d3d3d3;
+            color: ${Color.grey[300]};
             font-size: 1.125rem;
             line-height: 1.375rem;
             text-align: center;
@@ -201,7 +198,6 @@ export const Maps = styled.div`
             color: #000;
             font-size: 1.125rem;
             font-weight: bold;
-            letter-spacing: 0.0075rem;
             line-height: 0.89;
         }
 
@@ -211,7 +207,6 @@ export const Maps = styled.div`
             color: ${Color.grey[500]};
             cursor: pointer;
             font-size: 0.875rem;
-            letter-spacing: 0.00625rem;
             line-height: 1.14;
             img {
                 width: 1.125rem;
@@ -227,20 +222,12 @@ export const Maps = styled.div`
 `;
 
 export const NewBtn = styled.div`
-    position: absolute;
-    z-index: 10;
-    right: 0.7rem;
-    bottom: 5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #eff6fd;
-    border-radius: 3rem;
-    color: #fff;
-    cursor: pointer;
-
     img {
+        z-index: 10;
         width: 5.25rem;
         height: 5.25rem;
+        position: fixed;
+        right: 0.7rem;
+        bottom: 1rem;
     }
 `;
