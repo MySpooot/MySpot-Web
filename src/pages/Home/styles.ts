@@ -223,11 +223,11 @@ export const Maps = styled.div`
 
 export const NewBtn = styled.div`
     img {
-        z-index: 10;
-        width: 5.25rem;
-        height: 5.25rem;
         position: fixed;
+        z-index: 10;
         right: 0.7rem;
         bottom: 1rem;
+        width: 5.25rem;
+        height: 5.25rem;
     }
 `;
