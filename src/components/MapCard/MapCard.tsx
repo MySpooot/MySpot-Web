@@ -1,12 +1,12 @@
 import React, { FC, useState, useCallback } from 'react';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Popup } from 'reactjs-popup';
 import dayjs from 'dayjs';
 
 import { Card, MapBtn, UpdateMap, CardText, VerticalDivider, SeeMore } from 'src/components/MapCard/styles';
 import { Path } from 'src/Constants';
-import { deleteMap, getPrivateCode, getMaps, getFavoriteMap } from 'src/api/map';
+import { deleteMap, getPrivateCode } from 'src/api/map';
 import Icon from 'src/components/Icon';
 
 import share from 'src/assets/main/ic-share.svg';
@@ -20,6 +20,8 @@ interface MapCardProps {
 
 const MapCard: FC<MapCardProps> = ({ map, onClick }) => {
     const [privateCode, setPrivateCode] = useState<string>();
+
+    const client = useQueryClient();
 
     const { mutate } = useMutation(() => getPrivateCode({ mapId: map.id }), {
         onSuccess: response => {
@@ -43,8 +45,10 @@ const MapCard: FC<MapCardProps> = ({ map, onClick }) => {
 
         if (deleteCheck) {
             await deleteMap(mapId);
+            client.setQueryData<any>('getMaps', data => {
+                return data.filter(map => map.id !== mapId);
+            });
             alert('지도가 삭제되었습니다.');
-            //getmap다시 호출
             close();
         }
     }, []);

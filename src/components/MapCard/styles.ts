@@ -48,7 +48,7 @@ export const UpdateMap = styled.div`
 
 export const SeeMore = styled.div`
     display: flex;
-    width: 11.25rem;
+    width: fit-content;
     height: 3rem;
     align-items: center;
     background-color: #fff;
@@ -58,7 +58,7 @@ export const SeeMore = styled.div`
 `;
 export const MapBtn = styled.div`
     display: flex;
-    width: 50%;
+    width: 4.5rem;
     height: fit-content;
     align-items: center;
     justify-content: center;
