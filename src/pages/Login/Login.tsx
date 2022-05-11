@@ -1,6 +1,9 @@
 import React, { FC, useCallback } from 'react';
 
-import { Container, LabelArea, Title, Description, LoginButton } from './styles';
+import { Container, LoginIcon, LabelArea, Description, LoginButton, KakaoIcon, KakaoText } from './styles';
+
+import loginLogo from 'src/assets/login_logo.svg';
+import kakaoLogo from 'src/assets/kakao_logo.svg';
 
 const Login: FC = () => {
     const onKakaoLoginClick = useCallback(() => {
@@ -15,10 +18,17 @@ const Login: FC = () => {
     return (
         <Container>
             <LabelArea>
-                <Title>My Spot</Title>
-                <Description>나만의 지도를 공유하자</Description>
+                <LoginIcon src={loginLogo} />
+                <Description>
+                    나만의 지도를 만들어
+                    <br />
+                    장소를 저장하고 공유해 보세요!
+                </Description>
             </LabelArea>
-            <LoginButton onClick={onKakaoLoginClick}>카카오톡으로 3초만에 시작하기</LoginButton>
+            <LoginButton onClick={onKakaoLoginClick}>
+                <KakaoIcon src={kakaoLogo} />
+                <KakaoText>카카오톡으로 3초만에 시작하기</KakaoText>
+            </LoginButton>
         </Container>
     );
 };

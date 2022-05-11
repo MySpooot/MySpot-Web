@@ -1,17 +1,26 @@
 import styled from '@emotion/styled';
 
+import { Color } from 'src/Constants';
+import Icon from 'src/components/Icon';
+
 export const Container = styled.div`
     display: flex;
-    height: 100vh;
+    height: 50vh;
     flex-direction: column;
     align-items: center;
-    justify-content: space-around;
+    justify-content: flex-end;
+`;
+
+export const LoginIcon = styled(Icon)`
+    margin-bottom: 2.5rem;
+    width: 12.3125rem;
+    height: 4rem;
 `;
 
 export const LabelArea = styled.div`
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    align-items: center;
 `;
 
 export const Title = styled.h1`
@@ -22,16 +31,30 @@ export const Title = styled.h1`
 `;
 
 export const Description = styled.h3`
-    font-size: 0.875rem;
+    font-size: 1.125rem;
+    line-height: 150%;
+    font-weight: 400;
     text-align: center;
+    margin-bottom: 3.75rem;
+    color: ${Color.grey[500]};
 `;
 
 export const LoginButton = styled.button`
-    padding: 0.5rem 4.125rem;
+    padding: 1.25rem 4.45rem;
     background-color: #fee500;
     border-radius: 0.25rem;
     cursor: pointer;
-    font-size: 0.875rem;
-    font-weight: bold;
-    line-height: 2.2;
+    display: flex;
+    align-items: center;
+`;
+
+export const KakaoIcon = styled(Icon)`
+    width: 1.5rem;
+    height: 1.125rem;
+    margin-right: 0.625rem;
+`;
+
+export const KakaoText = styled.span`
+    font-size: 1.125rem;
+    font-weight: 500;
 `;
