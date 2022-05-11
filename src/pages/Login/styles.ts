@@ -12,9 +12,9 @@ export const Container = styled.div`
 `;
 
 export const LoginIcon = styled(Icon)`
-    margin-bottom: 2.5rem;
     width: 12.3125rem;
     height: 4rem;
+    margin-bottom: 2.5rem;
 `;
 
 export const LabelArea = styled.div`
@@ -31,21 +31,21 @@ export const Title = styled.h1`
 `;
 
 export const Description = styled.h3`
-    font-size: 1.125rem;
-    line-height: 150%;
-    font-weight: 400;
-    text-align: center;
     margin-bottom: 3.75rem;
     color: ${Color.grey[500]};
+    font-size: 1.125rem;
+    font-weight: 400;
+    line-height: 150%;
+    text-align: center;
 `;
 
 export const LoginButton = styled.button`
+    display: flex;
+    align-items: center;
     padding: 1.25rem 4.45rem;
     background-color: #fee500;
     border-radius: 0.25rem;
     cursor: pointer;
-    display: flex;
-    align-items: center;
 `;
 
 export const KakaoIcon = styled(Icon)`
