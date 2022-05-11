@@ -71,7 +71,7 @@ const MapList: FC = () => {
             <Maps>
                 {fetchMaps === undefined && <Loading />}
                 {fetchMaps?.map((map, idx) => (
-                    <Card key={idx} map={map} onClick={() => onClickMap(map)} />
+                    <Card key={idx} map={map} type={type} onClick={() => onClickMap(map)} />
                 ))}
             </Maps>
         </Container>

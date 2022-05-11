@@ -111,7 +111,7 @@ const Home: FC = () => {
                                 </div>
                                 <div className='map-area'>
                                     {maps?.map((map, idx) => (
-                                        <Card key={idx} map={map} onClick={() => onClickMap(map.id)} />
+                                        <Card key={idx} map={map} type='my' onClick={() => onClickMap(map.id)} />
                                     ))}
                                 </div>
                             </Maps>
@@ -127,7 +127,7 @@ const Home: FC = () => {
                                 </div>
                                 <div className='map-area'>
                                     {favoriteMaps?.map((map, idx) => (
-                                        <Card key={idx} map={map} onClick={() => onClickMap(map.mapId)} />
+                                        <Card key={idx} map={map} type='favorite' onClick={() => onClickMap(map.mapId)} />
                                     ))}
                                 </div>
                             </Maps>
