@@ -69,50 +69,50 @@ export const UpdateBtn = styled.button`
 `;
 
 export const SavedTitle = styled.div`
-    margin-left: 1rem;
     margin-bottom: 0.75rem;
+    margin-left: 1rem;
     color: ${Color.grey[500]};
 `;
 
 export const LogoutBtn = styled.button`
+    width: 4rem;
     border: none;
     background-color: ${Color.white};
     color: ${Color.grey[500]};
     cursor: pointer;
     font-size: 0.75rem;
-    width: 4rem;
 `;
 
 export const Locations = styled.div`
     display: flex;
     flex-direction: column;
+    border-top: 16px solid ${Color.grey[100]};
     background-color: ${Color.grey[100]};
     overflow-y: auto;
-    border-top: 16px solid ${Color.grey[100]};
 `;
 
 export const LocationCard = styled.div`
     display: flex;
     width: 100%;
-    justify-content: space-between;
-    background-color: ${Color.white};
-    cursor: pointer;
     height: 8.6rem;
     align-items: center;
+    justify-content: space-between;
     padding: 1.5rem;
     border-bottom: solid 1px ${Color.grey[100]};
+    background-color: ${Color.white};
+    cursor: pointer;
 
     .location-address {
+        margin-bottom: 0.5rem;
         color: ${Color.black};
         font-size: 1rem;
         font-weight: 400;
-        margin-bottom: 0.5rem;
     }
 
     .location-title {
+        margin-bottom: 0.5rem;
         color: ${Color.black};
         font-size: 1.25rem;
-        margin-bottom: 0.5rem;
     }
 
     .address {
@@ -129,8 +129,8 @@ export const LocationCard = styled.div`
     }
 
     .jibun-address {
+        margin-bottom: 0.5rem;
         color: ${Color.grey[500]};
         font-size: 0.85rem;
-        margin-bottom: 0.5rem;
     }
 `;
