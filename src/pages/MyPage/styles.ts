@@ -121,7 +121,7 @@ export const LocationCard = styled.div`
         height: 0.9375rem;
         align-items: center;
         justify-content: center;
-        border: solid 1px ${Color.grey[300]};
+        border: solid 1px ${Color.grey[400]};
         margin-right: 0.25rem;
         border-radius: 0.1875rem;
         color: #bebebe;
