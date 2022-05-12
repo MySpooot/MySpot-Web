@@ -8,15 +8,13 @@ export const Container = styled.div`
     flex-direction: column;
 `;
 
-export const Header = styled.div`
-    padding: 2rem;
-`;
 export const UserInfo = styled.div`
     display: flex;
-    min-height: 8.25rem;
     align-items: center;
     justify-content: space-between;
     padding: 0 1.5rem;
+    margin-top: 1rem;
+    margin-bottom: 3rem;
 `;
 
 export const User = styled.div`
@@ -57,19 +55,14 @@ export const InputImg = styled.div`
 `;
 
 export const UpdateBtn = styled.button`
-    width: 2.5rem;
-    height: 1.25rem;
-    border: solid 1px ${Color.grey[300]};
     background-color: ${Color.white};
-    border-radius: 4px;
-    color: ${Color.grey[500]};
+    color: ${Color.grey[400]};
     font-size: 0.75rem;
-    font-weight: 500;
-    letter-spacing: -0.17px;
+    font-weight: 400;
 `;
 
 export const SavedTitle = styled.div`
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.85rem;
     margin-left: 1rem;
     color: ${Color.grey[500]};
 `;
@@ -95,7 +88,8 @@ export const LocationCard = styled.div`
     display: flex;
     width: 100%;
     height: 8.6rem;
-    align-items: center;
+    flex-direction: row;
+    align-items: flex-start;
     justify-content: space-between;
     padding: 1.5rem;
     border-bottom: solid 1px ${Color.grey[100]};

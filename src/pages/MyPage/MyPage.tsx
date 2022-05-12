@@ -94,12 +94,17 @@ const MyPage: FC = () => {
         inputRef.current?.click();
     }, []);
 
+    const mypageHeaderStyle = {
+        width: '100%',
+        display: 'flex',
+        alignContent: 'center',
+        justifyContent: 'space-between'
+    };
+
     return (
         <Container>
-            <HeaderWithLeftArrow onLeftArrowClick={() => onClickHome()}>
-                <div style={{ display: 'flex', width: '100%', justifyContent: 'center' }}>
-                    <h3 className='title'>마이페이지</h3>
-                </div>
+            <HeaderWithLeftArrow style={mypageHeaderStyle} onLeftArrowClick={() => onClickHome()}>
+                마이페이지
                 <LogoutBtn onClick={logout}>로그아웃</LogoutBtn>
             </HeaderWithLeftArrow>
             <UserInfo>
