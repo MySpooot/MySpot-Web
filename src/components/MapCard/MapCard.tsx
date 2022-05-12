@@ -8,6 +8,7 @@ import { Card, MapBtn, UpdateMap, CardText, VerticalDivider, SeeMore } from 'src
 import { Path } from 'src/Constants';
 import { deleteMap, getPrivateCode, deleteFavoriteMap } from 'src/api/map';
 import Icon from 'src/components/Icon';
+import { GetMapsResponse, GetFavoriteMapsResponse } from 'src/api/map/types';
 
 import share from 'src/assets/main/ic-share.svg';
 import remove from 'src/assets/main/ic-remove.svg';
@@ -47,8 +48,8 @@ const MapCard: FC<MapCardProps> = ({ map, onClick, type }) => {
 
         if (deleteCheck) {
             await deleteMap(mapId);
-            client.setQueryData<any>('getMaps', data => {
-                return data.filter(map => map.id !== mapId);
+            client.setQueryData<GetMapsResponse[] | undefined>('getMaps', data => {
+                return data?.filter(map => map.id !== mapId);
             });
             alert('지도가 삭제되었습니다.');
             close();
@@ -62,8 +63,8 @@ const MapCard: FC<MapCardProps> = ({ map, onClick, type }) => {
     const onRemoveFavoriteMap = useCallback(async (mapId: number, close: () => void) => {
         close();
         await deleteFavoriteMap({ favoriteMapId: mapId });
-        client.setQueryData<any>('getFavoriteMap', data => {
-            return data.filter(map => map.id !== mapId);
+        client.setQueryData<GetFavoriteMapsResponse[] | undefined>('getFavoriteMap', data => {
+            return data?.filter(map => map.id !== mapId);
         });
     }, []);
 
