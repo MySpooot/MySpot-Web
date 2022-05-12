@@ -15,9 +15,7 @@ const MapList: FC = () => {
     const navigate = useNavigate();
     const { type } = useQueryString<{ type: 'my' | 'favorite' | 'recent' }>();
     useEffect(() => {
-        const params = new URLSearchParams(window.location.search);
-
-        if (!params.get('type')) navigate(`${Path.mapList}?type=my`);
+        if (type !== 'my' && type !== 'favorite' && type !== 'recent') navigate(`${Path.mapList}?type=my`);
     }, []);
 
     const { data: maps } = useQuery('getMaps', () => getMaps(), {
@@ -69,7 +67,7 @@ const MapList: FC = () => {
                 </Tab>
             </TitleTab>
             <Maps>
-                {fetchMaps === undefined && <Loading />}
+                {!fetchMaps && <Loading />}
                 {fetchMaps?.map((map, idx) => (
                     <Card key={idx} map={map} type={type} onClick={() => onClickMap(map)} />
                 ))}
