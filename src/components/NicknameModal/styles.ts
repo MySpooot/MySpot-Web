@@ -12,16 +12,16 @@ export const Container = styled.div`
 `;
 
 export const CloseHeader = styled.div`
-    width: 100%;
     display: flex;
-    justify-content: flex-end;
+    width: 100%;
     flex-direction: row;
+    justify-content: flex-end;
 `;
 
 export const Title = styled.h3`
+    margin-bottom: 2.18rem;
     font-size: 1.125rem;
     font-weight: 400;
-    margin-bottom: 2.18rem;
 `;
 
 export const BtnArea = styled.div`
