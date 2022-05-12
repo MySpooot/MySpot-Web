@@ -1,6 +1,6 @@
 import React, { FC, useCallback } from 'react';
 import { useNavigate } from 'react-router';
-import { useQuery } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 
 import { Main, Top, User, Container, Header, Maps, NewBtn, RecentMap, MapArea, MapChip, EmptySpace, MapSpace, ContentSpace } from './styles';
 import { Map, MapType } from './types';
@@ -72,9 +72,9 @@ const Home: FC = () => {
                     <RecentMap>
                         <div className='section-title'>
                             <div className='title'>최근 본 지도</div>
-                            <div className='more-map'>
+                            <div className='more-map' onClick={() => onMoreMapClick('recent')}>
                                 <span>더 보기</span>
-                                <img src={skyarrow} onClick={() => onMoreMapClick('recent')} />
+                                <img src={skyarrow} />
                             </div>
                         </div>
                         <MapArea>

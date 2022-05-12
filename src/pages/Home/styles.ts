@@ -181,6 +181,7 @@ export const EmptySpace = styled.div`
 export const MapSpace = styled.div`
     display: flex;
     flex-direction: column;
+    padding-bottom: 4rem;
 `;
 
 export const Maps = styled.div`
