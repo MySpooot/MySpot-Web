@@ -1,13 +1,15 @@
 import React, { FC, useCallback, useState, useRef, ChangeEvent } from 'react';
 import { useNavigate } from 'react-router';
 
-import { useMutation, useQuery } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { createUserImg } from 'src/api/auth';
-import { Container, UpdateBtn, UserInfo, LogoutBtn, User, Locations, LocationCard, InputImg, SavedTitle } from './styles';
+import { Container, UpdateBtn, UserInfo, LogoutBtn, User, Locations, LocationCard, InputImg, SavedTitle, Devider } from './styles';
 import HeaderWithLeftArrow from 'src/components/HeaderWithLeftArrow';
 import { Path } from 'src/Constants';
 import { useMeState, useMyLocationState } from 'src/atoms';
 import { getMyLocation, deleteMyLocation } from 'src/api/marker';
+import Loading from 'src/components/Loading';
+import { GetMyLocationResponse } from 'src/api/marker/types';
 
 import NickNameUpdateModal from 'src/components/NicknameModal';
 
@@ -20,6 +22,7 @@ const MyPage: FC = () => {
     const navigate = useNavigate();
     const { setLocations } = useMyLocationState();
     const [nicknamePopup, setNicknamePopup] = useState(false);
+    const client = useQueryClient();
 
     const { data: locations } = useQuery('getLocations', () => getMyLocation({ offset: 0, limit: 50 }), {
         onSuccess: response => {
@@ -52,6 +55,11 @@ const MyPage: FC = () => {
             if (confirm) {
                 await deleteLocation({ addressId });
                 window.alert('삭제되었습니다.');
+                client.setQueryData<GetMyLocationResponse[] | undefined>('getLocations', data => {
+                    return data?.filter(location => {
+                        return location.addressId !== addressId;
+                    });
+                });
             }
         },
         [deleteLocation]
@@ -119,7 +127,10 @@ const MyPage: FC = () => {
                 </User>
             </UserInfo>
             <SavedTitle>저장한 장소</SavedTitle>
+            <Devider></Devider>
+
             <Locations>
+                {!locations && <Loading></Loading>}
                 <div>
                     {locations?.map(({ id, name, address, roadAddress, addressId }) => (
                         <LocationCard key={id}>

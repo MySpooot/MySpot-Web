@@ -80,8 +80,13 @@ export const Locations = styled.div`
     display: flex;
     flex-direction: column;
     border-top: 16px solid ${Color.grey[100]};
-    background-color: ${Color.grey[100]};
     overflow-y: auto;
+    height: 100vh;
+`;
+
+export const Devider = styled.div`
+    width: 100%;
+    background-color: ${Color.grey[100]};
 `;
 
 export const LocationCard = styled.div`
