@@ -25,11 +25,11 @@ export const Title = styled.h3`
 `;
 
 export const NowNickname = styled.div`
-    font-size: 1rem;
-    font-weight: 400;
-    color: ${Color.grey[500]};
     display: flex;
     width: 100%;
+    color: ${Color.grey[500]};
+    font-size: 1rem;
+    font-weight: 400;
 
     .nickname {
         color: ${Color.blue};
