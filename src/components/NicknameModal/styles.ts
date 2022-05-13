@@ -11,9 +11,17 @@ export const Container = styled.div`
     background-color: ${Color.white};
 `;
 
+export const CloseHeader = styled.div`
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: flex-end;
+`;
+
 export const Title = styled.h3`
+    margin-bottom: 2.18rem;
     font-size: 1.125rem;
-    font-weight: 700;
+    font-weight: 400;
 `;
 
 export const BtnArea = styled.div`
@@ -21,7 +29,7 @@ export const BtnArea = styled.div`
     width: 100%;
     justify-content: space-between;
 
-    .btn-half {
-        width: 47%;
+    .full-half {
+        width: 100%;
     }
 `;

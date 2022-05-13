@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router';
 
 import { useMutation, useQuery } from 'react-query';
 import { createUserImg } from 'src/api/auth';
-import { Container, UpdateBtn, UserInfo, LogoutBtn, User, Locations, LocationCard, InputImg } from './styles';
+import { Container, UpdateBtn, UserInfo, LogoutBtn, User, Locations, LocationCard, InputImg, SavedTitle } from './styles';
 import HeaderWithLeftArrow from 'src/components/HeaderWithLeftArrow';
 import { Path } from 'src/Constants';
 import { useMeState, useMyLocationState } from 'src/atoms';
@@ -13,6 +13,7 @@ import NickNameUpdateModal from 'src/components/NicknameModal';
 
 import mypage from 'src/assets/mypage/user-img.png';
 import camera from 'src/assets/mypage/camera.png';
+import edit from 'src/assets/mypage/nickname_edit.jpg';
 
 const MyPage: FC = () => {
     const { me, setMe } = useMeState();
@@ -93,12 +94,18 @@ const MyPage: FC = () => {
         inputRef.current?.click();
     }, []);
 
+    const mypageHeaderStyle = {
+        width: '100%',
+        display: 'flex',
+        alignContent: 'center',
+        justifyContent: 'space-between'
+    };
+
     return (
         <Container>
-            <HeaderWithLeftArrow onLeftArrowClick={() => onClickHome()}>
-                <div style={{ display: 'flex', width: '100%', justifyContent: 'center' }}>
-                    <h3 className='title'>마이페이지</h3>
-                </div>
+            <HeaderWithLeftArrow style={mypageHeaderStyle} onLeftArrowClick={() => onClickHome()}>
+                마이페이지
+                <LogoutBtn onClick={logout}>로그아웃</LogoutBtn>
             </HeaderWithLeftArrow>
             <UserInfo>
                 <User>
@@ -108,14 +115,10 @@ const MyPage: FC = () => {
                         <img className='upload-img' src={camera} onClick={() => onClickFileInput()} />
                     </InputImg>
                     <div className='user-txt'>{me?.nickname}</div>
-                    <UpdateBtn onClick={updateNickname}>수정</UpdateBtn>
+                    <img src={edit} onClick={updateNickname} />
                 </User>
-
-                <LogoutBtn onClick={logout}>로그아웃</LogoutBtn>
             </UserInfo>
-            <div style={{ marginLeft: '1rem', marginBottom: '0.75rem' }}>
-                <h2>저장한 장소</h2>
-            </div>
+            <SavedTitle>저장한 장소</SavedTitle>
             <Locations>
                 <div>
                     {locations?.map(({ id, name, address, roadAddress, addressId }) => (
@@ -125,7 +128,7 @@ const MyPage: FC = () => {
                                 <div className='location-address'>{roadAddress}</div>
                                 <div style={{ display: 'flex', alignItems: 'align-items' }}>
                                     <div className='address'>지번</div>
-                                    <div className='location-address'>{address}</div>
+                                    <div className='jibun-address'>{address}</div>
                                 </div>
                             </div>
                             <UpdateBtn onClick={() => onDeleteClick(addressId)}>삭제</UpdateBtn>

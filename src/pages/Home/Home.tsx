@@ -72,9 +72,9 @@ const Home: FC = () => {
                     <RecentMap>
                         <div className='section-title'>
                             <div className='title'>최근 본 지도</div>
-                            <div className='more-map'>
+                            <div className='more-map' onClick={() => onMoreMapClick('recent')}>
                                 <span>더 보기</span>
-                                <img src={skyarrow} onClick={() => onMoreMapClick('recent')} />
+                                <img src={skyarrow} />
                             </div>
                         </div>
                         <MapArea>
@@ -111,7 +111,7 @@ const Home: FC = () => {
                                 </div>
                                 <div className='map-area'>
                                     {maps?.map((map, idx) => (
-                                        <Card key={idx} map={map} onClick={() => onClickMap(map.id)} />
+                                        <Card key={idx} map={map} type='my' onClick={() => onClickMap(map.id)} />
                                     ))}
                                 </div>
                             </Maps>
@@ -127,7 +127,7 @@ const Home: FC = () => {
                                 </div>
                                 <div className='map-area'>
                                     {favoriteMaps?.map((map, idx) => (
-                                        <Card key={idx} map={map} onClick={() => onClickMap(map.mapId)} />
+                                        <Card key={idx} map={map} type='favorite' onClick={() => onClickMap(map.mapId)} />
                                     ))}
                                 </div>
                             </Maps>

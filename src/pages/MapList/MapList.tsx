@@ -1,4 +1,4 @@
-import React, { FC, useMemo, useCallback } from 'react';
+import React, { FC, useMemo, useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { useQuery } from 'react-query';
 
@@ -9,10 +9,14 @@ import { Path } from 'src/Constants';
 import Card from 'src/components/MapCard';
 import useQueryString from 'src/hooks/useQueryString';
 import { Map } from './types';
+import Loading from 'src/components/Loading';
 
 const MapList: FC = () => {
     const navigate = useNavigate();
     const { type } = useQueryString<{ type: 'my' | 'favorite' | 'recent' }>();
+    useEffect(() => {
+        if (type !== 'my' && type !== 'favorite' && type !== 'recent') navigate(`${Path.mapList}?type=my`);
+    }, []);
 
     const { data: maps } = useQuery('getMaps', () => getMaps(), {
         enabled: type === 'my'
@@ -63,8 +67,9 @@ const MapList: FC = () => {
                 </Tab>
             </TitleTab>
             <Maps>
+                {!fetchMaps && <Loading />}
                 {fetchMaps?.map((map, idx) => (
-                    <Card key={idx} map={map} onClick={() => onClickMap(map)} />
+                    <Card key={idx} map={map} type={type} onClick={() => onClickMap(map)} />
                 ))}
             </Maps>
         </Container>

@@ -8,15 +8,13 @@ export const Container = styled.div`
     flex-direction: column;
 `;
 
-export const Header = styled.div`
-    padding: 2rem;
-`;
 export const UserInfo = styled.div`
     display: flex;
-    min-height: 8.25rem;
     align-items: center;
     justify-content: space-between;
     padding: 0 1.5rem;
+    margin-top: 1rem;
+    margin-bottom: 3rem;
 `;
 
 export const User = styled.div`
@@ -24,12 +22,16 @@ export const User = styled.div`
     align-items: center;
 
     .user-txt {
-        margin-right: 14px;
         margin-left: 18px;
     }
 
     .profile_img {
         display: none;
+    }
+
+    img {
+        width: 1.5rem;
+        cursor: pointer;
     }
 `;
 
@@ -53,18 +55,20 @@ export const InputImg = styled.div`
 `;
 
 export const UpdateBtn = styled.button`
-    width: 2.625rem;
-    height: 1.25rem;
-    border: solid 1px ${Color.grey[300]};
     background-color: ${Color.white};
-    border-radius: 4px;
-    color: ${Color.grey[500]};
+    color: ${Color.grey[400]};
     font-size: 0.75rem;
-    font-weight: 500;
-    letter-spacing: -0.17px;
+    font-weight: 400;
+`;
+
+export const SavedTitle = styled.div`
+    margin-bottom: 0.85rem;
+    margin-left: 1rem;
+    color: ${Color.grey[500]};
 `;
 
 export const LogoutBtn = styled.button`
+    width: 4rem;
     border: none;
     background-color: ${Color.white};
     color: ${Color.grey[500]};
@@ -75,7 +79,7 @@ export const LogoutBtn = styled.button`
 export const Locations = styled.div`
     display: flex;
     flex-direction: column;
-    padding: 1rem 1.25rem;
+    border-top: 16px solid ${Color.grey[100]};
     background-color: ${Color.grey[100]};
     overflow-y: auto;
 `;
@@ -83,25 +87,26 @@ export const Locations = styled.div`
 export const LocationCard = styled.div`
     display: flex;
     width: 100%;
+    height: 8.6rem;
+    flex-direction: row;
+    align-items: flex-start;
     justify-content: space-between;
-    padding: 1.25rem 1.125rem;
-    margin-bottom: 0.75rem;
+    padding: 1.5rem;
+    border-bottom: solid 1px ${Color.grey[100]};
     background-color: ${Color.white};
-    border-radius: 0.375rem;
     cursor: pointer;
 
     .location-address {
-        margin-bottom: 0.1875rem;
-        color: #7f7f7f;
-        font-size: 0.75rem;
-        letter-spacing: -0.010625rem;
+        margin-bottom: 0.5rem;
+        color: ${Color.black};
+        font-size: 1rem;
+        font-weight: 400;
     }
 
     .location-title {
-        margin-bottom: 0.25rem;
-        color: #333333;
-        font-size: 1rem;
-        letter-spacing: -0.014375rem;
+        margin-bottom: 0.5rem;
+        color: ${Color.black};
+        font-size: 1.25rem;
     }
 
     .address {
@@ -110,11 +115,16 @@ export const LocationCard = styled.div`
         height: 0.9375rem;
         align-items: center;
         justify-content: center;
-        border: solid 1px #e8e8e8;
+        border: solid 1px ${Color.grey[400]};
         margin-right: 0.25rem;
         border-radius: 0.1875rem;
         color: #bebebe;
         font-size: 0.625rem;
-        letter-spacing: -0.00875rem;
+    }
+
+    .jibun-address {
+        margin-bottom: 0.5rem;
+        color: ${Color.grey[500]};
+        font-size: 0.85rem;
     }
 `;

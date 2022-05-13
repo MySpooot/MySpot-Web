@@ -1,13 +1,14 @@
 import React, { FC, useState, useCallback } from 'react';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Popup } from 'reactjs-popup';
 import dayjs from 'dayjs';
 
 import { Card, MapBtn, UpdateMap, CardText, VerticalDivider, SeeMore } from 'src/components/MapCard/styles';
 import { Path } from 'src/Constants';
-import { deleteMap, getPrivateCode, getMaps, getFavoriteMap } from 'src/api/map';
+import { deleteMap, getPrivateCode, deleteFavoriteMap } from 'src/api/map';
 import Icon from 'src/components/Icon';
+import { GetMapsResponse, GetFavoriteMapsResponse } from 'src/api/map/types';
 
 import share from 'src/assets/main/ic-share.svg';
 import remove from 'src/assets/main/ic-remove.svg';
@@ -16,10 +17,14 @@ import circles from 'src/assets/main/ic-vertical-circle.svg';
 interface MapCardProps {
     map: { id: number; mapName: string; isPrivate: boolean; created?: number; mapId?: number };
     onClick: () => void;
+    type: 'my' | 'favorite' | 'recent' | undefined;
 }
 
-const MapCard: FC<MapCardProps> = ({ map, onClick }) => {
+const MapCard: FC<MapCardProps> = ({ map, onClick, type }) => {
     const [privateCode, setPrivateCode] = useState<string>();
+    console.log(type);
+
+    const client = useQueryClient();
 
     const { mutate } = useMutation(() => getPrivateCode({ mapId: map.id }), {
         onSuccess: response => {
@@ -43,14 +48,24 @@ const MapCard: FC<MapCardProps> = ({ map, onClick }) => {
 
         if (deleteCheck) {
             await deleteMap(mapId);
+            client.setQueryData<GetMapsResponse[] | undefined>('getMaps', data => {
+                return data?.filter(map => map.id !== mapId);
+            });
             alert('지도가 삭제되었습니다.');
-            //getmap다시 호출
             close();
         }
     }, []);
 
     const dateFilter = useCallback(date => {
         return dayjs(date).format('YYYY.MM.DD');
+    }, []);
+
+    const onRemoveFavoriteMap = useCallback(async (mapId: number, close: () => void) => {
+        close();
+        await deleteFavoriteMap({ favoriteMapId: mapId });
+        client.setQueryData<GetFavoriteMapsResponse[] | undefined>('getFavoriteMap', data => {
+            return data?.filter(map => map.id !== mapId);
+        });
     }, []);
 
     return (
@@ -78,11 +93,24 @@ const MapCard: FC<MapCardProps> = ({ map, onClick }) => {
                                     공유
                                 </MapBtn>
                             </CopyToClipboard>
-                            <VerticalDivider />
-                            <MapBtn onClick={() => onDeleteCardClick(map.id, close)}>
-                                <Icon alt='삭제' className='ic-remove' src={remove} />
-                                삭제
-                            </MapBtn>
+                            {type === 'my' && (
+                                <>
+                                    <VerticalDivider />
+                                    <MapBtn onClick={() => onDeleteCardClick(map.id, close)}>
+                                        <Icon alt='삭제' className='ic-remove' src={remove} />
+                                        삭제
+                                    </MapBtn>
+                                </>
+                            )}
+                            {type === 'favorite' && (
+                                <>
+                                    <VerticalDivider />
+                                    <MapBtn onClick={() => onRemoveFavoriteMap(map.id, close)}>
+                                        <Icon alt='삭제' className='ic-remove' src={remove} />
+                                        해제
+                                    </MapBtn>
+                                </>
+                            )}
                         </SeeMore>
                     )}
                 </Popup>
