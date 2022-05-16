@@ -12,8 +12,6 @@ const useReplyItem = (mapId?: string, kakaoAddressId?: string) => {
         {
             onMutate: ({ replyId, message }) => {
                 setMarkerReplies(replies => {
-                    if (!replies) return;
-
                     return replies.map(reply => {
                         if (reply.id === replyId) {
                             return { ...reply, message };
@@ -24,7 +22,6 @@ const useReplyItem = (mapId?: string, kakaoAddressId?: string) => {
                 });
             },
             onError: error => {
-                // TODO: 실패시 롤백
                 console.error(error);
             }
         }
@@ -42,14 +39,9 @@ const useReplyItem = (mapId?: string, kakaoAddressId?: string) => {
                     return marker;
                 });
             });
-            setMarkerReplies(replies => {
-                if (!replies) return;
-
-                return replies.filter(reply => reply.id !== replyId);
-            });
+            setMarkerReplies(replies => replies.filter(reply => reply.id !== replyId));
         },
         onError: error => {
-            // TODO: 실패시 롤백
             console.error(error);
         }
     });

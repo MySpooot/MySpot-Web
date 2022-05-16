@@ -49,11 +49,11 @@ const Review: FC = () => {
     const [textAreaValue, setTextAreaValue] = useState('');
     const [replyOffset, setReplyOffset] = useState(0);
 
-    const { fetchNextPage, isFetchingNextPage, remove } = useInfiniteQuery(
+    const { fetchNextPage, isFetchedAfterMount, isFetchingNextPage, remove } = useInfiniteQuery(
         ['getReplies', place?.id],
         ({ pageParam }) => getReplies({ markerId: Number(place?.id) }, { offset: pageParam?.offset ?? 0 }),
         {
-            enabled: !!place,
+            enabled: !!place && place.replyCount > 0,
             onSuccess: ({ pages }) => {
                 setMarkerReplies(pages.flatMap(replyList => replyList.map(reply => MarkerReplyVO.from(reply))));
                 setReplyOffset(offset => offset + 10);
@@ -66,16 +66,15 @@ const Review: FC = () => {
         {
             onMutate() {
                 setMarkerReplies(replies => {
-                    if (!replies || !me || !place) return;
-
+                    /* eslint-disable @typescript-eslint/no-non-null-assertion */
                     return [
                         MarkerReplyVO.from({
                             id: (replies[0]?.id || 0) + 1,
                             created: Date.now(),
-                            userId: me.id,
-                            userNickName: me.nickname,
+                            userId: me!.id,
+                            userNickName: me!.nickname,
                             message: textAreaValue,
-                            markerId: place.id
+                            markerId: place!.id
                         }),
                         ...replies
                     ];
@@ -100,11 +99,7 @@ const Review: FC = () => {
             onError(error) {
                 console.error(error);
 
-                setMarkerReplies(replies => {
-                    if (!replies) return;
-
-                    return replies.filter((_, index) => index !== 0);
-                });
+                setMarkerReplies(replies => replies.filter((_, index) => index !== 0));
 
                 setPlace(place => {
                     if (!place) return;
@@ -128,7 +123,7 @@ const Review: FC = () => {
 
     useEffect(() => {
         return () => {
-            setMarkerReplies(undefined);
+            setMarkerReplies([]);
             remove();
         };
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
@@ -151,7 +146,7 @@ const Review: FC = () => {
 
     const onRegisterClick = useCallback(() => {
         if (textAreaValue.length > 64) {
-            return alert('64자');
+            return alert('64자 이상 입력할 수 없습니다.');
         }
 
         mutateCreateReply({ markerId: Number(place?.id), message: textAreaValue });
@@ -200,7 +195,7 @@ const Review: FC = () => {
                         <ReviewCount data-testid='replyCount'>{place.replyCount}개</ReviewCount>
                     </Top>
                     <ReviewList>
-                        {!markerReplies ? (
+                        {place.replyCount > 0 && !isFetchedAfterMount ? (
                             <Loading />
                         ) : markerReplies.length === 0 ? (
                             <NoReview>후기가 없습니다.</NoReview>

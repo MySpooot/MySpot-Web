@@ -15,6 +15,7 @@ export const Main = styled.main`
     flex-direction: column;
     flex-grow: 1;
     overflow-y: auto;
+    padding-bottom: 10rem;
 `;
 
 export const Info = styled.article`
