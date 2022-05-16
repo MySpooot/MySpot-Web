@@ -148,10 +148,6 @@ export const MapChip = styled.div`
     text-align: center;
 `;
 
-export const ContentSpace = styled.div`
-    height: 100%;
-`;
-
 export const EmptySpace = styled.div`
     display: flex;
 

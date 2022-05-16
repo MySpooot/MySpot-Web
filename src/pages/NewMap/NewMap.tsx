@@ -30,7 +30,7 @@ const NewMap: FC = () => {
         setIsLoading(true);
         const res = await createMap({ mapName, isPrivate });
         setIsLoading(false);
-        alert(`Success! `);
+        alert('Success!');
         setMapName('');
         navigate(`${Path.myMap}/${res.id}`);
     }, [mapName, isPrivate, navigate]);
@@ -40,12 +40,13 @@ const NewMap: FC = () => {
     };
     return (
         <Container>
-            <HeaderWithLeftArrow onLeftArrowClick={() => navigate(Path.home)}></HeaderWithLeftArrow>
+            <HeaderWithLeftArrow onLeftArrowClick={() => navigate(Path.home)} />
             <Main>
                 <div>
                     <Title>지도 생성하기</Title>
                     <Desc>
-                        지도를 만들고 <br></br>자유롭게 공유하세요
+                        지도를 만들고 <br />
+                        자유롭게 공유하세요
                     </Desc>
                     <InputArea>
                         <Input

@@ -61,7 +61,7 @@ const MyPage: FC = () => {
                 });
             }
         },
-        [deleteLocation]
+        [deleteLocation, client]
     );
 
     const onClickHome = useCallback(() => {
@@ -129,7 +129,7 @@ const MyPage: FC = () => {
             <Divider />
 
             <Locations>
-                {!locations && <Loading></Loading>}
+                {!locations && <Loading />}
                 {locations?.map(({ id, name, address, roadAddress, addressId }) => (
                     <LocationCard key={id}>
                         <div style={{ display: 'flex', flexDirection: 'column' }} onClick={() => onClickLocation(addressId)}>

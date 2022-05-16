@@ -2,7 +2,7 @@ import React, { FC, useCallback } from 'react';
 import { useNavigate } from 'react-router';
 import { useQuery } from 'react-query';
 
-import { Main, Top, User, Container, Header, Maps, NewBtn, RecentMap, MapArea, MapChip, EmptySpace, MapSpace, ContentSpace } from './styles';
+import { Main, Top, User, Container, Header, Maps, NewBtn, RecentMap, MapArea, MapChip, EmptySpace, MapSpace } from './styles';
 import { Map, MapType } from './types';
 import { Path } from 'src/Constants';
 import { getMaps, getFavoriteMap, getRecentMaps } from 'src/api';
@@ -94,7 +94,8 @@ const Home: FC = () => {
                         <div className='content'>
                             <img src={empty} />
                             <div>
-                                나만의 지도를 만들어 <br></br>장소를 저장하고, 공유해 보세요.
+                                나만의 지도를 만들어 <br />
+                                장소를 저장하고, 공유해 보세요.
                             </div>
                         </div>
                     </EmptySpace>
