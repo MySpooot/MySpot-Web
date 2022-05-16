@@ -78,8 +78,8 @@ export const LogoutBtn = styled.button`
 
 export const Locations = styled.div`
     display: flex;
-    flex-grow: 1;
     flex-direction: column;
+    flex-grow: 1;
     border-top: 16px solid ${Color.grey[100]};
     overflow-y: auto;
 `;
