@@ -28,6 +28,7 @@
         "eqeqeq": "warn",
         "react-hooks/rules-of-hooks": "error",
         "react/no-children-prop": "off",
+        "react/self-closing-comp": "error",
         "react/jsx-sort-props": [
             "error",
             {

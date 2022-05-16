@@ -42,30 +42,36 @@ const MapCard: FC<MapCardProps> = ({ map, onClick, type }) => {
         else return alert('복사성공');
     }, [map, privateCode]);
 
-    const onDeleteCardClick = useCallback(async (mapId: number, close: () => void) => {
-        const deleteCheck = confirm('지도를 삭제하시겠습니까?');
+    const onDeleteCardClick = useCallback(
+        async (mapId: number, close: () => void) => {
+            const deleteCheck = confirm('지도를 삭제하시겠습니까?');
 
-        if (deleteCheck) {
-            await deleteMap(mapId);
-            client.setQueryData<GetMapsResponse[] | undefined>('getMaps', data => {
-                return data?.filter(map => map.id !== mapId);
-            });
-            alert('지도가 삭제되었습니다.');
-            close();
-        }
-    }, []);
+            if (deleteCheck) {
+                await deleteMap(mapId);
+                client.setQueryData<GetMapsResponse[] | undefined>('getMaps', data => {
+                    return data?.filter(map => map.id !== mapId);
+                });
+                alert('지도가 삭제되었습니다.');
+                close();
+            }
+        },
+        [client]
+    );
 
     const dateFilter = useCallback(date => {
         return dayjs(date).format('YYYY.MM.DD');
     }, []);
 
-    const onRemoveFavoriteMap = useCallback(async (mapId: number, close: () => void) => {
-        close();
-        await deleteFavoriteMap({ favoriteMapId: mapId });
-        client.setQueryData<GetFavoriteMapsResponse[] | undefined>('getFavoriteMap', data => {
-            return data?.filter(map => map.id !== mapId);
-        });
-    }, []);
+    const onRemoveFavoriteMap = useCallback(
+        async (mapId: number, close: () => void) => {
+            close();
+            await deleteFavoriteMap({ favoriteMapId: mapId });
+            client.setQueryData<GetFavoriteMapsResponse[] | undefined>('getFavoriteMap', data => {
+                return data?.filter(map => map.id !== mapId);
+            });
+        },
+        [client]
+    );
 
     return (
         <Card>

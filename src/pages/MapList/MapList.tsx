@@ -14,9 +14,12 @@ import Loading from 'src/components/Loading';
 const MapList: FC = () => {
     const navigate = useNavigate();
     const { type } = useQueryString<{ type: 'my' | 'favorite' | 'recent' }>();
+
     useEffect(() => {
-        if (type !== 'my' && type !== 'favorite' && type !== 'recent') navigate(`${Path.mapList}?type=my`);
-    }, []);
+        if (type !== 'my' && type !== 'favorite' && type !== 'recent') {
+            navigate(`${Path.mapList}?type=my`);
+        }
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const { data: maps } = useQuery('getMaps', () => getMaps(), {
         enabled: type === 'my'
@@ -54,7 +57,7 @@ const MapList: FC = () => {
 
     return (
         <Container>
-            <HeaderWithLeftArrow onLeftArrowClick={() => navigate(Path.home)}></HeaderWithLeftArrow>
+            <HeaderWithLeftArrow onLeftArrowClick={() => navigate(Path.home)} />
             <TitleTab>
                 <Tab active={type === 'my'} onClick={() => navigate(`${Path.mapList}?type=my`)}>
                     나의 지도

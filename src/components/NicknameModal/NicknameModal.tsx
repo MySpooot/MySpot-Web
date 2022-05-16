@@ -31,7 +31,7 @@ const NicknameModal: FC<NicknameProps> = ({ setClose }) => {
         <Modal>
             <Container>
                 <CloseHeader>
-                    <img src={close} style={{ cursor: 'pointer' }} onClick={setClose}></img>
+                    <img src={close} style={{ cursor: 'pointer' }} onClick={setClose} />
                 </CloseHeader>
                 <Title>닉네임을 변경하시겠어요?</Title>
                 <NowNickname>
