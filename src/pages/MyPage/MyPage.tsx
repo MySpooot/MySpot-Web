@@ -3,13 +3,12 @@ import { useNavigate } from 'react-router';
 
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { createUserImg } from 'src/api/auth';
-import { Container, UpdateBtn, UserInfo, LogoutBtn, User, Locations, LocationCard, InputImg, SavedTitle, Devider } from './styles';
+import { Container, UpdateBtn, UserInfo, LogoutBtn, User, Locations, LocationCard, InputImg, SavedTitle, Divider } from './styles';
 import HeaderWithLeftArrow from 'src/components/HeaderWithLeftArrow';
 import { Path } from 'src/Constants';
 import { useMeState, useMyLocationState } from 'src/atoms';
-import { getMyLocation, deleteMyLocation } from 'src/api/marker';
+import { getMyLocation, deleteMyLocation, GetMyLocationResponse } from 'src/api/marker';
 import Loading from 'src/components/Loading';
-import { GetMyLocationResponse } from 'src/api/marker/types';
 
 import NickNameUpdateModal from 'src/components/NicknameModal';
 
@@ -127,25 +126,23 @@ const MyPage: FC = () => {
                 </User>
             </UserInfo>
             <SavedTitle>저장한 장소</SavedTitle>
-            <Devider></Devider>
+            <Divider />
 
             <Locations>
                 {!locations && <Loading></Loading>}
-                <div>
-                    {locations?.map(({ id, name, address, roadAddress, addressId }) => (
-                        <LocationCard key={id}>
-                            <div style={{ display: 'flex', flexDirection: 'column' }} onClick={() => onClickLocation(addressId)}>
-                                <div className='location-title'>{name}</div>
-                                <div className='location-address'>{roadAddress}</div>
-                                <div style={{ display: 'flex', alignItems: 'align-items' }}>
-                                    <div className='address'>지번</div>
-                                    <div className='jibun-address'>{address}</div>
-                                </div>
+                {locations?.map(({ id, name, address, roadAddress, addressId }) => (
+                    <LocationCard key={id}>
+                        <div style={{ display: 'flex', flexDirection: 'column' }} onClick={() => onClickLocation(addressId)}>
+                            <div className='location-title'>{name}</div>
+                            <div className='location-address'>{roadAddress}</div>
+                            <div style={{ display: 'flex', alignItems: 'align-items' }}>
+                                <div className='address'>지번</div>
+                                <div className='jibun-address'>{address}</div>
                             </div>
-                            <UpdateBtn onClick={() => onDeleteClick(addressId)}>삭제</UpdateBtn>
-                        </LocationCard>
-                    ))}
-                </div>
+                        </div>
+                        <UpdateBtn onClick={() => onDeleteClick(addressId)}>삭제</UpdateBtn>
+                    </LocationCard>
+                ))}
             </Locations>
             {nicknamePopup && <NickNameUpdateModal setClose={() => setNicknamePopup(false)} />}
         </Container>

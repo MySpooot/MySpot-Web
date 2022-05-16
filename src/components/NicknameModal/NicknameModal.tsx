@@ -20,7 +20,7 @@ const NicknameModal: FC<NicknameProps> = ({ setClose }) => {
         async (value: string) => {
             const me = await updateUserNicknameMypage({ nickname: value });
 
-            if (me) alert('닉네임이 변경되었습니다.');
+            alert('닉네임이 변경되었습니다.');
             setMe(me);
             setClose();
         },
