@@ -24,6 +24,18 @@ export const Title = styled.h3`
     font-weight: 400;
 `;
 
+export const NowNickname = styled.div`
+    display: flex;
+    width: 100%;
+    color: ${Color.grey[500]};
+    font-size: 1rem;
+    font-weight: 400;
+
+    .nickname {
+        color: ${Color.blue};
+    }
+`;
+
 export const BtnArea = styled.div`
     display: flex;
     width: 100%;

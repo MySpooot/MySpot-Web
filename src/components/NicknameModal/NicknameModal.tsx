@@ -1,6 +1,6 @@
 import React, { FC, useState, useCallback } from 'react';
 
-import { Container, CloseHeader, Title, BtnArea } from './styles';
+import { Container, CloseHeader, Title, BtnArea, NowNickname } from './styles';
 import { updateUserNicknameMypage } from 'src/api/auth';
 import { useMeState } from 'src/atoms';
 import Modal from 'src/components/Modal';
@@ -13,13 +13,14 @@ interface NicknameProps {
     setClose: () => void;
 }
 const NicknameModal: FC<NicknameProps> = ({ setClose }) => {
-    const { setMe } = useMeState();
+    const { me, setMe } = useMeState();
     const [inputValue, setInputValue] = useState('');
 
     const saveNickname = useCallback(
         async (value: string) => {
             const me = await updateUserNicknameMypage({ nickname: value });
 
+            alert('닉네임이 변경되었습니다.');
             setMe(me);
             setClose();
         },
@@ -33,7 +34,9 @@ const NicknameModal: FC<NicknameProps> = ({ setClose }) => {
                     <img src={close} style={{ cursor: 'pointer' }} onClick={setClose}></img>
                 </CloseHeader>
                 <Title>닉네임을 변경하시겠어요?</Title>
-                {/* <div>현재 사용하고 있는 닉네임 : {me?.nickname}</div> */}
+                <NowNickname>
+                    현재 사용하고 있는 닉네임 : <div className='nickname'>{me?.nickname}</div>
+                </NowNickname>
                 <Input
                     maxLength={30}
                     placeholder='변경할 닉네임 입력'

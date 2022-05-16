@@ -22,7 +22,6 @@ interface MapCardProps {
 
 const MapCard: FC<MapCardProps> = ({ map, onClick, type }) => {
     const [privateCode, setPrivateCode] = useState<string>();
-    console.log(type);
 
     const client = useQueryClient();
 

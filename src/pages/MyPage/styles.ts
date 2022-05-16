@@ -78,10 +78,15 @@ export const LogoutBtn = styled.button`
 
 export const Locations = styled.div`
     display: flex;
+    flex-grow: 1;
     flex-direction: column;
     border-top: 16px solid ${Color.grey[100]};
-    background-color: ${Color.grey[100]};
     overflow-y: auto;
+`;
+
+export const Divider = styled.div`
+    width: 100%;
+    background-color: ${Color.grey[100]};
 `;
 
 export const LocationCard = styled.div`
