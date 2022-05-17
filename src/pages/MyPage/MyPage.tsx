@@ -78,6 +78,11 @@ const MyPage: FC = () => {
         async (e: ChangeEvent<HTMLInputElement>) => {
             const img = e.target.files?.[0];
             if (!img) return;
+
+            if (img.size > 1024 * 1024 * 5) {
+                alert('이미지의 용량은 5MB를 넘을 수 없습니다.');
+            }
+
             const formData = new FormData();
             formData.append('file', img);
 
