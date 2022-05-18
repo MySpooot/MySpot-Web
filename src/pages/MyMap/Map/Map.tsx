@@ -1,11 +1,11 @@
 import React, { FC, useState, useMemo, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
-import { Map as KakaoMap, MapMarker } from 'react-kakao-maps-sdk';
+import { Map as KakaoMap } from 'react-kakao-maps-sdk';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import { Container, MapContainer, FavoriteIcon, ShareIcon, OverlayContainer } from './styles';
-import { MapHeader, PlaceOverlay, PlaceListOverlay, PlaceListButton } from './components';
+import { MapHeader, Marker, PlaceOverlay, PlaceListOverlay, PlaceListButton } from './components';
 import { createRecentMap, createFavoriteMap, deleteFavoriteMap, getPrivateCode } from 'src/api/map';
 import { Path } from 'src/Constants';
 import { useMapAccessible, useMeState } from 'src/atoms';
@@ -16,8 +16,6 @@ import Loading from 'src/components/Loading';
 
 import icFavoriteOn from 'src/assets/mymap/ic_favorite_on.svg';
 import icFavoriteOff from 'src/assets/mymap/ic_favorite_off.svg';
-import icMarker from 'src/assets/mymap/ic_marker.svg';
-import icMarkedMarker from 'src/assets/mymap/ic_marked_marker.svg';
 import icShare from 'src/assets/mymap/ic_share.svg';
 
 const Map: FC = () => {
@@ -115,17 +113,20 @@ const Map: FC = () => {
                     onZoomChanged={map => setMapLevel(map.getLevel())}
                 >
                     {markers.map((marker, index) => (
-                        <MapMarker
+                        <Marker
                             key={marker.id}
-                            image={{
-                                src: marker.isMyLocation ? icMarkedMarker : icMarker,
-                                size: markerSize,
-                                options: { alt: 'marker' }
-                            }}
-                            position={{ lat: marker.latitude, lng: marker.longitude }}
+                            height={markerSize.height}
+                            isMyLocation={marker.isMyLocation}
+                            latitude={marker.latitude}
+                            longitude={marker.longitude}
+                            name={marker.name}
+                            selected={false}
+                            showName={mapLevel < 5}
+                            width={markerSize.width}
                             onClick={() => setMapPlaceOverlay(markers[index])}
                         />
                     ))}
+
                     {isOpenPlayListOverlay ? (
                         <PlaceListOverlay close={() => setIsOpenPlayListOverlay(false)} />
                     ) : (
