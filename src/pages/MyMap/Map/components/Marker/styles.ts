@@ -19,6 +19,7 @@ export const Name = styled.div`
     left: -50%;
     overflow: hidden;
     padding: 0.5rem;
+    border: 1px solid ${Color.grey[300]};
     background-color: ${Color.white};
     border-radius: 0.25rem;
     font-size: 0.75rem;
