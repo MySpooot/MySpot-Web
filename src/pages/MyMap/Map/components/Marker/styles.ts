@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
-import Icon from 'src/components/Icon';
 import { Color } from 'src/Constants';
+import Icon from 'src/components/Icon';
 
 export const Container = styled.div`
     width: 50px;
