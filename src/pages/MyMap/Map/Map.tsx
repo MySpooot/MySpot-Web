@@ -119,11 +119,14 @@ const Map: FC = () => {
                             isMyLocation={marker.isMyLocation}
                             latitude={marker.latitude}
                             longitude={marker.longitude}
+                            name={marker.name}
                             selected={false}
+                            showName={mapLevel < 5}
                             width={markerSize.width}
                             onClick={() => setMapPlaceOverlay(markers[index])}
                         />
                     ))}
+
                     {isOpenPlayListOverlay ? (
                         <PlaceListOverlay close={() => setIsOpenPlayListOverlay(false)} />
                     ) : (
