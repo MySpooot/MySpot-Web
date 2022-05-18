@@ -21,6 +21,25 @@
         <link rel="apple-touch-icon" href="/logo192.png" />
         <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=<{ VITE_APP_KAKAO_KEY }>&libraries=services"></script>
         <link href="//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css" rel="stylesheet" type="text/css" />
+        <script>
+            window.onerror = message => {
+                const str = 'Uncaught TypeError: Failed to fetch dynamically imported module';
+                const str2 =
+                    'Failed to load module script: Expected a JavaScript module script but the server responded with a MIME type of "text/html".';
+
+                if (message.includes(str) || message.includes(str2)) {
+                    const now = new Date();
+                    const key = `unexpected_module_refresh_${now.getFullYear()}${now.getMonth() + 1}${now.getDate()}`;
+                    const count = Number(localStorage.getItem(key) || 1);
+
+                    if (count < 5) {
+                        localStorage.setItem(key, String(count + 1));
+
+                        window.location.reload();
+                    }
+                }
+            };
+        </script>
     </head>
     <body>
         <noscript>You need to enable JavaScript to run this app.</noscript>
