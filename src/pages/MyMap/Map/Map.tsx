@@ -22,7 +22,7 @@ const Map: FC = () => {
     const { mapId } = useParams<{ mapId: string }>();
 
     const [isOpenPlayListOverlay, setIsOpenPlayListOverlay] = useState(false);
-    const [mapLevel, setMapLevel] = useState(5);
+    const [mapLevel, setMapLevel] = useState(4);
 
     const { me } = useMeState();
     const { data: mapDetail } = getMapDetailHelper.useQuery(Number(mapId));
