@@ -1,10 +1,10 @@
-import React, { useCallback, useRef } from 'react';
+import React, { FC, useCallback, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import styled from '@emotion/styled';
 
+import { Color } from 'src/Constants';
 import { useModalState } from 'src/atoms';
 import Button from 'src/components/Button';
-import { Color } from 'src/Constants';
 import { newlineToBr } from 'src/util/string';
 
 const useModal = () => {
@@ -22,20 +22,27 @@ const useModal = () => {
         [setModal]
     );
 
+    const ModalWrapper: FC = useCallback(
+        ({ children }) => (
+            <ModalBackground>
+                <ContentsWrapper>{children}</ContentsWrapper>
+            </ModalBackground>
+        ),
+        []
+    );
+
     const alert = useCallback(
         (text: string) => {
             const portal = () => () =>
                 createPortal(
-                    <ModalBackground>
-                        <ContentsWrapper>
-                            <Message>{newlineToBr(text)}</Message>
-                            <ButtonWrapper>
-                                <Button type='primary' onClick={() => onButtonClick(true)}>
-                                    확인
-                                </Button>
-                            </ButtonWrapper>
-                        </ContentsWrapper>
-                    </ModalBackground>,
+                    <ModalWrapper>
+                        <Message>{newlineToBr(text)}</Message>
+                        <ButtonWrapper>
+                            <Button type='primary' onClick={() => onButtonClick(true)}>
+                                확인
+                            </Button>
+                        </ButtonWrapper>
+                    </ModalWrapper>,
                     modalContainer.current
                 );
 
@@ -45,35 +52,32 @@ const useModal = () => {
                 resolveFuncRef.current = resolve;
             });
         },
-        [onButtonClick, setModal]
+        [ModalWrapper, onButtonClick, setModal]
     );
 
     const confirm = useCallback(
         (text: string) => {
             const portal = () => () =>
                 createPortal(
-                    <ModalBackground>
-                        <ContentsWrapper>
-                            <Message>{newlineToBr(text)}</Message>
-                            <ButtonWrapper>
-                                <Button style={{ marginRight: '1rem' }} type='primary' onClick={() => onButtonClick(true)}>
-                                    확인
-                                </Button>
-                                <Button onClick={() => onButtonClick(false)}>취소</Button>
-                            </ButtonWrapper>
-                        </ContentsWrapper>
-                    </ModalBackground>,
+                    <ModalWrapper>
+                        <Message>{newlineToBr(text)}</Message>
+                        <ButtonWrapper>
+                            <Button style={{ marginRight: '1rem' }} type='primary' onClick={() => onButtonClick(true)}>
+                                확인
+                            </Button>
+                            <Button onClick={() => onButtonClick(false)}>취소</Button>
+                        </ButtonWrapper>
+                    </ModalWrapper>,
                     modalContainer.current
                 );
 
             setModal(portal);
 
             return new Promise(resolve => {
-                // resolveFunc = resolve;
                 resolveFuncRef.current = resolve;
             });
         },
-        [onButtonClick, setModal]
+        [ModalWrapper, onButtonClick, setModal]
     );
 
     return { alert, confirm };

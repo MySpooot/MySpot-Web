@@ -116,6 +116,7 @@ const AppContainer = styled(Div100vh)`
     margin: auto;
     background-color: ${Color.white};
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
+    transform: translate(0, 0);
 
     ${BreakPoint.GreaterThanTablet} {
         transform: translateX(50%);
