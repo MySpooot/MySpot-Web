@@ -6,6 +6,7 @@ import { useMeState } from 'src/atoms';
 import Modal from 'src/components/Modal';
 import Button from 'src/components/Button';
 import Input from 'src/components/Input';
+import useModal from 'src/hooks/useModal';
 
 import close from 'src/assets/mymap/ic_close.svg';
 
@@ -13,18 +14,21 @@ interface NicknameProps {
     setClose: () => void;
 }
 const NicknameModal: FC<NicknameProps> = ({ setClose }) => {
+    const { alert } = useModal();
     const { me, setMe } = useMeState();
+
     const [inputValue, setInputValue] = useState('');
 
     const saveNickname = useCallback(
         async (value: string) => {
             const me = await updateUserNicknameMypage({ nickname: value });
 
-            alert('닉네임이 변경되었습니다.');
+            await alert('닉네임이 변경되었습니다.');
+
             setMe(me);
             setClose();
         },
-        [setClose, setMe]
+        [alert, setClose, setMe]
     );
 
     return (

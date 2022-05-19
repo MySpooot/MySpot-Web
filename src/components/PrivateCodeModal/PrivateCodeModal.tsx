@@ -8,9 +8,12 @@ import { useMapAccessible } from 'src/atoms';
 import Modal from 'src/components/Modal';
 import Button from 'src/components/Button';
 import Input from 'src/components/Input';
+import useModal from 'src/hooks/useModal';
 
 const PrivateCodeModal: FC = () => {
     const { mapId } = useParams<{ mapId: string }>();
+    const { alert } = useModal();
+
     const [inputValue, setInputValue] = useState('');
 
     const { setMapAccessible } = useMapAccessible();
@@ -18,9 +21,9 @@ const PrivateCodeModal: FC = () => {
     const isButtonDisabled = useMemo(() => !(Number(inputValue) && inputValue.length === 4), [inputValue]);
 
     const { mutate: fetchCheckPrivateCode } = useMutation(() => checkPrivateCode({ mapId: Number(mapId) }, { code: inputValue }), {
-        onSuccess: accessible => {
+        onSuccess: async accessible => {
             if (!accessible) {
-                alert('잘못된 입력입니다.');
+                await alert('잘못된 입력입니다.');
             }
 
             setMapAccessible(accessible);

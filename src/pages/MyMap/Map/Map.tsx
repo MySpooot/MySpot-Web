@@ -13,6 +13,7 @@ import { getMapDetailHelper, getMarkersHelper } from 'src/query';
 import { useMapPlaceOverlayState } from 'src/atoms/mapPlaceOverlay';
 import useKeyPress from 'src/hooks/useKeyPress';
 import Loading from 'src/components/Loading';
+import useModal from 'src/hooks/useModal';
 
 import icFavoriteOn from 'src/assets/mymap/ic_favorite_on.svg';
 import icFavoriteOff from 'src/assets/mymap/ic_favorite_off.svg';
@@ -20,6 +21,8 @@ import icShare from 'src/assets/mymap/ic_share.svg';
 
 const Map: FC = () => {
     const { mapId } = useParams<{ mapId: string }>();
+
+    const { alert } = useModal();
 
     const [isOpenPlayListOverlay, setIsOpenPlayListOverlay] = useState(false);
     const [mapLevel, setMapLevel] = useState(4);
@@ -139,7 +142,7 @@ const Map: FC = () => {
                 <FavoriteIcon alt='favorite' src={mapDetail.isFavorite ? icFavoriteOn : icFavoriteOff} onClick={onFavoriteClick} />
                 <CopyToClipboard
                     text={`${window.location.origin}${Path.myMap}/${mapId}${privateCode ? `?code=${privateCode}` : ''}`}
-                    onCopy={() => alert('복사 성공')}
+                    onCopy={() => alert('지도 링크를 클립보드에 복사하였습니다.\n지도 링크를 공유해보세요~!')}
                 >
                     <ShareIcon src={icShare} />
                 </CopyToClipboard>

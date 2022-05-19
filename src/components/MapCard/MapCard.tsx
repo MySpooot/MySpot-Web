@@ -6,9 +6,9 @@ import dayjs from 'dayjs';
 
 import { Card, MapBtn, UpdateMap, CardText, VerticalDivider, SeeMore } from 'src/components/MapCard/styles';
 import { Path } from 'src/Constants';
-import { deleteMap, getPrivateCode, deleteFavoriteMap } from 'src/api/map';
+import { deleteMap, getPrivateCode, deleteFavoriteMap, GetMapsResponse, GetFavoriteMapsResponse } from 'src/api';
 import Icon from 'src/components/Icon';
-import { GetMapsResponse, GetFavoriteMapsResponse } from 'src/api/map/types';
+import useModal from 'src/hooks/useModal';
 
 import share from 'src/assets/main/ic-share.svg';
 import remove from 'src/assets/main/ic-remove.svg';
@@ -21,9 +21,10 @@ interface MapCardProps {
 }
 
 const MapCard: FC<MapCardProps> = ({ map, onClick, type }) => {
-    const [privateCode, setPrivateCode] = useState<string>();
-
     const client = useQueryClient();
+    const { alert, confirm } = useModal();
+
+    const [privateCode, setPrivateCode] = useState<string>();
 
     const { mutate } = useMutation(() => getPrivateCode({ mapId: map.id }), {
         onSuccess: response => {
@@ -38,24 +39,27 @@ const MapCard: FC<MapCardProps> = ({ map, onClick, type }) => {
     }, [map, mutate]);
 
     const onCopyClick = useCallback(() => {
-        if (map.isPrivate && !privateCode) return alert('프라이빗 코드 에러');
-        else return alert('복사성공');
-    }, [map, privateCode]);
+        if (map.isPrivate && !privateCode) {
+            return window.alert('프라이빗 코드 에러');
+        }
+
+        alert('지도 링크를 클립보드에 복사하였습니다.\n지도 링크를 공유해보세요~!');
+    }, [alert, map, privateCode]);
 
     const onDeleteCardClick = useCallback(
         async (mapId: number, close: () => void) => {
-            const deleteCheck = confirm('지도를 삭제하시겠습니까?');
+            close();
 
-            if (deleteCheck) {
+            const flag = await confirm('지도를 삭제하면 복구할 수 없습니다.\n삭제하시겠습니까?');
+
+            if (flag) {
                 await deleteMap(mapId);
                 client.setQueryData<GetMapsResponse[] | undefined>('getMaps', data => {
                     return data?.filter(map => map.id !== mapId);
                 });
-                alert('지도가 삭제되었습니다.');
-                close();
             }
         },
-        [client]
+        [client, confirm]
     );
 
     const dateFilter = useCallback(date => {

@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { Container, Top, Nickname, Created, Content, TextArea, ButtonArea, OwnerButton, MoreTextLabel } from './styles';
 import { MarkerReplyVO } from 'src/vo';
 import useReplyItem from 'src/hooks/useReplyItem';
+import useModal from 'src/hooks/useModal';
 import { useMeState } from 'src/atoms';
 
 type ReplyItemProps = {
@@ -15,6 +16,8 @@ const ReplyItem: FC<ReplyItemProps> = ({ reply }) => {
 
     const { me } = useMeState();
     const { mutateUpdateReply, mutateDeleteReply } = useReplyItem(mapId, kakaoAddressId);
+
+    const { confirm } = useModal();
 
     const [isModifiyMode, setIsModifiyMode] = useState(false);
     const [modifyReviewText, setModifyReviewText] = useState(reply.message);
@@ -46,12 +49,14 @@ const ReplyItem: FC<ReplyItemProps> = ({ reply }) => {
     );
 
     const onDeleteClick = useCallback(
-        (replyId: number) => {
-            if (!confirm('정말 삭제하시겠습니까?')) return;
+        async (replyId: number) => {
+            const flag = await confirm('후기를 정말 삭제하시나요?');
+
+            if (!flag) return;
 
             mutateDeleteReply({ replyId });
         },
-        [mutateDeleteReply]
+        [confirm, mutateDeleteReply]
     );
 
     const onMoreTextLabelClick = useCallback(() => {

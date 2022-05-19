@@ -12,6 +12,7 @@ import HeaderWithLeftArrow from 'src/components/HeaderWithLeftArrow';
 import FilledLoading from 'src/components/FilledLoading';
 import Input from 'src/components/Input';
 import useQueryString from 'src/hooks/useQueryString';
+import useModal from 'src/hooks/useModal';
 
 import icSearch from 'src/assets/mymap/ic_search.svg';
 
@@ -23,6 +24,7 @@ const Search: FC = () => {
     const { data: mapDetail } = getMapDetailHelper.useQuery(Number(mapId));
 
     const { places, searchPlaces } = useSearchPlace();
+    const { alert } = useModal();
 
     const [keyword, setKeyword] = useState('');
     const [isLoading, setIsLoading] = useState(false);
@@ -42,8 +44,8 @@ const Search: FC = () => {
         ({ mapId, ...body }) => createMarker({ mapId }, body),
         {
             onMutate: () => setIsLoading(true),
-            onSuccess: response => {
-                alert('추가되었습니다.');
+            onSuccess: async response => {
+                await alert('지도에 새로운 장소가 추가되었습니다.\n장소에 한줄평을 추가해보세요~!');
 
                 getMarkersHelper.setQueryData(Number(mapId), markers => {
                     if (!markers) return;
