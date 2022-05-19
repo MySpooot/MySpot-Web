@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 import Div100vh from '@rodmg/react-div-100vh';
 
 import { BreakPoint, Color, Dimension, Path } from 'src/Constants';
-import { useMeState } from 'src/atoms';
+import { useMeState, useModalState } from 'src/atoms';
 import { getMe, setAccessToken } from 'src/api';
 import useMediaQuery from 'src/hooks/useMediaQuery';
 import GlobalStyle from 'src/components/GlobalStyle';
@@ -33,6 +33,8 @@ const App: FC = () => {
     const { isBelowThanTablet } = useMediaQuery();
 
     const { me, setMe } = useMeState();
+    const { Modal } = useModalState();
+
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
@@ -94,6 +96,9 @@ const App: FC = () => {
                         </Routes>
                     </Suspense>
                 )}
+                <div id='modal-root' style={{ position: 'absolute' }}>
+                    {Modal && <Modal />}
+                </div>
             </AppContainer>
             {!isBelowThanTablet && <Background src={backgroundImage} />}
         </>

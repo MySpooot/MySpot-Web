@@ -9,7 +9,7 @@ import { Path } from 'src/Constants';
 import { useMeState, useMyLocationState } from 'src/atoms';
 import { getMyLocation, deleteMyLocation, GetMyLocationResponse } from 'src/api/marker';
 import Loading from 'src/components/Loading';
-
+import useModal from 'src/hooks/useModal';
 import NickNameUpdateModal from 'src/components/NicknameModal';
 
 import mypage from 'src/assets/mypage/user-img.png';
@@ -17,11 +17,14 @@ import camera from 'src/assets/mypage/camera.png';
 import edit from 'src/assets/mypage/nickname_edit.jpg';
 
 const MyPage: FC = () => {
-    const { me, setMe } = useMeState();
     const navigate = useNavigate();
-    const { setLocations } = useMyLocationState();
-    const [nicknamePopup, setNicknamePopup] = useState(false);
     const client = useQueryClient();
+
+    const { me, setMe } = useMeState();
+    const { alert, confirm } = useModal();
+    const { setLocations } = useMyLocationState();
+
+    const [nicknamePopup, setNicknamePopup] = useState(false);
 
     const { data: locations } = useQuery('getLocations', () => getMyLocation({ offset: 0, limit: 50 }), {
         onSuccess: response => {
@@ -49,11 +52,11 @@ const MyPage: FC = () => {
 
     const onDeleteClick = useCallback(
         async (addressId: number) => {
-            const confirm = window.confirm('해당 장소를 삭제하시겠습니까?');
+            const flag = await confirm('저장한 장소를 삭제하시나요?');
 
-            if (confirm) {
-                await deleteLocation({ addressId });
-                window.alert('삭제되었습니다.');
+            if (flag) {
+                deleteLocation({ addressId });
+
                 client.setQueryData<GetMyLocationResponse[] | undefined>('getLocations', data => {
                     return data?.filter(location => {
                         return location.addressId !== addressId;
@@ -61,7 +64,7 @@ const MyPage: FC = () => {
                 });
             }
         },
-        [deleteLocation, client]
+        [deleteLocation, client, confirm]
     );
 
     const onClickHome = useCallback(() => {
@@ -80,7 +83,7 @@ const MyPage: FC = () => {
             if (!img) return;
 
             if (img.size > 1024 * 1024 * 5) {
-                alert('이미지의 용량은 5MB를 넘을 수 없습니다.');
+                await alert('이미지의 용량은 5MB를 넘을 수 없습니다.');
             }
 
             const formData = new FormData();
@@ -88,12 +91,14 @@ const MyPage: FC = () => {
 
             const resultThumnail = await createUserImg({ file: formData });
 
+            await alert('프로필 사진이 변경되었습니다.');
+
             setMe(me => {
                 if (!me) return;
                 return { ...me, thumbnail: resultThumnail };
             });
         },
-        [setMe]
+        [alert, setMe]
     );
 
     const updateNickname = useCallback(() => {

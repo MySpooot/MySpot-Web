@@ -30,8 +30,7 @@ const NewMap: FC = () => {
         setIsLoading(true);
         const res = await createMap({ mapName, isPrivate });
         setIsLoading(false);
-        alert('Success!');
-        setMapName('');
+
         navigate(`${Path.myMap}/${res.id}`);
     }, [mapName, isPrivate, navigate]);
 
