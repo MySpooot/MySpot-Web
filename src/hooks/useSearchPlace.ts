@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
-import useModal from 'src/hooks/useModal';
+
+import useAlert from 'src/hooks/useAlert';
 
 export type Place = {
     id: number;
@@ -9,17 +10,10 @@ export type Place = {
     addressId: number;
     address: string;
     roadAddress?: string;
-    // phone: string;
-    // placeName: string;
-    // placeUrl: string;
-    // categoryGroupCode: string;
-    // categoryGroupName: string;
-    // categoryName: string;
-    // distance: string;
 };
 
-const useSearchMap = () => {
-    const { alert } = useModal();
+const useSearchPlace = () => {
+    const { alert } = useAlert();
 
     const [places, setPlaces] = useState<Place[]>();
 
@@ -38,12 +32,6 @@ const useSearchMap = () => {
                             addressId: place.id,
                             address: place.address_name,
                             roadAddress: place.road_address_name
-                            // phone: place.phone,
-                            // placeUrl: place.place_url,
-                            // categoryGroupCode: place.category_group_code,
-                            // categoryGroupName: place.category_group_name,
-                            // categoryName: place.category_name,
-                            // distance: place.distance,
                         }))
                     );
                 } else if (status === window.kakao.maps.services.Status.ZERO_RESULT) {
@@ -61,4 +49,4 @@ const useSearchMap = () => {
     return { searchPlaces, places };
 };
 
-export default useSearchMap;
+export default useSearchPlace;

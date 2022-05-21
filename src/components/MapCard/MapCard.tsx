@@ -8,7 +8,7 @@ import { Card, MapBtn, UpdateMap, CardText, VerticalDivider, SeeMore } from 'src
 import { Path } from 'src/Constants';
 import { deleteMap, getPrivateCode, deleteFavoriteMap, GetMapsResponse, GetFavoriteMapsResponse } from 'src/api';
 import Icon from 'src/components/Icon';
-import useModal from 'src/hooks/useModal';
+import useAlert from 'src/hooks/useAlert';
 
 import share from 'src/assets/main/ic-share.svg';
 import remove from 'src/assets/main/ic-remove.svg';
@@ -22,7 +22,7 @@ interface MapCardProps {
 
 const MapCard: FC<MapCardProps> = ({ map, onClick, type }) => {
     const client = useQueryClient();
-    const { alert, confirm } = useModal();
+    const { alert, confirm } = useAlert();
 
     const [privateCode, setPrivateCode] = useState<string>();
 

@@ -9,7 +9,7 @@ import { Path } from 'src/Constants';
 import { useMeState, useMyLocationState } from 'src/atoms';
 import { getMyLocation, deleteMyLocation, GetMyLocationResponse } from 'src/api/marker';
 import Loading from 'src/components/Loading';
-import useModal from 'src/hooks/useModal';
+import useAlert from 'src/hooks/useAlert';
 import NickNameUpdateModal from 'src/components/NicknameModal';
 
 import mypage from 'src/assets/mypage/user-img.png';
@@ -21,7 +21,7 @@ const MyPage: FC = () => {
     const client = useQueryClient();
 
     const { me, setMe } = useMeState();
-    const { alert, confirm } = useModal();
+    const { alert, confirm } = useAlert();
     const { setLocations } = useMyLocationState();
 
     const [nicknamePopup, setNicknamePopup] = useState(false);

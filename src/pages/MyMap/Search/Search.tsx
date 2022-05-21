@@ -12,7 +12,7 @@ import HeaderWithLeftArrow from 'src/components/HeaderWithLeftArrow';
 import FilledLoading from 'src/components/FilledLoading';
 import Input from 'src/components/Input';
 import useQueryString from 'src/hooks/useQueryString';
-import useModal from 'src/hooks/useModal';
+import useAlert from 'src/hooks/useAlert';
 
 import icSearch from 'src/assets/mymap/ic_search.svg';
 
@@ -24,7 +24,7 @@ const Search: FC = () => {
     const { data: mapDetail } = getMapDetailHelper.useQuery(Number(mapId));
 
     const { places, searchPlaces } = useSearchPlace();
-    const { alert } = useModal();
+    const { alert } = useAlert();
 
     const [keyword, setKeyword] = useState('');
     const [isLoading, setIsLoading] = useState(false);

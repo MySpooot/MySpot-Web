@@ -6,7 +6,7 @@ import { useMeState } from 'src/atoms';
 import Modal from 'src/components/Modal';
 import Button from 'src/components/Button';
 import Input from 'src/components/Input';
-import useModal from 'src/hooks/useModal';
+import useAlert from 'src/hooks/useAlert';
 
 import close from 'src/assets/mymap/ic_close.svg';
 
@@ -14,7 +14,7 @@ interface NicknameProps {
     setClose: () => void;
 }
 const NicknameModal: FC<NicknameProps> = ({ setClose }) => {
-    const { alert } = useModal();
+    const { alert } = useAlert();
     const { me, setMe } = useMeState();
 
     const [inputValue, setInputValue] = useState('');

@@ -8,11 +8,11 @@ import { useMapAccessible } from 'src/atoms';
 import Modal from 'src/components/Modal';
 import Button from 'src/components/Button';
 import Input from 'src/components/Input';
-import useModal from 'src/hooks/useModal';
+import useAlert from 'src/hooks/useAlert';
 
 const PrivateCodeModal: FC = () => {
     const { mapId } = useParams<{ mapId: string }>();
-    const { alert } = useModal();
+    const { alert } = useAlert();
 
     const [inputValue, setInputValue] = useState('');
 

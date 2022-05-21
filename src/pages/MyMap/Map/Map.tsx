@@ -13,7 +13,7 @@ import { getMapDetailHelper, getMarkersHelper } from 'src/query';
 import { useMapPlaceOverlayState } from 'src/atoms/mapPlaceOverlay';
 import useKeyPress from 'src/hooks/useKeyPress';
 import Loading from 'src/components/Loading';
-import useModal from 'src/hooks/useModal';
+import useAlert from 'src/hooks/useAlert';
 
 import icFavoriteOn from 'src/assets/mymap/ic_favorite_on.svg';
 import icFavoriteOff from 'src/assets/mymap/ic_favorite_off.svg';
@@ -22,7 +22,7 @@ import icShare from 'src/assets/mymap/ic_share.svg';
 const Map: FC = () => {
     const { mapId } = useParams<{ mapId: string }>();
 
-    const { alert } = useModal();
+    const { alert } = useAlert();
 
     const [isOpenPlayListOverlay, setIsOpenPlayListOverlay] = useState(false);
     const [mapLevel, setMapLevel] = useState(4);

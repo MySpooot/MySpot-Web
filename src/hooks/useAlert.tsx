@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useRef } from 'react';
+import React, { useEffect, useCallback, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import styled from '@emotion/styled';
 
@@ -7,7 +7,7 @@ import { useModalState } from 'src/atoms';
 import Button from 'src/components/Button';
 import { newlineToBr } from 'src/util/string';
 
-const useModal = () => {
+const useAlert = () => {
     const { setModal } = useModalState();
 
     const modalContainer = useRef(document.getElementById('modal-root')!); // eslint-disable-line @typescript-eslint/no-non-null-assertion
@@ -22,68 +22,68 @@ const useModal = () => {
         [setModal]
     );
 
-    const ModalWrapper: FC = useCallback(
-        ({ children }) => (
+    const Modal = useCallback(({ children }) => {
+        return createPortal(
             <ModalBackground>
                 <ContentsWrapper>{children}</ContentsWrapper>
-            </ModalBackground>
-        ),
-        []
-    );
+            </ModalBackground>,
+            modalContainer.current
+        );
+    }, []);
 
     const alert = useCallback(
         (text: string) => {
-            const portal = () => () =>
-                createPortal(
-                    <ModalWrapper>
-                        <Message>{newlineToBr(text)}</Message>
-                        <ButtonWrapper>
-                            <Button type='primary' onClick={() => onButtonClick(true)}>
-                                확인
-                            </Button>
-                        </ButtonWrapper>
-                    </ModalWrapper>,
-                    modalContainer.current
-                );
+            const modal = () => (
+                <Modal>
+                    <Message>{newlineToBr(text)}</Message>
+                    <ButtonWrapper>
+                        <Button type='primary' onClick={() => onButtonClick(true)}>
+                            확인
+                        </Button>
+                    </ButtonWrapper>
+                </Modal>
+            );
 
-            setModal(portal);
+            setModal(() => modal);
 
             return new Promise(resolve => {
                 resolveFuncRef.current = resolve;
             });
         },
-        [ModalWrapper, onButtonClick, setModal]
+        [Modal, onButtonClick, setModal]
     );
 
     const confirm = useCallback(
         (text: string) => {
-            const portal = () => () =>
-                createPortal(
-                    <ModalWrapper>
-                        <Message>{newlineToBr(text)}</Message>
-                        <ButtonWrapper>
-                            <Button style={{ marginRight: '1rem' }} type='primary' onClick={() => onButtonClick(true)}>
-                                확인
-                            </Button>
-                            <Button onClick={() => onButtonClick(false)}>취소</Button>
-                        </ButtonWrapper>
-                    </ModalWrapper>,
-                    modalContainer.current
-                );
+            const modal = () => (
+                <Modal>
+                    <Message>{newlineToBr(text)}</Message>
+                    <ButtonWrapper>
+                        <Button style={{ marginRight: '1rem' }} type='primary' onClick={() => onButtonClick(true)}>
+                            확인
+                        </Button>
+                        <Button onClick={() => onButtonClick(false)}>취소</Button>
+                    </ButtonWrapper>
+                </Modal>
+            );
 
-            setModal(portal);
+            setModal(() => modal);
 
             return new Promise(resolve => {
                 resolveFuncRef.current = resolve;
             });
         },
-        [ModalWrapper, onButtonClick, setModal]
+        [Modal, onButtonClick, setModal]
     );
+
+    useEffect(() => {
+        return () => setModal(undefined);
+    }, [setModal]);
 
     return { alert, confirm };
 };
 
-export default useModal;
+export default useAlert;
 
 const ModalBackground = styled.div`
     position: fixed;
