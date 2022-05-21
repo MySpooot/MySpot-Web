@@ -9,6 +9,7 @@ export const Container = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: flex-end;
+    padding: 0 1.25rem;
 `;
 
 export const LoginIcon = styled(Icon)`
@@ -41,8 +42,10 @@ export const Description = styled.h3`
 
 export const LoginButton = styled.button`
     display: flex;
+    width: 100%;
     align-items: center;
-    padding: 1.25rem 4.45rem;
+    justify-content: center;
+    padding: 1.25rem 2rem;
     background-color: #fee500;
     border-radius: 0.25rem;
     cursor: pointer;
