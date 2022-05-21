@@ -1,7 +1,7 @@
-import { ReactPortal } from 'react';
+import { FC } from 'react';
 import { atom, useAtom } from 'jotai';
 
-const modalState = atom<(() => ReactPortal) | undefined>(undefined);
+const modalState = atom<FC | undefined>(undefined);
 
 export const useModalState = () => {
     const [Modal, setModal] = useAtom(modalState);

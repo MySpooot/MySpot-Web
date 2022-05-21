@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { Container, Top, Nickname, Created, Content, TextArea, ButtonArea, OwnerButton, MoreTextLabel } from './styles';
 import { MarkerReplyVO } from 'src/vo';
 import useReplyItem from 'src/hooks/useReplyItem';
-import useModal from 'src/hooks/useModal';
+import useAlert from 'src/hooks/useAlert';
 import { useMeState } from 'src/atoms';
 
 type ReplyItemProps = {
@@ -17,7 +17,7 @@ const ReplyItem: FC<ReplyItemProps> = ({ reply }) => {
     const { me } = useMeState();
     const { mutateUpdateReply, mutateDeleteReply } = useReplyItem(mapId, kakaoAddressId);
 
-    const { confirm } = useModal();
+    const { confirm } = useAlert();
 
     const [isModifiyMode, setIsModifiyMode] = useState(false);
     const [modifyReviewText, setModifyReviewText] = useState(reply.message);
