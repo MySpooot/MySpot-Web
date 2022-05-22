@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 
 import { Color } from 'src/Constants';
+import Icon from 'src/components/Icon';
 
 export const Container = styled.div`
     display: flex;
@@ -46,13 +47,13 @@ export const Header = styled.header`
         font-weight: bold;
         line-height: 1.33;
     }
+`;
 
-    .mypage-img {
-        width: 2rem;
-        height: 2rem;
-        border-radius: 1.25rem;
-        cursor: pointer;
-    }
+export const MyPageIcon = styled(Icon)`
+    width: 2rem;
+    height: 2rem;
+    border-radius: 1.25rem;
+    cursor: pointer;
 `;
 
 export const WelcomeSection = styled.div`
@@ -72,14 +73,15 @@ export const User = styled.div`
     font-size: 1.25rem;
     font-weight: 400;
     line-height: 1.625rem;
-
-    .user-img {
-        width: 2.875rem;
-        height: 2.875rem;
-        margin-right: 1.1rem;
-        border-radius: 2.25rem;
-    }
 `;
+
+export const UserThumbnail = styled(Icon)`
+    width: 2.875rem;
+    height: 2.875rem;
+    margin-right: 1.1rem;
+    border-radius: 2.25rem;
+`;
+
 export const RecentMap = styled.div`
     .section-title {
         display: flex;
@@ -105,13 +107,13 @@ export const RecentMap = styled.div`
             font-weight: 400;
             line-height: 1.625rem;
             text-align: right;
-
-            img {
-                width: 1.125rem;
-                height: 1.25rem;
-            }
         }
     }
+`;
+
+export const MoreRecentMapIcon = styled(Icon)`
+    width: 1.125rem;
+    height: 1.25rem;
 `;
 
 export const MapArea = styled.div`
@@ -137,41 +139,14 @@ export const MapChip = styled.div`
     align-items: center;
     padding: 0.75rem 0.875rem;
     margin-right: 0.375rem;
-    margin-bottom: 0.375rem;
-    background-color: #fff;
+    background-color: ${Color.white};
     border-radius: 1.125rem;
-    color: #7f7f7f;
+    color: ${Color.grey[600]};
     cursor: pointer;
     font-size: 1rem;
     font-weight: 400;
     line-height: 1rem;
     text-align: center;
-`;
-
-export const EmptySpace = styled.div`
-    display: flex;
-
-    .content {
-        display: flex;
-        width: 100%;
-        height: fit-content;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        margin-top: 4.375rem;
-
-        img {
-            height: 10.3rem;
-            margin-bottom: 2.125rem;
-        }
-
-        div {
-            color: ${Color.grey[300]};
-            font-size: 1.125rem;
-            line-height: 1.375rem;
-            text-align: center;
-        }
-    }
 `;
 
 export const MapSpace = styled.div`
@@ -180,52 +155,12 @@ export const MapSpace = styled.div`
     padding-bottom: 4rem;
 `;
 
-export const Maps = styled.div`
-    margin-top: 2.25rem;
-    margin-right: 1rem;
-    margin-left: 1rem;
-
-    .title-area {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 1.25rem;
-
-        .title {
-            color: #000;
-            font-size: 1.125rem;
-            font-weight: bold;
-            line-height: 0.89;
-        }
-
-        .see-more {
-            display: flex;
-            align-items: center;
-            color: ${Color.grey[500]};
-            cursor: pointer;
-            font-size: 0.875rem;
-            line-height: 1.14;
-
-            img {
-                width: 1.125rem;
-                height: 1.25rem;
-            }
-        }
-    }
-
-    .map-area {
-        display: flex;
-        flex-direction: column;
-    }
-`;
-
-export const NewBtn = styled.div`
-    img {
-        position: fixed;
-        z-index: 10;
-        right: 0.7rem;
-        bottom: 1rem;
-        width: 5.25rem;
-        height: 5.25rem;
-    }
+export const NewButton = styled(Icon)`
+    position: fixed;
+    z-index: 10;
+    right: 0.7rem;
+    bottom: 1rem;
+    width: 5.25rem;
+    height: 5.25rem;
+    cursor: pointer;
 `;

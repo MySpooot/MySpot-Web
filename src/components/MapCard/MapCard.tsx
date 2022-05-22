@@ -2,23 +2,23 @@ import React, { FC, useState, useCallback } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Popup } from 'reactjs-popup';
-import dayjs from 'dayjs';
 
 import { Card, MapBtn, UpdateMap, CardText, VerticalDivider, SeeMore } from 'src/components/MapCard/styles';
 import { Path } from 'src/Constants';
 import { deleteMap, getPrivateCode, deleteFavoriteMap, GetMapsResponse, GetFavoriteMapsResponse } from 'src/api';
 import Icon from 'src/components/Icon';
 import useAlert from 'src/hooks/useAlert';
+import { dateFilter } from 'src/util/string';
 
 import share from 'src/assets/main/ic-share.svg';
 import remove from 'src/assets/main/ic-remove.svg';
 import circles from 'src/assets/main/ic-vertical-circle.svg';
 
-interface MapCardProps {
-    map: { id: number; mapName: string; isPrivate: boolean; created?: number; mapId?: number };
+type MapCardProps = {
+    map: { id: number; mapName: string; isPrivate: boolean; created: number; mapId: number };
     onClick: () => void;
-    type: 'my' | 'favorite' | 'recent' | undefined;
-}
+    type: 'my' | 'favorite' | 'recent';
+};
 
 const MapCard: FC<MapCardProps> = ({ map, onClick, type }) => {
     const client = useQueryClient();
@@ -38,13 +38,18 @@ const MapCard: FC<MapCardProps> = ({ map, onClick, type }) => {
         mutate();
     }, [map, mutate]);
 
-    const onCopyClick = useCallback(() => {
-        if (map.isPrivate && !privateCode) {
-            return window.alert('프라이빗 코드 에러');
-        }
+    const onCopyClick = useCallback(
+        (close: () => void) => {
+            if (map.isPrivate && !privateCode) {
+                return window.alert('프라이빗 코드 에러');
+            }
 
-        alert('지도 링크를 클립보드에 복사하였습니다.\n지도 링크를 공유해보세요~!');
-    }, [alert, map, privateCode]);
+            close();
+
+            alert('지도 링크를 클립보드에 복사하였습니다.\n지도 링크를 공유해보세요~!');
+        },
+        [alert, map, privateCode]
+    );
 
     const onDeleteCardClick = useCallback(
         async (mapId: number, close: () => void) => {
@@ -61,10 +66,6 @@ const MapCard: FC<MapCardProps> = ({ map, onClick, type }) => {
         },
         [client, confirm]
     );
-
-    const dateFilter = useCallback(date => {
-        return dayjs(date).format('YYYY.MM.DD');
-    }, []);
 
     const onRemoveFavoriteMap = useCallback(
         async (mapId: number, close: () => void) => {
@@ -95,30 +96,19 @@ const MapCard: FC<MapCardProps> = ({ map, onClick, type }) => {
                         <SeeMore>
                             <CopyToClipboard
                                 text={`${window.location.origin}${Path.myMap}/${map.id}${map.isPrivate ? `?code=${privateCode}` : ''}`}
-                                onCopy={onCopyClick}
+                                onCopy={() => onCopyClick(close)}
                             >
                                 <MapBtn>
                                     <Icon alt='공유' className='ic-share' src={share} />
                                     공유
                                 </MapBtn>
                             </CopyToClipboard>
-                            {type === 'my' && (
-                                <>
-                                    <VerticalDivider />
-                                    <MapBtn onClick={() => onDeleteCardClick(map.id, close)}>
-                                        <Icon alt='삭제' className='ic-remove' src={remove} />
-                                        삭제
-                                    </MapBtn>
-                                </>
-                            )}
-                            {type === 'favorite' && (
-                                <>
-                                    <VerticalDivider />
-                                    <MapBtn onClick={() => onRemoveFavoriteMap(map.id, close)}>
-                                        <Icon alt='삭제' className='ic-remove' src={remove} />
-                                        해제
-                                    </MapBtn>
-                                </>
+                            <VerticalDivider />
+                            {type !== 'recent' && (
+                                <MapBtn onClick={() => (type === 'my' ? onDeleteCardClick : onRemoveFavoriteMap)(map.id, close)}>
+                                    <Icon alt='삭제' className='ic-remove' src={remove} />
+                                    {type === 'my' ? '삭제' : '해제'}
+                                </MapBtn>
                             )}
                         </SeeMore>
                     )}
