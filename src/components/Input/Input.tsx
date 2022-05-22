@@ -20,7 +20,7 @@ const Input: FC<InputProps> = ({ fullWidth = true, onEnterPress, autoFocus, styl
     }, [autoFocus, keyPressRef]);
 
     return (
-        <Container fullWidth={fullWidth} style={style}>
+        <Container fullWidth={fullWidth} style={style} onClick={() => keyPressRef.current?.focus()}>
             <InputBox ref={keyPressRef} {...props} />
             {children}
         </Container>
@@ -35,6 +35,7 @@ const Container = styled.div<{ fullWidth: boolean }>`
     padding: 0.5rem 0.75rem;
     border: 1px solid ${Color.grey[300]};
     border-radius: 0.25rem;
+    cursor: text;
 `;
 
 const InputBox = styled.input`

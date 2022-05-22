@@ -1,4 +1,4 @@
-import React, { FC, useMemo, useCallback, useEffect } from 'react';
+import React, { FC, useMemo, useCallback } from 'react';
 import { useNavigate } from 'react-router';
 import { useQuery } from 'react-query';
 
@@ -6,35 +6,26 @@ import { Container, TitleTab, Tab, Maps } from 'src/pages/MapList/styles';
 import HeaderWithLeftArrow from 'src/components/HeaderWithLeftArrow';
 import { getMaps, getRecentMaps, getFavoriteMap } from 'src/api/map';
 import { Path } from 'src/Constants';
-import Card from 'src/components/MapCard';
+import MapCard from 'src/components/MapCard';
 import useQueryString from 'src/hooks/useQueryString';
-import { Map } from './types';
 import Loading from 'src/components/Loading';
 
 const MapList: FC = () => {
     const navigate = useNavigate();
-    const { type } = useQueryString<{ type: 'my' | 'favorite' | 'recent' }>();
+    const { type = 'my' } = useQueryString<{ type: 'my' | 'favorite' | 'recent' }>();
 
-    useEffect(() => {
-        if (type !== 'my' && type !== 'favorite' && type !== 'recent') {
-            navigate(`${Path.mapList}?type=my`);
-        }
-    }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-    const { data: maps } = useQuery('getMaps', () => getMaps(), {
+    const { data: maps } = useQuery(['getMaps'], () => getMaps().then(response => response.map(data => ({ ...data, mapId: data.id }))), {
         enabled: type === 'my'
     });
-    const { data: favoriteMaps } = useQuery('getFavoriteMap', () => getFavoriteMap(), {
+    const { data: favoriteMaps } = useQuery(['getFavoriteMap'], () => getFavoriteMap(), {
         enabled: type === 'favorite'
     });
-    const { data: recentMaps } = useQuery('getRecentMaps', () => getRecentMaps(), {
+    const { data: recentMaps } = useQuery(['getRecentMaps'], () => getRecentMaps(), {
         enabled: type === 'recent'
     });
 
     const fetchMaps = useMemo(() => {
         switch (type) {
-            case 'my':
-                return maps;
             case 'favorite':
                 return favoriteMaps;
             case 'recent':
@@ -44,15 +35,11 @@ const MapList: FC = () => {
         }
     }, [maps, favoriteMaps, recentMaps, type]);
 
-    const onClickMap = useCallback(
-        (map: Map) => {
-            if (type === 'my') {
-                navigate(`${Path.myMap}/${map.id}`);
-            } else {
-                navigate(`${Path.myMap}/${map.mapId}`);
-            }
+    const onMapCardClick = useCallback(
+        (mapId: number) => {
+            navigate(`${Path.myMap}/${mapId}`);
         },
-        [navigate, type]
+        [navigate]
     );
 
     return (
@@ -70,10 +57,11 @@ const MapList: FC = () => {
                 </Tab>
             </TitleTab>
             <Maps>
-                {!fetchMaps && <Loading />}
-                {fetchMaps?.map((map, idx) => (
-                    <Card key={idx} map={map} type={type} onClick={() => onClickMap(map)} />
-                ))}
+                {!fetchMaps ? (
+                    <Loading />
+                ) : (
+                    fetchMaps.map((map, idx) => <MapCard key={idx} map={map} type={type} onClick={() => onMapCardClick(map.mapId)} />)
+                )}
             </Maps>
         </Container>
     );

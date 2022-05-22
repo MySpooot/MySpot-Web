@@ -33,6 +33,7 @@ export type GetRecentMapsResponse = {
     mapName: string;
     isPrivate: boolean;
     created: number;
+    mapId: number;
 };
 
 export type CreateRecenMapsParam = {

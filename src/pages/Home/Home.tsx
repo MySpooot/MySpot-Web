@@ -2,19 +2,31 @@ import React, { FC, useCallback } from 'react';
 import { useNavigate } from 'react-router';
 import { useQuery } from 'react-query';
 
-import { Main, Top, User, Container, Header, Maps, NewBtn, RecentMap, MapArea, MapChip, EmptySpace, MapSpace } from './styles';
+import {
+    Main,
+    Top,
+    MyPageIcon,
+    User,
+    Container,
+    Header,
+    UserThumbnail,
+    MoreRecentMapIcon,
+    NewButton,
+    RecentMap,
+    MapArea,
+    MapChip,
+    MapSpace
+} from './styles';
 import { Map, MapType } from './types';
+import { MapListArea, NoMapArea } from './components';
 import { Path } from 'src/Constants';
 import { getMaps, getFavoriteMap, getRecentMaps } from 'src/api';
 import { useMeState } from 'src/atoms';
-import Card from 'src/components/MapCard';
 import Loading from 'src/components/Loading';
 
 import mypage from 'src/assets/main/ic_mypage.png';
 import userImg from 'src/assets/main/img_my@3x.png';
 import skyarrow from 'src/assets/main/ic_arrow_sky.png';
-import greyarrow from 'src/assets/main/ic_arrow_next.png';
-import empty from 'src/assets/main/img_empty.png';
 import newbtn from 'src/assets/main/btn_newmap.png';
 
 const Home: FC = () => {
@@ -22,9 +34,9 @@ const Home: FC = () => {
 
     const { me } = useMeState();
 
-    const { data: maps, isLoading: isMapLoading } = useQuery('getMaps', () => getMaps());
-    const { data: favoriteMaps, isLoading: isFavoriteLoading } = useQuery('getFavoriteMap', () => getFavoriteMap());
-    const { data: recentMaps, isLoading: isRecentLoading } = useQuery('getRecentMaps', () => getRecentMaps());
+    const { data: myMaps } = useQuery(['getMaps'], () => getMaps().then(response => response.map(data => ({ ...data, mapId: data.id }))));
+    const { data: favoriteMaps } = useQuery(['getFavoriteMap'], () => getFavoriteMap());
+    const { data: recentMaps } = useQuery(['getRecentMaps'], () => getRecentMaps());
 
     const onNewMapClick = useCallback(() => {
         navigate(Path.newMap);
@@ -48,24 +60,17 @@ const Home: FC = () => {
         [navigate]
     );
 
-    const onClickMap = useCallback(
-        (mapId: number) => {
-            navigate(`${Path.myMap}/${mapId}`);
-        },
-        [navigate]
-    );
-
     return (
         <Container>
             <Main>
                 <Top>
                     <Header>
                         <div className='myspot-title'>my spot</div>
-                        <img className='mypage-img' src={mypage} onClick={goMyPage} />
+                        <MyPageIcon src={mypage} onClick={goMyPage} />
                     </Header>
 
                     <User>
-                        <img className='user-img' src={me?.thumbnail || userImg} />
+                        <UserThumbnail src={me?.thumbnail || userImg} />
                         {me?.nickname}님 안녕하세요!
                     </User>
 
@@ -74,70 +79,49 @@ const Home: FC = () => {
                             <div className='title'>최근 본 지도</div>
                             <div className='more-map' onClick={() => onMoreMapClick('recent')}>
                                 <span>더 보기</span>
-                                <img src={skyarrow} />
+                                <MoreRecentMapIcon src={skyarrow} />
                             </div>
                         </div>
                         <MapArea>
-                            {!recentMaps && !isRecentLoading && <div className='no-recent-map'>최근 본 지도가 없습니다.</div>}
-                            {isRecentLoading && <Loading />}
-                            {recentMaps?.map((map, idx) => (
-                                <MapChip key={idx} onClick={() => onRecentMapClick(map)}>
-                                    {map.mapName}
-                                </MapChip>
-                            ))}
+                            {!recentMaps ? (
+                                <Loading />
+                            ) : recentMaps.length === 0 ? (
+                                <div className='no-recent-map'>최근 본 지도가 없습니다.</div>
+                            ) : (
+                                recentMaps.map((map, idx) => (
+                                    <MapChip key={idx} onClick={() => onRecentMapClick(map)}>
+                                        {map.mapName}
+                                    </MapChip>
+                                ))
+                            )}
                         </MapArea>
                     </RecentMap>
                 </Top>
-                {isFavoriteLoading && isMapLoading && <Loading />}
-                {maps?.length === 0 && favoriteMaps?.length === 0 ? (
-                    <EmptySpace>
-                        <div className='content'>
-                            <img src={empty} />
-                            <div>
-                                나만의 지도를 만들어 <br />
-                                장소를 저장하고, 공유해 보세요.
-                            </div>
-                        </div>
-                    </EmptySpace>
+                {!myMaps || !favoriteMaps ? (
+                    <Loading />
                 ) : (
-                    <MapSpace>
-                        {maps && maps.length !== 0 && (
-                            <Maps>
-                                <div className='title-area'>
-                                    <span className='title'>내가 만든 map</span>
-                                    <div className='see-more' onClick={() => onMoreMapClick('my')}>
-                                        <span>더 보기</span>
-                                        <img src={greyarrow} />
-                                    </div>
-                                </div>
-                                <div className='map-area'>
-                                    {maps?.map((map, idx) => (
-                                        <Card key={idx} map={map} type='my' onClick={() => onClickMap(map.id)} />
-                                    ))}
-                                </div>
-                            </Maps>
+                    <>
+                        {myMaps.length === 0 && favoriteMaps.length === 0 ? (
+                            <NoMapArea />
+                        ) : (
+                            <MapSpace>
+                                {myMaps && myMaps.length !== 0 && (
+                                    <MapListArea mapList={myMaps} title='내가 만든 map' type='my' onMoreClick={() => onMoreMapClick('my')} />
+                                )}
+                                {favoriteMaps && favoriteMaps?.length !== 0 && (
+                                    <MapListArea
+                                        mapList={favoriteMaps}
+                                        title='즐겨찾는 map'
+                                        type='favorite'
+                                        onMoreClick={() => onMoreMapClick('favorite')}
+                                    />
+                                )}
+                            </MapSpace>
                         )}
-                        {favoriteMaps && favoriteMaps?.length !== 0 && (
-                            <Maps>
-                                <div className='title-area'>
-                                    <span className='title'>즐겨찾는 map</span>
-                                    <div className='see-more' onClick={() => onMoreMapClick('favorite')}>
-                                        <span>더 보기</span>
-                                        <img src={greyarrow} />
-                                    </div>
-                                </div>
-                                <div className='map-area'>
-                                    {favoriteMaps?.map((map, idx) => (
-                                        <Card key={idx} map={map} type='favorite' onClick={() => onClickMap(map.mapId)} />
-                                    ))}
-                                </div>
-                            </Maps>
-                        )}
-                    </MapSpace>
+                    </>
                 )}
-                <NewBtn onClick={onNewMapClick}>
-                    <img src={newbtn} />
-                </NewBtn>
+
+                <NewButton src={newbtn} onClick={onNewMapClick} />
             </Main>
         </Container>
     );
