@@ -28,7 +28,7 @@ const MapListArea: FC<MapListArea> = ({ title, type, onMoreClick, mapList }) => 
             </TitleArea>
             <MapArea>
                 {mapList.map((map, idx) => (
-                    <MapCard key={idx} map={map} type={type} onClick={() => navigate(`${Path.mapList}/${map.mapId}`)} />
+                    <MapCard key={idx} map={map} type={type} onClick={() => navigate(`${Path.myMap}/${map.mapId}`)} />
                 ))}
             </MapArea>
         </Container>
