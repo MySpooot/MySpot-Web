@@ -6,6 +6,7 @@ import { Color } from 'src/Constants';
 import { useModalState } from 'src/atoms';
 import Button from 'src/components/Button';
 import { newlineToBr } from 'src/util/string';
+import useKeyPress from 'src/hooks/useKeyPress';
 
 const useAlert = () => {
     const { setModal } = useModalState();
@@ -13,6 +14,9 @@ const useAlert = () => {
     const modalContainer = useRef(document.getElementById('modal-root')!); // eslint-disable-line @typescript-eslint/no-non-null-assertion
 
     const resolveFuncRef = useRef<(value: boolean) => void>();
+
+    useKeyPress('Enter', () => onButtonClick(true));
+    useKeyPress('Escape', () => onButtonClick(false));
 
     const onButtonClick = useCallback(
         (flag: boolean) => {
