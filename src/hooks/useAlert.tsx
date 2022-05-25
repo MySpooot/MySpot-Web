@@ -41,7 +41,7 @@ const useAlert = () => {
                 <Modal>
                     <Message>{newlineToBr(text)}</Message>
                     <ButtonWrapper>
-                        <Button type='primary' onClick={() => onButtonClick(true)}>
+                        <Button type='primary' popup onClick={() => onButtonClick(true)}>
                             확인
                         </Button>
                     </ButtonWrapper>
@@ -63,10 +63,12 @@ const useAlert = () => {
                 <Modal>
                     <Message>{newlineToBr(text)}</Message>
                     <ButtonWrapper>
-                        <Button style={{ marginRight: '1rem' }} type='primary' onClick={() => onButtonClick(true)}>
+                        <Button style={{ marginRight: '1rem' }} type='primary' popup onClick={() => onButtonClick(true)}>
                             확인
                         </Button>
-                        <Button onClick={() => onButtonClick(false)}>취소</Button>
+                        <Button popup onClick={() => onButtonClick(false)}>
+                            취소
+                        </Button>
                     </ButtonWrapper>
                 </Modal>
             );
@@ -114,5 +116,5 @@ const Message = styled.div`
 
 const ButtonWrapper = styled.div`
     display: flex;
-    margin-top: 2.5rem;
+    margin-top: 1.5rem;
 `;
