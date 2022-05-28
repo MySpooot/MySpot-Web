@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect, useCallback } from 'react';
+import React, { FC, useState, useEffect, useCallback, useMemo } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useInfiniteQuery, useMutation } from 'react-query';
 import { useInView } from 'react-intersection-observer';
@@ -49,11 +49,14 @@ const Review: FC = () => {
     const [textAreaValue, setTextAreaValue] = useState('');
     const [replyOffset, setReplyOffset] = useState(0);
 
-    const { fetchNextPage, isFetchedAfterMount, isFetchingNextPage, remove } = useInfiniteQuery(
+    const [isFirstPlaceLoaded, setIsFirstPlaceLoaded] = useState(false);
+    const [isReplyLoadActive, setIsReplyLoadActive] = useState(false);
+
+    const { fetchNextPage, isLoading, isFetchingNextPage, remove } = useInfiniteQuery(
         ['getReplies', place?.id],
         ({ pageParam }) => getReplies({ markerId: Number(place?.id) }, { offset: pageParam?.offset ?? 0 }),
         {
-            enabled: !!place && place.replyCount > 0,
+            enabled: place && place.replyCount > 0 && isReplyLoadActive,
             onSuccess: ({ pages }) => {
                 setMarkerReplies(pages.flatMap(replyList => replyList.map(reply => MarkerReplyVO.from(reply))));
                 setReplyOffset(offset => offset + 10);
@@ -129,6 +132,18 @@ const Review: FC = () => {
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
+        if (place?.replyCount === 0) {
+            setIsReplyLoadActive(false);
+        }
+
+        if (!place || isFirstPlaceLoaded) return;
+
+        setIsFirstPlaceLoaded(true);
+
+        setIsReplyLoadActive(place.replyCount !== 0);
+    }, [place]); // eslint-disable-line react-hooks/exhaustive-deps
+
+    useEffect(() => {
         if (inView && !isFetchingNextPage && (markerReplies?.length || 0) < (place?.replyCount ?? 0) && replyOffset < (place?.replyCount ?? 0)) {
             fetchNextPage({ pageParam: { offset: replyOffset } });
         }
@@ -145,10 +160,6 @@ const Review: FC = () => {
     }, [markers]); // eslint-disable-line react-hooks/exhaustive-deps
 
     const onRegisterClick = useCallback(() => {
-        if (textAreaValue.length > 64) {
-            return alert('64자 이상 입력할 수 없습니다.');
-        }
-
         mutateCreateReply({ markerId: Number(place?.id), message: textAreaValue });
         setTextAreaValue('');
     }, [mutateCreateReply, place, textAreaValue]);
@@ -180,7 +191,7 @@ const Review: FC = () => {
                     </TextAreaWrapper>
                     <Button
                         data-testid='registerButton'
-                        disabled={textAreaValue.length === 0}
+                        disabled={textAreaValue.length === 0 || textAreaValue.length > 64}
                         style={{ marginTop: '0.875rem' }}
                         type='primary'
                         onClick={onRegisterClick}
@@ -195,7 +206,7 @@ const Review: FC = () => {
                         <ReviewCount data-testid='replyCount'>{place.replyCount}개</ReviewCount>
                     </Top>
                     <ReviewList>
-                        {place.replyCount > 0 && !isFetchedAfterMount ? (
+                        {place.replyCount > 0 && isLoading ? (
                             <Loading />
                         ) : markerReplies.length === 0 ? (
                             <NoReview>후기가 없습니다.</NoReview>
