@@ -14,13 +14,17 @@ const MapList: FC = () => {
     const navigate = useNavigate();
     const { type = 'my' } = useQueryString<{ type: 'my' | 'favorite' | 'recent' }>();
 
-    const { data: maps } = useQuery(['getMaps'], () => getMaps().then(response => response.map(data => ({ ...data, mapId: data.id }))), {
-        enabled: type === 'my'
-    });
-    const { data: favoriteMaps } = useQuery(['getFavoriteMap'], () => getFavoriteMap(), {
+    const { data: maps } = useQuery(
+        ['getMaps'],
+        () => getMaps({ limit: 100, offset: 0 }).then(response => response.map(data => ({ ...data, mapId: data.id }))),
+        {
+            enabled: type === 'my'
+        }
+    );
+    const { data: favoriteMaps } = useQuery(['getFavoriteMap'], () => getFavoriteMap({ limit: 100, offset: 0 }), {
         enabled: type === 'favorite'
     });
-    const { data: recentMaps } = useQuery(['getRecentMaps'], () => getRecentMaps(), {
+    const { data: recentMaps } = useQuery(['getRecentMaps'], () => getRecentMaps({ limit: 100, offset: 0 }), {
         enabled: type === 'recent'
     });
 

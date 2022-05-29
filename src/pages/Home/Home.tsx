@@ -34,9 +34,11 @@ const Home: FC = () => {
 
     const { me } = useMeState();
 
-    const { data: myMaps } = useQuery(['getMaps'], () => getMaps().then(response => response.map(data => ({ ...data, mapId: data.id }))));
-    const { data: favoriteMaps } = useQuery(['getFavoriteMap'], () => getFavoriteMap());
-    const { data: recentMaps } = useQuery(['getRecentMaps'], () => getRecentMaps());
+    const { data: myMaps } = useQuery(['getMaps'], () =>
+        getMaps({ limit: 100, offset: 0 }).then(response => response.map(data => ({ ...data, mapId: data.id })))
+    );
+    const { data: favoriteMaps } = useQuery(['getFavoriteMap'], () => getFavoriteMap({ limit: 100, offset: 0 }));
+    const { data: recentMaps } = useQuery(['getRecentMaps'], () => getRecentMaps({ limit: 100, offset: 0 }));
 
     const onNewMapClick = useCallback(() => {
         navigate(Path.newMap);
