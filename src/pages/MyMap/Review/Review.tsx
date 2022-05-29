@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect, useCallback, useMemo } from 'react';
+import React, { FC, useState, useEffect, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useInfiniteQuery, useMutation } from 'react-query';
 import { useInView } from 'react-intersection-observer';
@@ -64,24 +64,12 @@ const Review: FC = () => {
         }
     );
 
-    const { mutate: mutateCreateReply } = useMutation<CreateReplyResponse, unknown, CreateReplyParam & CreateReplyBody>(
+    const { mutate: mutateCreateReply, isLoading: isMutationLoading } = useMutation<CreateReplyResponse, unknown, CreateReplyParam & CreateReplyBody>(
         ({ markerId, message }) => createReply({ markerId }, { message }),
         {
-            onMutate() {
-                setMarkerReplies(replies => {
-                    /* eslint-disable @typescript-eslint/no-non-null-assertion */
-                    return [
-                        MarkerReplyVO.from({
-                            id: (replies[0]?.id || 0) + 1,
-                            created: Date.now(),
-                            userId: me!.id,
-                            userNickName: me!.nickname,
-                            message: textAreaValue,
-                            markerId: place!.id
-                        }),
-                        ...replies
-                    ];
-                });
+            onSuccess(response) {
+                setMarkerReplies(replies => [MarkerReplyVO.from(response), ...replies]);
+
                 setPlace(place => {
                     if (!place) return;
 
@@ -206,6 +194,7 @@ const Review: FC = () => {
                         <ReviewCount data-testid='replyCount'>{place.replyCount}개</ReviewCount>
                     </Top>
                     <ReviewList>
+                        {isMutationLoading && <Loading />}
                         {place.replyCount > 0 && isLoading ? (
                             <Loading />
                         ) : markerReplies.length === 0 ? (
