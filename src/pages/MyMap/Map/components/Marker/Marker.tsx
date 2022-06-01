@@ -1,7 +1,7 @@
-import React, { FC, useMemo } from 'react';
+import React, { FC } from 'react';
 import { CustomOverlayMap } from 'react-kakao-maps-sdk';
 
-import { Container, MarkerIcon, Name } from './styles';
+import { Container, MarkerIcon, CircleMarker, Name } from './styles';
 
 import icMarker from 'src/assets/mymap/ic_marker.svg';
 import icMarkedMarker from 'src/assets/mymap/ic_marked_marker.svg';
@@ -18,24 +18,17 @@ type MarkerProps = {
     onClick: () => void;
 };
 
-const Marker: FC<MarkerProps> = ({ name, showName, isMyLocation, selected, width, height, latitude, longitude, onClick }) => {
-    const markerImage = useMemo(() => {
-        // TODO: 선택된 이미지 받으면 추가하기
-        if (isMyLocation) {
-            return selected ? '' : icMarkedMarker;
-        }
-
-        return selected ? '' : icMarker;
-    }, [isMyLocation, selected]);
-
-    return (
-        <CustomOverlayMap position={{ lat: latitude, lng: longitude }}>
-            <Container onClick={onClick}>
-                {showName && <Name>{name}</Name>}
-                <MarkerIcon height={height} src={markerImage} width={width} />
-            </Container>
-        </CustomOverlayMap>
-    );
-};
+const Marker: FC<MarkerProps> = ({ name, showName, isMyLocation, selected, width, height, latitude, longitude, onClick }) => (
+    <CustomOverlayMap position={{ lat: latitude, lng: longitude }} yAnchor={selected ? 0.5 : 0.55}>
+        <Container selected={selected} onClick={onClick}>
+            {showName && <Name isMyLocation={isMyLocation}>{name}</Name>}
+            {selected ? (
+                <MarkerIcon height={height} src={isMyLocation ? icMarkedMarker : icMarker} width={width} />
+            ) : (
+                <CircleMarker isMyLocation={isMyLocation} />
+            )}
+        </Container>
+    </CustomOverlayMap>
+);
 
 export default Marker;
