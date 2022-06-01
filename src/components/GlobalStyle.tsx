@@ -134,9 +134,9 @@ const globalStyle = css`
         overflow: visible;
         border: none;
         background: transparent;
+        color: ${Color.black};
         cursor: pointer;
         outline: none;
-        color: ${Color.black};
 
         :disabled {
             cursor: auto;
