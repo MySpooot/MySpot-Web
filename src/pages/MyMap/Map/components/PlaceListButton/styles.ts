@@ -6,6 +6,7 @@ import Icon from 'src/components/Icon';
 export const Container = styled.button<{ up: boolean }>`
     display: flex;
     width: 8.5rem;
+    height: 3rem;
     box-sizing: border-box;
     align-items: center;
     justify-content: space-between;

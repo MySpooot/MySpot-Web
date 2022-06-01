@@ -128,4 +128,6 @@ const Background = styled.img`
     z-index: -1;
     bottom: 0;
     left: 15%;
+    max-width: 380px;
+    max-height: 740px;
 `;
