@@ -41,17 +41,15 @@ export const Header = styled.header`
     justify-content: space-between;
     padding: 1.25rem 1.625rem;
 
-    .myspot-title {
-        color: ${Color.white};
-        font-size: 1.5rem;
-        font-weight: bold;
-        line-height: 1.33;
+    .myspot-logo {
+        width: 7.9rem;
+        height: 1.875rem;
     }
 `;
 
 export const MyPageIcon = styled(Icon)`
-    width: 2rem;
-    height: 2rem;
+    width: 1.875rem;
+    height: 1.875rem;
     border-radius: 1.25rem;
     cursor: pointer;
 `;

@@ -18,7 +18,7 @@ export const TitleArea = styled.div`
     .title {
         color: ${Color.black};
         font-size: 1.125rem;
-        font-weight: bold;
+        font-weight: 500;
         line-height: 0.89;
     }
 

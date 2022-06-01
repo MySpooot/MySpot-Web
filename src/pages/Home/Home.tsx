@@ -28,6 +28,7 @@ import mypage from 'src/assets/main/ic_mypage.png';
 import userImg from 'src/assets/main/img_my@3x.png';
 import skyarrow from 'src/assets/main/ic_arrow_sky.png';
 import newbtn from 'src/assets/main/btn_newmap.png';
+import logo from 'src/assets/main/logo_top.png';
 
 const Home: FC = () => {
     const navigate = useNavigate();
@@ -65,7 +66,7 @@ const Home: FC = () => {
             <Main>
                 <Top>
                     <Header>
-                        <div className='myspot-title'>my spot</div>
+                        <img className='myspot-logo' src={logo} />
                         <MyPageIcon src={mypage} onClick={goMyPage} />
                     </Header>
 
