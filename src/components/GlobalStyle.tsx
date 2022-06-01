@@ -1,6 +1,8 @@
 import React, { FC } from 'react';
 import { Global, css } from '@emotion/react';
 
+import { Color } from 'src/Constants';
+
 const globalStyle = css`
     html,
     body,
@@ -132,6 +134,7 @@ const globalStyle = css`
         overflow: visible;
         border: none;
         background: transparent;
+        color: ${Color.black};
         cursor: pointer;
         outline: none;
 
