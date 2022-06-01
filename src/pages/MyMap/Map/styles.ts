@@ -22,8 +22,8 @@ export const Map = styled.div`
 export const FavoriteIcon = styled(Icon)`
     position: absolute;
     z-index: 11;
-    top: 5rem;
-    left: 0.5rem;
+    top: 5.875rem;
+    left: 1.25rem;
     width: 3rem;
     height: 3rem;
     cursor: pointer;
@@ -32,8 +32,8 @@ export const FavoriteIcon = styled(Icon)`
 export const ShareIcon = styled(Icon)`
     position: absolute;
     z-index: 11;
-    top: 8.25rem;
-    left: 0.5rem;
+    top: 9.125rem;
+    left: 1.25rem;
     width: 3rem;
     height: 3rem;
     cursor: pointer;

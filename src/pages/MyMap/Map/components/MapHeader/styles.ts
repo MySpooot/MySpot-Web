@@ -10,7 +10,7 @@ export const HeaderIcon = styled(Icon)`
 `;
 
 export const Title = styled.h1`
-    font-size: 1.25rem;
+    font-size: 1.125rem;
     font-weight: 400;
 `;
 
