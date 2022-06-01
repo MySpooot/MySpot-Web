@@ -123,7 +123,7 @@ const Map: FC = () => {
                             latitude={marker.latitude}
                             longitude={marker.longitude}
                             name={marker.name}
-                            selected={false}
+                            selected={marker.id === mapPlaceOverlay?.id}
                             showName={mapLevel < 5}
                             width={markerSize.width}
                             onClick={() => setMapPlaceOverlay(markers[index])}
