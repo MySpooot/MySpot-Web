@@ -28,17 +28,16 @@ import mypage from 'src/assets/main/ic_mypage.png';
 import userImg from 'src/assets/main/img_my@3x.png';
 import skyarrow from 'src/assets/main/ic_arrow_sky.png';
 import newbtn from 'src/assets/main/btn_newmap.png';
+import logo from 'src/assets/main/logo_top.png';
 
 const Home: FC = () => {
     const navigate = useNavigate();
 
     const { me } = useMeState();
 
-    const { data: myMaps } = useQuery(['getMaps'], () =>
-        getMaps({ limit: 100, offset: 0 }).then(response => response.map(data => ({ ...data, mapId: data.id })))
-    );
-    const { data: favoriteMaps } = useQuery(['getFavoriteMap'], () => getFavoriteMap({ limit: 100, offset: 0 }));
-    const { data: recentMaps } = useQuery(['getRecentMaps'], () => getRecentMaps({ limit: 100, offset: 0 }));
+    const { data: myMaps } = useQuery(['getMaps'], () => getMaps().then(response => response.map(data => ({ ...data, mapId: data.id }))));
+    const { data: favoriteMaps } = useQuery(['getFavoriteMap'], () => getFavoriteMap());
+    const { data: recentMaps } = useQuery(['getRecentMaps'], () => getRecentMaps());
 
     const onNewMapClick = useCallback(() => {
         navigate(Path.newMap);
@@ -67,7 +66,7 @@ const Home: FC = () => {
             <Main>
                 <Top>
                     <Header>
-                        <div className='myspot-title'>my spot</div>
+                        <img className='myspot-logo' src={logo} />
                         <MyPageIcon src={mypage} onClick={goMyPage} />
                     </Header>
 
