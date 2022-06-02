@@ -19,7 +19,7 @@ type MarkerProps = {
 };
 
 const Marker: FC<MarkerProps> = ({ name, showName, isMyLocation, selected, width, height, latitude, longitude, onClick }) => (
-    <CustomOverlayMap position={{ lat: latitude, lng: longitude }} yAnchor={selected ? 0.5 : 0.55}>
+    <CustomOverlayMap position={{ lat: latitude, lng: longitude }} yAnchor={selected ? 0.5 : 0.55} zIndex={selected ? 2 : 1}>
         <Container selected={selected} onClick={onClick}>
             {showName && <Name isMyLocation={isMyLocation}>{name}</Name>}
             {selected ? (

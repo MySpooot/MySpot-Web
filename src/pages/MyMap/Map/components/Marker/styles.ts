@@ -5,7 +5,6 @@ import Icon from 'src/components/Icon';
 
 export const Container = styled.div<{ selected: boolean }>`
     display: flex;
-    width: 50px;
     height: ${({ selected }) => (selected ? '100px' : '20px')};
     justify-content: center;
 `;
