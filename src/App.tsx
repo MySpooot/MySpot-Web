@@ -72,9 +72,8 @@ const App: FC = () => {
                             {me ? (
                                 <>
                                     <Route element={<Home />} path={Path.home} />
-                                    <Route element={<MyPage />} path={Path.myPage}>
-                                        <Route element={<LocationDetail />} path=':kakaoAddressId' />
-                                    </Route>
+                                    <Route element={<MyPage />} path={Path.myPage} />
+                                    <Route element={<LocationDetail />} path={'mypage/:kakaoAddressId'} />
                                     <Route element={<MapList />} path={Path.mapList} />
                                     <Route element={<NewMap />} path={Path.newMap} />
                                 </>

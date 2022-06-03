@@ -115,7 +115,8 @@ const MyPage: FC = () => {
         width: '100%',
         display: 'flex',
         alignContent: 'center',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        fontSize: '1.25rem'
     };
 
     return (
@@ -145,8 +146,8 @@ const MyPage: FC = () => {
                         <div style={{ display: 'flex', flexDirection: 'column' }} onClick={() => onClickLocation(addressId)}>
                             <div className='location-title'>{name}</div>
                             <div className='location-address'>{roadAddress}</div>
-                            <div style={{ display: 'flex', alignItems: 'align-items' }}>
-                                <div className='address'>지번</div>
+                            <div style={{ display: 'flex', alignItems: 'center' }}>
+                                <div className='jibun-label'>지번</div>
                                 <div className='jibun-address'>{address}</div>
                             </div>
                         </div>

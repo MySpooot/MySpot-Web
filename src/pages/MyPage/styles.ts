@@ -23,6 +23,7 @@ export const User = styled.div`
 
     .user-txt {
         margin-left: 18px;
+        font-size: 1.375rem;
     }
 
     .profile_img {
@@ -55,9 +56,10 @@ export const InputImg = styled.div`
 `;
 
 export const UpdateBtn = styled.button`
-    background-color: ${Color.white};
+    flex-shrink: 0;
+    align-self: flex-start;
     color: ${Color.grey[400]};
-    font-size: 0.75rem;
+    font-size: 0.875rem;
     font-weight: 400;
 `;
 
@@ -103,33 +105,30 @@ export const LocationCard = styled.div`
 
     .location-address {
         margin-bottom: 0.5rem;
-        color: ${Color.black};
         font-size: 1rem;
-        font-weight: 400;
+        color: ${Color.grey[800]};
     }
 
     .location-title {
         margin-bottom: 0.5rem;
         color: ${Color.black};
-        font-size: 1.25rem;
+        font-size: 1.125rem;
+        font-weight: 400;
+        line-height: 1.375rem;
     }
 
-    .address {
-        display: flex;
-        width: 1.6875rem;
-        height: 0.9375rem;
-        align-items: center;
-        justify-content: center;
-        border: solid 1px ${Color.grey[400]};
+    .jibun-label {
+        flex-shrink: 0;
+        padding: 0.125rem 0.25rem;
+        border: 1px solid ${Color.grey[200]};
         margin-right: 0.25rem;
-        border-radius: 0.1875rem;
-        color: #bebebe;
-        font-size: 0.625rem;
+        border-radius: 0.25rem;
+        color: ${Color.grey[400]};
+        font-size: 0.75rem;
     }
 
     .jibun-address {
-        margin-bottom: 0.5rem;
-        color: ${Color.grey[500]};
-        font-size: 0.85rem;
+        color: ${Color.grey[600]};
+        font-size: 0.875rem;
     }
 `;
