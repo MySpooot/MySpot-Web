@@ -105,8 +105,8 @@ export const LocationCard = styled.div`
 
     .location-address {
         margin-bottom: 0.5rem;
-        font-size: 1rem;
         color: ${Color.grey[800]};
+        font-size: 1rem;
     }
 
     .location-title {
