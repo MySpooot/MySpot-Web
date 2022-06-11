@@ -29,17 +29,16 @@ export const Main = styled.div`
 `;
 
 export const Top = styled.div`
-    max-height: 19.5rem;
     background-color: ${Color.blue};
     border-radius: 0 0 0 2.125rem;
 `;
 
 export const Header = styled.header`
     display: flex;
-    height: 3.125rem;
     align-items: center;
     justify-content: space-between;
-    padding: 1.25rem 1.625rem;
+    padding: 0 1.625rem;
+    margin-top: 1.75rem;
 
     .myspot-logo {
         width: 7.9rem;
@@ -64,11 +63,12 @@ export const WelcomeSection = styled.div`
 
 export const User = styled.div`
     display: flex;
-    height: 8rem;
     align-items: center;
-    padding: 2.5rem 1.2rem;
+    padding: 0 1.2rem;
+    margin-top: 3.875rem;
+    margin-bottom: 3.625rem;
     color: ${Color.white};
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     font-weight: 400;
     line-height: 1.625rem;
 `;
@@ -85,15 +85,14 @@ export const RecentMap = styled.div`
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 20px;
+        padding: 0 20px 20px;
         color: ${Color.white};
         line-height: 0.89;
 
         .title {
             font-size: 1.125rem;
-            font-weight: 700;
+            font-weight: 500;
             line-height: 1.25rem;
-            text-align: left;
         }
 
         .more-map {
