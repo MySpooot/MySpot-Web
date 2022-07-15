@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
@@ -38,16 +38,14 @@ import { version } from '../package.json';
         });
 })();
 
-ReactDOM.render(
-    <React.StrictMode>
-        <BrowserRouter>
-            <QueryClientProvider client={queryClient}>
-                <App />
-                <ReactQueryDevtools />
-            </QueryClientProvider>
-        </BrowserRouter>
-    </React.StrictMode>,
-    document.getElementById('root')
+// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+createRoot(document.getElementById('root')!).render(
+    <BrowserRouter>
+        <QueryClientProvider client={queryClient}>
+            <App />
+            <ReactQueryDevtools />
+        </QueryClientProvider>
+    </BrowserRouter>
 );
 
 console.log(`
