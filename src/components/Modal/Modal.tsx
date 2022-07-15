@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, PropsWithChildren } from 'react';
 
 import { Container, Wrapper } from './styles';
 
@@ -6,7 +6,7 @@ type ModalProps = {
     onClose?: () => void;
 };
 
-const Modal: FC<ModalProps> = ({ children }) => {
+const Modal: FC<PropsWithChildren<ModalProps>> = ({ children }) => {
     return (
         <Container>
             <Wrapper>{children}</Wrapper>

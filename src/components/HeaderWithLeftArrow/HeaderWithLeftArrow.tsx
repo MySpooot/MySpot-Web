@@ -1,4 +1,4 @@
-import React, { CSSProperties, FC } from 'react';
+import React, { CSSProperties, FC, PropsWithChildren } from 'react';
 
 import { Container } from './styles';
 import Icon from 'src/components/Icon';
@@ -10,7 +10,7 @@ type HeaderWithLeftArrowProps = {
     style?: CSSProperties;
 };
 
-const HeaderWithLeftArrow: FC<HeaderWithLeftArrowProps> = ({ children, style, onLeftArrowClick }) => (
+const HeaderWithLeftArrow: FC<PropsWithChildren<HeaderWithLeftArrowProps>> = ({ children, style, onLeftArrowClick }) => (
     <Container style={style}>
         <Icon alt='arrowLeft' src={icArrowLeft} style={{ cursor: 'pointer', width: '2.125rem', height: '2.125rem' }} onClick={onLeftArrowClick} />
         {children}
