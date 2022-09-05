@@ -1,4 +1,3 @@
-import { request } from 'src/api';
 import type {
     GetMarkerParam,
     GetMarkersResponse,
@@ -11,6 +10,7 @@ import type {
     GetMyLocationResponse,
     GetLocationsQuery
 } from './types';
+import { request } from 'src/api';
 
 export const getMarkers = ({ mapId }: GetMarkerParam) => {
     return request<GetMarkersResponse[]>({ method: 'GET', url: `/map/${mapId}/marker` });

@@ -1,13 +1,13 @@
 import React, { FC, useEffect, useMemo } from 'react';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 
+import { Path } from 'src/Constants';
 import { checkPrivateCode } from 'src/api/map';
 import { useMapAccessible, useMapPlaceOverlayState, useMeState } from 'src/atoms';
-import { Path } from 'src/Constants';
-import { getMapDetailHelper, getMarkersHelper } from 'src/query';
 import Loading from 'src/components/Loading';
 import PrivateCodeModal from 'src/components/PrivateCodeModal/PrivateCodeModal';
 import useQueryString from 'src/hooks/useQueryString';
+import { getMapDetailHelper, getMarkersHelper } from 'src/query';
 
 const MyMap: FC = () => {
     const navigate = useNavigate();

@@ -3,9 +3,9 @@ import React, { FC, useState, useCallback } from 'react';
 import { Container, CloseHeader, Title, BtnArea, NowNickname } from './styles';
 import { updateUserNicknameMypage } from 'src/api/auth';
 import { useMeState } from 'src/atoms';
-import Modal from 'src/components/Modal';
 import Button from 'src/components/Button';
 import Input from 'src/components/Input';
+import Modal from 'src/components/Modal';
 import useAlert from 'src/hooks/useAlert';
 
 import close from 'src/assets/mymap/ic_close.svg';

@@ -2,8 +2,8 @@ import React, { FC, useCallback } from 'react';
 
 import { Container, LoginIcon, LabelArea, Description, LoginButton, KakaoIcon, KakaoText } from './styles';
 
-import loginLogo from 'src/assets/login_logo.svg';
 import kakaoLogo from 'src/assets/kakao_logo.svg';
+import loginLogo from 'src/assets/login_logo.svg';
 
 const Login: FC = () => {
     const onKakaoLoginClick = useCallback(() => {

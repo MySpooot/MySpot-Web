@@ -1,8 +1,9 @@
 import React, { FC, useState, useEffect, useCallback } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { useInfiniteQuery, useMutation } from 'react-query';
 import { useInView } from 'react-intersection-observer';
+import { useInfiniteQuery, useMutation } from 'react-query';
+import { useNavigate, useParams } from 'react-router-dom';
 
+import { ReplyItem } from './components';
 import {
     Container,
     Main,
@@ -23,15 +24,14 @@ import {
     ReviewList,
     NoReview
 } from './styles';
-import { ReplyItem } from './components';
 import { Path } from 'src/Constants';
-import { useMarkerRepliesState, useMeState } from 'src/atoms';
-import { getMarkersHelper } from 'src/query';
-import { MapMarkerVO, MarkerReplyVO } from 'src/vo';
 import { getReplies, createReply, CreateReplyParam, CreateReplyBody, CreateReplyResponse } from 'src/api';
-import MapDetailFooter from 'src/components/MapDetailFooter';
+import { useMarkerRepliesState, useMeState } from 'src/atoms';
 import Button from 'src/components/Button';
 import Loading from 'src/components/Loading';
+import MapDetailFooter from 'src/components/MapDetailFooter';
+import { getMarkersHelper } from 'src/query';
+import { MapMarkerVO, MarkerReplyVO } from 'src/vo';
 
 const Review: FC = () => {
     const { mapId, kakaoAddressId } = useParams<{ mapId: string; kakaoAddressId: string }>();

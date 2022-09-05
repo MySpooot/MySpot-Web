@@ -2,8 +2,8 @@ import React, { FC, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { Container, Wrapper, Top, Title, Total, CloseIcon, PlaceList, NoPlace } from './styles';
-import { getMarkersHelper } from 'src/query';
 import { PlaceListItem } from 'src/pages/MyMap/Map/components';
+import { getMarkersHelper } from 'src/query';
 
 import icClose from 'src/assets/mymap/ic_close.svg';
 

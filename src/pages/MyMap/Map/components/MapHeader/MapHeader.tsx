@@ -3,8 +3,8 @@ import { useNavigate, useParams, Link } from 'react-router-dom';
 
 import { Title, RightArea, HeaderIcon, Tooltip, TooltipDescription, TooltipButton } from './styles';
 import { Path } from 'src/Constants';
-import { getMapDetailHelper, getMarkersHelper } from 'src/query';
 import HeaderWithLeftArrow from 'src/components/HeaderWithLeftArrow';
+import { getMapDetailHelper, getMarkersHelper } from 'src/query';
 
 import icSearch from 'src/assets/mymap/ic_search.svg';
 

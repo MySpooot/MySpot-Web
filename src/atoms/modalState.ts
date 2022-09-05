@@ -1,5 +1,5 @@
-import { FC } from 'react';
 import { atom, useAtom } from 'jotai';
+import { FC } from 'react';
 
 const modalState = atom<FC | undefined>(undefined);
 

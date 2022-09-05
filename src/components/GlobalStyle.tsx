@@ -1,5 +1,5 @@
-import React, { FC } from 'react';
 import { Global, css } from '@emotion/react';
+import React, { FC } from 'react';
 
 import { Color } from 'src/Constants';
 

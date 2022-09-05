@@ -23,9 +23,28 @@
     ],
     "rules": {
         "prettier/prettier": "error",
-        "import/no-unresolved": "error",
         "no-unused-vars": "off",
         "eqeqeq": "warn",
+        "quotes": [
+            "error",
+            "single",
+            {
+                "avoidEscape": true
+            }
+        ],
+        "import/no-unresolved": "error",
+        "import/order": [
+            "error",
+            {
+                "groups": [
+                    ["external", "builtin"],
+                    ["sibling", "parent", "internal"]
+                ],
+                "pathGroups": [{ "pattern": "src/assets/**/*", "group": "internal", "position": "after" }],
+                "newlines-between": "always",
+                "alphabetize": { "order": "asc" }
+            }
+        ],
         "react-hooks/rules-of-hooks": "error",
         "react/no-children-prop": "off",
         "react/self-closing-comp": "error",
@@ -51,7 +70,8 @@
                 "extensioins": [".ts", ".tsx"]
             },
             "typescript": {}
-        }
+        },
+        "import/external-module-folders": [".yarn"]
     },
     "ignorePatterns": ["cypress/", "vite.config.ts"]
 }

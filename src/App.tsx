@@ -1,15 +1,15 @@
-import React, { FC, useState, useEffect, lazy, Suspense } from 'react';
-import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import * as ReactGA from 'react-ga';
 import styled from '@emotion/styled';
 import Div100vh from '@rodmg/react-div-100vh';
+import React, { FC, useState, useEffect, lazy, Suspense } from 'react';
+import * as ReactGA from 'react-ga';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 
 import { BreakPoint, Color, Dimension, Path } from 'src/Constants';
-import { useMeState, useModalState } from 'src/atoms';
 import { getMe, setAccessToken } from 'src/api';
-import useMediaQuery from 'src/hooks/useMediaQuery';
+import { useMeState, useModalState } from 'src/atoms';
 import GlobalStyle from 'src/components/GlobalStyle';
 import Loading from 'src/components/Loading';
+import useMediaQuery from 'src/hooks/useMediaQuery';
 
 import backgroundImage from 'src/assets/img_background.jpg';
 

@@ -1,15 +1,15 @@
-import React from 'react';
-import { createRoot } from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
-import { QueryClientProvider } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
-import * as ReactGA from 'react-ga';
 import * as Sentry from '@sentry/react';
 import { BrowserTracing } from '@sentry/tracing';
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+import * as ReactGA from 'react-ga';
+import { QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
+import { BrowserRouter } from 'react-router-dom';
 
+import { version } from '../package.json';
 import App from './App';
 import { queryClient } from 'src/query';
-import { version } from '../package.json';
 
 (() => {
     if (window.Kakao?.Auth) return;

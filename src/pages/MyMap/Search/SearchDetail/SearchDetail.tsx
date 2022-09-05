@@ -2,10 +2,10 @@ import React, { FC } from 'react';
 import { useNavigate, useParams, Navigate } from 'react-router-dom';
 
 import { Container, Footer, ButtonText } from './styles';
-import KakaoPlaceIframe from 'src/components/KakaoPlaceIframe';
-import Button from 'src/components/Button';
-import { getMapDetailHelper } from 'src/query';
 import { Path } from 'src/Constants';
+import Button from 'src/components/Button';
+import KakaoPlaceIframe from 'src/components/KakaoPlaceIframe';
+import { getMapDetailHelper } from 'src/query';
 
 const SearchDetail: FC = () => {
     const navigate = useNavigate();

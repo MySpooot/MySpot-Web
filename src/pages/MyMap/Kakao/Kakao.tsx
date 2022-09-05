@@ -2,11 +2,11 @@ import React, { FC, useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { Container } from './styles';
+import { Path } from 'src/Constants';
 import KakaoPlaceIframe from 'src/components/KakaoPlaceIframe';
 import MapDetailFooter from 'src/components/MapDetailFooter';
-import { MapMarkerVO } from 'src/vo';
-import { Path } from 'src/Constants';
 import { getMarkersHelper } from 'src/query';
+import { MapMarkerVO } from 'src/vo';
 
 const Kakao: FC = () => {
     const { mapId, kakaoAddressId } = useParams<{ mapId: string; kakaoAddressId: string }>();
