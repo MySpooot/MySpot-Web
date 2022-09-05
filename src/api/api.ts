@@ -1,5 +1,5 @@
-import axios, { AxiosRequestConfig } from 'axios';
 import * as Sentry from '@sentry/react';
+import axios, { AxiosRequestConfig } from 'axios';
 
 const instance = axios.create({
     baseURL:

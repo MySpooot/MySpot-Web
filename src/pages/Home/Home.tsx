@@ -1,7 +1,8 @@
 import React, { FC, useCallback } from 'react';
-import { useNavigate } from 'react-router';
 import { useQuery } from 'react-query';
+import { useNavigate } from 'react-router';
 
+import { MapListArea, NoMapArea } from './components';
 import {
     Main,
     Top,
@@ -18,16 +19,15 @@ import {
     MapSpace
 } from './styles';
 import { Map, MapType } from './types';
-import { MapListArea, NoMapArea } from './components';
 import { Path } from 'src/Constants';
 import { getMaps, getFavoriteMap, getRecentMaps } from 'src/api';
 import { useMeState } from 'src/atoms';
 import Loading from 'src/components/Loading';
 
+import newbtn from 'src/assets/main/btn_newmap.png';
+import skyarrow from 'src/assets/main/ic_arrow_sky.png';
 import mypage from 'src/assets/main/ic_mypage.png';
 import userImg from 'src/assets/main/img_my@3x.png';
-import skyarrow from 'src/assets/main/ic_arrow_sky.png';
-import newbtn from 'src/assets/main/btn_newmap.png';
 import logo from 'src/assets/main/logo_top.png';
 
 const Home: FC = () => {

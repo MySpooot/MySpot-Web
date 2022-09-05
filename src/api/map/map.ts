@@ -1,4 +1,3 @@
-import { request } from 'src/api';
 import type {
     GetMapDetailParam,
     GetMapsQuery,
@@ -15,6 +14,7 @@ import type {
     GetPrivateCodeResponse,
     GetCreateMyMapResponse
 } from './types';
+import { request } from 'src/api';
 
 // 지도 상세
 export const getMapDetail = ({ mapId }: GetMapDetailParam) => {

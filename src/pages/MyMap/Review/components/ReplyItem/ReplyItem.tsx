@@ -2,10 +2,10 @@ import React, { FC, useState, useCallback, useMemo, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { Container, Top, Nickname, Created, Content, TextArea, ButtonArea, OwnerButton, MoreTextLabel } from './styles';
-import { MarkerReplyVO } from 'src/vo';
-import useReplyItem from 'src/hooks/useReplyItem';
-import useAlert from 'src/hooks/useAlert';
 import { useMeState } from 'src/atoms';
+import useAlert from 'src/hooks/useAlert';
+import useReplyItem from 'src/hooks/useReplyItem';
+import { MarkerReplyVO } from 'src/vo';
 
 type ReplyItemProps = {
     reply: MarkerReplyVO;

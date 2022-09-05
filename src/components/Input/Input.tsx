@@ -1,5 +1,5 @@
-import React, { FC, InputHTMLAttributes, useEffect } from 'react';
 import styled from '@emotion/styled';
+import React, { FC, InputHTMLAttributes, useEffect } from 'react';
 
 import { Color } from 'src/Constants';
 import useKeyPress from 'src/hooks/useKeyPress';

@@ -3,10 +3,10 @@ import { useNavigate } from 'react-router-dom';
 
 import { Path } from 'src/Constants';
 import { setAccessToken } from 'src/api';
-import { logInHelper } from 'src/query';
 import { useMeState } from 'src/atoms';
-import useQueryString from 'src/hooks/useQueryString';
 import Loading from 'src/components/Loading';
+import useQueryString from 'src/hooks/useQueryString';
+import { logInHelper } from 'src/query';
 
 const KakaoLoginCallback: FC = () => {
     const navigate = useNavigate();

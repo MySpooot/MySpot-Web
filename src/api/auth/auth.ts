@@ -1,4 +1,3 @@
-import { request } from 'src/api';
 import type {
     GetMeResponse,
     LogInBody,
@@ -9,6 +8,7 @@ import type {
     UpdateUserNicknameMypageBody,
     UpdateUserImgBody
 } from './types';
+import { request } from 'src/api';
 
 export const getMe = () => {
     return request<GetMeResponse>({ method: 'GET', url: '/auth/me' });
@@ -26,7 +26,7 @@ export const updateUserNickname = ({ userId }: UpdateUserNicknameParams, body: U
     return request<UpdateUserNicknameResponse>({ method: 'PUT', url: `/auth/user/${userId}`, data: body });
 };
 export const updateUserNicknameMypage = (body: UpdateUserNicknameMypageBody) => {
-    return request<UpdateUserNicknameResponse>({ method: 'put', url: `/user`, data: body });
+    return request<UpdateUserNicknameResponse>({ method: 'PUT', url: '/user', data: body });
 };
 
 export const createUserImg = (body: UpdateUserImgBody) => {

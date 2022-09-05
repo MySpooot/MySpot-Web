@@ -1,6 +1,6 @@
 import React, { FC, MouseEvent, useCallback } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
 import { useMutation } from 'react-query';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Popup } from 'reactjs-popup';
 
 import {
@@ -17,19 +17,19 @@ import {
     ActiveSpan
 } from './styles';
 import { Path } from 'src/Constants';
-import { useMapPlaceOverlayState, useMeState } from 'src/atoms';
-import { MapMarkerVO } from 'src/vo';
 import { deleteMarker } from 'src/api';
-import { getMapDetailHelper, getMarkersHelper } from 'src/query';
-import useMarkerUserAction from 'src/hooks/useMarkerUserAction';
+import { useMapPlaceOverlayState, useMeState } from 'src/atoms';
 import Icon from 'src/components/Icon';
+import useMarkerUserAction from 'src/hooks/useMarkerUserAction';
+import { getMapDetailHelper, getMarkersHelper } from 'src/query';
+import { MapMarkerVO } from 'src/vo';
 
-import icBookmark from 'src/assets/mymap/ic_bookmark.svg';
-import icMarkedBookmark from 'src/assets/mymap/ic_marked_bookmark.svg';
 import icDotThree from 'src/assets/main/ic-vertical-circle.svg';
-import icLikeOn from 'src/assets/mymap/ic_like_on.svg';
-import icLikeOff from 'src/assets/mymap/ic_like_off.svg';
+import icBookmark from 'src/assets/mymap/ic_bookmark.svg';
 import icComment from 'src/assets/mymap/ic_comment.svg';
+import icLikeOff from 'src/assets/mymap/ic_like_off.svg';
+import icLikeOn from 'src/assets/mymap/ic_like_on.svg';
+import icMarkedBookmark from 'src/assets/mymap/ic_marked_bookmark.svg';
 
 const PlaceOverlay: FC = () => {
     const navigate = useNavigate();

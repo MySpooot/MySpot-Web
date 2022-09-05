@@ -1,5 +1,5 @@
-import { request } from 'src/api';
 import type { CreateMarkerLikeParam, DeleteMarkerLikeParam } from './types';
+import { request } from 'src/api';
 
 export const createMarkerLike = ({ markerId }: CreateMarkerLikeParam) => {
     return request({ method: 'POST', url: `/map/marker/${markerId}/like` });

@@ -2,8 +2,8 @@ import React, { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Container, TitleArea, MapArea, MoreButton } from './styles';
-import MapCard from 'src/components/MapCard';
 import { Path } from 'src/Constants';
+import MapCard from 'src/components/MapCard';
 
 import greyarrow from 'src/assets/main/ic_arrow_next.png';
 

@@ -1,22 +1,22 @@
 import React, { FC, useState, useMemo, useCallback } from 'react';
-import { useParams } from 'react-router-dom';
-import { useQuery } from 'react-query';
-import { Map as KakaoMap } from 'react-kakao-maps-sdk';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { Map as KakaoMap } from 'react-kakao-maps-sdk';
+import { useQuery } from 'react-query';
+import { useParams } from 'react-router-dom';
 
-import { Container, MapContainer, FavoriteIcon, ShareIcon, OverlayContainer } from './styles';
 import { MapHeader, Marker, PlaceOverlay, PlaceListOverlay, PlaceListButton } from './components';
-import { createRecentMap, createFavoriteMap, deleteFavoriteMap, getPrivateCode } from 'src/api/map';
+import { Container, MapContainer, FavoriteIcon, ShareIcon, OverlayContainer } from './styles';
 import { Path } from 'src/Constants';
+import { createRecentMap, createFavoriteMap, deleteFavoriteMap, getPrivateCode } from 'src/api/map';
 import { useMapAccessible, useMeState } from 'src/atoms';
-import { getMapDetailHelper, getMarkersHelper } from 'src/query';
 import { useMapPlaceOverlayState } from 'src/atoms/mapPlaceOverlay';
-import useKeyPress from 'src/hooks/useKeyPress';
 import Loading from 'src/components/Loading';
 import useAlert from 'src/hooks/useAlert';
+import useKeyPress from 'src/hooks/useKeyPress';
+import { getMapDetailHelper, getMarkersHelper } from 'src/query';
 
-import icFavoriteOn from 'src/assets/mymap/ic_favorite_on.svg';
 import icFavoriteOff from 'src/assets/mymap/ic_favorite_off.svg';
+import icFavoriteOn from 'src/assets/mymap/ic_favorite_on.svg';
 import icShare from 'src/assets/mymap/ic_share.svg';
 
 const Map: FC = () => {

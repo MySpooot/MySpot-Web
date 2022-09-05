@@ -1,14 +1,14 @@
 import React, { FC, useMemo, useCallback } from 'react';
-import { useNavigate } from 'react-router';
 import { useQuery } from 'react-query';
+import { useNavigate } from 'react-router';
 
-import { Container, TitleTab, Tab, Maps } from 'src/pages/MapList/styles';
-import HeaderWithLeftArrow from 'src/components/HeaderWithLeftArrow';
-import { getMaps, getRecentMaps, getFavoriteMap } from 'src/api/map';
 import { Path } from 'src/Constants';
+import { getMaps, getRecentMaps, getFavoriteMap } from 'src/api/map';
+import HeaderWithLeftArrow from 'src/components/HeaderWithLeftArrow';
+import Loading from 'src/components/Loading';
 import MapCard from 'src/components/MapCard';
 import useQueryString from 'src/hooks/useQueryString';
-import Loading from 'src/components/Loading';
+import { Container, TitleTab, Tab, Maps } from 'src/pages/MapList/styles';
 
 const MapList: FC = () => {
     const navigate = useNavigate();

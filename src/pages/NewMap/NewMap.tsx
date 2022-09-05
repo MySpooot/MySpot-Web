@@ -2,15 +2,15 @@ import React, { useState, useCallback, ChangeEvent, FC } from 'react';
 import { useNavigate } from 'react-router';
 
 import { Container, Title, InputArea, ButtonArea, Desc, Main, ClickPrivate } from './styles';
-import HeaderWithLeftArrow from 'src/components/HeaderWithLeftArrow';
-import { createMap } from 'src/api/map';
 import { Path } from 'src/Constants';
+import { createMap } from 'src/api/map';
 import Button from 'src/components/Button';
+import HeaderWithLeftArrow from 'src/components/HeaderWithLeftArrow';
 import Input from 'src/components/Input';
 
-import code from 'src/assets/newmap/private-code.png';
 import checkoff from 'src/assets/newmap/check_off.png';
 import checkon from 'src/assets/newmap/check_on.png';
+import code from 'src/assets/newmap/private-code.png';
 
 const NewMap: FC = () => {
     const [mapName, setMapName] = useState('');

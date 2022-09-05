@@ -1,12 +1,12 @@
+import styled from '@emotion/styled';
 import React, { useEffect, useCallback, useRef } from 'react';
 import { createPortal } from 'react-dom';
-import styled from '@emotion/styled';
 
 import { Color } from 'src/Constants';
 import { useModalState } from 'src/atoms';
 import Button from 'src/components/Button';
-import { newlineToBr } from 'src/util/string';
 import useKeyPress from 'src/hooks/useKeyPress';
+import { newlineToBr } from 'src/util/string';
 
 const useAlert = () => {
     const { setModal } = useModalState();

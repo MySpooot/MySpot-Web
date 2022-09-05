@@ -1,20 +1,20 @@
 import React, { FC, useCallback, useState, useRef, ChangeEvent } from 'react';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router';
 
-import { useMutation, useQuery, useQueryClient } from 'react-query';
-import { createUserImg } from 'src/api/auth';
 import { Container, UpdateBtn, UserInfo, LogoutBtn, User, Locations, LocationCard, InputImg, SavedTitle, Divider } from './styles';
-import HeaderWithLeftArrow from 'src/components/HeaderWithLeftArrow';
 import { Path } from 'src/Constants';
-import { useMeState, useMyLocationState } from 'src/atoms';
+import { createUserImg } from 'src/api/auth';
 import { getMyLocation, deleteMyLocation, GetMyLocationResponse } from 'src/api/marker';
+import { useMeState, useMyLocationState } from 'src/atoms';
+import HeaderWithLeftArrow from 'src/components/HeaderWithLeftArrow';
 import Loading from 'src/components/Loading';
-import useAlert from 'src/hooks/useAlert';
 import NickNameUpdateModal from 'src/components/NicknameModal';
+import useAlert from 'src/hooks/useAlert';
 
-import mypage from 'src/assets/mypage/user-img.png';
 import camera from 'src/assets/mypage/camera.png';
 import edit from 'src/assets/mypage/nickname_edit.jpg';
+import mypage from 'src/assets/mypage/user-img.png';
 
 const MyPage: FC = () => {
     const navigate = useNavigate();

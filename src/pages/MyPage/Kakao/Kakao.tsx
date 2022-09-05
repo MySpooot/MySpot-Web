@@ -1,9 +1,9 @@
 import React, { FC, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { Container, Footer, CloseButton } from 'src/pages/MyPage/Kakao/styles';
-import KakaoPlaceIframe from 'src/components/KakaoPlaceIframe';
 import { Path } from 'src/Constants';
+import KakaoPlaceIframe from 'src/components/KakaoPlaceIframe';
+import { Container, Footer, CloseButton } from 'src/pages/MyPage/Kakao/styles';
 
 const Kakao: FC = () => {
     const { kakaoAddressId } = useParams<{ kakaoAddressId: string }>();

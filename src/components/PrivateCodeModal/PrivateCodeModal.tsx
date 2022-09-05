@@ -1,13 +1,13 @@
 import React, { FC, useState, useMemo } from 'react';
-import { useParams } from 'react-router';
 import { useMutation } from 'react-query';
+import { useParams } from 'react-router';
 
 import { Container, Title } from './styles';
 import { checkPrivateCode } from 'src/api/map';
 import { useMapAccessible } from 'src/atoms';
-import Modal from 'src/components/Modal';
 import Button from 'src/components/Button';
 import Input from 'src/components/Input';
+import Modal from 'src/components/Modal';
 import useAlert from 'src/hooks/useAlert';
 
 const PrivateCodeModal: FC = () => {

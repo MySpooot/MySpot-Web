@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
-import { Palette } from '../../Constants';
+
+import { Palette } from 'src/Constants';
 
 export const Container = styled.div`
     position: relative;

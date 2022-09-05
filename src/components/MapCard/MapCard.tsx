@@ -1,17 +1,17 @@
 import React, { FC, useState, useCallback } from 'react';
-import { useMutation, useQueryClient } from 'react-query';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { useMutation, useQueryClient } from 'react-query';
 import { Popup } from 'reactjs-popup';
 
-import { Card, MapBtn, UpdateMap, CardText, VerticalDivider, SeeMore } from 'src/components/MapCard/styles';
 import { Path } from 'src/Constants';
 import { deleteMap, getPrivateCode, deleteFavoriteMap, GetMapsResponse, GetFavoriteMapsResponse } from 'src/api';
 import Icon from 'src/components/Icon';
+import { Card, MapBtn, UpdateMap, CardText, VerticalDivider, SeeMore } from 'src/components/MapCard/styles';
 import useAlert from 'src/hooks/useAlert';
 import { dateFilter } from 'src/util/string';
 
-import share from 'src/assets/main/ic-share.svg';
 import remove from 'src/assets/main/ic-remove.svg';
+import share from 'src/assets/main/ic-share.svg';
 import circles from 'src/assets/main/ic-vertical-circle.svg';
 
 type MapCardProps = {

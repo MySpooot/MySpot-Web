@@ -1,16 +1,16 @@
 import React, { FC, useState, useEffect, useCallback, ChangeEvent } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
 import { useMutation } from 'react-query';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Container, Title, Description, InputArea } from './styles';
 import type { JoinState } from './types';
-import type { UpdateUserNicknameResponse, UpdateUserNicknameParams, UpdateUserNicknameBody } from 'src/api';
-import { updateUserNickname } from 'src/api/auth';
 import { Path } from 'src/Constants';
+import type { UpdateUserNicknameResponse, UpdateUserNicknameParams, UpdateUserNicknameBody } from 'src/api';
 import { setAccessToken } from 'src/api';
+import { updateUserNickname } from 'src/api/auth';
 import { useMeState } from 'src/atoms';
-import Input from 'src/components/Input';
 import Button from 'src/components/Button';
+import Input from 'src/components/Input';
 
 const Join: FC = () => {
     const navigate = useNavigate();

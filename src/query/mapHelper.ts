@@ -1,8 +1,8 @@
 import { makeQueryHelper } from 'react-query-helper';
 
 import { getMapDetail, getMarkers } from 'src/api';
-import { MapDetailVO, MapMarkerVO } from 'src/vo';
 import { queryClient } from 'src/query';
+import { MapDetailVO, MapMarkerVO } from 'src/vo';
 
 export const getMapDetailHelper = makeQueryHelper({
     baseQueryKey: ['getMapDetail'],

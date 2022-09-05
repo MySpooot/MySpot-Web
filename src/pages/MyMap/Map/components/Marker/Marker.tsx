@@ -3,8 +3,8 @@ import { CustomOverlayMap } from 'react-kakao-maps-sdk';
 
 import { Container, MarkerIcon, CircleMarker, Name } from './styles';
 
-import icMarker from 'src/assets/mymap/ic_marker.svg';
 import icMarkedMarker from 'src/assets/mymap/ic_marked_marker.svg';
+import icMarker from 'src/assets/mymap/ic_marker.svg';
 
 type MarkerProps = {
     name: string;

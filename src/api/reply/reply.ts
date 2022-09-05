@@ -1,4 +1,3 @@
-import { request } from 'src/api';
 import type {
     GetRepliesParam,
     GetRepliesQuery,
@@ -10,6 +9,7 @@ import type {
     UpdateReplyBody,
     DeleteReplyParam
 } from './types';
+import { request } from 'src/api';
 
 export const getReplies = ({ markerId }: GetRepliesParam, query: GetRepliesQuery) => {
     return request<GetRepliesResponse[]>({ method: 'GET', url: `/map/marker/${markerId}/replies`, params: query });

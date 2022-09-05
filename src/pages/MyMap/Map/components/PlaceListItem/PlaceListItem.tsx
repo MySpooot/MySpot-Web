@@ -1,6 +1,6 @@
 import React, { FC, useCallback, MouseEvent } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
 import { useMutation } from 'react-query';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import {
     Container,
@@ -18,16 +18,16 @@ import {
     ActiveSpan
 } from './styles';
 import { Path } from 'src/Constants';
-import { MapMarkerVO } from 'src/vo';
-import useMarkerUserAction from 'src/hooks/useMarkerUserAction';
 import { deleteMarker } from 'src/api';
+import useMarkerUserAction from 'src/hooks/useMarkerUserAction';
 import { getMapDetailHelper, getMarkersHelper } from 'src/query';
+import { MapMarkerVO } from 'src/vo';
 
 import icBookmark from 'src/assets/mymap/ic_bookmark.svg';
-import icMarkedBookmark from 'src/assets/mymap/ic_marked_bookmark.svg';
-import icLikeOn from 'src/assets/mymap/ic_like_on.svg';
-import icLikeOff from 'src/assets/mymap/ic_like_off.svg';
 import icComment from 'src/assets/mymap/ic_comment.svg';
+import icLikeOff from 'src/assets/mymap/ic_like_off.svg';
+import icLikeOn from 'src/assets/mymap/ic_like_on.svg';
+import icMarkedBookmark from 'src/assets/mymap/ic_marked_bookmark.svg';
 
 type PlaceListItemProps = {
     place: MapMarkerVO;
