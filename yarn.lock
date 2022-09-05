@@ -1180,7 +1180,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/prop-types@npm:*, @types/prop-types@npm:^15":
+"@types/prop-types@npm:*":
   version: 15.7.4
   resolution: "@types/prop-types@npm:15.7.4"
   checksum: ef6e1899e59b876c273811b1bd845022fc66d5a3d11cb38a25b6c566b30514ae38fe20a40f67622f362a4f4f7f9224e22d8da101cff3d6e97e11d7b4c307cfc1
@@ -5115,7 +5115,6 @@ __metadata:
     "@stylelint/postcss-css-in-js": ^0.37.2
     "@testing-library/cypress": ^8.0.2
     "@types/node": ^12.0.0
-    "@types/prop-types": ^15
     "@types/react": ^18.0.15
     "@types/react-copy-to-clipboard": ^5
     "@types/react-dom": ^18.0.6
@@ -5137,10 +5136,8 @@ __metadata:
     eslint-plugin-react: ^7.26.1
     eslint-plugin-react-hooks: ^4.2.0
     jotai: ^1.6.0
-    optionator: ^0.9.1
     postcss-safe-parser: 4.0.2
     prettier: ^2.4.1
-    prop-types: ^15.8.1
     query-string: ^7.1.1
     react: ^18.2.0
     react-copy-to-clipboard: ^5.0.4
@@ -5429,7 +5426,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"optionator@npm:^0.9.1":
+"optionator@npm:*, optionator@npm:^0.9.1":
   version: 0.9.1
   resolution: "optionator@npm:0.9.1"
   dependencies:
@@ -5851,7 +5848,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prop-types@npm:^15.5.8, prop-types@npm:^15.8.1":
+"prop-types@npm:*, prop-types@npm:^15.5.8":
   version: 15.8.1
   resolution: "prop-types@npm:15.8.1"
   dependencies:

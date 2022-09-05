@@ -1,6 +1,6 @@
 {
     "name": "myspot",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "private": true,
     "scripts": {
         "start": "vite",
@@ -24,7 +24,6 @@
         "axios": "^0.24.0",
         "dayjs": "^1.10.7",
         "jotai": "^1.6.0",
-        "prop-types": "^15.8.1",
         "query-string": "^7.1.1",
         "react": "^18.2.0",
         "react-copy-to-clipboard": "^5.0.4",
@@ -46,7 +45,6 @@
         "@stylelint/postcss-css-in-js": "^0.37.2",
         "@testing-library/cypress": "^8.0.2",
         "@types/node": "^12.0.0",
-        "@types/prop-types": "^15",
         "@types/react": "^18.0.15",
         "@types/react-copy-to-clipboard": "^5",
         "@types/react-dom": "^18.0.6",
@@ -65,7 +63,6 @@
         "eslint-plugin-prettier": "^4.0.0",
         "eslint-plugin-react": "^7.26.1",
         "eslint-plugin-react-hooks": "^4.2.0",
-        "optionator": "^0.9.1",
         "postcss-safe-parser": "4.0.2",
         "prettier": "^2.4.1",
         "stylelint": "^13.13.1",
